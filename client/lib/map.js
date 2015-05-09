@@ -191,12 +191,9 @@ Map = {
             position: 'right'
         });
         this.map.addControl(this.sidebar);
-        var that;
-        setTimeout(function () {
-            that.sidebar.show();
-        }, 500);
         this.sidebar.on('hide', function () {
-            Router.go('map');
+            var cid = Session.get('active_collection');
+            Router.go('map', {'_id': cid});
         });
 
         L.mapbox.infoControl().addTo(this.map);

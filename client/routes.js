@@ -18,6 +18,7 @@ Router.map(function () {
         path: '/',
         onAfterAction: function () {
             switchCollection();
+            openSidebar();
         }
     });
 
@@ -33,6 +34,7 @@ Router.map(function () {
         },
         onAfterAction: function () {
             switchCollection();
+            openSidebar();
         }
     });
 
@@ -46,6 +48,7 @@ Router.map(function () {
         },
         onAfterAction: function () {
             switchCollection(this.params._id);
+            openSidebar();
         }
     });
 
@@ -59,6 +62,7 @@ Router.map(function () {
         },
         onAfterAction: function () {
             switchCollection(this.params._id);
+            openSidebar();
         }
     });
 
@@ -89,6 +93,7 @@ Router.map(function () {
         onAfterAction: function () {
             Session.set('active_place', this.params._id);
             switchCollection(this.params._cid);
+            openSidebar();
         }
     });
 
@@ -104,6 +109,7 @@ Router.map(function () {
         onAfterAction: function () {
             Session.set('active_place', this.params._id);
             switchCollection(this.params._cid);
+            openSidebar();
         }
     });
 
@@ -124,6 +130,7 @@ Router.map(function () {
         },
         onAfterAction: function () {
             switchCollection(this.params._cid);
+            openSidebar();
         }
     });
 
@@ -140,6 +147,7 @@ Router.map(function () {
         },
         onAfterAction: function () {
             switchCollection(this.params._cid);
+            openSidebar();
         }
     });
 
@@ -156,6 +164,7 @@ Router.map(function () {
         },
         onAfterAction: function () {
             switchCollection();
+            openSidebar();
         }
     });
 
@@ -166,7 +175,16 @@ Router.map(function () {
     // you can go back to any route that matters (i.e. it will open the
     // sidebar when you do something twice
     this.route('map', {
-        path: '/map'
+        path: '/map/:_id',
+        data: function () {
+            return {
+                collection: MCollections.findOne(this.params._id)
+            }
+        },
+        onAfterAction: function () {
+            switchCollection(this.params._id);
+            closeSidebar();
+        }
     });
 });
 
@@ -178,6 +196,13 @@ templates = {};
 openSidebar = function () {
     if(Map.map) {
         Map.sidebar.show();
+    }
+};
+
+
+closeSidebar = function () {
+    if(Map.map) {
+        Map.sidebar.hide();
     }
 };
 
@@ -194,8 +219,6 @@ switchCollection = function (cid) {
     if(!Map.map) {
         return;
     }
-
-    Map.sidebar.show();
 
     if(!cid) {
         if(currentCollection) {
