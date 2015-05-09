@@ -374,17 +374,17 @@ Map = {
 
 
     /* bounce any marker to show where it is */
-    bouncing: false,
+    bouncing: {},
     bounceMarker: function (key) {
-        if(this.bouncing)
+        if(this.bouncing[key])
             return;
         var shape = Map.keysToLayers[key];
         if(shape.hasOwnProperty('_icon')) {
-            this.bouncing = true;
+            this.bouncing[key] = true;
             shape.bounce(4);
             var that = this;
             setTimeout(function() {
-                that.bouncing = false;
+                that.bouncing[key] = false;
             }, 4000);
         }
     },
