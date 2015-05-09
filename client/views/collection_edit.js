@@ -55,9 +55,17 @@ Template.collectionEdit.events = {
         Router.go('collection', {_id: this._id});
     },
 
-    'change #place_template': function (e) {
+    'change #place-template': function (e) {
 
         console.log(e.target.value);
-        MCollections.update(this._id, {$set: {place_template: e.target.value}});
+        MCollections.update(this._id,
+            {$set: {place_template: e.target.value}});
+    },
+
+    'change #place-template-list': function (e) {
+
+        console.log(e.target.value);
+        MCollections.update(this._id,
+            {$set: {place_template_list: e.target.value}});
     }
 };

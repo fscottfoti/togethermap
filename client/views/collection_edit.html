@@ -64,14 +64,14 @@
             &thinsp;
 
             {{#unless expertConfiguration}}
-                {{#if 0}}
+
                 <a class="toggle-expert">
                     <button class="btn btn-primary">
                         <i class="fa fa-arrow-down"></i>
                         More
                     </button>
                 </a>
-                {{/if}}
+
             {{ else }}
 
                 <a class="toggle-expert">
@@ -89,16 +89,14 @@
         {{#if expertConfiguration}}
 
             Custom Place Template (for Place Detail):
-            <textarea id="place_template"
+            <textarea class="place-template"
                       rows="4"
-                      style="width:100%">
-                {{place_template}}
+                      style="width:100%">{{place_template}}
             </textarea>
 
-            <div class="post"
-                 style="margin-top: 25px; margin-bottom: 10px;">
+            <div class="place-template-list">
 
-                <div dynamic="collection.place_template_list"
+                <div dynamic="place_template_list"
                      place="place"
                      style="margin-left: 15px;"></div>
             </div>
