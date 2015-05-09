@@ -85,15 +85,6 @@ Meteor.methods({
             }
         });
     },
-    updatePost: function (id, obj) {
-
-        MPosts.update(id, obj, false, function (err, modified) {
-            if(modified) {
-                // update modified date
-                MPosts.update(id, {$set: {updateDate: new Date()}});
-            }
-        });
-    },
     // id and collectionid
     removePost: function (id, pid) {
 

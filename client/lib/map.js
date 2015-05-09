@@ -697,12 +697,9 @@ Map = {
         // FIXME
         shape.writeable = true;
 
-        var show = !this.filter || this.passesFilter(place);
         if (place.geometry.type === 'Point') {
 
-            if(show) {
-                this.shapeLayerGroup.add(shape);
-            }
+            this.shapeLayerGroup.add(shape);
             this.keysToLayers[key] = shape;
 
         } else {
@@ -717,9 +714,7 @@ Map = {
             layer.writeable = shape.writeable;
             layer.cid = place.collectionId;
 
-            if(show) {
-                this.shapeLayerGroup.add(layer);
-            }
+            this.shapeLayerGroup.add(layer);
             this.keysToLayers[key] = layer;
         }
 
