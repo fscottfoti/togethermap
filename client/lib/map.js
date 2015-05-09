@@ -56,6 +56,13 @@ MapDriver = {
         );
     },
 
+    locationChanged: function () {
+        var cid = Session.get('active_collection');
+        var poly = Map.getBoundsAsPolygon();
+        Meteor.subscribe("places", cid, poly);
+        MapDriver.wholeCollectionQuery(cid);
+    },
+
     subscription: function (sub) {
         sub.observe({
             added: function(ss) {
@@ -205,11 +212,11 @@ Map = {
         this.initDrawing();
 
         this.map.on('moveend', function() {
-            // TODO add back geoquery update
+            MapDriver.locationChanged();
         });
 
         this.map.on('zoomend', function() {
-            // TODO add back geoquery update
+            MapDriver.locationChanged();
         });
 
         var that = this;
@@ -419,6 +426,17 @@ Map = {
 
     getBounds: function () {
         return this.map.getBounds();
+    },
+
+
+    getBoundsAsPolygon: function () {
+        var b = this.map.getBounds();
+        var ne = b._northEast;
+        var sw = b._southWest;
+        return [
+            [sw.lng, sw.lat], [sw.lng, ne.lat], [ne.lng, ne.lat],
+            [ne.lng, sw.lat], [sw.lng, sw.lat]
+        ];
     },
 
 

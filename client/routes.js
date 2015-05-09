@@ -191,9 +191,11 @@ Router.map(function () {
 
 var currentCollection;
 templates = {};
+var sidebarOpen;
 
 
 openSidebar = function () {
+    sidebarOpen = true;
     if(Map.map) {
         Map.sidebar.show();
     }
@@ -201,6 +203,7 @@ openSidebar = function () {
 
 
 closeSidebar = function () {
+    sidebarOpen = false;
     if(Map.map) {
         Map.sidebar.hide();
     }
@@ -218,6 +221,13 @@ switchCollection = function (cid) {
 
     if(!Map.map) {
         return;
+    }
+
+    if(sidebarOpen) {
+        // yes I get that this is weird, but when you refresh, we
+        // open the sidebar before the map is initialized so we
+        // need to store the state and open when we initialize
+        openSidebar();
     }
 
     if(!cid) {
@@ -261,6 +271,7 @@ switchCollection = function (cid) {
             c.default_place_template_list || defaultPlaceTemplateList);
 
     }
-    Meteor.subscribe("places", cid);
+    var poly = Map.getBoundsAsPolygon();
+    Meteor.subscribe("places", cid, poly);
     MapDriver.wholeCollectionQuery(cid);
 };
