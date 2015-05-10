@@ -115,6 +115,10 @@ MapDriver = {
 
         var point = {
             "type": "Feature",
+            "bbox": {
+                "type": "Point",
+                "coordinates": [latlng.lng, latlng.lat]
+            },
             "geometry": {
             "type": "Point",
                 "coordinates": [latlng.lng, latlng.lat]
@@ -440,6 +444,23 @@ Map = {
     },
 
 
+    shapeAsBbox: function (l) {
+        var gj = l.toGeoJSON();
+        if(gj.geometry.type == "Point") {
+            return gj.geometry;
+        }
+        var b = l.getBounds();
+        var ne = b._northEast;
+        var sw = b._southWest;
+        return {
+            type: "Polygon",
+            coordinates: [[
+            [sw.lng, sw.lat], [sw.lng, ne.lat], [ne.lng, ne.lat],
+            [ne.lng, sw.lat], [sw.lng, sw.lat]
+        ]]};
+    },
+
+
     switchBaseLayer: function (name) {
 
         if(this.activeBaseMap == name)
@@ -558,6 +579,7 @@ Map = {
             name: 'New Place'
         };
         shape.properties = props;
+        shape.bbox = Map.shapeAsBbox(f);
         return shape;
     },
 
