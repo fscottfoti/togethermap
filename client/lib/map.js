@@ -133,9 +133,15 @@ MapDriver = {
         Meteor.call('insertPlace', point, cid);
     },
     
-    editPlace: function (key, geojson) {
+    editPlace: function (key, f) {
         // just update the geometry
-        Meteor.call('updatePlace', key, {$set: {geometry: geojson.geometry}});
+
+        var geojson = f.toGeoJSON();
+        var bbox = Map.shapeAsBbox(f);
+        Meteor.call('updatePlace', key, {$set: {
+            geometry: geojson.geometry,
+            bbox: bbox}
+        });
     },
     
     deletePlace: function (key) {
@@ -248,7 +254,7 @@ Map = {
 
         this.map.on('draw:edited', function (e) {
             e.layers.eachLayer(function (layer) {
-                MapDriver.editPlace(layer.key, layer.toGeoJSON());
+                MapDriver.editPlace(layer.key, layer);
             });
         });
 

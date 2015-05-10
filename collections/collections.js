@@ -1,3 +1,5 @@
+PLACE_LIMIT = 100;
+
 addUserInfo = function (obj, uid) {
     var dt = new Date();
     var name = Meteor.user().profile.displayName ||
