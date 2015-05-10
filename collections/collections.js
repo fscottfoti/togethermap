@@ -42,7 +42,7 @@ Meteor.methods({
         addUserInfo(obj, this.userId);
         obj.collectionId = cid;
 
-        MPlaces.insert(obj, function (err) {
+        return MPlaces.insert(obj, function (err) {
             if(!err) {
                 // increment the count
                 MCollections.update(cid, {$inc: {place_count: 1}});

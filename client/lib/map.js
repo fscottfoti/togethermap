@@ -111,7 +111,10 @@ MapDriver = {
     
     createPlace: function (place) {
         var cid = Session.get('active_collection');
-        Meteor.call('insertPlace', place, cid);
+        Meteor.call('insertPlace', place, cid, function(error, result){
+            var key = result;
+            Router.go("place_edit", {_id: key, _cid: cid})
+        });
     },
 
     doubleClick: function (latlng) {
@@ -134,8 +137,7 @@ MapDriver = {
             }
         };
 
-        var cid = Session.get('active_collection');
-        Meteor.call('insertPlace', point, cid);
+        this.createPlace(point);
     },
     
     editPlace: function (key, f) {

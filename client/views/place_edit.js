@@ -91,7 +91,7 @@ Template.placeEdit.events({
 
         e.preventDefault();
         var that = this;
-        bootbox.confirm("Are you sure?", function(result) {
+        bootbox.confirm("Are you sure you want to delete this PLACE?", function(result) {
             if(result) {
                 Meteor.call('removePlace', that._id, that.collectionId);
                 Router.go('collection', {

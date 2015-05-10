@@ -20,7 +20,7 @@ Template.postEdit.events({
 
         e.preventDefault();
         var that = this;
-        bootbox.confirm("Are you sure?", function(result) {
+        bootbox.confirm("Are you sure you want to delete this POST?", function(result) {
             if(result) {
                 var pid = that.placeId; // save it in case reactivity is fast
                 Meteor.call('removePost', that._id, pid);

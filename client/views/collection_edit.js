@@ -35,31 +35,19 @@ Template.collectionEdit.helpers({
         return Session.get('cedit_mode') == "Color";
     },
 
-    custom_template_checked: function () {
-        return this.custom_template ? "checked" : null;
-    },
-
-    spatial_index_checked: function () {
-        return this.spatial_index ? "checked" : null;
-    },
-
     drop_markers_checked: function () {
         return this.drop_markers ? "checked" : null;
-    },
-
-    delete_places_checked: function () {
-        return this.delete_places ? "checked" : null;
     }
 });
 
 
 Template.collectionEdit.events = {
 
-    'change input[name=name]':function(event) {
+    'change input[name=name]': function(event) {
         MCollections.update(this._id, {$set:{name: event.target.value}});
     },
 
-    'click .save-location':function() {
+    'click .save-location': function() {
         var location = {
             center: Map.map.getCenter(),
             zoom: Map.map.getZoom()
@@ -80,7 +68,7 @@ Template.collectionEdit.events = {
 
         e.preventDefault();
         var that = this;
-        bootbox.confirm("Are you sure?", function(result) {
+        bootbox.confirm("Are you sure you want to delete this COLLECTION?", function(result) {
             if(result) {
                 MCollections.remove(that._id);
                 Router.go('collections');
@@ -112,27 +100,9 @@ Template.collectionEdit.events = {
             {$set: {place_template_list: e.target.value}});
     },
 
-    'change #apply-custom-template': function (e) {
-
-        MCollections.update(this._id,
-            {$set: {custom_template: e.target.checked}});
-    },
-
-    'change #use-spatial-index': function (e) {
-
-        MCollections.update(this._id,
-            {$set: {spatial_index: e.target.checked}});
-    },
-
     'change #drop-markers': function (e) {
 
         MCollections.update(this._id,
             {$set: {drop_markers: e.target.checked}});
-    },
-
-    'change #delete-places': function (e) {
-
-        MCollections.update(this._id,
-            {$set: {delete_places: e.target.checked}});
     }
 };
