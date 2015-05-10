@@ -8,6 +8,14 @@ Template.collection.helpers({
         return MPlaces.find({collectionId: cid});
     },
 
+    visible_places_count: function () {
+        return Session.get('map_visible_places') || 0;
+    },
+
+    exceeds_place_limit: function () {
+        return (Session.get('map_visible_places') || 0) >= PLACE_LIMIT;
+    },
+
     places_loaded_count: function () {
         var cid = Session.get('active_collection');
         return MPlaces.find({collectionId: cid}).count();

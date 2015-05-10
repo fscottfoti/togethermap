@@ -59,7 +59,12 @@ MapDriver = {
     locationChanged: function () {
         var cid = Session.get('active_collection');
         var poly = Map.getBoundsAsPolygon();
-        Meteor.subscribe("places", cid, poly);
+        Meteor.subscribe("places", cid, poly, {
+            onReady: function() {
+                var cnt = Map.countVisiblePlaces();
+                Session.set('map_visible_places', cnt);
+            }
+        });
         MapDriver.wholeCollectionQuery(cid);
     },
 
@@ -365,6 +370,29 @@ Map = {
         }
     },
 
+
+    countVisiblePlaces: function () {
+        var keys = Object.keys(this.keysToLayers);
+        for(var i = 0, cnt = 0 ; i < keys.length ; i++) {
+            var l = this.keysToLayers[keys[i]];
+            if(this.layerIsVisible(l))
+                cnt += 1;
+        }
+        return cnt;
+    },
+
+
+    layerIsVisible: function (l) {
+        var bounds = this.getBounds();
+        if(l._latlng) { // is point
+            if (bounds.contains(l.getLatLng())) {
+                return true;
+            }
+        } else {
+            return bounds.intersects(l.getBounds());
+        }
+        return false;
+    },
 
     /* mark a position, like for a geocoder, with a marker and a bounce */
     markPosition: function (feature) {
