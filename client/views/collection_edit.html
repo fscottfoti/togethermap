@@ -88,73 +88,68 @@
 
         {{#if expertConfiguration}}
 
+            <br>
+
             Custom Place Template (for Place Detail):
-            <textarea class="place-template"
+            <textarea id="place-template"
                       rows="4"
-                      style="width:100%">{{place_template}}
-            </textarea>
-
-            <div class="place-template-list">
-
-                <div dynamic="place_template_list"
-                     place="place"
-                     style="margin-left: 15px;"></div>
-            </div>
+                      style="width:100%">{{place_template}}</textarea>
 
             Custom Place Template (for Place List):
-            <textarea rows="4"
-                      ng-model="collection.place_template_list"
-                      style="width: 100%;"></textarea>
+            <textarea id="place-template-list"
+                      rows="4"
+                      style="width: 100%;">{{place_template_list}}</textarea>
 
             <br><br>
 
-            Custom Theming Functions:
-            <div ng-show="f_mode=='icon'" ng-init="f_mode='icon'">
-                <textarea rows="3"
-                          ng-model="collection.icon_f"
-                          style="width: 100%;"></textarea>
+            Custom Theming Functions ({{cedit_mode}}):
+
+            {{#if icon_mode}}
+                <textarea rows="4"
+                          style="width: 100%;">{{icon_f}}</textarea>
+            {{/if}}
+
+            {{#if icon_size_mode}}
+                <textarea rows="4"
+                          style="width: 100%;">{{icon_size_f}}</textarea>
+            {{/if}}
+
+            {{#if icon_color_mode}}
+                <textarea rows="4"
+                          style="width: 100%;">{{color_f}}</textarea>
+            {{/if}}
+
+
+            <div class="btn-group"
+                 data-toggle="buttons-radio"
+                 id="my_radiogroup">
+                <button type="radio"
+                        class="btn btn-primary cedit_mode"
+                        name="cedit_mode"
+                        value="Icon">
+                    Icon
+                </button>
+                <button type="radio"
+                        class="btn btn-primary cedit_mode"
+                        name="cedit_mode"
+                        value="Size">
+                    Icon Size
+                </button>
+                <button type="radio"
+                        class="btn btn-primary cedit_mode"
+                        name="cedit_mode"
+                        value="Color">
+                    Icon Color
+                </button>
             </div>
 
-            <div ng-show="f_mode=='icon_size'">
-                <textarea rows="3"
-                          ng-model="collection.icon_size_f"
-                          style="width: 100%;"></textarea>
-            </div>
-
-            <div ng-show="f_mode=='color'">
-                <textarea rows="3"
-                          ng-model="collection.color_f"
-                          style="width: 100%;"></textarea>
-            </div>
-
-            <br>
-
-            <div>
-                <div class="btn-group">
-                    <label class="btn btn-primary"
-                           ng-model="f_mode"
-                           btn-radio="'icon'">
-                        Icon
-                    </label>
-                    <label class="btn btn-primary"
-                           ng-model="f_mode"
-                           btn-radio="'icon_size'">
-                        Icon Size
-                    </label>
-                    <label class="btn btn-primary"
-                           ng-model="f_mode"
-                           btn-radio="'color'">
-                        Color
-                    </label>
-                </div>
-            </div>
-
-            <br>
+            <br><br>
 
             <div class="checkbox">
                 <label>
                     <input type="checkbox"
-                           ng-model="collection.custom_template">
+                           id="apply-custom-template"
+                           {{custom_template_checked}}>
                            Apply Custom Place Template
                 </label>
             </div>
@@ -162,7 +157,8 @@
             <div class="checkbox">
                 <label>
                     <input type="checkbox"
-                           ng-model="collection.spatial_index">
+                           id="use-spatial-index"
+                           {{spatial_index_checked}}>
                            Use Spatial Index
                 </label>
             </div>
@@ -170,7 +166,8 @@
             <div class="checkbox">
                 <label>
                     <input type="checkbox"
-                           ng-model="collection.drop_markers">
+                           id="drop-markers"
+                           {{drop_markers_checked}}>
                            Drop Markers
                 </label>
             </div>
@@ -178,21 +175,13 @@
             <div class="checkbox">
                 <label>
                     <input type="checkbox"
-                           ng-model="collection.show_popups">
-                           Show Popups
-                </label>
-            </div>
-
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox"
-                           ng-model="collection.dont_delete_places">
+                           id="delete-places"
+                           {{delete_places_checked}}>
                            Don't Delete Places on Map Pan
                 </label>
             </div>
 
-            <br>
-
+{{#if 0}}
             <div ng-show="upload_progress">
                 <progressbar max="10000" value="upload_pct">
                     <span style="color:#f5f5f5; white-space:nowrap;">
@@ -209,6 +198,7 @@
                     Upload geojson file
                 </div>
             </div>
+{{/if}}
 
         {{/if}}
 

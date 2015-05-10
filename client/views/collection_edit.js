@@ -1,15 +1,54 @@
+Template.collectionEdit.rendered = function () {
+    Session.set('cedit_mode', 'Icon');
+};
+
 Template.collectionEdit.helpers({
+
     collection: function () {
         var cid = Session.get('active_collection');
         return MCollections.findOne(cid);
     },
+
     locationDisplay: function () {
         return 'Center: ' +
                numeral(this.location.center.lat).format('0.00') + ", " +
                numeral(this.location.center.lng).format('0.00');
     },
+
     expertConfiguration: function () {
         return Session.get('expertConfiguration');
+    },
+
+    cedit_mode: function () {
+        return Session.get('cedit_mode');
+    },
+
+    icon_mode: function () {
+        return Session.get('cedit_mode') == "Icon";
+    },
+
+    icon_size_mode: function () {
+        return Session.get('cedit_mode') == "Size";
+    },
+
+    icon_color_mode: function () {
+        return Session.get('cedit_mode') == "Color";
+    },
+
+    custom_template_checked: function () {
+        return this.custom_template ? "checked" : null;
+    },
+
+    spatial_index_checked: function () {
+        return this.spatial_index ? "checked" : null;
+    },
+
+    drop_markers_checked: function () {
+        return this.drop_markers ? "checked" : null;
+    },
+
+    delete_places_checked: function () {
+        return this.delete_places ? "checked" : null;
     }
 });
 
@@ -55,17 +94,45 @@ Template.collectionEdit.events = {
         Router.go('collection', {_id: this._id});
     },
 
+    'click .cedit_mode': function (e) {
+
+        e.preventDefault();
+        Session.set("cedit_mode", e.target.value);
+    },
+
     'change #place-template': function (e) {
 
-        console.log(e.target.value);
         MCollections.update(this._id,
             {$set: {place_template: e.target.value}});
     },
 
     'change #place-template-list': function (e) {
 
-        console.log(e.target.value);
         MCollections.update(this._id,
             {$set: {place_template_list: e.target.value}});
+    },
+
+    'change #apply-custom-template': function (e) {
+
+        MCollections.update(this._id,
+            {$set: {custom_template: e.target.checked}});
+    },
+
+    'change #use-spatial-index': function (e) {
+
+        MCollections.update(this._id,
+            {$set: {spatial_index: e.target.checked}});
+    },
+
+    'change #drop-markers': function (e) {
+
+        MCollections.update(this._id,
+            {$set: {drop_markers: e.target.checked}});
+    },
+
+    'change #delete-places': function (e) {
+
+        MCollections.update(this._id,
+            {$set: {delete_places: e.target.checked}});
     }
 };
