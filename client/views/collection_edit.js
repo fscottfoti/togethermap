@@ -88,16 +88,49 @@ Template.collectionEdit.events = {
         Session.set("cedit_mode", e.target.value);
     },
 
+    'click .place-template-sample': function () {
+
+        var t = $('#place-template').val();
+        var p = _.sample(MPlaces.find().fetch());
+        var d = Handlebars.compile(t)(p);
+        if(!t)
+            d = "No template";
+        bootbox.alert(d);
+    },
+
+    'click .place-template-json': function () {
+
+        var p = _.sample(MPlaces.find().fetch());
+        var d = "<pre>"+syntaxHighlight(p);
+        bootbox.alert(d);
+    },
+
+    'click .place-template-list-sample': function () {
+
+        var t = $('#place-template-list').val();
+        var p = _.sample(MPlaces.find().fetch());
+        var d = Handlebars.compile(t)(p);
+        if(!t)
+            d = "No template";
+        bootbox.alert(d);
+    },
+
     'change #place-template': function (e) {
 
-        MCollections.update(this._id,
-            {$set: {place_template: e.target.value}});
+        var t = e.target.value;
+
+        templates.place_template = Handlebars.compile(t);
+
+        MCollections.update(this._id, {$set: {place_template: t}});
     },
 
     'change #place-template-list': function (e) {
 
-        MCollections.update(this._id,
-            {$set: {place_template_list: e.target.value}});
+        var t = e.target.value;
+
+        templates.place_template_list = Handlebars.compile(t);
+
+        MCollections.update(this._id, {$set: {place_template_list: t}});
     },
 
     'change #drop-markers': function (e) {

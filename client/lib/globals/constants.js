@@ -56,14 +56,21 @@ userIdExpression = function () {
 };
 
 
-var mine = function (c) {
+var admins = ['ceTir2NKMN87Gq7wj'];
+
+var isAdmin = function () {
+    return _.indexOf(admins, Meteor.userId()) != -1
+};
+
+
+var isMine = function (c) {
     return c.creatorUID == Meteor.userId() ||
         c.creatorUID == googleId()
 };
 
 
 writePermission = function(o) {
-    return mine(o);
+    return isMine(o) || isAdmin();
 };
 
 

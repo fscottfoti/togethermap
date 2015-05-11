@@ -79,15 +79,13 @@ Router.map(function () {
         subscriptions: function() {
             return [
                 Meteor.subscribe('place', this.params._id),
-                Meteor.subscribe('posts', this.params._id,
-                    this.params._cid)
+                Meteor.subscribe('posts', this.params._id)
             ]
         },
         data: function () {
             return {
                 place: MPlaces.findOne(this.params._id),
-                posts: MPosts.find({placeId: this.params._id,
-                    collectionId: this.params._cid})
+                posts: MPosts.find({placeId: this.params._id})
             }
         },
         onAfterAction: function () {
@@ -265,13 +263,18 @@ switchCollection = function (cid) {
         MapDriver.init(cid, c);
 
         templates.place_template = Handlebars.compile(
-            c.default_place_template || defaultPlaceTemplate);
+            c.place_template || defaultPlaceTemplate);
 
         templates.place_template_list = Handlebars.compile(
-            c.default_place_template_list || defaultPlaceTemplateList);
+            c.place_template_list || defaultPlaceTemplateList);
 
     }
     var poly = Map.getBoundsAsPolygon();
-    Meteor.subscribe("places", cid, poly);
+    Meteor.subscribe("places", cid, poly, {
+        onReady: function() {
+            var cnt = Map.countVisiblePlaces();
+            Session.set('map_visible_places', cnt);
+        }
+    });
     MapDriver.wholeCollectionQuery(cid);
 };
