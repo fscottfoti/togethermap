@@ -1,5 +1,5 @@
 Template.nav.rendered = function () {
-    $('.toggle-menu').jPushMenu({closeOnClickLink: true});
+    $('.toggle-menu').jPushMenu({closeOnClickLink: false});
     $('.dropdown-toggle').dropdown();
 };
 
@@ -9,7 +9,14 @@ Template.nav.events = {
     'click .map-sidebar-toggle': function (e) {
 
         e.preventDefault();
+        if(!Map.sidebarOpened) {
+            // don't do anything unless we've opened the sidebar before
+            return;
+        }
         Map.sidebar.toggle();
+        if(Map.sidebar.isVisible()) {
+            history.back();
+        }
     }
 };
 

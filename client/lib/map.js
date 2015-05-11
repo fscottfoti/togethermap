@@ -217,7 +217,15 @@ Map = {
         this.map.addControl(this.sidebar);
         this.sidebar.on('hide', function () {
             var cid = Session.get('active_collection');
+            if(!cid)
+                cid = 'empty';
             Router.go('map', {'_id': cid});
+        });
+        this.sidebar.on('show', function () {
+            // this is a bit odd - we need to know, when we close the sidebar,
+            // that it has ever been opened (presumably to a valid state).
+            // Otherwise calling history.back() would go to a different website
+            Map.sidebarOpened = true;
         });
 
         L.mapbox.infoControl().addTo(this.map);
