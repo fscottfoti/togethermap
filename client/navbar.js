@@ -54,6 +54,7 @@ infoHidden = {};
 
 var closeDropdowns = function () {
     $('.dropdown.open .dropdown-toggle').dropdown('toggle');
+    $('.toggle-menu:visible').click();
 };
 
 Template.navItems.events = {

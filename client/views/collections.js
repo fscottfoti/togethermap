@@ -8,6 +8,16 @@ Template.collections.helpers({
     }
 });
 
+
+Template.collections.events = {
+
+    'click .collection-go': function (e) {
+
+        e.preventDefault();
+        Router.go('collection', {_id: this._id});
+    }
+};
+
     /*
     $scope.collections = [];
     $scope.collection_permissions = {};

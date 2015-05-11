@@ -29,3 +29,10 @@ a:hover {text-decoration:none;}
 .toast {
     opacity: 1 !important;
 }
+
+
+@media (max-width: 768px) { 
+    .navbar-brand { position: absolute; left: 50%; margin-left: -72px; }
+    
+    .sidebar-close { visibility: hidden; }
+}

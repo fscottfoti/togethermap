@@ -39,7 +39,8 @@ Accounts.ui.config({
 // data back from the old version of the site.
 
 googleId = function () {
-    if(!Meteor.user() || !Meteor.user().services)
+    if(!Meteor.user() || !Meteor.user().services || 
+       !Meteor.user().services.google)
         return undefined;
     return 'google:'+Meteor.user().services.google.id;
 };

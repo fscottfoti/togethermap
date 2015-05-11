@@ -31,6 +31,7 @@ L.Control.Sidebar = L.Control.extend({
         if (this.options.closeButton) {
             var close = this._closeButton =
                 L.DomUtil.create('a', 'close', container);
+            L.DomUtil.addClass(close, 'sidebar-close');
             close.innerHTML = '&times;';
         }
     },

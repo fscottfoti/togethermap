@@ -212,7 +212,9 @@ Map = {
         };
 
         this.sidebar = L.control.sidebar('sidebar', {
-            position: 'right'
+            position: 'right',
+            //closeButton: false,
+            autoPan: false
         });
         this.map.addControl(this.sidebar);
         this.sidebar.on('hide', function () {
