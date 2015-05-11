@@ -86,7 +86,7 @@
             {{#if currentUser}}
 
                 {{#each my_collections}}
-                    <li><a href="{{ pathFor 'collection' _id=_id}}">{{name}}</a></li>
+                    <li><a class="collection-go" href="#">{{name}}</a></li>
                 {{/each}}
                 {{#if no_collections}}
                     <li><a href="">No collections</a></li>
@@ -114,7 +114,7 @@
             {{#if currentUser}}
 
                 {{#each followed}}
-                    <li><a href="{{ pathFor 'collection' _id=cid}}">{{name}}</a></li>
+                    <li><a href="#" class="followed-go">{{name}}</a></li>
                 {{/each}}
                 {{#if none_followed}}
                     <li><a href="">None followed</a></li>

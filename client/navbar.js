@@ -1,5 +1,5 @@
 Template.nav.rendered = function () {
-    $('.toggle-menu').jPushMenu({closeOnClickLink: false});
+    $('.toggle-menu').jPushMenu({closeOnClickLink: true});
     $('.dropdown-toggle').dropdown();
 };
 
@@ -46,6 +46,20 @@ Template.navItems.helpers({
 infoHidden = {};
 
 Template.navItems.events = {
+
+    'click .collection-go': function (e) {
+
+        e.preventDefault();
+        Router.go('collection', {_id: this._id});
+        $('.dropdown.open .dropdown-toggle').dropdown('toggle');
+    },
+
+    'click .followed-go': function (e) {
+
+        e.preventDefault();
+        Router.go('collection', {_id: this.cid});
+        $('.dropdown.open .dropdown-toggle').dropdown('toggle');
+    },
 
     'click .active-collection': function (e) {
 

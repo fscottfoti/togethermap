@@ -1,6 +1,3 @@
-
-
-
 Template.collection.helpers({
 
     places: function () {
