@@ -1,3 +1,19 @@
+Template.nav.rendered = function () {
+    $('.toggle-menu').jPushMenu({closeOnClickLink: false});
+    $('.dropdown-toggle').dropdown();
+};
+
+
+Template.nav.events = {
+
+    'click .map-sidebar-toggle': function (e) {
+
+        e.preventDefault();
+        Map.sidebar.toggle();
+    }
+};
+
+
 Template.navItems.helpers({
 
     my_collections: function () {

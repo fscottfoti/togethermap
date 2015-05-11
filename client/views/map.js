@@ -5,7 +5,7 @@ Template.map.rendered = function () {
     if(!Map.map) {
 
         $(window).resize(function () {
-            var h = $(window).height(), offsetTop = 60; // Calculate the top offset
+            var h = $(window).height(), offsetTop = 55; // Calculate the top offset
             $('#map_canvas').css('height', (h - offsetTop));
             //$('#info_panel').css('height', (h - offsetTop));
         }).resize();

@@ -1,7 +1,6 @@
 Meteor.startup(function(){
 });
 
-
 Template.registerHelper('formatDate', function(date) {
     return moment(date).format('MMM Do, h:mm a');
 });
