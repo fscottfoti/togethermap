@@ -45,20 +45,38 @@ Template.navItems.helpers({
 
 infoHidden = {};
 
+var closeDropdowns = function () {
+    $('.dropdown.open .dropdown-toggle').dropdown('toggle');
+};
+
 Template.navItems.events = {
 
     'click .collection-go': function (e) {
 
         e.preventDefault();
         Router.go('collection', {_id: this._id});
-        $('.dropdown.open .dropdown-toggle').dropdown('toggle');
+        closeDropdowns();
+    },
+
+    'click .collections-go': function (e) {
+
+        e.preventDefault();
+        Router.go('collections');
+        closeDropdowns();
+    },
+
+    'click .search-go': function (e) {
+
+        e.preventDefault();
+        Router.go('search');
+        closeDropdowns();
     },
 
     'click .followed-go': function (e) {
 
         e.preventDefault();
         Router.go('collection', {_id: this.cid});
-        $('.dropdown.open .dropdown-toggle').dropdown('toggle');
+        closeDropdowns();
     },
 
     'click .active-collection': function (e) {
@@ -77,6 +95,7 @@ Template.navItems.events = {
                 console.log(err);
         
             Router.go('collection', {_id: key});
+            closeDropdowns();
         });
     }
 };
