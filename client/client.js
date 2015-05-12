@@ -2,31 +2,31 @@ Meteor.startup(function(){
 });
 
 
-var formatDate = function (date) {
+var formatDate = function (date, format) {
     if(!date)
         return 'no date';
-    return moment(date).format('MMM Do, h:mm a');
+    return moment(date).format(format || 'MMM Do, h:mm a');
 };
 
-var formatnumber = function (num) {
-    return numeral(num || 0).format('0,0');
+var formatNumber = function (num, format) {
+    return numeral(num || 0).format(format || '0,0');
 };
 
 Template.registerHelper('formatDate', function(date) {
     return formatDate(date);
 });
 
-Handlebars.registerHelper('formatDate', function(date) {
-    return formatDate(date);
+Handlebars.registerHelper('formatDate', function(date, options) {
+    return formatDate(date, options.hash.format);
 });
 
 
 Template.registerHelper('formatNumber', function(num) {
-    return formatnumber(num);
+    return formatNumber(num);
 });
 
-Handlebars.registerHelper('formatNumber', function(num) {
-    return formatnumber(num);
+Handlebars.registerHelper('formatNumber', function(num, options) {
+    return formatNumber(num, options.hash.format);
 });
 
 
@@ -38,8 +38,7 @@ Handlebars.registerHelper('json', function(json) {
     return JSON.stringify(json, undefined, 2);
 });
 
-Template.registerHelper('defaultValue', function(v, def) {
-    console.log(v, def);
+Handlebars.registerHelper('defaultValue', function(v, def) {
     return  v || def;
 });
 

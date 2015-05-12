@@ -115,6 +115,27 @@ Template.collectionEdit.events = {
         bootbox.alert(d);
     },
 
+    'change #icon_f': function (e) {
+
+        var t = e.target.value;
+
+        MCollections.update(this._id, {$set: {icon_f: t}});
+    },
+
+    'change #icon_size_f': function (e) {
+
+        var t = e.target.value;
+
+        MCollections.update(this._id, {$set: {icon_size_f: t}});
+    },
+
+    'change #color_f': function (e) {
+
+        var t = e.target.value;
+
+        MCollections.update(this._id, {$set: {color_f: t}});
+    },
+
     'change #place-template': function (e) {
 
         var t = e.target.value;
