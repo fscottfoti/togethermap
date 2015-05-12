@@ -58,12 +58,12 @@ userIdExpression = function () {
 
 var admins = ['ceTir2NKMN87Gq7wj'];
 
-var isAdmin = function () {
+isAdmin = function () {
     return _.indexOf(admins, Meteor.userId()) != -1
 };
 
 
-var isMine = function (c) {
+isMine = function (c) {
     return c.creatorUID == Meteor.userId() ||
         c.creatorUID == googleId()
 };

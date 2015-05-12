@@ -23,7 +23,7 @@ Template.collection.helpers({
     },
 
     followable: function () {
-        return Meteor.user() && !writePermission(this) &&
+        return Meteor.user() && !isMine(this) &&
             !MFollowed.findOne({cid: this._id});
     },
 

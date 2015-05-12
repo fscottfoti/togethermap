@@ -182,7 +182,6 @@ Map = {
         this.map = L.mapbox.map(id, null, {
             attributionControl: false
         });
-        this.map.doubleClickZoom.disable();
 
         /* geocoder always gets added */
         var geocoder = L.mapbox.geocoderControl('mapbox.places-v1');
@@ -251,16 +250,23 @@ Map = {
             that.activeBaseMap = e.name;
         });
 
-        this.map.on("dblclick", function(e) {
-            MapDriver.doubleClick(e.latlng);
-        });
-
         // maps ids to layers
         this.keysToLayers = {};
         // two shape layers, one for editing and the other for viewing
         this.shapeLayerGroup.new();
     },
 
+    enableDoubleClickAdd: function () {
+        this.map.doubleClickZoom.disable();
+        this.map.on("dblclick", function(e) {
+            MapDriver.doubleClick(e.latlng);
+        });
+    },
+
+    enableDoubleClickZoom: function () {
+        this.map.off("dblclick");
+        this.map.doubleClickZoom.enable();
+    },
 
     // do something for all of the draw events
     initDrawing: function () {

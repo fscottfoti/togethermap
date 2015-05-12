@@ -57,7 +57,23 @@ var closeDropdowns = function () {
     $('.toggle-menu:visible').click();
 };
 
+var renderTmp = function (template, data) {
+    var node = document.createElement("div");
+    document.body.appendChild(node);
+    UI.renderWithData(template, data, node);
+    return node;
+};
+
 Template.navItems.events = {
+
+    'click .settings-go': function (e) {
+
+        e.preventDefault();
+        bootbox.dialog({
+            message: renderTmp(Template.settings)
+        });
+        closeDropdowns();
+    },
 
     'click .collection-go': function (e) {
 

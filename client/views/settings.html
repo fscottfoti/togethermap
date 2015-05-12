@@ -1,0 +1,15 @@
+<template name="settings">
+    <div style="align: center">
+        <a href="" class="toggle-double-click">
+            <button class="btn btn-default">Toggle Double Click</button>
+        </a>
+        <br>
+        <h4>
+            {{#if doubleClickAdd }}
+                Double click is set to add new markers.  Click to switch to zooming.
+            {{else}}
+                Double click is set to zoom in.  Click to switch to marker add.
+            {{/if}}
+        </h4>
+    </div>
+</template>
