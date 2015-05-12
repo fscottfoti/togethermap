@@ -117,6 +117,10 @@ MapDriver = {
         });
     },
 
+    contextMenuAdd: function (e) {
+        MapDriver.doubleClick(e.latlng);
+    },
+
     doubleClick: function (latlng) {
         if (!Meteor.userId()) // must be logged in
             return;
@@ -180,8 +184,13 @@ Map = {
         this.activeBaseMap = undefined;
 
         this.map = L.mapbox.map(id, null, {
-            attributionControl: false
-        });
+            attributionControl: false,
+            contextmenu: true,
+            contextmenuWidth: 140,
+            contextmenuItems: [{
+            text: 'Add marker',
+            callback: MapDriver.contextMenuAdd
+        }]});
 
         /* geocoder always gets added */
         var geocoder = L.mapbox.geocoderControl('mapbox.places-v1');
