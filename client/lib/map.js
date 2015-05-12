@@ -122,8 +122,14 @@ MapDriver = {
     },
 
     doubleClick: function (latlng) {
-        if (!Meteor.userId()) // must be logged in
+        if (!Meteor.userId()) { // must be logged in
+            growl.warning('Must be logged in to add a place');
             return;
+        }
+        if (!Session.get('active_collection')) { // must be logged in
+            growl.warning('Must be viewing a collection to add a place');
+            return;
+        }
 
         var point = {
             "type": "Feature",

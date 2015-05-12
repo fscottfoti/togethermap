@@ -95,14 +95,14 @@ Template.collectionEdit.events = {
         var d = Handlebars.compile(t)(p);
         if(!t)
             d = "No template";
-        bootbox.alert(d);
+        makeBootbox(d);
     },
 
     'click .place-template-json': function () {
 
         var p = _.sample(MPlaces.find().fetch());
         var d = "<pre>"+syntaxHighlight(p);
-        bootbox.alert(d);
+        makeBootbox(d);
     },
 
     'click .place-template-list-sample': function () {
@@ -112,7 +112,7 @@ Template.collectionEdit.events = {
         var d = Handlebars.compile(t)(p);
         if(!t)
             d = "No template";
-        bootbox.alert(d);
+        makeBootbox(d);
     },
 
     'change #icon_f': function (e) {

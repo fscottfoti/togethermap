@@ -34,6 +34,15 @@ Accounts.ui.config({
 });
 
 
+makeBootbox = function (d) {
+    bootbox.dialog({
+        message: d,
+        backdrop: true,
+        onEscape: function() {}
+    });
+};
+
+
 // this or's the meteor userid with the google id since historically
 // things were owned by the google id - this allows users to get their
 // data back from the old version of the site.

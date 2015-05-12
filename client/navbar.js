@@ -69,9 +69,7 @@ Template.navItems.events = {
     'click .settings-go': function (e) {
 
         e.preventDefault();
-        bootbox.dialog({
-            message: renderTmp(Template.settings)
-        });
+        makeBootbox(renderTmp(Template.settings));
         closeDropdowns();
     },
 
