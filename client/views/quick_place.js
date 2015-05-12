@@ -12,7 +12,7 @@ Template.quick_place.helpers({
 
 Template.quick_place.events = {
 
-    'click .go-to-place': function () {
+    'click .pan-map': function () {
 
         var center = Map.jsonGetCenter(this);
 
@@ -27,5 +27,14 @@ Template.quick_place.events = {
         }
 
         Map.bounceMarker(this._id);
-    }
+    },
+
+    'click .go-to-place': function (e) {
+
+        e.preventDefault();
+        Router.go('place', {
+            _id: this._id,
+            _cid: this.collectionId
+        });
+    },
 };

@@ -140,7 +140,8 @@ Template.collectionEdit.events = {
 
         var t = e.target.value;
 
-        templates.place_template = Handlebars.compile(t);
+        templates.place_template =
+            Handlebars.compile(t || defaultPlaceTemplate);
 
         MCollections.update(this._id, {$set: {place_template: t}});
     },
@@ -149,7 +150,8 @@ Template.collectionEdit.events = {
 
         var t = e.target.value;
 
-        templates.place_template_list = Handlebars.compile(t);
+        templates.place_template_list =
+            Handlebars.compile(t || defaultPlaceTemplateList);
 
         MCollections.update(this._id, {$set: {place_template_list: t}});
     },

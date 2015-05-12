@@ -76,18 +76,12 @@ writePermission = function(o) {
 
 defaultPlaceTemplate =
     '<h2>'+
-    '    {{#if properties.name}}' +
-    '        {{ properties.name }}' +
-    '    {{else}}' +
-    '        No Name Given' +
-    '    {{/if}}' +
+    '    {{defaultValue properties.name "No Name Given" }}'+
     '</h2>';
 
 defaultPlaceTemplateList =
     '<h4>'+
-    '    {{#if properties.name}}' +
-    '        {{ properties.name }}' +
-    '    {{else}}' +
-    '        No Name Given' +
-    '    {{/if}}' +
-    '</h4>';
+    '<span class="go-to-place" style="cursor: pointer;">'+
+    '{{ defaultValue properties.name "No Name Given" }}'+
+    '<span>'+
+    '</h3>';
