@@ -70,7 +70,7 @@ Template.collectionEdit.events = {
         var that = this;
         bootbox.confirm("Are you sure you want to delete this COLLECTION?", function(result) {
             if(result) {
-                MCollections.remove(that._id);
+                Meteor.call('removeCollection', that._id);
                 Router.go('collections');
             }
         });

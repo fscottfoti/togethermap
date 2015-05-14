@@ -327,7 +327,8 @@ switchCollection = function (cid) {
         currentCollection = cid;
 
         Map.newShapes();
-        if(!mobileFormFactor && Meteor.userId()) {
+        if(!mobileFormFactor &&
+            writePermission(undefined, cid, Meteor.user(), 'place')) {
             Map.addDrawControl();
         }
 

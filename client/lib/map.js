@@ -123,11 +123,16 @@ MapDriver = {
 
     doubleClick: function (latlng) {
         if (!Meteor.userId()) { // must be logged in
-            growl.warning('Must be logged in to add a place');
+            growl.warning('Must be logged in to add a place.');
             return;
         }
-        if (!Session.get('active_collection')) { // must be logged in
-            growl.warning('Must be viewing a collection to add a place');
+        var cid = Session.get('active_collection');
+        if (!cid) { // must be logged in
+            growl.warning('Must be viewing a collection to add a place.');
+            return;
+        }
+        if (!writePermission(undefined, cid, Meteor.user(), "place")) {
+            growl.warning('User does not have permission to add places to this collection.');
             return;
         }
 
@@ -799,7 +804,8 @@ Map = {
         });
 
         // FIXME
-        shape.writeable = true;
+        shape.writeable = writePermission(place,
+            place.collectionId, Meteor.user(), "place");
 
         if (place.geometry.type === 'Point') {
 

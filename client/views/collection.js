@@ -24,7 +24,7 @@ Template.collection.helpers({
     },
 
     followable: function () {
-        return Meteor.user() && !isMine(this) &&
+        return Meteor.user() && !isMine(this, Meteor.user()) &&
             !MFollowed.findOne({cid: this._id});
     },
 
@@ -46,17 +46,13 @@ Template.collection.events = {
 
         e.preventDefault();
         // don't want to follow it twice, so we do an upsert
-        MFollowed.insert({
-            userId: Meteor.userId(),
-            cid: this._id,
-            name: this.name
-        });
+        Meteor.call('addFollow', this._id, this.name);
     },
 
     'click .unfollow': function (e) {
 
         e.preventDefault();
         var obj = MFollowed.findOne({cid: this._id});
-        MFollowed.remove(obj._id);
+        Meteor.call('removeFollow', obj._id);
     }
 };
