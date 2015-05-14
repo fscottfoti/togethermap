@@ -22,3 +22,16 @@
 
 <template name="loading">
 </template>
+
+<template name="permission_denied">
+    <div>
+        <br><br>
+        <h2 align="center">
+            {{#if currentUser }}
+                Permission Denied - contact collection owner for access.
+            {{else}}
+                Permission Denied - need to login?
+            {{/if}}
+        </h2>
+    </div>
+</template>

@@ -9,7 +9,8 @@ Template.place.rendered = function () {
 Template.place.helpers({
 
     writePermission: function () {
-        return writePermission(this);
+        var cid = Session.get('active_collection');
+        return writePermission(this, cid, Meteor.user());
     },
 
     dynamicPlace: function () {

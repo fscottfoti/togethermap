@@ -9,7 +9,8 @@ Template.post.rendered = function () {
 Template.post.helpers({
 
     writePermission: function () {
-        return writePermission(this);
+        var cid = Session.get('active_collection');
+        return writePermission(this, cid, Meteor.user());
     },
 
     noComments: function () {

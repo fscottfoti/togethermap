@@ -19,7 +19,8 @@ Template.collection.helpers({
     },
 
     write_permission: function () {
-        return writePermission(this);
+        var cid = Session.get('active_collection');
+        return writePermission(this, cid, Meteor.user());
     },
 
     followable: function () {

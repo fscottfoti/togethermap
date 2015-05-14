@@ -1,7 +1,12 @@
 Router.configure({
     layoutTemplate: 'layout',
     loadingTemplate: 'loading',
-    waitOn: function() { return Meteor.subscribe('collections'); }
+    waitOn: function() {
+        return [
+            Meteor.subscribe('collections'),
+            Meteor.subscribe('collectionsUser')
+        ]
+    }
 });
 
 
@@ -9,6 +14,22 @@ Tracker.autorun(function () {
     Meteor.subscribe("userData");
     Meteor.subscribe("followed");
 });
+
+
+var verifyPermissions = function (that ,cid) {
+    if(readPermission(Meteor.user(), cid)) {
+        that.next()
+    } else {
+        that.render('permission_denied');
+    }
+};
+
+var waitOn = function (cid) {
+    return [
+        Meteor.subscribe("collection", cid),
+        Meteor.subscribe("permission", cid)
+    ]
+};
 
 
 Router.map(function () {
@@ -41,10 +62,17 @@ Router.map(function () {
 
     this.route('collection', {
         path: '/collection/:_id',
+        waitOn: function () {
+            return waitOn(this.params._id);
+        },
         data: function () {
             return {
-                collection: MCollections.findOne(this.params._id)
+                collection: MCollections.findOne(this.params._id),
+                permissions: MPermissions.findOne(this.params._id)
             }
+        },
+        onBeforeAction: function () {
+            verifyPermissions(this, this.params._id);
         },
         onAfterAction: function () {
             switchCollection(this.params._id);
@@ -57,8 +85,15 @@ Router.map(function () {
         path: '/collection_edit/:_id',
         data: function () {
             return {
-                collection: MCollections.findOne(this.params._id)
+                collection: MCollections.findOne(this.params._id),
+                permissions: MPermissions.findOne(this.params._id)
             }
+        },
+        waitOn: function () {
+            return waitOn(this.params._id);
+        },
+        onBeforeAction: function () {
+            verifyPermissions(this, this.params._id);
         },
         onAfterAction: function () {
             switchCollection(this.params._id);
@@ -76,10 +111,10 @@ Router.map(function () {
 
     this.route('place', {
         path: '/place/:_cid/:_id',
-        subscriptions: function() {
+        subscriptions: function () {
             return [
-                Meteor.subscribe('place', this.params._id),
-                Meteor.subscribe('posts', this.params._id)
+                Meteor.subscribe('place', this.params._id, this.params._cid),
+                Meteor.subscribe('posts', this.params._id, this.params._cid)
             ]
         },
         data: function () {
@@ -87,6 +122,12 @@ Router.map(function () {
                 place: MPlaces.findOne(this.params._id),
                 posts: MPosts.find({placeId: this.params._id})
             }
+        },
+        waitOn: function () {
+            return waitOn(this.params._cid);
+        },
+        onBeforeAction: function () {
+            verifyPermissions(this, this.params._cid);
         },
         onAfterAction: function () {
             Session.set('active_place', this.params._id);
@@ -99,10 +140,19 @@ Router.map(function () {
     this.route('place_edit', {
         path: '/place_edit/:_cid/:_id',
         subscriptions: function() {
-            return Meteor.subscribe('place', this.params._id);
+            return Meteor.subscribe('place', this.params._id, this.params._cid);
         },
         data: function () {
-            return MPlaces.findOne(this.params._id);
+            return {
+                place: MPlaces.findOne(this.params._id),
+                permissions: MPermissions.findOne(this.params._id)
+            }
+        },
+        waitOn: function () {
+            return waitOn(this.params._cid);
+        },
+        onBeforeAction: function () {
+            verifyPermissions(this, this.params._cid);
         },
         onAfterAction: function () {
             Session.set('active_place', this.params._id);
@@ -116,15 +166,22 @@ Router.map(function () {
         path: '/post/:_cid/:_id',
         subscriptions: function() {
             return [
-                Meteor.subscribe('post', this.params._id),
-                Meteor.subscribe('comments', this.params._id)
+                Meteor.subscribe('post', this.params._id, this.params._cid),
+                Meteor.subscribe('comments', this.params._id, this.params._cid)
             ]
         },
         data: function () {
             return {
                 post: MPosts.findOne(this.params._id),
-                comments: MComments.find({postId: this.params._id})
+                comments: MComments.find({postId: this.params._id}),
+                permissions: MPermissions.findOne(this.params._id)
             }
+        },
+        waitOn: function () {
+            return waitOn(this.params._cid);
+        },
+        onBeforeAction: function () {
+            verifyPermissions(this, this.params._cid);
         },
         onAfterAction: function () {
             switchCollection(this.params._cid);
@@ -137,11 +194,20 @@ Router.map(function () {
         path: '/post_edit/:_cid/:_id',
         subscriptions: function() {
             return [
-                Meteor.subscribe('post', this.params._id)
+                Meteor.subscribe('post', this.params._id, this.params._cid)
             ]
         },
         data: function () {
-            return MPosts.findOne(this.params._id)
+            return {
+                post: MPosts.findOne(this.params._id),
+                permissions: MPermissions.findOne(this.params._id)
+            }
+        },
+        waitOn: function () {
+            return waitOn(this.params._cid);
+        },
+        onBeforeAction: function () {
+            verifyPermissions(this, this.params._cid);
         },
         onAfterAction: function () {
             switchCollection(this.params._cid);
@@ -178,6 +244,12 @@ Router.map(function () {
             return {
                 collection: MCollections.findOne(this.params._id)
             }
+        },
+        waitOn: function () {
+            return waitOn(this.params._id);
+        },
+        onBeforeAction: function () {
+            verifyPermissions(this, this.params._id);
         },
         onAfterAction: function () {
             switchCollection(this.params._id);
@@ -248,7 +320,6 @@ switchCollection = function (cid) {
             Map.switchBaseLayer(Map.defaultBaseMap);
         }
         return;
-
     }
 
     if(cid != currentCollection) {

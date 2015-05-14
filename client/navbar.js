@@ -24,11 +24,11 @@ Template.nav.events = {
 Template.navItems.helpers({
 
     my_collections: function () {
-        return MCollections.find(userIdExpression());
+        return MCollections.find(userIdExpression(Meteor.user()));
     },
 
     no_collections: function () {
-        return MCollections.find(userIdExpression()).count() == 0;
+        return MCollections.find(userIdExpression(Meteor.user())).count() == 0;
     },
 
     followed: function () {
