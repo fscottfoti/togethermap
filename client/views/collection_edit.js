@@ -44,7 +44,7 @@ Template.collectionEdit.helpers({
 Template.collectionEdit.events = {
 
     'change input[name=name]': function(event) {
-        MCollections.update(this._id, {$set:{name: event.target.value}});
+        Meteor.call('updateCollection', this._id, {$set:{name: event.target.value}});
     },
 
     'click .save-location': function() {
@@ -53,9 +53,11 @@ Template.collectionEdit.events = {
             zoom: Map.map.getZoom()
         };
 
-        MCollections.update(this._id, {$set:{location: location}});
+        Meteor.call('updateCollection',
+            this._id, {$set:{location: location}});
 
-        MCollections.update(this._id, {$set:{default_map: Map.activeBaseMap}});
+        Meteor.call('updateCollection',
+            this._id, {$set:{default_map: Map.activeBaseMap}});
     },
 
     'click .toggle-expert': function() {
@@ -119,21 +121,21 @@ Template.collectionEdit.events = {
 
         var t = e.target.value;
 
-        MCollections.update(this._id, {$set: {icon_f: t}});
+        Meteor.call('updateCollection', this._id, {$set: {icon_f: t}});
     },
 
     'change #icon_size_f': function (e) {
 
         var t = e.target.value;
 
-        MCollections.update(this._id, {$set: {icon_size_f: t}});
+        Meteor.call('updateCollection', this._id, {$set: {icon_size_f: t}});
     },
 
     'change #color_f': function (e) {
 
         var t = e.target.value;
 
-        MCollections.update(this._id, {$set: {color_f: t}});
+        Meteor.call('updateCollection', this._id, {$set: {color_f: t}});
     },
 
     'change #place-template': function (e) {
@@ -143,7 +145,7 @@ Template.collectionEdit.events = {
         templates.place_template =
             Handlebars.compile(t || defaultPlaceTemplate);
 
-        MCollections.update(this._id, {$set: {place_template: t}});
+        Meteor.call('updateCollection', this._id, {$set: {place_template: t}});
     },
 
     'change #place-template-list': function (e) {
@@ -153,12 +155,12 @@ Template.collectionEdit.events = {
         templates.place_template_list =
             Handlebars.compile(t || defaultPlaceTemplateList);
 
-        MCollections.update(this._id, {$set: {place_template_list: t}});
+        Meteor.call('updateCollection', this._id, {$set: {place_template_list: t}});
     },
 
     'change #drop-markers': function (e) {
 
-        MCollections.update(this._id,
+        Meteor.call('updateCollection', this._id,
             {$set: {drop_markers: e.target.checked}});
     }
 };

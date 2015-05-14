@@ -1,6 +1,6 @@
 var jqueryInit = function (id) {
     initFroala(function (html) {
-        MPosts.update(id, {$set:{'description': html}});
+        Meteor.call('updatePost', id, {$set:{'description': html}});
     });
 };
 

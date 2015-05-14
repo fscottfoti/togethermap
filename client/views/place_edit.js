@@ -1,7 +1,7 @@
 var jqueryInit = function (id) {
     var place = MPlaces.findOne(Session.get('active_place'));
     initFroala(function (html) {
-        MPlaces.update(id, {$set:{'properties.description': html}});
+        Meteor.call('updatePlace', id, {$set:{'properties.description': html}});
     });
     $('#shape-color').val(place.properties.color);
     $('#shape-color').pickAColor({
@@ -56,34 +56,34 @@ Template.placeEdit.helpers({
 Template.placeEdit.events({
 
     'change input[name=name]': function(event) {
-        MPlaces.update(this._id, {$set:{'properties.name': event.target.value}});
+        Meteor.call('updatePlace', this._id, {$set:{'properties.name': event.target.value}});
     },
 
     "change #shape-color": function (evt) {
 
         var v = $(evt.target).val();
-        MPlaces.update(this._id, {$set: {'properties.color': v}});
+        Meteor.call('updatePlace', this._id, {$set: {'properties.color': v}});
 
     },
 
     "change #icons": function (evt) {
 
         var v = $(evt.target).val();
-        MPlaces.update(this._id, {$set: {'properties.icon': v}});
+        Meteor.call('updatePlace', this._id, {$set: {'properties.icon': v}});
 
     },
 
     "change #icon_size": function (evt) {
 
         var v = $(evt.target).val();
-        MPlaces.update(this._id, {$set: {'properties.icon_size': v}});
+        Meteor.call('updatePlace', this._id, {$set: {'properties.icon_size': v}});
 
     },
 
     "change #line_width": function (evt) {
 
         var v = $(evt.target).val();
-        MPlaces.update(this._id, {$set: {'properties.weight': v}});
+        Meteor.call('updatePlace', this._id, {$set: {'properties.weight': v}});
 
     },
 
