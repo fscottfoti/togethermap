@@ -67,8 +67,7 @@ Router.map(function () {
         },
         data: function () {
             return {
-                collection: MCollections.findOne(this.params._id),
-                permissions: MPermissions.findOne(this.params._id)
+                collection: MCollections.findOne(this.params._id)
             }
         },
         onBeforeAction: function () {
@@ -81,12 +80,51 @@ Router.map(function () {
     });
 
 
+    this.route('permissions', {
+        path: '/permissions/:_id',
+        waitOn: function () {
+            return [
+                Meteor.subscribe('fullCollection', this.params._id)
+            ]
+        },
+        data: function () {
+            return {
+                collection: MCollections.findOne(this.params._id)
+            }
+        },
+        onAfterAction: function () {
+            switchCollection(this.params._id);
+            openSidebar();
+        }
+    });
+
+
+    this.route('permissions_link', {
+        path: '/permissions_link/:_id/:type/:key',
+        waitOn: function () {
+            return [
+                Meteor.subscribe('collectionViaKey',
+                    this.params._id, this.params.key)
+            ]
+        },
+        data: function () {
+            return {
+                params: this.params,
+                collection: MCollections.findOne(this.params._id)
+            }
+        },
+        onAfterAction: function () {
+            switchCollection();
+            openSidebar();
+        }
+    });
+
+
     this.route('collection_edit', {
         path: '/collection_edit/:_id',
         data: function () {
             return {
-                collection: MCollections.findOne(this.params._id),
-                permissions: MPermissions.findOne(this.params._id)
+                collection: MCollections.findOne(this.params._id)
             }
         },
         waitOn: function () {
@@ -144,8 +182,7 @@ Router.map(function () {
         },
         data: function () {
             return {
-                place: MPlaces.findOne(this.params._id),
-                permissions: MPermissions.findOne(this.params._id)
+                place: MPlaces.findOne(this.params._id)
             }
         },
         waitOn: function () {
@@ -173,8 +210,7 @@ Router.map(function () {
         data: function () {
             return {
                 post: MPosts.findOne(this.params._id),
-                comments: MComments.find({postId: this.params._id}),
-                permissions: MPermissions.findOne(this.params._id)
+                comments: MComments.find({postId: this.params._id})
             }
         },
         waitOn: function () {
@@ -199,8 +235,7 @@ Router.map(function () {
         },
         data: function () {
             return {
-                post: MPosts.findOne(this.params._id),
-                permissions: MPermissions.findOne(this.params._id)
+                post: MPosts.findOne(this.params._id)
             }
         },
         waitOn: function () {

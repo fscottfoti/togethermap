@@ -1,0 +1,141 @@
+<template name="permissions">
+
+    {{#with collection}}
+
+        <h2>
+            Permissions for {{ name }}
+        </h2>
+
+
+        <div class="btn-group"
+             data-toggle="buttons-radio"
+             id="my_radiogroup">
+            <button type="radio"
+                    class="btn btn-primary per_mode"
+                    name="per_mode"
+                    value="owners">
+                Owners
+            </button>
+            <button type="radio"
+                    class="btn btn-primary per_mode"
+                    name="per_mode"
+                    value="place_writers">
+                Placemakers
+            </button>
+            <button type="radio"
+                    class="btn btn-primary per_mode"
+                    name="per_mode"
+                    value="post_writers">
+                Posters
+            </button>
+            <button type="radio"
+                    class="btn btn-primary per_mode"
+                    name="per_mode"
+                    value="readers">
+                Readers
+            </button>
+        </div>
+
+        <br><br>
+
+        {{#if is_public }}
+
+            This collection is public for all
+            <i>{{permission_type}}</i>.
+
+            <br><br>
+
+            Click to make this collection
+            <button class="btn btn-success make-private">
+                private
+            </button>
+
+            for all <i>{{permission_type}}</i>.
+
+        {{else}}
+
+            {{#if list_exists }}
+
+                Below is the list of {{permission_type}}
+                that have permission
+                to edit this collection.<br>
+
+                <div ng-repeat="(key, val) in
+                                permissions[permission_type]"
+                     style="margin-top: 5px;">
+
+                    <a ng-really-message="Are you sure you want to
+                              remove the user?"
+                       ng-really-click="removeUser(key)"
+                       ng-show="owner">
+
+                        <button class="btn btn-sm btn-danger"
+                                style="text-decoration: none;
+                                       cursor: pointer;">
+                            Remove
+                        </button>
+                    </a>
+
+                    <button class="btn btn-sm btn-default"
+                            style="cursor: default;">
+                        Editors
+                    </button>
+                </div>
+
+            {{else}}
+
+                No <i>{{permission_type}}</i>
+                have been added to this collection.
+
+            {{/if}}
+
+            <br><br>
+
+            <div ng-show="owner">
+
+                Add <i>{{permission_type}}</i> by emailing this
+
+                <button class="btn btn-success"
+                        id="copy-link">
+                    link
+                </button> to collaborators
+
+                <br><br>
+
+                Or
+                <button class="btn btn-success"
+                        id="new-link">
+                    generate
+                </button> a new link and invalidate all past links
+
+            </div>
+
+
+            {{#if public_ok}}
+
+                <br>
+
+                Or click to make this collection
+
+                <button class="btn btn-success make-public">
+                    public
+                </button>
+
+                for all <i>{{permission_type}}</i>.
+
+            {{/if}}
+
+        {{/if}}
+
+    {{/with}}
+
+    {{#unless collection.creatorUID }}
+
+        <div>
+            <h2 align="center">
+                Collection is missing. <br> Perhaps collection has been deleted?
+            </h2>
+        </div>
+
+    {{/unless}}
+</template>

@@ -20,7 +20,7 @@ Template.collection.helpers({
 
     write_permission: function () {
         var cid = Session.get('active_collection');
-        return writePermission(this, cid, Meteor.user());
+        return writePermission(this, cid, Meteor.user(), "collection");
     },
 
     followable: function () {
@@ -40,6 +40,12 @@ Template.collection.events = {
 
         e.preventDefault();
         Router.go('collection_edit', {_id: this._id});
+    },
+
+    'click .permissions-link': function (e) {
+
+        e.preventDefault();
+        Router.go('permissions', {_id: this._id});
     },
 
     'click .follow': function (e) {

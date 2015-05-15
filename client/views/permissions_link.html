@@ -1,0 +1,36 @@
+<template name="permissionsLink">
+
+    <h2>
+        Welcome to {{ collection.name }}!
+    </h2>
+
+    {{{ collection.description }}}
+
+    <h4>
+        You have been invited to join a collection on TogetherMap.
+        TogetherMap is a website to build collections of places and discuss them.
+
+        <br><br>
+
+    {{#unless currentUser }}
+
+        You will need to login to accept this invitation.
+        Login using the menu above.
+
+    {{else}}
+
+        You are logged in, so click below to
+        join the <i>{{ permissionType }}</i> group:
+
+        <br><br>
+
+        <label class="btn btn-success accept-invite">
+            Accept
+        </label>
+
+    {{/unless}}
+
+    </h4>
+
+</template>
+
