@@ -19,14 +19,23 @@
 
     {{else}}
 
-        You are logged in, so click below to
-        join the <i>{{ permissionType }}</i> group:
+        {{#unless alreadyHasPermissions }}
 
-        <br><br>
+            You are logged in, so click below to
+            join the <i>{{ permissionType }}</i> group:
 
-        <label class="btn btn-success accept-invite">
-            Accept
-        </label>
+            <br><br>
+
+            <label class="btn btn-success accept-invite">
+                Accept
+            </label>
+
+        {{else}}
+
+            You already have the permissions offered here.
+            Click <a href="#" class="collection-go">here</a> to go to the collection.
+
+        {{/unless}}
 
     {{/unless}}
 

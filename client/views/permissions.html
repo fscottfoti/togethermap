@@ -56,31 +56,23 @@
 
             {{#if list_exists }}
 
-                Below is the list of {{permission_type}}
-                that have permission
-                to edit this collection.<br>
+                Below is the list of <i>{{permission_type}}</i>
+                that have permission to edit this collection.
 
-                <div ng-repeat="(key, val) in
-                                permissions[permission_type]"
-                     style="margin-top: 5px;">
+                <br>
 
-                    <a ng-really-message="Are you sure you want to
-                              remove the user?"
-                       ng-really-click="removeUser(key)"
-                       ng-show="owner">
+                {{#each usersInList }}
 
-                        <button class="btn btn-sm btn-danger"
-                                style="text-decoration: none;
-                                       cursor: pointer;">
+                    {{ . }}
+
+                    <a class="delete-link">
+                        <button id="{{.}}" class="btn btn-danger">
+                            <i class="fa fa-trash"></i>
                             Remove
                         </button>
                     </a>
 
-                    <button class="btn btn-sm btn-default"
-                            style="cursor: default;">
-                        Editors
-                    </button>
-                </div>
+                {{/each}}
 
             {{else}}
 

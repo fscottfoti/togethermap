@@ -27,7 +27,7 @@ var verifyPermissions = function (that ,cid) {
 var waitOn = function (cid) {
     return [
         Meteor.subscribe("collection", cid),
-        Meteor.subscribe("permission", cid)
+        Meteor.subscribe("permissionsForCid", cid)
     ]
 };
 
@@ -104,13 +104,15 @@ Router.map(function () {
         waitOn: function () {
             return [
                 Meteor.subscribe('collectionViaKey',
-                    this.params._id, this.params.key)
+                    this.params._id, this.params.key),
+                Meteor.subscribe("permissionsForCid", this.params._id)
             ]
         },
         data: function () {
             return {
                 params: this.params,
-                collection: MCollections.findOne(this.params._id)
+                collection: MCollections.findOne(this.params._id),
+                permissions: MPermissions.findOne(this.params._id)
             }
         },
         onAfterAction: function () {

@@ -36,6 +36,11 @@ Template.permissions.helpers({
         return this[p] && this[p].length > 0;
     },
 
+    usersInList: function () {
+        var p = Session.get("permission_type");
+        return this[p];
+    },
+
     public_ok: function () {
         return Session.get("permission_type") != 'owners';
     },
@@ -57,6 +62,22 @@ Template.permissions.events = {
 
         e.preventDefault();
         Session.set("permission_type", e.target.value);
+    },
+
+    'click .delete-link': function(e) {
+
+        var user = $(e.target).attr('id');
+
+        e.preventDefault();
+        bootbox.confirm("Are you sure you want to remove this permission for this user?", function(result) {
+            if(result) {
+                var attr = {};
+                var key = Session.get("permission_type");
+                attr[key] = user;
+                var cid = Session.get('active_collection');
+                Meteor.call('updateCollection', cid, {$pull: attr});
+            }
+        });
     },
 
     'click .make-public': function () {
