@@ -57,6 +57,10 @@ Template.place.helpers({
 
 Template.place.events = {
 
+    'click .pan-map': function () {
+
+        Map.goToPlace(this);
+    },
 
     'click .read-more': function (e) {
 

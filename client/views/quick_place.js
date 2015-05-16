@@ -14,19 +14,7 @@ Template.quick_place.events = {
 
     'click .pan-map': function () {
 
-        var center = Map.jsonGetCenter(this);
-
-        if (Map.center().distanceTo(center) < 50) {
-
-            // for the second click, zoom in instead
-            Map.zoomToFeature(this._id);
-
-        } else {
-
-            Map.panTo(center);
-        }
-
-        Map.bounceMarker(this._id);
+        Map.goToPlace(this);
     },
 
     'click .go-to-place': function (e) {

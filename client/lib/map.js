@@ -455,12 +455,17 @@ Map = {
         if(this.bouncing[key])
             return;
         var shape = Map.keysToLayers[key];
+
+        var originalOffset = shape.options.zIndexOffset;
+        shape.setZIndexOffset(10000);
+
         if(shape.hasOwnProperty('_icon')) {
             this.bouncing[key] = true;
             shape.bounce(4);
             var that = this;
             setTimeout(function() {
                 that.bouncing[key] = false;
+                shape.setZIndexOffset(originalOffset);
             }, 4000);
         }
     },
@@ -725,6 +730,23 @@ Map = {
             marker.setIcon(icon);
         });
         return marker;
+    },
+
+
+    goToPlace: function (place) {
+        var center = Map.jsonGetCenter(place);
+
+        if (Map.center().distanceTo(center) < 50) {
+
+            // for the second click, zoom in instead
+            Map.zoomToFeature(place._id);
+
+        } else {
+
+            Map.panTo(center);
+        }
+
+        Map.bounceMarker(place._id);
     },
 
 

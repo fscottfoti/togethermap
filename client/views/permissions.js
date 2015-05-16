@@ -28,7 +28,13 @@ Template.permissions.rendered = function () {
 
 Template.permissions.helpers({
     permission_type: function () {
-        return Session.get("permission_type") || "Owners"
+        var p = Session.get("permission_type") || "Owners";
+        return {
+            owners: "Owners",
+            place_writers: "Placemakers",
+            post_writers: "Posters",
+            readers: "Readers"
+        }[p]
     },
 
     list_exists: function () {
@@ -62,6 +68,14 @@ Template.permissions.events = {
 
         e.preventDefault();
         Session.set("permission_type", e.target.value);
+    },
+
+    'click .collection-go': function (e) {
+
+        e.preventDefault();
+        Router.go('collection', {
+            _id: this._id
+        });
     },
 
     'click .delete-link': function(e) {
