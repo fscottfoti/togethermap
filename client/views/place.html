@@ -18,7 +18,7 @@
 
             <span> //
                 <i class="fa fa-calendar"></i>
-                {{ formatDate properties.createDate }}
+                {{ formatDate dateField }}
             </span>
 
             <span> //
@@ -146,7 +146,7 @@
 
     {{#unless newTopic}}
 
-        {{#unless currentUser}}
+        {{#unless currentUser }}
 
             <div>
                 <h3>
@@ -156,14 +156,24 @@
 
         {{else}}
 
-            <div>
-                <a class="new-topic">
-                    <button class="btn btn-warning">
-                        <i class="fa fa-file"></i>
-                        New Topic
-                    </button>
-                </a>
-            </div>
+            {{#unless postPermission}}
+
+                <div>
+                        Contact collection admin to get post writing permission
+                </div>
+
+            {{else}}
+
+                <div>
+                    <a class="new-topic">
+                        <button class="btn btn-warning">
+                            <i class="fa fa-file"></i>
+                            New Topic
+                        </button>
+                    </a>
+                </div>
+
+            {{/unless}}
 
         {{/unless}}
 

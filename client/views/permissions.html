@@ -46,7 +46,7 @@
             <br><br>
 
             Click to make this collection
-            <button class="btn btn-success make-private">
+            <button class="btn brn-sm btn-success make-private">
                 private
             </button>
 
@@ -63,31 +63,36 @@
 
                 {{#each usersInList }}
 
-                    {{ . }}
+                    <div style="padding-top: 6px;">
 
-                    <a class="delete-link">
-                        <button id="{{.}}" class="btn btn-danger">
-                            <i class="fa fa-trash"></i>
-                            Remove
-                        </button>
-                    </a>
+                        <a class="delete-link">
+                            <button id="{{.}}" class="btn btn-sm btn-danger">
+                                <i class="fa fa-trash"></i>
+                                Remove
+                            </button>
+                        </a>
+
+                        {{ . }}
+                    </div>
 
                 {{/each}}
 
             {{else}}
 
-                No <i>{{permission_type}}</i>
-                have been added to this collection.
+                <div>
+                    No <i>{{permission_type}}</i>
+                    have been added to this collection.
+                </div>
 
             {{/if}}
 
-            <br><br>
+            <br>
 
             <div ng-show="owner">
 
                 Add <i>{{permission_type}}</i> by emailing this
 
-                <button class="btn btn-success"
+                <button class="btn btn-sm btn-success"
                         id="copy-link">
                     link
                 </button> to collaborators
@@ -95,7 +100,7 @@
                 <br><br>
 
                 Or
-                <button class="btn btn-success"
+                <button class="btn btn-sm btn-success"
                         id="new-link">
                     generate
                 </button> a new link and invalidate all past links
@@ -109,7 +114,7 @@
 
                 Or click to make this collection
 
-                <button class="btn btn-success make-public">
+                <button class="btn btn-sm btn-success make-public">
                     public
                 </button>
 
@@ -130,4 +135,7 @@
         </div>
 
     {{/unless}}
+
+    <br><br>
+
 </template>

@@ -15,10 +15,10 @@
                    class="form-control"/>
         </div>
 
-        <div ng-hide="edit_mode"
-             ng-show="collection.description"
-             style="margin-top: 15px; margin-bottom: 15px;"
-             ng-bind-html="collection.description">
+        <div class="form-group">
+            <textarea id="editable">
+                {{description}}
+            </textarea>
         </div>
 
         <div class="form-group">

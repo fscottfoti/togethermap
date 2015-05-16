@@ -6,14 +6,15 @@ var jqueryInit = function (id) {
 
 
 Template.postEdit.rendered = function () {
-    jqueryInit(this.data._id);
+    jqueryInit(this.data.post._id);
 };
 
 
 Template.postEdit.events({
 
     'change input[name=name]': function(event) {
-        MPosts.update(this._id, {$set:{'title': event.target.value}});
+        Meteor.call('updatePost', this._id,
+            {$set:{'title': event.target.value}});
     },
 
     'click .delete-link': function(e) {

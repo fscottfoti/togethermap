@@ -13,6 +13,10 @@ Template.place.helpers({
         return writePermission(this, cid, Meteor.user());
     },
 
+    dateField: function () {
+        return this.createDate || this.properties.createDate;
+    },
+
     dynamicPlace: function () {
         // compiled when we change the collection for performance
         if(templates.place_template_list) {
@@ -42,6 +46,11 @@ Template.place.helpers({
     noPosts: function () {
         // doesn't count if place isn't loaded
         return this.posts.count() == 0 && this.place;
+    },
+
+    postPermission: function () {
+        var cid = Session.get("active_collection");
+        return writePermission(undefined, cid, Meteor.user(), "post");
     }
 });
 

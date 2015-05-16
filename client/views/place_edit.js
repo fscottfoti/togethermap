@@ -13,7 +13,7 @@ var jqueryInit = function (id) {
 
 
 Template.placeEdit.rendered = function () {
-    jqueryInit(this.data._id);
+    jqueryInit(this.data.place._id);
 };
 
 

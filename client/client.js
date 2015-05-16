@@ -5,7 +5,7 @@ Meteor.startup(function(){
 var formatDate = function (date, format) {
     if(!date)
         return 'no date';
-    return moment(date).format(format || 'MMM Do, h:mm a');
+    return moment(date).format(format || 'MMM Do YYYY, h:mm a');
 };
 
 var formatNumber = function (num, format) {

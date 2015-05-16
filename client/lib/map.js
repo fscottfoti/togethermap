@@ -803,7 +803,6 @@ Map = {
             MapDriver.activatePlace(this.key);
         });
 
-        // FIXME
         shape.writeable = writePermission(place,
             place.collectionId, Meteor.user(), "place");
 
