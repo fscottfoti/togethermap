@@ -380,6 +380,8 @@ switchCollection = function (cid) {
     if(!mobileFormFactor &&
         writePermission(undefined, cid, Meteor.user(), 'place')) {
         Map.addDrawControl();
+    } else {
+        Map.removeDrawControl();
     }
 
     var poly = Map.getBoundsAsPolygon();

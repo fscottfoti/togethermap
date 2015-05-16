@@ -1,19 +1,16 @@
-Template.permissions.rendered = function () {
-    Session.set("permission_type", "owners");
-
+setUpClipboard = function () {
     ZeroClipboard.config( { swfPath: "/ZeroClipboard.swf" } );
 
-    if(!this.data.collection) {
+    if(!Meteor.userId()) {
         // not logged in
         return;
     }
-
-    var cid = this.data.collection._id;
 
     var makeLink = function (event, forceNew) {
         var clipboard = event.clipboardData;
         var type = Session.get("permission_type");
         var currentKey = Session.get("permission_key");
+        var cid = Session.get('active_collection');
 
         var txt = getPermissionsLink(type, cid, currentKey, forceNew);
         clipboard.setData( "text/plain", txt);
@@ -29,6 +26,10 @@ Template.permissions.rendered = function () {
         .on( "copy", function( event ) {
             makeLink(event, true);
         });
+};
+
+Template.permissions.rendered = function () {
+    Session.set("permission_type", "owners");
 };
 
 
@@ -66,11 +67,18 @@ Template.permissions.helpers({
     is_public: function () {
         var p = Session.get("permission_type");
         Session.set("permission_key", this[p+"_key"]);
-        return {
+        var ret = {
             "readers": isReadPublic(this),
             "place_writers": isWritePublic(this, "place"),
             "post_writers": isWritePublic(this, "post")
         }[p];
+
+        // when you go back and forth between public and private the dom for the
+        // clipboard gets removed and has to be reinitialized
+        if(ret == false)
+            setUpClipboard();
+
+        return ret;
     }
 });
 
