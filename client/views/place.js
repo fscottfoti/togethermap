@@ -62,6 +62,12 @@ Template.place.events = {
         Map.goToPlace(this);
     },
 
+    'click .profile-go': function (e) {
+
+        e.preventDefault();
+        Router.go('profile', {_id: this.creatorUID});
+    },
+
     'click .read-more': function (e) {
 
         e.preventDefault();

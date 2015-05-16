@@ -24,7 +24,7 @@ Template.nav.events = {
 Template.navItems.helpers({
 
     my_collections: function () {
-        return MCollections.find(userIdExpression(Meteor.user()));
+        return MCollections.find(userIdExpression(Meteor.user()), {sort: {name: 1}});
     },
 
     no_collections: function () {
@@ -32,7 +32,7 @@ Template.navItems.helpers({
     },
 
     followed: function () {
-        return MFollowed.find();
+        return MFollowed.find({}, {sort: {name: 1}});
     },
 
     none_followed: function () {

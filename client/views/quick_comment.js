@@ -11,5 +11,11 @@ Template.quick_comment.events = {
 
         e.preventDefault();
         Meteor.call('removeComment', this._id, this.postId);
+    },
+
+    'click .profile-go': function (e) {
+
+        e.preventDefault();
+        Router.go('profile', {_id: this.creatorUID});
     }
-}
+};

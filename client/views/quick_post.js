@@ -9,3 +9,12 @@ Template.quick_post.helpers({
         return c + ' Comment' + (c == 1 ? '' : 's');
     }
 });
+
+
+Template.quick_post.events = {
+    'click .profile-go': function (e) {
+
+        e.preventDefault();
+        Router.go('profile', {_id: this.creatorUID});
+    }
+};

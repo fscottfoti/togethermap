@@ -2,6 +2,12 @@ Template.permissions.rendered = function () {
     Session.set("permission_type", "owners");
 
     ZeroClipboard.config( { swfPath: "/ZeroClipboard.swf" } );
+
+    if(!this.data.collection) {
+        // not logged in
+        return;
+    }
+
     var cid = this.data.collection._id;
 
     var makeLink = function (event, forceNew) {
@@ -45,6 +51,12 @@ Template.permissions.helpers({
     usersInList: function () {
         var p = Session.get("permission_type");
         return this[p];
+    },
+
+    userName: function() {
+        var k = this.toString();
+        var u = Meteor.users.findOne(k);
+        return (u && u.profile) ? u.profile.name || u.profile.displayName : k;
     },
 
     public_ok: function () {

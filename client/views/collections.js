@@ -15,5 +15,11 @@ Template.collections.events = {
 
         e.preventDefault();
         Router.go('collection', {_id: this._id});
+    },
+
+    'click .profile-go': function (e) {
+
+        e.preventDefault();
+        Router.go('profile', {_id: this.creatorUID});
     }
 };

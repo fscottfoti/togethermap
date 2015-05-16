@@ -364,10 +364,6 @@ switchCollection = function (cid) {
         currentCollection = cid;
 
         Map.newShapes();
-        if(!mobileFormFactor &&
-            writePermission(undefined, cid, Meteor.user(), 'place')) {
-            Map.addDrawControl();
-        }
 
         MapDriver.init(cid, c);
 
@@ -378,6 +374,14 @@ switchCollection = function (cid) {
             c.place_template_list || defaultPlaceTemplateList);
 
     }
+
+    // this needs to be outside of the if statement above so it
+    // will run every time a person logs in or out
+    if(!mobileFormFactor &&
+        writePermission(undefined, cid, Meteor.user(), 'place')) {
+        Map.addDrawControl();
+    }
+
     var poly = Map.getBoundsAsPolygon();
     Meteor.subscribe("places", cid, poly, {
         onReady: function() {

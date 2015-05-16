@@ -3,19 +3,11 @@
     {{#with collection}}
 
         <h2>
-            Permissions for {{ name }}
-        </h2>
-
-        <div class="form-group">
-
-            <a class="collection-go">
-                <button class="btn btn-primary">
-                    <i class="fa fa-arrow-left"></i>
-                    Collection
-                </button>
+            Permissions for
+            <a href="#" class="collection-go">
+                {{ name }}
             </a>
-        </div>
-
+        </h2>
 
         <div class="btn-group"
              data-toggle="buttons-radio"
@@ -82,7 +74,7 @@
                             </button>
                         </a>
 
-                        {{ . }}
+                        {{ userName }}
                     </div>
 
                 {{/each}}
