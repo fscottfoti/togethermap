@@ -362,7 +362,7 @@ switchCollection = function (cid) {
     if(cid != currentCollection) {
 
         currentCollection = cid;
-
+        
         Map.newShapes();
 
         MapDriver.init(cid, c);

@@ -364,6 +364,10 @@ Map = {
             this.writeShapeLayerGroup = L.featureGroup().addTo(Map.map);
             this.readShapeLayerGroup = L.featureGroup().addTo(Map.map);
             this.has_multipolygon = false;
+            if(Map.drawControlAdded) {
+                Map.removeDrawControl();
+                Map.addDrawControl();
+            }
         },
         hide: function () {
             if(this.writeShapeLayerGroup) {
