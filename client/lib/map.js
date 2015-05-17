@@ -310,8 +310,7 @@ Map = {
         function offClick() {
             Map.shapeLayerGroup.eachLayer(function (layer) {
                 layer.off('click');
-                layer.off('mouseover');
-                layer.off('mouseout');
+                layer.unbindLabel();
             });
         }
 
@@ -322,12 +321,6 @@ Map = {
                 });
 
                 if(layer.highlight_icon) {
-                    layer.on('mouseover', function () {
-                        layer.setIcon(layer.highlight_icon);
-                    });
-                    layer.on('mouseout', function () {
-                        layer.setIcon(layer.normal_icon);
-                    });
                     layer.bindLabel(layer.labelStr, {direction: 'auto'});
                 }
             });
@@ -812,7 +805,7 @@ Map = {
             } else {
                 var post_count = place.post_count || 0;
 
-                label = (place.properties.name || 'No Name Specified') +
+                label = (place.properties.name || 'No Name Given') +
                     '<br>' +
                     post_count.toString() +
                     (post_count !== 1 ? ' posts': ' post');

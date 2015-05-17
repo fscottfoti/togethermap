@@ -354,7 +354,7 @@ switchCollection = function (cid) {
 
     if(!c) {
         if(!Map.activeBaseMap) {
-            Map.switchBaseLayer(Map.defaultBaseMap);
+            //Map.switchBaseLayer(Map.defaultBaseMap);
         }
         return;
     }
