@@ -80,6 +80,13 @@ Template.navItems.events = {
         closeDropdowns();
     },
 
+    'click .picasa-go': function (e) {
+
+        e.preventDefault();
+        Router.go('collection', {_id: 'picasa'});
+        closeDropdowns();
+    },
+
     'click .collections-go': function (e) {
 
         e.preventDefault();

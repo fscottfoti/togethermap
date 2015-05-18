@@ -350,7 +350,15 @@ switchCollection = function (cid) {
         return;
     }
 
-    var c = MCollections.findOne(cid);
+    if(cid in ConnectorList) {
+        Map.newShapes();
+        Map.switchBaseLayer(Map.defaultBaseMap);
+        var conn = ConnectorList[cid];
+        conn.init();
+        return;
+    } else {
+        var c = MCollections.findOne(cid);
+    }
 
     if(!c) {
         if(!Map.activeBaseMap) {

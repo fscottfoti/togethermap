@@ -2,6 +2,7 @@ var jqueryInit = function (id) {
     initFroala(function (html) {
         Meteor.call('updateCollection', id, {$set:{'description': html}});
     });
+    Session.set('expertConfiguration', false);
 };
 
 
