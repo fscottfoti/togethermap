@@ -829,7 +829,8 @@
                 calculateIconResizeTransforms(
                     this._bouncingMotion.x,
                     this._bouncingMotion.y,
-                    this.options.icon.options.iconSize[1],
+                    this.options.icon.options.iconSize ?
+                        this.options.icon.options.iconSize[1] : undefined,
                     this._bouncingOptions.contractHeight
                 );
 

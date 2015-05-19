@@ -54,7 +54,7 @@ Router.map(function () {
             }
         },
         onAfterAction: function () {
-            switchCollection();
+            switchCollection(CollectionsConnector);
             openSidebar();
         }
     });
@@ -289,6 +289,8 @@ Router.map(function () {
             verifyPermissions(this, this.params._id);
         },
         onAfterAction: function () {
+            if(this.params._id == "empty")
+                Map.switchBaseLayer(Map.defaultBaseMap);
             switchCollection(this.params._id);
             closeSidebar();
         }
@@ -319,6 +321,13 @@ closeSidebar = function () {
 
 switchCollection = function (cid) {
 
+    if (typeof cid !== 'string') {
+        // we assume it's a connector - cid can be id or
+        // data connector interface
+        var conn = cid;
+        cid = undefined;
+    }
+
     if(!Meteor.userId()) {
         // if logged out
         Map.removeDrawControl();
@@ -347,6 +356,17 @@ switchCollection = function (cid) {
         if(!Map.activeBaseMap) {
             Map.switchBaseLayer(Map.defaultBaseMap);
         }
+
+        if(conn) {
+            // custom data connector
+
+            templates.place_template = Handlebars.compile(defaultPlaceTemplate);
+            templates.place_template_list = Handlebars.compile(defaultPlaceTemplateList);
+
+            conn.init();
+            conn.getAll();
+        }
+
         return;
     }
 
@@ -373,7 +393,7 @@ switchCollection = function (cid) {
         
         Map.newShapes();
 
-        MapDriver.init(cid, c);
+        DefaultMapDriver.init(cid, c);
 
         templates.place_template = Handlebars.compile(
             c.place_template || defaultPlaceTemplate);
@@ -399,5 +419,5 @@ switchCollection = function (cid) {
             Session.set('map_visible_places', cnt);
         }
     });
-    MapDriver.wholeCollectionQuery(cid);
+    DefaultMapDriver.getAll(cid);
 };

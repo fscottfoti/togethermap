@@ -3,12 +3,14 @@
 
 /* global L, Map, MapDriver */
 
-MapDriver = {
+DefaultMapDriver = {
 
     init: function (id, options) {
         if(!options) {
             return;
         }
+
+        Map.mapDriver = DefaultMapDriver;
 
         if(options.drop_markers !== undefined) {
             Map.drop_markers = options.drop_markers;
@@ -36,6 +38,9 @@ MapDriver = {
             Map.dont_delete_places = false;
         }
 
+        // should make this configurable in the UI
+        Map.enable_clustering = false;
+
         if(options.location !== undefined) { // && !Bookmark.hasState()) {
             // change the map view IFF we're loading
             // a user map for the first time
@@ -50,7 +55,7 @@ MapDriver = {
         }
     },
 
-    wholeCollectionQuery: function (cid) {
+    getAll: function (cid) {
         this.subscription(
             MPlaces.find({collectionId: cid})
         );
@@ -65,7 +70,7 @@ MapDriver = {
                 Session.set('map_visible_places', cnt);
             }
         });
-        MapDriver.wholeCollectionQuery(cid);
+        this.getAll(cid);
     },
 
     subscription: function (sub) {
@@ -86,22 +91,6 @@ MapDriver = {
             }
         });
     },
-
-    setCustomCancel: function (f) {
-        this.customCancel = f;
-    },
-
-    setCustomQuery: function (f) {
-        this.customQuery = f;
-    },
-
-    setCustomGet: function (f) {
-        this.customGet = f;
-    },
-
-    setCustomLabel: function (f) {
-        this.customLabel = f;
-    },
     
     activatePlace: function (key) {
         var layer = Map.keysToLayers[key];
@@ -118,7 +107,7 @@ MapDriver = {
     },
 
     contextMenuAdd: function (e) {
-        MapDriver.doubleClick(e.latlng);
+        this.doubleClick(e.latlng);
     },
 
     doubleClick: function (latlng) {
@@ -200,7 +189,7 @@ Map = {
             contextmenuWidth: 140,
             contextmenuItems: [{
             text: 'Add marker',
-            callback: MapDriver.contextMenuAdd
+            callback: Map.contextMenuAdd
         }]});
 
         /* geocoder always gets added */
@@ -258,11 +247,11 @@ Map = {
         this.initDrawing();
 
         this.map.on('moveend', function() {
-            MapDriver.locationChanged();
+            Map.mapDriver.locationChanged();
         });
 
         this.map.on('zoomend', function() {
-            MapDriver.locationChanged();
+            Map.mapDriver.locationChanged();
         });
 
         var that = this;
@@ -274,12 +263,18 @@ Map = {
         this.keysToLayers = {};
         // two shape layers, one for editing and the other for viewing
         this.shapeLayerGroup.new();
+        this.enable_clustering = false;
+        this.mapDriver = DefaultMapDriver;
+    },
+
+    contextMenuAdd: function (e) {
+        this.mapDriver.contextMenuAdd(e);
     },
 
     enableDoubleClickAdd: function () {
         this.map.doubleClickZoom.disable();
         this.map.on("dblclick", function(e) {
-            MapDriver.doubleClick(e.latlng);
+            Map.mapDriver.doubleClick(e.latlng);
         });
     },
 
@@ -292,18 +287,18 @@ Map = {
     initDrawing: function () {
         // this is the method that actually adds the marker
         this.map.on('draw:created', function(e) {
-            MapDriver.createPlace(Map.newShape(e.layer));
+            Map.mapDriver.createPlace(Map.newShape(e.layer));
         });
 
         this.map.on('draw:edited', function (e) {
             e.layers.eachLayer(function (layer) {
-                MapDriver.editPlace(layer.key, layer);
+                Map.mapDriver.editPlace(layer.key, layer);
             });
         });
 
         this.map.on('draw:deleted', function (e) {
             e.layers.eachLayer(function (layer) {
-                MapDriver.deletePlace(layer.key);
+                Map.mapDriver.deletePlace(layer.key);
             });
         });
 
@@ -317,7 +312,7 @@ Map = {
         function onClick() {
             Map.shapeLayerGroup.eachLayer(function (layer) {
                 layer.on('click', function () {
-                    MapDriver.activatePlace(layer.key);
+                    Map.mapDriver.activatePlace(layer.key);
                 });
 
                 if(layer.highlight_icon) {
@@ -361,8 +356,14 @@ Map = {
     shapeLayerGroup: {
         new: function () {
             this.hide();
-            this.writeShapeLayerGroup = L.featureGroup().addTo(Map.map);
-            this.readShapeLayerGroup = L.featureGroup().addTo(Map.map);
+
+            if(Map.enable_clustering) {
+                this.writeShapeLayerGroup = (new L.MarkerClusterGroup()).addTo(Map.map);
+                this.readShapeLayerGroup = (new L.MarkerClusterGroup()).addTo(Map.map);
+            } else {
+                this.writeShapeLayerGroup = L.featureGroup().addTo(Map.map);
+                this.readShapeLayerGroup = L.featureGroup().addTo(Map.map);
+            }
             this.has_multipolygon = false;
             if(Map.drawControlAdded) {
                 Map.removeDrawControl();
@@ -804,9 +805,13 @@ Map = {
 
         if(this.show_popups) {
             var label;
-            if(this.customLabel) {
-                label = this.customLabel(place.properties);
+
+            if(this.mapDriver.customLabel) {
+
+                label = this.mapDriver.customLabel(place);
+
             } else {
+
                 var post_count = place.post_count || 0;
 
                 label = (place.properties.name || 'No Name Given') +
@@ -819,7 +824,7 @@ Map = {
         }
 
         shape.on('click', function () {
-            MapDriver.activatePlace(this.key);
+            Map.mapDriver.activatePlace(this.key);
         });
 
         shape.writeable = writePermission(place,
@@ -853,7 +858,7 @@ Map = {
     addMarker: function(marker, key) {
         this.shapeLayerGroup.add(marker);
         marker.on('click', function () {
-            MapDriver.activatePlace(key);
+            Map.mapDriver.activatePlace(key);
         });
     },
 
