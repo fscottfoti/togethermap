@@ -454,10 +454,11 @@ Map = {
             return;
         var shape = Map.keysToLayers[key];
 
-        var originalOffset = shape.options.zIndexOffset;
-        shape.setZIndexOffset(10000);
-
         if(shape.hasOwnProperty('_icon')) {
+
+            var originalOffset = shape.options.zIndexOffset;
+            shape.setZIndexOffset(10000);
+
             this.bouncing[key] = true;
             shape.bounce(4);
             var that = this;
@@ -512,6 +513,20 @@ Map = {
         var b = this.map.getBounds();
         var ne = b._northEast;
         var sw = b._southWest;
+
+
+        /*if(sw.lng < -180 || sw.lng > 180)
+            sw.lng = -180;
+        if(ne.lng < -180 || ne.lng > 180)
+            ne.lng = -180;
+        if(sw.lat < -90 || sw.lat > 90)
+            sw.lat = -90;
+        if(ne.lat < -90 || ne.lat > 90)
+            ne.lat = 90;
+
+        console.log(sw);
+        console.log(ne);*/
+
         return [
             [sw.lng, sw.lat], [sw.lng, ne.lat], [ne.lng, ne.lat],
             [ne.lng, sw.lat], [sw.lng, sw.lat]
@@ -527,6 +542,7 @@ Map = {
         var b = l.getBounds();
         var ne = b._northEast;
         var sw = b._southWest;
+
         return {
             type: "Polygon",
             coordinates: [[

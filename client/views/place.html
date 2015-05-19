@@ -56,36 +56,24 @@
 
     </div>
 
-
-    {{#if 0}}
-    <div>
-        <span class="dropdown"
-              dropdown
-              on-toggle="toggled(open)"
-              ng-hide="disablePlaceSharing">
-            <button type="button"
-                    class="btn btn-primary dropdown-toggle"
-                    dropdown-toggle
-                    ng-disabled="disabled">
-
-                <i class="fa fa-copy"></i>
-
-                Copy to <span class="caret"></span>
-
-            </button>
-            <ul class="dropdown-menu">
-
-                <li ng-repeat="(key, value) in add_collections">
-                    <a href ng-click="addToCollection(key)">
-                        {{value}}
-                    </a>
-                </li>
-            </ul>
-        </span>
+    <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle copy-to" data-toggle="dropdown">
+            <i class="fa fa-copy"></i>
+            Copy to
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            {{#each myCollections}}
+            <li role="presentation">
+                <a role="menuitem" tabindex="-1" href="#">
+                    {{name}}
+                </a>
+            </li>
+            {{/each}}
+        </ul>
     </div>
-    {{/if}}
 
-    {{#if 0}}
+{{#if 0}}
     <div>
         Collections this place is a member of:
 
@@ -116,7 +104,8 @@
 
         {{/each}}
     </div>
-    {{/if}}
+{{/if}}
+
 
     <hr>
 

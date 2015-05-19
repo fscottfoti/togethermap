@@ -51,11 +51,30 @@ Template.place.helpers({
     postPermission: function () {
         var cid = Session.get("active_collection");
         return writePermission(undefined, cid, Meteor.user(), "post");
+    },
+
+    myCollections: function () {
+        var mine = MCollections.find(userIdExpression(Meteor.user())).fetch();
+        var followed = MFollowed.find().fetch();
+        var docs = mine.concat(followed);
+        return _.sortBy(docs, function(doc) {return doc.name;});
     }
 });
 
+var closed = true;
 
 Template.place.events = {
+
+    'click .copy-to': function () {
+        // I really shouldn't have to do this - there's some sort of bad
+        // interaction with bootstrap and the leaflet container
+        if(closed) {
+            $('.dropdown-toggle').dropdown('toggle');
+        } else {
+            $('.dropdown.open .dropdown-toggle').dropdown('toggle');
+        }
+        closed = !closed;
+    },
 
     'click .pan-map': function () {
 
