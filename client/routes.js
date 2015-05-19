@@ -153,18 +153,31 @@ Router.map(function () {
         path: '/place/:_cid/:_id',
         subscriptions: function () {
             return [
-                Meteor.subscribe('place', this.params._id, this.params._cid),
+                Meteor.subscribe('allCollectionsForPlace', this.params._id),
                 Meteor.subscribe('posts', this.params._id, this.params._cid)
             ]
         },
         data: function () {
-            return {
-                place: MPlaces.findOne(this.params._id),
-                posts: MPosts.find({placeId: this.params._id})
+            if(this.ready()) {
+                var id = this.params._id;
+                var p = MPlaces.findOne(id);
+                if(!p) {
+                    // place has been deleted
+                    return;
+                }
+                var pid = p.parent_id || p._id;
+                return {
+                    place: p,
+                    posts: MPosts.find({placeId: id}),
+                    allPlaceInstances: MPlaces.find({$or: [{_id: pid}, {parent_id: pid}]})
+                }
             }
         },
         waitOn: function () {
-            return waitOn(this.params._cid);
+            var a = waitOn(this.params._cid);
+            // wait on the place too so I can use it in the filter above
+            a.push(Meteor.subscribe('place', this.params._id, this.params._cid));
+            return a;
         },
         onBeforeAction: function () {
             verifyPermissions(this, this.params._cid);

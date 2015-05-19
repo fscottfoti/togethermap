@@ -42,6 +42,15 @@ Handlebars.registerHelper('defaultValue', function(v, def) {
     return  v || def;
 });
 
+Template.registerHelper('pluralize', function(n, thing) {
+    // fairly stupid pluralizer
+    if (n === 1) {
+        return '1 ' + thing;
+    } else {
+        return n + ' ' + thing + 's';
+    }
+});
+
 
 syntaxHighlight = function (json) {
     if (typeof json != 'string') {

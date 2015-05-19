@@ -52,7 +52,7 @@ Template.navItems.helpers({
 
 infoHidden = {};
 
-var closeDropdowns = function () {
+closeDropdowns = function () {
     $('.dropdown.open .dropdown-toggle').dropdown('toggle');
     $('.toggle-menu:visible').click();
 };

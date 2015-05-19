@@ -56,60 +56,71 @@
 
     </div>
 
-    <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle copy-to" data-toggle="dropdown">
-            <i class="fa fa-copy"></i>
-            Copy to
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-            {{#each myCollections}}
-            <li role="presentation">
-                <a role="menuitem" tabindex="-1" href="#">
-                    {{name}}
-                </a>
-            </li>
-            {{/each}}
-        </ul>
-    </div>
-
-{{#if 0}}
-    <div>
-        Collections this place is a member of:
-
-        {{#each alreadyAddedCollection}}
-
-            <div>
-
-                <a ui-sref="place({ placeId: placeId,
-                                    collectionId: collection.$id })"
-
-                   ng-hide="collection.$id == active_collection">
-
-                    <i class="fa fa-th"></i>
-
-                    {{ collection.name }}
-                </a>
-
-                <span ng-show="collection.$id == active_collection">
-                    <i class="fa fa-th"></i>
-                    {{ collection.name }}
-                </span>
-
-                <span> //
-                    <i class="fa fa-comment"></i>
-                    {{ collection.post_count }} Posts
-                </span>
-            </div>
-
-        {{/each}}
-    </div>
-{{/if}}
-
-
-    <hr>
-
 {{/with}}
+
+{{#if place}}
+
+    {{#if currentUser }}
+
+        <div class="dropdown">
+
+            <button class="btn btn-primary dropdown-toggle copy-to"
+                    data-toggle="dropdown">
+                <i class="fa fa-copy"></i>
+                Copy to
+                <span class="caret"></span>
+            </button>
+
+            <ul class="dropdown-menu" role="menu">
+                {{#each myCollections}}
+                    <li role="presentation">
+                        <a role="menuitem"
+                           class="do-copy"
+                           id="{{_id}}"
+                           cid="{{cid}}"
+                           href="#">
+                            {{name}}
+                        </a>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <div>
+            <br>
+            Collections this place is a member of:
+
+            {{#each allPlaceInstances}}
+
+                <div>
+
+                    {{#unless isThisCollection}}
+
+                        <a class="place-go" href="#">
+                            <i class="fa fa-th"></i>
+                            {{ collectionName }}
+                        </a>
+
+                    {{else}}
+
+                        <span>
+                            <i class="fa fa-th"></i>
+                            {{ collectionName }}
+                        </span>
+
+                    {{/unless}}
+
+                    <span> //
+                        <i class="fa fa-comment"></i>
+                        {{pluralize post_count "Post"}}
+                    </span>
+                </div>
+
+            {{/each}}
+        </div>
+
+    {{/if}}
+    <hr>
 
     {{#if noPosts }}
 
@@ -133,6 +144,7 @@
         {{/each}}
 
     {{/if}}
+{{/if}}
 
 {{#with place }}
 
