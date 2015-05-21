@@ -518,15 +518,27 @@ Map = {
         if(sw.lng < -180 || sw.lng > 180)
             sw.lng = -180;
         if(ne.lng < -180 || ne.lng > 180)
-            ne.lng = -180;
+            ne.lng = 180;
         if(sw.lat < -90 || sw.lat > 90)
             sw.lat = -90;
         if(ne.lat < -90 || ne.lat > 90)
             ne.lat = 90;
 
+        var width = ne.lng - sw.lng;
+        var height = ne.lat - sw.lat;
+
+        // mongo doesn't do well with queryies that are larger then half a hemisphere
+        // lame!!  http://docs.mongodb.org/manual/reference/operator/query/geoIntersects/
+        // only real workaround is not use geoindex if you're basically searching
+        // the whole world anyway, which seems ok
+
+        if(width >= 120 || height >= 60) {
+            return;
+        }
+
         return [
-            [sw.lng, sw.lat], [sw.lng, ne.lat], [ne.lng, ne.lat],
-            [ne.lng, sw.lat], [sw.lng, sw.lat]
+            [ne.lng, sw.lat], [ne.lng, ne.lat], [sw.lng, ne.lat],
+            [sw.lng, sw.lat], [ne.lng, sw.lat]
         ];
     },
 
