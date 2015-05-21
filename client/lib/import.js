@@ -47,7 +47,7 @@ function loadShapes(data) {
     console.log("Loading " + data.features.length + " features");
 
     var col = {
-        'name': data.fileName || 'NEW COLLECTION',
+        'name': data.fileName || fileName || 'NEW COLLECTION',
         'location': location,
         'place_count': data.features.length
     };
@@ -76,9 +76,12 @@ function handleJsonFile(file) {
     reader.readAsText(file);
 }
 
+var fileName = undefined;
+
 handleFile = function(file) {
 
-    //m.spin(true);
+    fileName = file.name.replace(/\\/g, '/').replace(/.*\//, '').replace(/\.[^/.]+$/, "");
+
     if (file.name.slice(-3) === 'zip') {
         return handleZipFile(file);
     }
