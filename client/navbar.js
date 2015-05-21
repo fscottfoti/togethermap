@@ -73,6 +73,13 @@ Template.navItems.events = {
         closeDropdowns();
     },
 
+    'click .import-go': function (e) {
+
+        e.preventDefault();
+        makeBootbox(renderTmp(Template.import));
+        closeDropdowns();
+    },
+
     'click .collection-go': function (e) {
 
         e.preventDefault();

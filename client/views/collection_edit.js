@@ -2,14 +2,15 @@ var jqueryInit = function (id) {
     initFroala(function (html) {
         Meteor.call('updateCollection', id, {$set:{'description': html}});
     });
-    Session.set('expertConfiguration', false);
 };
 
 
 Template.collectionEdit.rendered = function () {
     Session.set('cedit_mode', 'Icon');
     jqueryInit(this.data.collection._id);
+    Session.set('expertConfiguration', false);
 };
+
 
 Template.collectionEdit.helpers({
 

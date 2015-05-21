@@ -8,6 +8,11 @@
     <header>
         {{> nav }}
     </header>
+
+    {{#if spinning}}
+        {{> spinner}}
+    {{/if}}
+
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="col-xs-12">

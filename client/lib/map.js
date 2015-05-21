@@ -515,7 +515,7 @@ Map = {
         var sw = b._southWest;
 
 
-        /*if(sw.lng < -180 || sw.lng > 180)
+        if(sw.lng < -180 || sw.lng > 180)
             sw.lng = -180;
         if(ne.lng < -180 || ne.lng > 180)
             ne.lng = -180;
@@ -523,9 +523,6 @@ Map = {
             sw.lat = -90;
         if(ne.lat < -90 || ne.lat > 90)
             ne.lat = 90;
-
-        console.log(sw);
-        console.log(ne);*/
 
         return [
             [sw.lng, sw.lat], [sw.lng, ne.lat], [ne.lng, ne.lat],
@@ -750,7 +747,7 @@ Map = {
     goToPlace: function (place) {
         var center = Map.jsonGetCenter(place);
 
-        if (Map.center().distanceTo(center) < 50) {
+        if (Map.center().distanceTo(center) < 150) {
 
             // for the second click, zoom in instead
             Map.zoomToFeature(place._id);

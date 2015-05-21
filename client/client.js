@@ -43,6 +43,7 @@ Handlebars.registerHelper('defaultValue', function(v, def) {
 });
 
 Template.registerHelper('pluralize', function(n, thing) {
+    n = n || 0;
     // fairly stupid pluralizer
     if (n === 1) {
         return '1 ' + thing;
