@@ -17,6 +17,21 @@ function readerLoadJson(e) {
     loadShapes(json);
 }
 
+function readerLoadCsv(e) {
+    if (this.readyState !== 2 || this.error) {
+        return;
+    }
+    csv2geojson.csv2geojson(e.target.result, function(err, data) {
+        if(err) {
+            growl.error("Error parsing csv:", err);
+        }
+        loadShapes(data);
+    });
+}
+
+
+
+
 
 // data should be geojson format by this point
 function loadShapes(data) {
@@ -36,12 +51,12 @@ function loadShapes(data) {
     };
 
     for(var i = 0 ; i < data.features.length ; i++) {
+
         var f = data.features[i];
         f.properties.color = randomColor();
 
-        var l = L.geoJson(f);
-        if (f.geometry.type != "Point")
-            l = l.getLayers()[0];
+        var l = L.geoJson(f).getLayers()[0];
+
         f.bbox = Map.shapeAsBbox(l);
     }
     console.log("Loading " + data.features.length + " features");
@@ -76,6 +91,12 @@ function handleJsonFile(file) {
     reader.readAsText(file);
 }
 
+function handleCsvFile(file) {
+    var reader = new FileReader();
+    reader.onload = readerLoadCsv;
+    reader.readAsText(file);
+}
+
 var fileName = undefined;
 
 handleFile = function(file) {
@@ -88,5 +109,8 @@ handleFile = function(file) {
     if (file.name.slice(-4) === 'json') {
         return handleJsonFile(file);
     }
-    growl.error('Only zipped shapefiles and geojson are supported right now');
+    if (file.name.slice(-3) === 'csv') {
+        return handleCsvFile(file);
+    }
+    growl.error('Only zipped shapefiles, geojson, and csv are supported right now');
 };

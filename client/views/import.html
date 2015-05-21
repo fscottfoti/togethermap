@@ -1,22 +1,31 @@
 <template name="import">
     <div>
-        Let's keep in simple.  For now you can only import geojson files or
-        shapefiles.  For a shapefile, put all the different  files
-        (.prj, .dbf, etc) in a single .zip file.  Upload it here and we will
-        create a new collection for you with the shapes from that shapefile.
+        You can import:
+        <ul>
+            <li>
+                Geojson - nothing fancy here
+            </li>
+            <li>
+                csv - use comma separators and make sure to have fields that are either Lat/Lon or Latitude/Longitude
+            </li>
+            <li>
+                Shapefile - put all the different files (.prj, .dbf, etc) in a single .zip file
+            </li>
+        </ul>
+
+        Upload any file that fits one of these formats and we will put all the shapes in a collection (with size limits while we're in beta).
 
         <br><br>
 
         <b>
             WARNING: I think there's something wrong with shapefile coordinate system
-            transformation.  If you're using lat/lng for either shapefile or geojson
-            you will be ok.  I will add csv import soon as well.
+            transformation.  If you're using lat/lng you should be fine.
         </b>
 
         <br><br>
 
         <span class="btn btn-primary btn-file">
-            Upload shapefile <input id="shapeUpload" type="file">
+            Upload file <input id="shapeUpload" type="file">
         </span>
     </div>
 </template>

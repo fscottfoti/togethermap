@@ -545,6 +545,8 @@ Map = {
 
     shapeAsBbox: function (l) {
         var gj = l.toGeoJSON();
+
+        console.log(gj);
         if(gj.geometry.type == "Point") {
             return gj.geometry;
         }
