@@ -80,6 +80,36 @@ Router.map(function () {
     });
 
 
+    this.route('recent', {
+        path: '/recent/:_id',
+        waitOn: function () {
+            return waitOn(this.params._id);
+        },
+        subscriptions: function () {
+            return [
+                Meteor.subscribe('posts', undefined, this.params._id),
+                Meteor.subscribe('places', this.params._id, undefined, {createDate: -1}, RECENT_LIMIT),
+                Meteor.subscribe('comments', undefined, this.params._id)
+            ]
+        },
+        data: function () {
+            return {
+                collection: MCollections.findOne(this.params._id),
+                recent_places: MPlaces.find({collectionId: this.params._id}, {sort: {createDate: -1}, limit: RECENT_LIMIT}),
+                recent_posts: MPosts.find({collectionId: this.params._id}, {$sort: {createDate: -1}, limit: RECENT_LIMIT}),
+                recent_comments: MComments.find({collectionId: this.params._id}, {$sort: {createDate: -1}, limit: RECENT_LIMIT})
+            }
+        },
+        onBeforeAction: function () {
+            verifyPermissions(this, this.params._id);
+        },
+        onAfterAction: function () {
+            switchCollection(this.params._id);
+            openSidebar();
+        }
+    });
+
+
     this.route('permissions', {
         path: '/permissions/:_id',
         waitOn: function () {

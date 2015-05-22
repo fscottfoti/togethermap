@@ -48,6 +48,12 @@ Template.collection.events = {
         Router.go('permissions', {_id: this._id});
     },
 
+    'click .recent-go': function (e) {
+
+        e.preventDefault();
+        Router.go('recent', {_id: this._id});
+    },
+
     'click .profile-go': function (e) {
 
         e.preventDefault();
