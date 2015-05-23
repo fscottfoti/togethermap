@@ -448,6 +448,10 @@ switchCollection = function (cid) {
 
         DefaultMapDriver.init(cid, c);
 
+        if(c.flickr_link) {
+            FlickrConnector.init(c.flickr_link);
+        }
+
         templates.place_template = Handlebars.compile(
             c.place_template || defaultPlaceTemplate);
 

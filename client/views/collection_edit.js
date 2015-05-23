@@ -127,6 +127,13 @@ Template.collectionEdit.events = {
         makeBootbox(d);
     },
 
+    'change #flickr_link': function (e) {
+
+        var t = e.target.value;
+
+        Meteor.call('updateCollection', this._id, {$set: {flickr_link: t}});
+    },
+
     'change #icon_f': function (e) {
 
         var t = e.target.value;

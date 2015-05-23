@@ -90,12 +90,19 @@
 
             <br>
 
+            <div class="form-group">
+                <label>Flickr Album Link:</label><br>
+                <input id="flickr_link" class="form-control" type="text" placeholder="{{flickr_link}}"/>
+            </div>
+
             <div>
 
-                Custom Place Template (for Place Detail):
+                <label>Custom Place Template (for Place Detail):</label>
                 <textarea id="place-template"
-                          rows="4"
-                          style="width:100%">{{place_template}}</textarea>
+                          class="form-control"
+                          rows="4">{{place_template}}</textarea>
+
+                <br>
 
                 <a class="place-template-sample">
                     <button class="btn btn-primary">
@@ -117,10 +124,12 @@
 
             <div>
 
-                Custom Place Template (for Place List):
+                <label>Custom Place Template (for Place List):</label>
                 <textarea id="place-template-list"
-                          rows="4"
-                          style="width: 100%;">{{place_template_list}}</textarea>
+                          class="form-control"
+                          rows="4">{{place_template_list}}</textarea>
+
+                <br>
 
                 <a class="place-template-list-sample">
                     <button class="btn btn-primary">
@@ -133,26 +142,26 @@
 
             <br>
 
-            Custom Theming Functions ({{cedit_mode}}):
+            <label>Custom Theming Functions ({{cedit_mode}}):</label>
 
             {{#if icon_mode}}
                 <textarea rows="4"
-                          id="icon_f"
-                          style="width: 100%;">{{icon_f}}</textarea>
+                          class="form-control"
+                          id="icon_f">{{icon_f}}</textarea>
             {{/if}}
 
             {{#if icon_size_mode}}
                 <textarea rows="4"
-                          id="icon_size_f"
-                          style="width: 100%;">{{icon_size_f}}</textarea>
+                          class="form-control"
+                          id="icon_size_f">{{icon_size_f}}</textarea>
             {{/if}}
 
             {{#if icon_color_mode}}
                 <textarea rows="4"
-                          id="color_f"
-                          style="width: 100%;">{{color_f}}</textarea>
+                          class="form-control"
+                          id="color_f">{{color_f}}</textarea>
             {{/if}}
-
+            <br>
 
             <div class="btn-group"
                  data-toggle="buttons-radio"

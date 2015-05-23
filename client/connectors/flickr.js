@@ -1,6 +1,20 @@
 FlickrConnector = {
 
-    init: function () {
+    parseConfig: function(url) {
+        if(!url)
+            return;
+        var a = $('<a>', { href:url } )[0];
+        var l = a.pathname.substring(1).split('/');
+        this.config = {
+            user: l[1],
+            photoset: l[3]
+        };
+    },
+
+    init: function (url) {
+
+        this.parseConfig(url);
+
         var photoLayer = L.photo.cluster().on('click', function (evt) {
             var photo = evt.layer.photo,
                 template = '<img src="{url}"/></a><p>{caption}</p>';
@@ -33,17 +47,20 @@ FlickrConnector = {
                     });
                 }
             }
+            this.photos = photos;
             photoLayer.add(photos).addTo(Map.map);Map.map.fitBounds(photoLayer.getBounds());
         }
 
+        var url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=41f93e1d8d72f69b710d19ba3bfb35ea&photoset_id='+this.config.photoset+'&user_id='+this.config.user+'&extras=geo,url_m,url_t%2Curl_s&per_page=50&page=1&format=json&jsoncallback=?';
+
         $.getJSON(
-            'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=41f93e1d8d72f69b710d19ba3bfb35ea&photoset_id=72157652877789969&user_id=133431672%40N05&extras=geo,url_m,url_t%2Curl_s&per_page=50&page=1&format=json&jsoncallback=?',
+            url,
             function (data) {
                 jsonFlickrApi(data);
             });
     },
 
     getAll: function () {
-
+        return this.photos;
     }
 };
