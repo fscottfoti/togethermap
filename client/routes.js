@@ -54,7 +54,7 @@ Router.map(function () {
             }
         },
         onAfterAction: function () {
-            switchCollection(CollectionsConnector);
+            switchCollection('collections');
             openSidebar();
         }
     });
@@ -174,7 +174,20 @@ Router.map(function () {
 
     this.route('profile', {
         path: '/profile/:_id',
+        subscriptions: function () {
+            return [
+                Meteor.subscribe('userData', this.params._id)]
+        },
+        data: function () {
+            return {
+                profile: Meteor.users.findOne(this.params._id),
+                places: MPlaces.find({creatorUID: this.params._id})
+            }
+        },
         onAfterAction: function () {
+            Session.set('active_user', this.params._id);
+            switchCollection('profile');
+            openSidebar();
         }
     });
 
@@ -362,12 +375,17 @@ closeSidebar = function () {
 };
 
 
+var connectors = {
+    'profile': ProfileConnector,
+    'collections': CollectionsConnector
+};
+
 switchCollection = function (cid) {
 
-    if (typeof cid !== 'string') {
-        // we assume it's a connector - cid can be id or
-        // data connector interface
-        var conn = cid;
+    Session.set('active_collection', cid);
+
+    if(cid in connectors) {
+        var conn = connectors[cid];
         cid = undefined;
     }
 
@@ -375,8 +393,6 @@ switchCollection = function (cid) {
         // if logged out
         Map.removeDrawControl();
     }
-
-    Session.set('active_collection', cid);
 
     if(!Map.map) {
         return;

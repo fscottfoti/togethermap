@@ -74,3 +74,15 @@ syntaxHighlight = function (json) {
         return '<span class="' + cls + '">' + match + '</span>';
     });
 };
+
+
+function strip(html)
+{
+    var tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+}
+
+Template.registerHelper('stripContent', function(content){
+    return strip(content);
+});
