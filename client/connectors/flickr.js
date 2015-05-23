@@ -33,6 +33,7 @@ FlickrConnector = {
 
         function jsonFlickrApi (data) {
             var photos = [];
+            console.log(data);
             data = data.photoset.photo;
             for (var i = 0; i < data.length; i++) {
 
@@ -66,7 +67,7 @@ FlickrConnector = {
             photoLayer.add(photos).addTo(Map.map);Map.map.fitBounds(photoLayer.getBounds());
         }
 
-        url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=41f93e1d8d72f69b710d19ba3bfb35ea&photoset_id='+this.config.photoset+'&user_id='+this.config.user+'&extras=geo,url_m,url_t%2Curl_s&per_page=50&page=1&format=json&jsoncallback=?';
+        url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=6b15ed9c00eddca7b6686293bdaad8e6&photoset_id='+this.config.photoset+'&user_id='+this.config.user+'&extras=geo,url_m,url_t,url_s&per_page=50&page=1&format=json&jsoncallback=?';
 
         $.getJSON(
             url,
