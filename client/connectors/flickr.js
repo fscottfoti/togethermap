@@ -17,7 +17,7 @@ FlickrConnector = {
 
         var photoLayer = L.photo.cluster().on('click', function (evt) {
             var photo = evt.layer.photo,
-                template = '<img src="{url}"/></a><p>{caption}</p>';
+                template = '<img width="{width}" height="{height}" src="{url}"/>';
 
             if (photo.video &&
                 (!!document.createElement('video').canPlayType(
@@ -27,7 +27,7 @@ FlickrConnector = {
 
             evt.layer.bindPopup(L.Util.template(template, photo), {
                 className: 'leaflet-popup-photo',
-                minWidth: 536
+                maxWidth: 530
             }).openPopup();
         });
 
@@ -35,13 +35,28 @@ FlickrConnector = {
             var photos = [];
             data = data.photoset.photo;
             for (var i = 0; i < data.length; i++) {
+
                 var photo = data[i];
+                var height = photo.height_m;
+                var width = photo.width_m;
+
+                if(height > width) {
+                    height = height * .6;
+                    width = width * .6;
+                } else {
+                    height = height * .8;
+                    width = width * .8;
+                }
+
+
                 if (photo.latitude) {
                     photos.push({
                         key: photo.id,
                         lat: photo.latitude,
                         lng: photo.longitude,
                         url: photo.url_m,
+                        height: height,
+                        width: width,
                         caption: photo.title,
                         thumbnail: photo.url_t
                     });
@@ -51,7 +66,7 @@ FlickrConnector = {
             photoLayer.add(photos).addTo(Map.map);Map.map.fitBounds(photoLayer.getBounds());
         }
 
-        var url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=41f93e1d8d72f69b710d19ba3bfb35ea&photoset_id='+this.config.photoset+'&user_id='+this.config.user+'&extras=geo,url_m,url_t%2Curl_s&per_page=50&page=1&format=json&jsoncallback=?';
+        url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=41f93e1d8d72f69b710d19ba3bfb35ea&photoset_id='+this.config.photoset+'&user_id='+this.config.user+'&extras=geo,url_m,url_t%2Curl_s&per_page=50&page=1&format=json&jsoncallback=?';
 
         $.getJSON(
             url,
