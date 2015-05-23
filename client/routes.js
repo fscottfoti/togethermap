@@ -180,6 +180,7 @@ Router.map(function () {
         },
         data: function () {
             return {
+                userId: this.params._id,
                 profile: Meteor.users.findOne(this.params._id),
                 places: MPlaces.find({creatorUID: this.params._id})
             }
@@ -443,10 +444,10 @@ switchCollection = function (cid) {
     if(cid != currentCollection) {
 
         currentCollection = cid;
-        
-        Map.newShapes();
 
         DefaultMapDriver.init(cid, c);
+
+        Map.newShapes();
 
         if(c.flickr_link) {
             FlickrConnector.init(c.flickr_link);

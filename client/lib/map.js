@@ -354,10 +354,10 @@ Map = {
     // it's a lot of hoops to jump through to be sure, but an important
     // feature
     shapeLayerGroup: {
-        new: function () {
+        new: function (param) {
             this.hide();
 
-            if(Map.enable_clustering) {
+            if(param == 'cluster' || Map.enable_clustering) {
                 this.writeShapeLayerGroup = (new L.MarkerClusterGroup()).addTo(Map.map);
                 this.readShapeLayerGroup = (new L.MarkerClusterGroup()).addTo(Map.map);
             } else {
@@ -450,6 +450,7 @@ Map = {
     /* bounce any marker to show where it is */
     bouncing: {},
     bounceMarker: function (key) {
+        return;
         if(this.bouncing[key])
             return;
         var shape = Map.keysToLayers[key];
@@ -498,6 +499,7 @@ Map = {
         if(layer._latlng) {
             // it's a marker
             this.zoomTo(17);
+            this.map.panTo(layer._latlng);
         } else {
             this.map.fitBounds(layer.getBounds());
         }
@@ -637,9 +639,9 @@ Map = {
 
 
     /* show markers */
-    newShapes: function () {
+    newShapes: function (param) {
         this.keysToLayers = {};
-        this.shapeLayerGroup.new();
+        this.shapeLayerGroup.new(param);
     },
 
 
@@ -760,7 +762,7 @@ Map = {
     goToPlace: function (place) {
         var center = Map.jsonGetCenter(place);
 
-        if (Map.center().distanceTo(center) < 150) {
+        if (this.lastPlace == place._id) {
 
             // for the second click, zoom in instead
             Map.zoomToFeature(place._id);
@@ -769,6 +771,7 @@ Map = {
 
             Map.panTo(center);
         }
+        this.lastPlace = place._id;
 
         Map.bounceMarker(place._id);
     },
@@ -840,8 +843,14 @@ Map = {
 
                 var post_count = place.post_count || 0;
 
-                label = (place.properties.name || 'No Name Given') +
-                    '<br>' +
+                var l = '';
+                if(templates.place_template_list) {
+                    l = templates.place_template_list(place);
+                } else {
+                    l = Handlebars.compile(defaultPlaceTemplateList)(place);
+                }
+
+                label = l +
                     post_count.toString() +
                     (post_count !== 1 ? ' posts': ' post');
             }

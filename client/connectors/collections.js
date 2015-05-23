@@ -11,7 +11,7 @@ CollectionsConnector = {
         });
         Map.switchBaseLayer(Map.defaultBaseMap);
         Map.mapDriver = this;
-        Map.newShapes();
+        Map.newShapes('cluster');
     },
 
     getAll: function (cid) {
