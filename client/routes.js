@@ -377,7 +377,9 @@ closeSidebar = function () {
 
 var connectors = {
     'profile': ProfileConnector,
-    'collections': CollectionsConnector
+    'collections': CollectionsConnector,
+    'picasa': PicasaConnector,
+    'flickr': FlickrConnector
 };
 
 switchCollection = function (cid) {
@@ -429,15 +431,7 @@ switchCollection = function (cid) {
         return;
     }
 
-    if(cid in ConnectorList) {
-        Map.newShapes();
-        Map.switchBaseLayer(Map.defaultBaseMap);
-        var conn = ConnectorList[cid];
-        conn.init();
-        return;
-    } else {
-        var c = MCollections.findOne(cid);
-    }
+    var c = MCollections.findOne(cid);
 
     if(!c) {
         if(!Map.activeBaseMap) {

@@ -45,7 +45,3 @@ PicasaConnector = {
         });
     }
 };
-
-ConnectorList = {
-    'picasa': PicasaConnector
-};
