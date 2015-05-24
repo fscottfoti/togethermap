@@ -1,10 +1,51 @@
 <template name="collection">
+    
+    <h2>
+        {{ collection.name }}
+
+        <br>
+
+        {{#if isOwner}}
+            <span>
+                <i class="fa fa-user"
+                   data-toggle="tooltip"
+                   data-placement="right"
+                   title="You can edit other people's contributions (owner)"></i>
+            </span>
+        {{/if}}
+
+        {{#if isPlaceWriter}}
+            <span>
+                <i class="fa fa-map-marker"
+                   data-toggle="tooltip"
+                   data-placement="right"
+                   title="You can add places"></i>
+            </span>
+        {{/if}}
+
+        {{#if isPostWriter}}
+            <span>
+                <i class="fa fa-comment"
+                   data-toggle="tooltip"
+                   data-placement="right"
+                   title="You can make posts and comments"></i>
+            </span>
+        {{/if}}
+
+        {{#if isReader}}
+            <span>
+                <i class="fa fa-eye"
+                   data-toggle="tooltip"
+                   data-placement="right"
+                   title="You may observe the collection"></i>
+            </span>
+        {{/if}}
+    </h2>
+
+    <div>
+    </div>
 
     {{#with collection}}
-    
-        <h2>
-            {{ name }}
-        </h2>
 
         {{{ description }}}
     

@@ -14,27 +14,34 @@
                 <span>
                     {{#if mapPublic }}
                         <span>
-                        <i class="fa fa-circle"
-                           data-toggle="tooltip"
-                           data-placement="bottom"
-                           title="Public Place Contributions"></i>
+                            <i class="fa fa-circle"
+                               data-toggle="tooltip"
+                               data-placement="bottom"
+                               title="Public Place Contributions"></i>
                         </span>
                     {{/if}}
 
                     {{#if postPublic }}
                         <span>
-                        <i class="fa fa-circle-o"
-                           data-toggle="tooltip"
-                           data-placement="bottom"
-                           title="Public Discussion"></i>
+                            <i class="fa fa-circle-o"
+                               data-toggle="tooltip"
+                               data-placement="bottom"
+                               title="Public Discussion"></i>
                         </span>
                     {{/if}}
                     {{#if readPublic }}
                         <span>
-                        <i class="fa fa-circle-thin"
-                           data-toggle="tooltip"
-                           data-placement="bottom"
-                           title="Public Readable"></i>
+                            <i class="fa fa-circle-thin"
+                               data-toggle="tooltip"
+                               data-placement="bottom"
+                               title="Public Readable"></i>
+                        </span>
+                    {{else}}
+                        <span>
+                            <i class="fa fa-eye-slash"
+                               data-toggle="tooltip"
+                               data-placement="bottom"
+                               title="Invitation Only"></i>
                         </span>
                     {{/if}}
                </span>

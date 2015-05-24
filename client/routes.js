@@ -83,7 +83,8 @@ Router.map(function () {
         },
         data: function () {
             return {
-                collection: MCollections.findOne(this.params._id)
+                collection: MCollections.findOne(this.params._id),
+                permission: MPermissions.findOne(this.params._id)
             }
         },
         onBeforeAction: function () {

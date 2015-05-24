@@ -1,4 +1,29 @@
+Template.collection.rendered = function () {
+    $('[data-toggle="tooltip"]').tooltip()
+};
+
+
+var isOwnerF = function (data) {
+    return data.permission.owner || data.collection.creatorUID == Meteor.userId();
+};
+
 Template.collection.helpers({
+
+    isOwner: function () {
+        return isOwnerF(this);
+    },
+
+    isPlaceWriter: function () {
+        return isOwnerF(this) || this.permission.placeWriter || this.collection.place_write_private != true;
+    },
+
+    isPostWriter: function () {
+        return isOwnerF(this) || this.permission.postWriter || this.collection.post_write_private != true;
+    },
+
+    isReader: function () {
+        return isOwnerF(this) || this.permission.reader || this.collection.read_private != true;
+    },
 
     places: function () {
         var cid = Session.get('active_collection');

@@ -18,11 +18,11 @@ Template.collections.helpers({
     },
 
     postPublic: function () {
-        return this ? this.post_write_private != true : false;
+        return this ? (this.read_private != true && this.post_write_private != true) : false;
     },
 
     mapPublic: function () {
-        return this ? this.place_write_private != true : false;
+        return this ? (this.read_private != true && this.place_write_private != true) : false;
     }
 });
 
