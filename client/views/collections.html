@@ -5,11 +5,39 @@
     </h2>
 
     {{#each collections}}
-        <div class="post">
+        <div>
             <h4>
                 <a href="#" class="collection-go">
                     {{ name }}
                 </a>
+
+                <span>
+                    {{#if mapPublic }}
+                        <span>
+                        <i class="fa fa-circle"
+                           data-toggle="tooltip"
+                           data-placement="bottom"
+                           title="Public Place Contributions"></i>
+                        </span>
+                    {{/if}}
+
+                    {{#if postPublic }}
+                        <span>
+                        <i class="fa fa-circle-o"
+                           data-toggle="tooltip"
+                           data-placement="bottom"
+                           title="Public Discussion"></i>
+                        </span>
+                    {{/if}}
+                    {{#if readPublic }}
+                        <span>
+                        <i class="fa fa-circle-thin"
+                           data-toggle="tooltip"
+                           data-placement="bottom"
+                           title="Public Readable"></i>
+                        </span>
+                    {{/if}}
+               </span>
             </h4>
             {{{ description }}}
         </div>
@@ -32,57 +60,10 @@
                 <i class="icon-comment"></i>
                  {{ formatNumber place_count }} Places
             </span>
+
             </small>
         </div>
 
         <br>
     {{/each}}
-    <!--
-                <i class="fa fa-circle"
-                   tooltip="You are creator"
-                   tooltip-popup-delay="1000"
-                   tooltip-placement="right"
-                   ng-show="myRole(collection.$id) == 'Creator'"></i>
-
-                <i class="fa fa-circle-o"
-                   tooltip="You are owner"
-                   tooltip-popup-delay="1000"
-                   tooltip-placement="right"
-                   ng-show="myRole(collection.$id) == 'Owner'"></i>
-
-                <i class="fa fa-circle-thin"
-                   tooltip="You are writer"
-                   tooltip-popup-delay="1000"
-                   tooltip-placement="right"
-                   ng-show="myRole(collection.$id) == 'Writer'"></i>
-
-
-                <i class="fa fa-plus-square"
-                   tooltip="Public read and write"
-                   tooltip-popup-delay="1000"
-                   tooltip-placement="right"
-                   ng-show="publicWriting(collection.$id)"></i>
-
-                <i class="fa fa-minus-square"
-                   tooltip="Private write"
-                   tooltip-popup-delay="1000"
-                   tooltip-placement="right"
-                   ng-hide="!publicReading(collection.$id) ||
-                            publicWriting(collection.$id)"></i>
-
-                <i class="fa fa-plus-circle"
-                   tooltip="Public read"
-                   tooltip-popup-delay="1000"
-                   tooltip-placement="right"
-                   ng-show="!publicWriting(collection.$id) &&
-                            publicReading(collection.$id)"></i>
-
-                <i class="fa fa-minus-circle"
-                   tooltip="Private read and write"
-                   tooltip-popup-delay="1000"
-                   tooltip-placement="right"
-                   ng-hide="publicReading(collection.$id)"></i>
-             </h4>
-        </div>
-    </div>-->
 </template>

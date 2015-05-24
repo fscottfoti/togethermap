@@ -10,9 +10,25 @@ Router.configure({
 });
 
 
+var getLoadedCids = function () {
+    // I'm not entirely sure I need permissions for all loaded collections
+    // in principal - if you have been given *special* permissions, you're
+    // supposed to be following the collection - otherwise you get the same
+    // public permissions that are always sent back with the collection object
+    // var mine = MCollections.find().fetch();
+    var followed = MFollowed.find().fetch();
+    return _.map(followed, function (c) {
+        return c.cid || c._id; // can be followed or owned
+    });
+};
+
+
 Tracker.autorun(function () {
     Meteor.subscribe("userData");
     Meteor.subscribe("followed");
+
+    var cids = getLoadedCids();
+    Meteor.subscribe("permissionsForCid", cids);
 });
 
 
