@@ -64,7 +64,8 @@ FlickrConnector = {
                 }
             }
             this.photos = photos;
-            photoLayer.add(photos).addTo(Map.map);Map.map.fitBounds(photoLayer.getBounds());
+            photoLayer.add(photos).addTo(Map.map);
+            Map.map.fitBounds(photoLayer.getBounds());
         }
 
         url = 'https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=6b15ed9c00eddca7b6686293bdaad8e6&photoset_id='+this.config.photoset+'&user_id='+this.config.user+'&extras=geo,url_m,url_t,url_s&per_page=50&page=1&format=json&jsoncallback=?';

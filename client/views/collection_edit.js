@@ -47,6 +47,10 @@ Template.collectionEdit.helpers({
 
     drop_markers_checked: function () {
         return this.drop_markers ? "checked" : null;
+    },
+
+    disable_geoindex_checked: function () {
+        return this.disable_geoindex ? "checked" : null;
     }
 });
 
@@ -179,5 +183,11 @@ Template.collectionEdit.events = {
 
         Meteor.call('updateCollection', this._id,
             {$set: {drop_markers: e.target.checked}});
+    },
+
+    'change #disable-geoindex': function (e) {
+
+        Meteor.call('updateCollection', this._id,
+            {$set: {disable_geoindex: e.target.checked}});
     }
 };

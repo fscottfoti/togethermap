@@ -470,9 +470,12 @@ switchCollection = function (cid) {
         Map.removeDrawControl();
     }
 
-    var poly = Map.getBoundsAsPolygon();
+    if(!c.disable_geoindex) {
+        var poly = Map.getBoundsAsPolygon();
+    }
     Meteor.subscribe("places", cid, poly, {
         onReady: function() {
+            DefaultMapDriver.maybeSetLocation();
             var cnt = Map.countVisiblePlaces();
             Session.set('map_visible_places', cnt);
         }

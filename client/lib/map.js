@@ -46,6 +46,9 @@ DefaultMapDriver = {
             // a user map for the first time
             Map.map.setView(options.location.center,
                             options.location.zoom);
+            this.manualLocation = true;
+        } else {
+            this.manualLocation = false;
         }
 
         if(options.default_map) {
@@ -71,6 +74,19 @@ DefaultMapDriver = {
             }
         });
         this.getAll(cid);
+    },
+
+    maybeSetLocation: function () {
+        // the purpose of this method is to set the map view after all the initial
+        // places are loaded IFF there is not a location set on the map - and make
+        // sure the map is zoomed to the right location
+        if(!this.manualLocation) {
+            var b = Map.shapeLayerGroup.getBounds();
+            if(!b)
+                return;
+            // if no manual location, do auto location
+            Map.map.fitBounds(b);
+        }
     },
 
     subscription: function (sub) {
@@ -354,6 +370,32 @@ Map = {
     // it's a lot of hoops to jump through to be sure, but an important
     // feature
     shapeLayerGroup: {
+        getBounds: function () {
+            var b1 = this.readShapeLayerGroup.getBounds();
+            var b2 = this.writeShapeLayerGroup.getBounds();
+
+            // if there aren't places added to one of the layers,
+            // return the other one
+            if(!b1._southWest && !b2._southWest) {
+                return undefined;
+            }
+            if(!b1._southWest)
+                return b2;
+            if(!b2._southWest)
+                return b1;
+
+            // the bounds is always the larger of the bounds of the readable
+            // and writeable shapes
+            var s = Math.min(b2.getSouth(), b1.getSouth());
+            var w = Math.min(b2.getWest(), b1.getWest());
+            var n = Math.max(b2.getNorth(), b1.getNorth());
+            var e = Math.max(b2.getEast(), b1.getEast());
+
+            return [
+                [s, w],
+                [n, e]
+            ];
+        },
         new: function (param) {
             this.hide();
 
