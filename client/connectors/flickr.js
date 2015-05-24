@@ -63,8 +63,9 @@ FlickrConnector = {
                     });
                 }
             }
-            this.photos = photos;
+            FlickrConnector.photos = photos;
             photoLayer.add(photos).addTo(Map.map);
+            FlickrConnector.photoLayer = photoLayer;
             Map.map.fitBounds(photoLayer.getBounds());
         }
 
@@ -79,5 +80,11 @@ FlickrConnector = {
 
     getAll: function () {
         return this.photos;
+    },
+
+    remove: function () {
+        if(Map.map.hasLayer(this.photoLayer)) {
+            Map.map.removeLayer(this.photoLayer);
+        }
     }
 };

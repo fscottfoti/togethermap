@@ -411,6 +411,7 @@ switchCollection = function (cid) {
     if(!cid) {
         if(currentCollection) {
             Map.newShapes();
+            FlickrConnector.remove();
             Map.removeDrawControl();
             currentCollection = undefined;
         }
@@ -448,6 +449,7 @@ switchCollection = function (cid) {
         DefaultMapDriver.init(cid, c);
 
         Map.newShapes();
+        FlickrConnector.remove();
 
         if(c.flickr_link) {
             FlickrConnector.init(c.flickr_link);
