@@ -873,31 +873,29 @@ Map = {
         shape.key = key;
         shape.cid = place.collectionId;
 
-        if(this.show_popups) {
-            var label;
+        var label;
 
-            if(this.mapDriver.customLabel) {
+        if(this.mapDriver.customLabel) {
 
-                label = this.mapDriver.customLabel(place);
+            label = this.mapDriver.customLabel(place);
 
+        } else {
+
+            var post_count = place.post_count || 0;
+
+            var l = '';
+            if(templates.place_template_list) {
+                l = templates.place_template_list(place);
             } else {
-
-                var post_count = place.post_count || 0;
-
-                var l = '';
-                if(templates.place_template_list) {
-                    l = templates.place_template_list(place);
-                } else {
-                    l = Handlebars.compile(defaultPlaceTemplateList)(place);
-                }
-
-                label = l +
-                    post_count.toString() +
-                    (post_count !== 1 ? ' posts': ' post');
+                l = Handlebars.compile(defaultPlaceTemplateList)(place);
             }
-            shape.bindLabel(label, {direction: 'auto'});
-            shape.labelStr = label;
+
+            label = l +
+                post_count.toString() +
+                (post_count !== 1 ? ' posts': ' post');
         }
+        shape.bindLabel(label, {direction: 'auto'});
+        shape.labelStr = label;
 
         shape.on('click', function () {
             Map.mapDriver.activatePlace(this.key);
