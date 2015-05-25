@@ -59,6 +59,14 @@ Template.place.helpers({
         var places = this.allPlaceInstances.fetch();
         var docs = _.filter(mine.concat(followed), function (c) {
             var cid = c.cid || c._id; // can be followed or owned
+
+            var c_obj = MCollections.findOne(cid);
+            var p = MPermissions.findOne(cid);
+            if(!c_obj) // this happens because you might not have read permission anymore
+                return false;
+            if(c_obj && c_obj.place_write_private == true && p && p.placeWriter == false && p.owner == false)
+                return false;
+
             var i = _.find(places, function (p) {
                 return p.collectionId == cid;
             });
