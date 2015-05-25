@@ -57,8 +57,13 @@ Router.map(function () {
 
     this.route('home', {
         path: '/',
+        data: function () {
+            return {
+                places: MPlaces.find()
+            }
+        },
         onAfterAction: function () {
-            switchCollection();
+            switchCollection('home');
             openSidebar();
         }
     });
@@ -406,6 +411,7 @@ closeSidebar = function () {
 
 
 var connectors = {
+    'home': SearchConnector,
     'profile': ProfileConnector,
     'collections': CollectionsConnector,
     'picasa': PicasaConnector,
@@ -465,9 +471,6 @@ switchCollection = function (cid) {
     var c = MCollections.findOne(cid);
 
     if(!c) {
-        if(!Map.activeBaseMap) {
-            //Map.switchBaseLayer(Map.defaultBaseMap);
-        }
         return;
     }
 
