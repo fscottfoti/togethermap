@@ -492,7 +492,6 @@ Map = {
     /* bounce any marker to show where it is */
     bouncing: {},
     bounceMarker: function (key) {
-        return;
         if(this.bouncing[key])
             return;
         var shape = Map.keysToLayers[key];
