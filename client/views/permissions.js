@@ -64,6 +64,14 @@ Template.permissions.helpers({
         return Session.get("permission_type") != 'owners';
     },
 
+    loginreq: function () {
+        return this.read_loginreq == true;
+    },
+
+    loginreq_ok: function () {
+        return Session.get("permission_type") == 'readers';
+    },
+
     is_public: function () {
         var p = Session.get("permission_type");
         Session.set("permission_key", this[p+"_key"]);
@@ -124,6 +132,16 @@ Template.permissions.events = {
         }[p];
 
         Meteor.call('updateCollection', this._id, {$set: attr});
+    },
+
+    'click .make-loginreq': function () {
+
+        Meteor.call('updateCollection', this._id, {$set: {read_loginreq: true}});
+    },
+
+    'click .disable-loginreq': function () {
+
+        Meteor.call('updateCollection', this._id, {$set: {read_loginreq: false}});
     },
 
     'click .make-private': function () {

@@ -101,10 +101,9 @@
 
                 <br><br>
 
-                Or
                 <button class="btn btn-sm btn-success"
                         id="new-link">
-                    generate
+                    Generate
                 </button> a new link and invalidate all past links.
 
             </div>
@@ -114,13 +113,53 @@
 
                 <br>
 
-                Or click to make this collection
+                <div>
 
-                <button class="btn btn-sm btn-success make-public">
-                    public
-                </button>
+                    Click to make this collection
 
-                for all <i>{{permission_type}}</i>.
+                    <button class="btn btn-sm btn-success make-public">
+                        public
+                    </button>
+
+                    for all <i>{{permission_type}}</i>.
+                </div>
+
+            {{/if}}
+
+            {{#if loginreq_ok}}
+
+                {{#unless loginreq}}
+
+                    <br>
+
+                    <div>
+
+                        Click to
+
+                        <button class="btn btn-sm btn-success make-loginreq">
+                            require
+                        </button>
+
+                        login for read access
+
+                    </div>
+
+                {{else}}
+
+                    <br>
+
+                    <div>
+
+                        Click to
+
+                        <button class="btn btn-sm btn-success disable-loginreq">
+                            disable
+                        </button>
+
+                        login required for read access
+                    </div>
+
+                {{/unless}}
 
             {{/if}}
 

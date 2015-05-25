@@ -40,7 +40,13 @@ var verifyPermissions = function (that ,cid) {
 
 var waitOn = function (cid) {
     return [
-        Meteor.subscribe("collection", cid),
+        Meteor.subscribe("collection", cid, {
+            onReady: function (c) {
+                if (!c && !Map.activeBaseMap) {
+                    Map.switchBaseLayer(Map.defaultBaseMap);
+                }
+            }
+        }),
         Meteor.subscribe("permissionsForCid", cid)
     ]
 };
@@ -161,6 +167,14 @@ Router.map(function () {
             }
         },
         onAfterAction: function () {
+            if(this.data().collection &&
+                this.data().collection.read_loginreq != true &&
+                this.params.type == "readers") {
+                // if it's not login required, by definition we want to just
+                // give access to the collection - no funny business
+                Router.go("collection",
+                    {_id: this.params._id});
+            }
             switchCollection();
             openSidebar();
         }
