@@ -17,7 +17,12 @@ ProfileConnector = {
         var poly = Map.getBoundsAsPolygon();
         var userId = Session.get('active_user');
         Meteor.subscribe('places', undefined, poly, {createDate: -1},
-            undefined, userId);
+            undefined, userId, {
+                onReady: function() {
+                    var cnt = Map.countVisiblePlaces();
+                    Session.set('map_visible_places', cnt);
+                }
+            });
     },
 
     getAll: function (cid) {
@@ -34,7 +39,12 @@ ProfileConnector = {
         var poly = Map.getBoundsAsPolygon();
         var userId = Session.get('active_user');
         Meteor.subscribe('places', undefined, poly, {createDate: -1},
-            undefined, userId);
+            undefined, userId, {
+            onReady: function() {
+                var cnt = Map.countVisiblePlaces();
+                Session.set('map_visible_places', cnt);
+            }
+        });
 
         this.getAll();
     },
