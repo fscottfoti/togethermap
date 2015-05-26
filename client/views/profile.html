@@ -27,7 +27,7 @@
             <span>
                 {{ formatNumber visible_places_count }} shown,
                 {{ formatNumber places_loaded_count }} loaded,
-                out of ? Places
+                out of {{ formatNumber userPlaceCount }} Places
             </span>
 
             <br>
@@ -41,6 +41,8 @@
             </span>
 
     </div>
+
+    <br>
 
     <div class="alternate-colors">
 
