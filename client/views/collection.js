@@ -10,19 +10,23 @@ var isOwnerF = function (data) {
 Template.collection.helpers({
 
     isOwner: function () {
-        return isOwnerF(this);
+        var cid = Session.get('active_collection');
+        return writePermission(this, cid, Meteor.user(), "collection");
     },
 
     isPlaceWriter: function () {
-        return isOwnerF(this) || this.permission.placeWriter || this.collection.place_write_private != true;
+        var cid = Session.get('active_collection');
+        return writePermission(undefined, cid, Meteor.user(), "place");
     },
 
     isPostWriter: function () {
-        return isOwnerF(this) || this.permission.postWriter || this.collection.post_write_private != true;
+        var cid = Session.get('active_collection');
+        return writePermission(undefined, cid, Meteor.user(), "post");
     },
 
     isReader: function () {
-        return isOwnerF(this) || this.permission.reader || this.collection.read_private != true;
+        var cid = Session.get('active_collection');
+        return readPermission(Meteor.user(), cid);
     },
 
     places: function () {

@@ -12,7 +12,8 @@ DefaultMapDriver = {
 
         Map.mapDriver = DefaultMapDriver;
 
-        if(options.drop_markers !== undefined) {
+        if(options.drop_markers !== undefined &&
+            Session.get('dont_set_collection_location') != true) {
             Map.drop_markers = options.drop_markers;
         } else {
             Map.drop_markers = false;
