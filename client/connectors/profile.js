@@ -50,6 +50,7 @@ ProfileConnector = {
     },
 
     activatePlace: function (key) {
+        Session.set('dont_set_collection_location', true);
         var layer = Map.keysToLayers[key];
         var cid = layer.cid || Session.get('active_collection');
         Router.go('place', {_id: key, _cid: cid});

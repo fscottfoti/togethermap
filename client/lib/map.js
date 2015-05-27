@@ -41,11 +41,19 @@ DefaultMapDriver = {
         // should make this configurable in the UI
         Map.enable_clustering = false;
 
-        if(options.location !== undefined) { // && !Bookmark.hasState()) {
+        if(options.location !== undefined) {
             // change the map view IFF we're loading
             // a user map for the first time
-            Map.map.setView(options.location.center,
-                            options.location.zoom);
+            if(Session.get('dont_set_collection_location') != true) {
+
+                // so this little bit of code means we don't rezoom
+                // the map when leaving routes such as profile and home
+                // and in general can stop the rezoom when we need to
+                Map.map.setView(options.location.center,
+                    options.location.zoom);
+            } else {
+                Session.set('dont_set_collection_location', false);
+            }
             this.manualLocation = true;
         } else {
             this.manualLocation = false;
