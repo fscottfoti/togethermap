@@ -20,9 +20,9 @@ DefaultMapDriver = {
 
         ['icon', 'color', 'icon_size'].forEach(function (f) {
             if (options[f+'_f'] !== undefined) {
-                Map[f+'_f'] = options[f+'_f'];
+                DefaultMapDriver[f+'_f'] = options[f+'_f'];
             } else {
-                Map[f+'_f'] = false;
+                DefaultMapDriver[f+'_f'] = false;
             }
         });
 
@@ -174,6 +174,12 @@ DefaultMapDriver = {
     deletePlace: function (key) {
         var cid = Session.get('active_collection');
         Meteor.call('removePlace', key, cid);
+    },
+
+    markerThemeFunc: function (f, place) {
+        if(this[f+'_f']) {
+            return new Function('p', this[f+'_f'])(place.properties);
+        }
     }
 };
 
@@ -735,9 +741,11 @@ Map = {
         coords = [coords[1], coords[0]];
 
         ['icon', 'color', 'icon_size'].forEach(function (f) {
-            if(Map[f+'_f']) {
-                place.properties[f] =
-                    new Function('p', Map[f+'_f'])(place.properties);
+            if(!Map.mapDriver.markerThemeFunc)
+                return;
+            var val = Map.mapDriver.markerThemeFunc(f, place);
+            if(val) {
+                place.properties[f] = val;
             }
         });
 

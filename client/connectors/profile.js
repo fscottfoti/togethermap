@@ -55,6 +55,14 @@ ProfileConnector = {
         Router.go('place', {_id: key, _cid: cid});
     },
 
+    markerThemeFunc: function (f, place) {
+        return markerThemeFuncForCollection(f, place);
+    },
+
+    customLabel: function (place) {
+        return customLabelForCollection(place);
+    },
+
     createPlace: function (place) {
     },
 
