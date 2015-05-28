@@ -1,4 +1,9 @@
+var clipInit;
+
 setUpClipboard = function () {
+    if(clipInit)
+        return;
+
     ZeroClipboard.config( { swfPath: "/ZeroClipboard.swf" } );
 
     if(!Meteor.userId()) {
@@ -17,18 +22,26 @@ setUpClipboard = function () {
         growl.success("Link copied to clipboard.");
     };
 
-    new ZeroClipboard( document.getElementById("copy-link") )
+    var v = document.getElementById("copy-link");
+    var v2 = document.getElementById("new-link");
+    if(!v)
+        return;
+
+    clipInit = true;
+
+    new ZeroClipboard( v )
         .on( "copy", function( event ) {
             makeLink(event, false);
         });
 
-    new ZeroClipboard( document.getElementById("new-link") )
+    new ZeroClipboard( v2 )
         .on( "copy", function( event ) {
             makeLink(event, true);
         });
 };
 
 Template.permissions.rendered = function () {
+    setUpClipboard();
     Session.set("permission_type", "owners");
 };
 
@@ -132,6 +145,9 @@ Template.permissions.events = {
         }[p];
 
         Meteor.call('updateCollection', this._id, {$set: attr});
+
+        // this makes the dom go away
+        clipInit = false;
     },
 
     'click .make-loginreq': function () {
