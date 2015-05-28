@@ -18,16 +18,9 @@
     <div class="alternate-colors">
 
         {{#each recent_places}}
-            <div>
 
-                <h4>
-                    <a href="#" class="place-go">
-                        <i class="fa fa-link"></i>
-                    </a>
-                    &nbsp;
-                    {{properties.name}}
-                </h4>
-            </div>
+            {{> quick_place }}
+
         {{/each}}
 
     </div>

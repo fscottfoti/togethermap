@@ -101,5 +101,14 @@ Template.collection.events = {
         e.preventDefault();
         var obj = MFollowed.findOne({cid: this._id});
         Meteor.call('removeFollow', obj._id);
+    },
+
+    'click .pan-map': function () {
+        if(this.location) {
+            Map.map.setView(this.location.center,
+                this.location.zoom);
+        } else {
+            Map.zoomToBounds();
+        }
     }
 };

@@ -95,6 +95,7 @@ DefaultMapDriver = {
                 return;
             // if no manual location, do auto location
             Map.map.fitBounds(b);
+            this.manualLocation = true;
         }
     },
 
@@ -547,6 +548,15 @@ Map = {
 
     zoomTo: function (zoom) {
         this.map.setZoom(zoom);
+    },
+
+
+    zoomToBounds: function () {
+        var b = Map.shapeLayerGroup.getBounds();
+        if(!b)
+            return;
+        // if no manual location, do auto location
+        Map.map.fitBounds(b);
     },
 
 
