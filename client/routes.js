@@ -223,6 +223,9 @@ Router.map(function () {
             Session.set('active_user', this.params._id);
             switchCollection('profile');
             openSidebar();
+        },
+        onStop: function () {
+            Session.set('active_user', undefined);
         }
     });
 

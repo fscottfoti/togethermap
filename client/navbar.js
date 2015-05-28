@@ -47,6 +47,14 @@ Template.navItems.helpers({
         if(!c)
             return;
         return c.name;
+    },
+
+    active_profile: function () {
+        var uid = Session.get('active_user');
+        var user = Meteor.users.findOne(uid);
+        if(!user)
+            return '';
+        return user.profile.name || user.profile.displayName || 'No Profile';
     }
 });
 

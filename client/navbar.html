@@ -138,10 +138,21 @@
         </ul>
     </li>
 
-    <li>
-        <a href="#" class="active-collection">
-            {{active_collection}}
-        </a>
-    </li>
+    {{#if active_collection}}
+        <li>
+            <a href="#" class="active-collection">
+                {{active_collection}}
+            </a>
+        </li>
+    {{/if}}
+
+
+    {{#if active_profile}}
+        <li>
+            <a href="#" class="active-profile">
+                {{active_profile}}
+            </a>
+        </li>
+    {{/if}}
 
 </template>
