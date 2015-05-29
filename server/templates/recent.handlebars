@@ -1,0 +1,99 @@
+<h2>
+    Recent Activity for
+    <a href="#" class="collection-go">
+        {{ collection.name }}
+    </a>
+</h2>
+
+<hr>
+
+<h4>
+    <i class="fa fa-clock-o">
+       Recent Places
+    </i>
+</h4>
+
+<div class="alternate-colors">
+
+    {{#each recent_places}}
+
+        <div class="quick-place">
+            <div class="pan-map">
+                <i class="fa fa-location-arrow fa-2x top-right"></i>
+            </div>
+
+            {{{ dynamic_place }}}
+
+            {{{ properties.description }}}
+
+        </div>
+
+    {{/each}}
+
+</div>
+
+{{#if noPlaces }}
+    <div>
+        No recent places
+    </div>
+{{/if}}
+
+<hr>
+
+<h4>
+    <i class="fa fa-clock-o">
+        Recent Posts
+    </i>
+</h4>
+
+<div class="alternate-colors">
+
+    {{#each recent_posts}}
+        <div>
+            <h4>
+                <a href="#" class="post-go">
+                    <i class="fa fa-link"></i>
+                </a>
+                &nbsp;
+                {{title}}
+            </h4>
+        </div>
+    {{/each}}
+
+</div>
+
+{{#if noPosts }}
+    <div>
+        No recent posts
+    </div>
+{{/if}}
+
+<hr>
+
+<h4>
+    <i class="fa fa-clock-o">
+        &thinsp;Recent Comments
+    </i>
+</h4>
+
+<div class="alternate-colors">
+
+    {{#each recent_comments}}
+        <div>
+            <h4>
+                <a href="#" class="comment-go">
+                    <i class="fa fa-link"></i>
+                </a>
+                &nbsp;
+                {{ stripContent text}}
+            </h4>
+        </div>
+    {{/each}}
+
+</div>
+
+{{#if noComments }}
+    <div>
+        No recent comments
+    </div>
+{{/if}}

@@ -21,3 +21,6 @@ matteodem:easy-search
 reywood:publish-composite
 mikowals:batch-insert
 sacha:spin
+email
+percolate:synced-cron
+cmather:handlebars-server

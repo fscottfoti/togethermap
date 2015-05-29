@@ -2,6 +2,26 @@ Meteor.startup(function(){
 });
 
 
+var getFollowedCids = function () {
+    var followed = MFollowed.find().fetch();
+    return _.map(followed, function (c) {
+        return c.cid;
+    });
+};
+
+
+Tracker.autorun(function () {
+    Meteor.subscribe("userData");
+    Meteor.subscribe("followed");
+
+    var cids = getFollowedCids();
+    Meteor.subscribe("permissionsForCid", cids);
+    cids.forEach(function (cid) {
+        Meteor.subscribe("collection", cid);
+    });
+});
+
+
 var formatDate = function (date, format) {
     if(!date)
         return 'no date';
@@ -38,9 +58,6 @@ Handlebars.registerHelper('json', function(json) {
     return JSON.stringify(json, undefined, 2);
 });
 
-Handlebars.registerHelper('defaultValue', function(v, def) {
-    return  v || def;
-});
 
 Template.registerHelper('pluralize', function(n, thing) {
     n = n || 0;
