@@ -25,3 +25,7 @@ email
 percolate:synced-cron
 cmather:handlebars-server
 sacha:juice
+meteorhacks:npm
+
+
+npm-container
