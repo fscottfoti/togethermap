@@ -1,9 +1,15 @@
-<h2>
-    Recent Activity for
-    <a href="{{collectionUrl collection._id}}">
-        {{ collection.name }}
-    </a>
-</h2>
+{{#if collection}}
+    <h2>
+        Recent Activity for
+        <a href="{{collectionUrl collection._id}}">
+            {{ collection.name }}
+        </a>
+    </h2>
+{{else}}
+    <h2>
+        Recent Activity for All Collections
+    </h2>
+{{/if}}
 
 <hr>
 
@@ -19,7 +25,7 @@
 
         <div>
 
-            <a href="{{placeUrl ../collection._id _id}}">
+            <a href="{{placeUrl collectionId _id}}">
                 {{{ dynamic_place . collection.place_template }}}
             </a>
 
@@ -31,11 +37,12 @@
 
 </div>
 
-{{#if noPlaces }}
+{{#ifEmpty recent_places }}
     <div>
         No recent places
     </div>
-{{/if}}
+    <br>
+{{/ifEmpty}}
 
 <hr>
 
@@ -59,11 +66,12 @@
 
 </div>
 
-{{#if noPosts }}
+{{#ifEmpty recent_posts }}
     <div>
         No recent posts
     </div>
-{{/if}}
+    <br>
+{{/ifEmpty}}
 
 <hr>
 
@@ -87,8 +95,9 @@
 
 </div>
 
-{{#if noComments }}
+{{#ifEmpty recent_comments }}
     <div>
         No recent comments
     </div>
-{{/if}}
+    <br>
+{{/ifEmpty}}

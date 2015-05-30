@@ -1,23 +1,11 @@
 var urlBase = "http://togethermap.com";
+//var urlBase = "http://localhost:3000";
 
 
-OriginalHandlebars.registerHelper('noPlaces', function () {
-    return this.recent_places.length == 0;
-});
-
-
-OriginalHandlebars.registerHelper('noPosts', function () {
-    return this.recent_places.length == 0;
-});
-
-
-OriginalHandlebars.registerHelper('noComments', function () {
-    return this.recent_places.length == 0;
-});
-
-
-OriginalHandlebars.registerHelper('stripContent', function(content){
-    return content;
+OriginalHandlebars.registerHelper('ifEmpty', function(list, options) {
+    if(list.length == 0) {
+        return options.fn(this);
+    }
 });
 
 
@@ -56,11 +44,13 @@ OriginalHandlebars.registerHelper('dynamic_place', function (obj, template) {
 });
 
 recentPlacesData = function (cid) {
+    var filter = {collectionId: cid};
+    var dateFilter = {createDate: {$gt: new Date(Date.now() - 24*60*60*1000)}};
     return {
-        collection: MCollections.findOne(cid),
-        recent_places: MPlaces.find({collectionId: cid}, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
-        recent_posts: MPosts.find({collectionId: cid}, {$sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
-        recent_comments: MComments.find({collectionId: cid}, {$sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch()
+        collection: cid ? MCollections.findOne(cid): undefined,
+        recent_places: MPlaces.find(dateFilter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
+        recent_posts: MPosts.find(dateFilter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
+        recent_comments: MComments.find(dateFilter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch()
     }
 };
 
