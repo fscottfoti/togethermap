@@ -1,28 +1,27 @@
 <h2>
     Recent Activity for
-    <a href="#" class="collection-go">
+    <a href="{{collectionUrl collection._id}}">
         {{ collection.name }}
     </a>
 </h2>
 
 <hr>
 
-<h4>
+<h3>
     <i class="fa fa-clock-o">
        Recent Places
     </i>
-</h4>
+</h3>
 
 <div class="alternate-colors">
 
     {{#each recent_places}}
 
-        <div class="quick-place">
-            <div class="pan-map">
-                <i class="fa fa-location-arrow fa-2x top-right"></i>
-            </div>
+        <div>
 
-            {{{ dynamic_place }}}
+            <a href="{{placeUrl ../collection._id _id}}">
+                {{{ dynamic_place . collection.place_template }}}
+            </a>
 
             {{{ properties.description }}}
 
@@ -40,22 +39,20 @@
 
 <hr>
 
-<h4>
+<h3>
     <i class="fa fa-clock-o">
         Recent Posts
     </i>
-</h4>
+</h3>
 
 <div class="alternate-colors">
 
     {{#each recent_posts}}
         <div>
             <h4>
-                <a href="#" class="post-go">
-                    <i class="fa fa-link"></i>
+                <a href="{{postUrl collectionId _id}}">
+                    {{title}}
                 </a>
-                &nbsp;
-                {{title}}
             </h4>
         </div>
     {{/each}}
@@ -70,22 +67,20 @@
 
 <hr>
 
-<h4>
+<h3>
     <i class="fa fa-clock-o">
-        &thinsp;Recent Comments
+        Recent Comments
     </i>
-</h4>
+</h3>
 
 <div class="alternate-colors">
 
     {{#each recent_comments}}
         <div>
             <h4>
-                <a href="#" class="comment-go">
-                    <i class="fa fa-link"></i>
+                <a href="{{postUrl collectionId postId}}">
+                    {{{text}}}
                 </a>
-                &nbsp;
-                {{ stripContent text}}
             </h4>
         </div>
     {{/each}}

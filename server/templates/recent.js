@@ -1,17 +1,58 @@
+var urlBase = "http://togethermap.com";
+
+
 OriginalHandlebars.registerHelper('noPlaces', function () {
     return this.recent_places.length == 0;
 });
+
 
 OriginalHandlebars.registerHelper('noPosts', function () {
     return this.recent_places.length == 0;
 });
 
+
 OriginalHandlebars.registerHelper('noComments', function () {
     return this.recent_places.length == 0;
 });
 
+
 OriginalHandlebars.registerHelper('stripContent', function(content){
     return content;
+});
+
+
+OriginalHandlebars.registerHelper('collectionUrl', function(cid) {
+    return urlBase + Router.path("collection", {_id: cid});
+});
+
+
+OriginalHandlebars.registerHelper('placeUrl', function(cid, pid) {
+    return urlBase + Router.path("place", {
+                _cid: cid,
+                _id: pid
+            });
+});
+
+
+OriginalHandlebars.registerHelper('postUrl', function(cid, pid) {
+    return urlBase + Router.path("post", {
+            _cid: cid,
+            _id: pid
+        });
+});
+
+
+OriginalHandlebars.registerHelper('defaultValue', function(v, def) {
+    return  v || def;
+});
+
+
+OriginalHandlebars.registerHelper('dynamic_place', function (obj, template) {
+    if(template) {
+        return Handlebars.compile(template)(obj);
+    } else {
+        return OriginalHandlebars.compile(defaultPlaceTemplateList)(obj);
+    }
 });
 
 recentPlacesData = function (cid) {
