@@ -542,7 +542,12 @@ Map = {
 
 
     panTo: function (latlng) {
-        this.map.panTo(latlng);
+        var w = $(window).width();
+        var sidebar_w = 440 - 20;
+        var intended_x = (w - sidebar_w) / 2;
+        var actual_x = w / 2;
+        var off = w < 768 ? 0 : intended_x - actual_x;
+        Map.map.panToOffset(latlng, [off, 0]);
     },
 
 
@@ -562,6 +567,7 @@ Map = {
 
     zoomToFeature: function (key) {
         var layer = this.keysToLayers[key];
+
         if(layer._latlng) {
             // it's a marker
             this.zoomTo(17);

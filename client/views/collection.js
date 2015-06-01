@@ -103,7 +103,7 @@ Template.collection.events = {
         Meteor.call('removeFollow', obj._id);
     },
 
-    'click .pan-map': function () {
+    'click .pan-collection': function () {
         if(this.location) {
             Map.map.setView(this.location.center,
                 this.location.zoom);
