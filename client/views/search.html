@@ -1,28 +1,32 @@
 <template name="search">
 
-    <br>
+    <h2>Search</h2>
 
-    {{> esInput index="places" placeholder="Search..." }}
+    <div class="form-group">
+        <input type="text"
+               name="srch"
+               class="form-control"
+               placeholder="Search terms"/>
+    </div>
+
+    {{#if searchLoading}}
+        Searching...
+    {{/if}}
+
+    {{#if searchCompleted}}
+        Showing {{includedRows}} rows out of {{totalRows}} within current map.
+
+        <div class="alternate-colors">
+
+            {{#each searchResults}}
+
+                {{> quick_place }}
+
+            {{/each}}
+
+        </div>
+    {{/if}}
 
     <br><br>
 
-    {{#esEach index="places"}}
-      <div class="alternate-colors">
-
-        {{> quick_place }}
-
-        {{ addToMap }}
-
-      </div>
-    {{/esEach}}
-
-    {{> esLoadMoreButton index="places"}}
-
-    {{#ifEsHasNoResults index="places"}}
-      <div class="no-results">No results found!</div>
-    {{/ifEsHasNoResults}}
-
-    {{#ifEsIsSearching index="places"}}
-      <div>Loading...</div>
-    {{/ifEsIsSearching}}
 </template>
