@@ -1,20 +1,26 @@
 <template name="search">
 
-    <h2>Search</h2>
+    <h2>Search Place Data</h2>
 
-    <div class="form-group">
-        <input type="text"
-               name="srch"
-               class="form-control"
-               placeholder="Search terms"/>
-    </div>
+    {{#unless zoomIn}}
+        <div class="form-group">
+            <input type="text"
+                   name="srch"
+                   class="form-control"
+                   value="{{searchTerm}}"
+                   placeholder="Search terms"/>
+        </div>
+    {{else}}
+        Zoom in to search.
+    {{/unless}}
 
     {{#if searchLoading}}
         Searching...
     {{/if}}
 
     {{#if searchCompleted}}
-        Showing {{includedRows}} rows out of {{totalRows}} within current map.
+
+        Showing {{includedRows}} rows out of {{totalRows}} within current map ({{loadedRows}} loaded).
 
         <div class="alternate-colors">
 
@@ -27,6 +33,21 @@
         </div>
     {{/if}}
 
-    <br><br>
+</template>
 
+
+<template name="factual_place">
+    {{#with activePlace}}
+        <div>
+            <h3>
+                {{properties.name}}
+            </h3>
+
+            {{#if properties.website}}
+                <a href="{{properties.website}}" target="_blank">
+                    website
+                </a>
+            {{/if}}
+        </div>
+    {{/with}}
 </template>
