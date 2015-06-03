@@ -82,6 +82,10 @@ Template.place.helpers({
 
     isThisCollection: function () {
         return this.collectionId == Session.get('active_collection');
+    },
+
+    anyPlaceInstances: function () {
+        return this.allPlaceInstances.fetch().length > 0;
     }
 });
 
@@ -106,10 +110,9 @@ Template.place.events = {
         // in which case we need the cid attribute, or the set of owner
         // collection in which case we need the id attribute - this expression
         // should cover it
-
         var cid = $(e.target).attr('cid') || $(e.target).attr('id');
         var id = Session.get('active_place');
-        var p = MPlaces.findOne(id);
+        var p = Template.parentData().place;
         p = JSON.parse(JSON.stringify(p));
         p.post_count = 0;
         if(!p.parent_id) {
