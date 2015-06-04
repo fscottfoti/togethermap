@@ -1,5 +1,6 @@
 Template.search.rendered = function () {
     FactualConnector.init();
+    Session.set('search_state', undefined);
 };
 
 
@@ -7,8 +8,8 @@ Template.search.helpers({
     searchLoading: function () {
         return Session.get('search_state') == 'loading';
     },
-    searchTerm: function () {
-        return Session.get('factual_query');
+    latestQuery: function () {
+        return Session.get('latest_completed_query');
     },
     searchCompleted: function () {
         return Session.get('search_state') == 'results_available';
@@ -35,7 +36,12 @@ Template.search.helpers({
 
 var searchFactual = function (val) {
 
+    if(Session.get('search_state') == 'loading') {
+        return;
+    }
+
     if(val != Session.get('factual_query')) {
+
         // new search, clear the old search
         FactualConnector.init();
         Session.set('search_state', undefined);

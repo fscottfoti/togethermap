@@ -53,10 +53,15 @@
 
         <div class="form-group">
             <span>
-                <a href="#" class="profile-go">
+                {{#if creatorUID }}
+                    <a href="#" class="profile-go">
+                        <i class="fa fa-user"></i>
+                        {{ creator }}
+                    </a>
+                {{else}}
                     <i class="fa fa-user"></i>
                     {{ creator }}
-                </a>
+                {{/if}}
             </span>
 
             <span> //
@@ -172,7 +177,7 @@
     </div>
 
 
-    {{#unless collection.creatorUID }}
+    {{#unless collection.creator }}
 
         <div>
             <h2 align="center">

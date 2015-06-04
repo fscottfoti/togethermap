@@ -10,10 +10,15 @@
         <div class="form-group">
 
             <span>
-                <a href="#" class="profile-go">
+                {{#unless creatorUID}}
                     <i class="fa fa-user"></i>
                     {{ creator }}
-                </a>
+                {{else}}
+                    <a href="#" class="profile-go">
+                        <i class="fa fa-user"></i>
+                        {{ creator }}
+                    </a>
+                {{/unless}}
             </span>
 
             <span> //
