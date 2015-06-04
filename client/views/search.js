@@ -1,6 +1,9 @@
 Template.search.rendered = function () {
-    FactualConnector.init();
-    Session.set('search_state', undefined);
+    if(Session.get('factual_query')) {
+        $('#srch').val(Session.get('factual_query'));
+        // trigger update
+        Session.set('included_rows', Session.get('included_rows'));
+    }
 };
 
 
