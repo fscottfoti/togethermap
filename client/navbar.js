@@ -131,7 +131,7 @@ Template.navItems.events = {
             if (err)
                 console.log(err);
         
-            Router.go('collection', {_id: key});
+            Router.go('collection_edit', {_id: key});
             closeDropdowns();
         });
     }

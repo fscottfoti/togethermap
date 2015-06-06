@@ -18,12 +18,15 @@ Template.placeEdit.rendered = function () {
 
 
 Template.placeEdit.helpers({
+
     isMarker: function () {
         return this.geometry.type == "Point";
     },
+
     isLine: function () {
         return this.geometry.type == "LineString";
     },
+
     icons: function () {
         var d = _.map(L.MakiMarkers.icons,
             function (v) { return {name: v} });
@@ -34,21 +37,35 @@ Template.placeEdit.helpers({
         return this.name === Template.parentData(1).properties.icon
             ? 'selected' : '';
     },
+
     icon_sizes: function () {
         return _.map(['s', 'm', 'l'],
             function (v) { return {name: v} });
     },
+
     sizeSelected: function() {
         return this.name === (Template.parentData(1).properties.icon_size || 'm')
             ? 'selected' : '';
     },
+
     line_widths: function () {
         return _.map([3, 6, 9, 12],
             function (v) { return {name: v} });
     },
+
     widthSelected: function() {
         return this.name === (Template.parentData(1).properties.weight || 9)
             ? 'selected' : '';
+    },
+
+    autoFormExists: function () {
+        var cid = Session.get('active_collection');
+        var c = MCollections.findOne(cid);
+        if(c  && c.place_autoform) {
+            Session.set('quick_form', c.place_autoform);
+            return true;
+        }
+        return false;
     }
 });
 

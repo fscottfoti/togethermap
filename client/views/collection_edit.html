@@ -142,6 +142,28 @@
 
             <br>
 
+            <div>
+
+                <label>Custom Form for Data Collection (uses
+                    <a href="http://autoform.meteor.com/quickform" target="_blank">
+                            Autoform</a>):</label>
+
+                    <textarea id="place-autoform"
+                              class="form-control"
+                              rows="4">{{place_autoform}}</textarea>
+                <br>
+
+                <a class="place-autoform-sample">
+                    <button class="btn btn-primary">
+                        <i class="fa fa-eye"></i>
+                        Test
+                    </button>
+                </a>
+
+            </div>
+
+            <br>
+
             <label>Custom Theming Functions ({{cedit_mode}}):</label>
 
             {{#if icon_mode}}
@@ -212,5 +234,21 @@
 
     <br>
 
+</template>
+
+
+<template name="quick_form">
+    <div>
+        {{> quickForm
+            id="place_edit_quick_form"
+            autosave=true
+            validation="blur"
+            schema=quick_form
+            buttonContent=false
+            type="method-update"
+            meteormethod="updatePlaceProperties"
+            doc=placeDoc
+        }}
+    </div>
 </template>
 

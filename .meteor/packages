@@ -33,3 +33,4 @@ meteorhacks:npm
 npm-container
 force-ssl
 arsnebula:reactive-promise
+aldeed:autoform

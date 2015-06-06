@@ -131,6 +131,13 @@ Template.collectionEdit.events = {
         makeBootbox(d);
     },
 
+    'click .place-autoform-sample': function () {
+
+        var t = $('#place-autoform').val();
+        Session.set('quick_form', t);
+        makeBootbox(renderTmp(Template.quick_form));
+    },
+
     'change #flickr_link': function (e) {
 
         var t = e.target.value;
@@ -179,6 +186,13 @@ Template.collectionEdit.events = {
         Meteor.call('updateCollection', this._id, {$set: {place_template_list: t}});
     },
 
+    'change #place-autoform': function (e) {
+
+        var t = e.target.value;
+
+        Meteor.call('updateCollection', this._id, {$set: {place_autoform: t}});
+    },
+
     'change #drop-markers': function (e) {
 
         Meteor.call('updateCollection', this._id,
@@ -191,3 +205,33 @@ Template.collectionEdit.events = {
             {$set: {disable_geoindex: e.target.checked}});
     }
 };
+
+
+Template.quick_form.helpers({
+
+    quick_form: function () {
+        var qf = Session.get('quick_form');
+        if(!qf) {
+            console.log('no quick form spec');
+            return;
+        }
+        var obj = eval('(' + qf + ')');
+        if(!obj) {
+            console.log('quick form object conversion failed');
+            return;
+        }
+        return new SimpleSchema(obj);
+    },
+
+    placeDoc: function () {
+        var pid = Session.get('active_place');
+        var p = MPlaces.findOne(pid);
+        if(!p) {
+            return;
+        }
+        // this weirdness helps autoform to work
+        p.properties._id = p._id;
+        return p.properties;
+    }
+});
+
