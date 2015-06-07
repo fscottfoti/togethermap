@@ -1,8 +1,6 @@
-var clipInit;
+var zc1, zc2;
 
 setUpClipboard = function () {
-    if(clipInit)
-        return;
 
     ZeroClipboard.config( { swfPath: "/ZeroClipboard.swf" } );
 
@@ -27,14 +25,18 @@ setUpClipboard = function () {
     if(!v)
         return;
 
-    clipInit = true;
+    if(zc1) {
+        // clean up
+        zc1.off("copy");
+        zc2.off("copy");
+    }
 
-    new ZeroClipboard( v )
+    zc1 = new ZeroClipboard( v )
         .on( "copy", function( event ) {
             makeLink(event, false);
         });
 
-    new ZeroClipboard( v2 )
+    zc2 = new ZeroClipboard( v2 )
         .on( "copy", function( event ) {
             makeLink(event, true);
         });
@@ -44,7 +46,6 @@ Template.permissions.rendered = function () {
     setUpClipboard();
     Session.set("permission_type", "owners");
 };
-
 
 Template.permissions.helpers({
     permission_type: function () {
@@ -94,10 +95,10 @@ Template.permissions.helpers({
             "post_writers": isWritePublic(this, "post")
         }[p];
 
-        // when you go back and forth between public and private the dom for the
-        // clipboard gets removed and has to be reinitialized
-        if(ret == false)
-            setUpClipboard();
+        // okay this is abhorrent, but I wait 100 milliseconds for the dom
+        // to be ready.  I've spent 90 minutes trying to solve this a better
+        // way but fingers crossed that this just works
+        _.delay(setUpClipboard, 100);
 
         return ret;
     }
@@ -145,9 +146,6 @@ Template.permissions.events = {
         }[p];
 
         Meteor.call('updateCollection', this._id, {$set: attr});
-
-        // this makes the dom go away
-        clipInit = false;
     },
 
     'click .make-loginreq': function () {
