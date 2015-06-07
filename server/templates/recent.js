@@ -43,14 +43,30 @@ OriginalHandlebars.registerHelper('dynamic_place', function (obj, template) {
     }
 });
 
-recentPlacesData = function (cid) {
-    var filter = {collectionId: cid};
+
+recentPlacesData = function () {
+
     var dateFilter = {createDate: {$gt: new Date(Date.now() - 24*60*60*1000)}};
     return {
-        collection: cid ? MCollections.findOne(cid): undefined,
+        collection: undefined,
+        header: "Recent Activity for All Collections",
         recent_places: MPlaces.find(dateFilter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
         recent_posts: MPosts.find(dateFilter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
         recent_comments: MComments.find(dateFilter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch()
+    }
+};
+
+
+recentPlacesDataByUser = function (userId) {
+    var dateFilter = {createDate: {$gt: new Date(Date.now() - 60*60*1000)}};
+    var filter = limitToMyCollections(userId, dateFilter, true);
+
+    return {
+        collections: undefined,
+        header: "Recent Activity for Your Collections",
+        recent_places: MPlaces.find(filter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
+        recent_posts: MPosts.find(filter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
+        recent_comments: MComments.find(filter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch()
     }
 };
 
