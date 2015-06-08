@@ -1,6 +1,7 @@
 Template.search.rendered = function () {
-    if(Session.get('factual_query')) {
-        $('#srch').val(Session.get('factual_query'));
+
+    if(Session.get('query_string')) {
+        $('#srch').val(Session.get('query_string'));
         // trigger update
         Session.set('included_rows', Session.get('included_rows'));
     }
@@ -30,6 +31,7 @@ Template.search.helpers({
         return Session.get('zoom_level') < minFactualZoomLevel;
     },
     searchResults: function () {
+        return SearchConnector.places();
         // this is also a way to trigger an update of the dom
         if(Session.get('included_rows') == undefined)
             return;
@@ -43,25 +45,30 @@ var searchFactual = function (val) {
         return;
     }
 
-    if(val != Session.get('factual_query')) {
+    if(val != Session.get('query_string')) {
 
         // new search, clear the old search
-        FactualConnector.init();
+        //FactualConnector.init();
+        Session.set('query_string', val);
+        SearchConnector.init();
         Session.set('search_state', undefined);
     }
 
-    Session.set('factual_query', val);
+    Session.set('query_string', val);
 
-    FactualConnector.getAll();
+    SearchConnector.getAll();
+    //FactualConnector.getAll();
 };
 var searchFactualThrottled = _.debounce(searchFactual, 200);
 
 
 Template.search.events({
+
     'keyup input[name=srch]': function(event) {
 
         searchFactualThrottled(event.target.value);
     }
+
 });
 
 
