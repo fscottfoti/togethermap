@@ -1,6 +1,7 @@
 Template.search.rendered = function () {
 
     $('#toggle-search').bootstrapToggle();
+    Session.set('search_type', "Factual");
 
     if(Session.get('query_string')) {
         $('#srch').val(Session.get('query_string'));
@@ -33,33 +34,51 @@ Template.search.helpers({
         return Session.get('zoom_level') < minFactualZoomLevel;
     },
     searchResults: function () {
-        return SearchConnector.places();
-        // this is also a way to trigger an update of the dom
-        if(Session.get('included_rows') == undefined)
-            return;
-        return FactualConnector.places;
+        if(Session.get('search_type') == "TogetherMap") {
+            return SearchConnector.places();
+        } else {
+            // this is also a way to trigger an update of the dom
+            if (Session.get('included_rows') == undefined)
+                return;
+            return FactualConnector.places;
+        }
     }
 });
 
+var last_search = undefined;
+
 var searchFactual = function (val) {
+
+    if(!val)
+        val = Session.get('query_string') || '';
+
+    var isFactual = Session.get('search_type') == "Factual";
 
     if(Session.get('search_state') == 'loading') {
         return;
     }
 
-    if(val != Session.get('query_string')) {
+    if(val != Session.get('query_string') ||
+        last_search != isFactual) {
 
-        // new search, clear the old search
-        //FactualConnector.init();
         Session.set('query_string', val);
-        SearchConnector.init();
+        // new search, clear the old search
+        if(isFactual) {
+            FactualConnector.init();
+        } else {
+            SearchConnector.init();
+        }
         Session.set('search_state', undefined);
     }
 
     Session.set('query_string', val);
 
-    SearchConnector.getAll();
-    //FactualConnector.getAll();
+    if(isFactual) {
+        FactualConnector.getAll();
+    } else {
+        SearchConnector.getAll();
+    }
+
 };
 var searchFactualThrottled = _.debounce(searchFactual, 200);
 
@@ -72,7 +91,16 @@ Template.search.events({
     },
 
     'click .toggle-search': function () {
-        $('#toggle-search').bootstrapToggle('toggle')
+
+        $('#toggle-search').bootstrapToggle('toggle');
+
+        if(Session.get('search_type') == "TogetherMap") {
+            Session.set('search_type', "Factual");
+        } else {
+            Session.set('search_type', "TogetherMap");
+        }
+
+        searchFactualThrottled();
     }
 
 });
