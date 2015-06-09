@@ -34,3 +34,4 @@ npm-container
 force-ssl
 arsnebula:reactive-promise
 aldeed:autoform
+jiku:bootstrap-toggle

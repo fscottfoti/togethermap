@@ -16,6 +16,7 @@ callback-hook@1.0.3
 check@1.0.5
 chrismbeckett:toastr@2.1.0
 cmather:handlebars-server@2.0.0
+coffeescript@1.0.6
 d3@1.0.0
 ddp@1.1.0
 deps@1.0.7
@@ -41,6 +42,7 @@ iron:location@1.0.7
 iron:middleware-stack@1.0.7
 iron:router@1.0.7
 iron:url@1.0.7
+jiku:bootstrap-toggle@0.0.1
 jquery@1.11.3_2
 json@1.0.3
 launch-screen@1.0.2

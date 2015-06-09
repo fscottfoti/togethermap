@@ -5,12 +5,22 @@
     {{#unless zoomIn}}
 
         <div class="form-group">
-
             <input type="text"
                    id="srch"
                    name="srch"
                    class="form-control"
                    placeholder="Search terms"/>
+        </div>
+
+        <div class="toggle-search">
+            <input id="toggle-search"
+                   data-toggle="toggle"
+                   checked
+                   type="checkbox"
+                   data-on="Factual"
+                   data-off="TogetherMap"
+                   data-onstyle="primary"
+                   data-offstyle="primary">
         </div>
 
     {{else}}
@@ -23,11 +33,13 @@
 
     {{#if searchCompleted}}
 
-        {{#if latestQuery}}
-            Results for '{{latestQuery}}'.<br>
-        {{/if}}
+        <div style="margin-top: 8px;">
+            {{#if latestQuery}}
+                Results for '{{latestQuery}}'.<br>
+            {{/if}}
 
-        Showing {{includedRows}} rows out of {{totalRows}} within current map ({{loadedRows}} loaded).
+            Showing {{includedRows}} rows out of {{totalRows}} within current map ({{loadedRows}} loaded).
+        </div>
 
         <div class="alternate-colors">
 

@@ -1,5 +1,7 @@
 Template.search.rendered = function () {
 
+    $('#toggle-search').bootstrapToggle();
+
     if(Session.get('query_string')) {
         $('#srch').val(Session.get('query_string'));
         // trigger update
@@ -25,7 +27,7 @@ Template.search.helpers({
         return Session.get('map_visible_places');
     },
     loadedRows: function () {
-        return FactualConnector.places.length;
+        return 0; //FactualConnector.places.length;
     },
     zoomIn: function () {
         return Session.get('zoom_level') < minFactualZoomLevel;
@@ -67,6 +69,10 @@ Template.search.events({
     'keyup input[name=srch]': function(event) {
 
         searchFactualThrottled(event.target.value);
+    },
+
+    'click .toggle-search': function () {
+        $('#toggle-search').bootstrapToggle('toggle')
     }
 
 });

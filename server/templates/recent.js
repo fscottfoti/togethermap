@@ -58,7 +58,7 @@ recentPlacesData = function () {
 
 
 recentPlacesDataByUser = function (userId) {
-    var dateFilter = {createDate: {$gt: new Date(Date.now() - 60*60*1000)}};
+    var dateFilter = {createDate: {$gt: new Date(Date.now() - 24*60*60*1000)}};
     var filter = limitToMyCollections(userId, dateFilter, true);
 
     return {
