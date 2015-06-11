@@ -1,7 +1,9 @@
 Template.search.rendered = function () {
 
-    $('#toggle-search').bootstrapToggle();
-    Session.set('search_type', "Factual");
+    _.delay(function () {
+        $('#toggle-search').bootstrapToggle();
+        Session.set('search_type', "Factual");
+    }, 200);
 
     if(Session.get('query_string')) {
         $('#srch').val(Session.get('query_string'));
@@ -27,8 +29,15 @@ Template.search.helpers({
     includedRows: function () {
         return Session.get('map_visible_places');
     },
+    factualSearch: function () {
+        return Session.get('search_type') == "Factual";
+    },
     loadedRows: function () {
-        return 0; //FactualConnector.places.length;
+        if(Session.get('search_type') == "TogetherMap") {
+            return MPlaces.find().count();
+        } else {
+            return FactualConnector.places.length;
+        }
     },
     zoomIn: function () {
         return Session.get('zoom_level') < minFactualZoomLevel;

@@ -37,7 +37,12 @@
                 Results for '{{latestQuery}}'.<br>
             {{/if}}
 
-            Showing {{includedRows}} rows out of {{totalRows}} within current map ({{loadedRows}} loaded).
+
+            {{#if factualSearch}}
+                Showing {{includedRows}} rows out of {{totalRows}} within current map ({{loadedRows}} loaded).
+            {{else}}
+                    Showing {{includedRows}} within current map ({{loadedRows}} loaded).
+            {{/if}}
         </div>
 
         <div class="alternate-colors">
