@@ -55,6 +55,12 @@ Template.collectionEdit.helpers({
 });
 
 
+var getSamplePlace = function () {
+    var cid = Session.get('active_collection');
+    return _.sample(MPlaces.find({collectionId: cid}).fetch());
+};
+
+
 Template.collectionEdit.events = {
 
     'change input[name=name]': function(event) {
@@ -107,7 +113,7 @@ Template.collectionEdit.events = {
     'click .place-template-sample': function () {
 
         var t = $('#place-template').val();
-        var p = _.sample(MPlaces.find().fetch());
+        var p = getSamplePlace();
         var d = Handlebars.compile(t)(p);
         if(!t)
             d = "No template";
@@ -116,7 +122,7 @@ Template.collectionEdit.events = {
 
     'click .place-template-json': function () {
 
-        var p = _.sample(MPlaces.find().fetch());
+        var p = getSamplePlace();
         var d = "<pre>"+syntaxHighlight(p);
         makeBootbox(d);
     },
@@ -124,7 +130,7 @@ Template.collectionEdit.events = {
     'click .place-template-list-sample': function () {
 
         var t = $('#place-template-list').val();
-        var p = _.sample(MPlaces.find().fetch());
+        var p = getSamplePlace();
         var d = Handlebars.compile(t)(p);
         if(!t)
             d = "No template";
