@@ -58,7 +58,7 @@ var last_search = undefined;
 
 var searchFactual = function (val) {
 
-    if(!val)
+    if(val == undefined)
         val = Session.get('query_string') || '';
 
     var isFactual = Session.get('search_type') == "Factual";
