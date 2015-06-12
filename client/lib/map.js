@@ -570,9 +570,20 @@ Map = {
 
         if(layer._latlng) {
             // it's a marker
+            var c = layer._latlng;
+
+            // this works surprisingly well - we're trying to center the marker in
+            // the space to the left of the sidebar, which is not the true center of
+            // the map, so we put the marker back in the center, then zoom in, then pan
+            // the map back so that the marker is centered in the space not taken
+            // by the sidebar - a bit convoluted but suprisingly effective
+            this.map.panTo(c);
             this.zoomTo(17);
-            this.map.panTo(layer._latlng);
+            _.delay(function () {
+                Map.panTo(c);
+            }, 300);
         } else {
+            console.log(layer.getBounds());
             this.map.fitBounds(layer.getBounds());
         }
     },
