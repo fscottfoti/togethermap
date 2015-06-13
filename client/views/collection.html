@@ -69,6 +69,11 @@
                 {{ formatDate createDate }}
             </span>
 
+            <span> //
+                <i class="fa fa-trophy"></i>
+                {{ pluralize votes "Vote" }}
+            </span>
+
             <br>
 
             <span>
@@ -145,6 +150,11 @@
                 </span>
 
             {{/if}}
+
+            <span>
+                {{> vote type="collection" _id=_id }}
+            </span>
+            &thinsp;
 
             <span>
                 <a class="recent-go">

@@ -1,0 +1,30 @@
+<template name="vote">
+    <span>
+        {{#if upVoted}}
+            <span class="btn btn-success" style="cursor: default">
+              <i class="fa fa-thumbs-up"></i> Up
+            </span>
+            <span class="btn btn-primary un-vote" style="cursor: pointer;">
+                <i class="fa fa-times un-vote"></i> Unvote
+            </span>
+        {{/if}}
+
+        {{#if downVoted}}
+            <span class="btn btn-warning" style="cursor: default">
+              <i class="fa fa-thumbs-down"></i> Down
+            </span>
+            <span class="btn btn-primary un-vote" style="cursor: pointer;">
+                <i class="fa fa-times un-vote"></i> Unvote
+            </span>
+        {{/if}}
+
+        {{#if notVoted}}
+            <span class="btn btn-primary up-vote" style="cursor: pointer;">
+              <i class="fa fa-thumbs-o-up"></i> Up
+            </span>
+            <span class="btn btn-primary down-vote" style="cursor: pointer;">
+                <i class="fa fa-thumbs-o-down"></i> Down
+            </span>
+        {{/if}}
+    </span>
+</template>

@@ -26,9 +26,16 @@
                 {{ formatDate dateField }}
             </span>
 
-            <span> //
+            <br>
+
+            <span>
                 <i class="fa fa-comment"></i>
                 {{ postCount }}
+            </span>
+
+            <span> //
+                <i class="fa fa-trophy"></i>
+                {{ pluralize votes "Vote" }}
             </span>
 
         </div>
@@ -69,10 +76,14 @@
 
         <div class="dropdown">
 
+            <span>
+                {{> vote type="place" _id=place._id }}
+            </span>
+
             <button class="btn btn-primary dropdown-toggle copy-to"
                     data-toggle="dropdown">
                 <i class="fa fa-copy"></i>
-                Copy to
+                tr
                 <span class="caret"></span>
             </button>
 
@@ -127,6 +138,7 @@
         {{/if}}
 
     {{/if}}
+
     <hr>
 
     {{#if noPosts }}

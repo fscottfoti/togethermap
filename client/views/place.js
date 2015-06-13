@@ -30,10 +30,6 @@ Template.place.helpers({
         return this.creator || this.properties.creator;
     },
 
-    votes: function () {
-        return '0 Votes';
-    },
-
     postCount: function () {
         var c = this.post_count || 0;
         return c + ' Post' + (c == 1 ? '' : 's');
