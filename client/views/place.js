@@ -116,8 +116,19 @@ Template.place.events = {
             p.parent_id = p._id;
         }
         delete p._id;
-        Meteor.call('insertPlace', p, cid);
-        closeDropdowns();
+        Meteor.call('insertPlace', p, cid, function(err, data) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+
+            console.log(data);
+            Router.go('place', {
+                _id: data,
+                _cid: cid
+            })
+        });
+
     },
 
     'click .pan-map': function () {

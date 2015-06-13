@@ -4,7 +4,7 @@ var imagePicker = function (froalaRef) {
         {
             mimetypes: ['image/*'],
             container: 'modal',
-            maxSize: 1024*1024,
+            //maxSize: 1024*1024,
             services:['BOX', 'COMPUTER', 'DROPBOX', 'FACEBOOK', 'GOOGLE_DRIVE',
                 'FLICKR', 'INSTAGRAM', 'IMAGE_SEARCH', 'URL', 'PICASA']
         },
