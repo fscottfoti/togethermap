@@ -21,7 +21,7 @@ Template.collectionEdit.helpers({
 
     locationDisplay: function () {
         return 'Center: ' +
-               numeral(this.location.center.lat).format('0.00') + ", " +
+               numeral(this.location.center.lat).format('0.00') + "," +
                numeral(this.location.center.lng).format('0.00');
     },
 

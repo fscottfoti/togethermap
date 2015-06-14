@@ -38,8 +38,6 @@ initFroala = function (f) {
             'italic',
             'sep',
             'insertUnorderedList',
-            'formatBlock',
-            'color',
             'sep',
             'createLink',
             'insertVideo',
