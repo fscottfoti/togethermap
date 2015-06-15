@@ -15,7 +15,6 @@ Date: 2015-04-29 */
 
 .leaflet-control-locate a {
 	font-size: 1.4em;
-	margin-left: 1px;
 	color: #444;
 }
 .leaflet-control-locate.active a {
@@ -27,8 +26,8 @@ Date: 2015-04-29 */
 
 /* Mapbox specific adjustments */
 .leaflet-control-locate a {
-	padding: 3px 0 0 5px;
+	padding: 3px 0 0 6px;
 }
 .leaflet-control-locate.requesting a {
-	padding: 3px 0 0 4px;
+	padding: 3px 0 0 6px;
 }
