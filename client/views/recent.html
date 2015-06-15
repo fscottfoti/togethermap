@@ -42,14 +42,13 @@
     <div class="alternate-colors">
 
         {{#each recent_posts}}
-            <div>
-                <h4>
-                    <a href="#" class="post-go">
-                        <i class="fa fa-link"></i>
-                    </a>
-                    &nbsp;
-                    {{title}}
-                </h4>
+            <div class="quick-post">
+                <span class="post-go" style="cursor: pointer;">
+                    <h4>
+                        {{title}}
+                    </h4>
+                </span>
+                {{{ description }}}
             </div>
         {{/each}}
 
@@ -72,14 +71,13 @@
     <div class="alternate-colors">
 
         {{#each recent_comments}}
-            <div>
-                <h4>
-                    <a href="#" class="comment-go">
-                        <i class="fa fa-link"></i>
-                    </a>
-                    &nbsp;
-                    {{ stripContent text}}
-                </h4>
+            <div class="quick-post">
+                <span class="comment-go" style="cursor: pointer;">
+                    <h4>
+                        To post
+                    </h4>
+                </span>
+                {{{ text }}}
             </div>
         {{/each}}
 

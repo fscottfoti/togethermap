@@ -26,6 +26,15 @@ a:hover {text-decoration:none;}
 }
 
 
+.quick-post {
+    position: relative;
+    padding-left: 10px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-right: 10px;
+}
+
+
 .toast {
     opacity: 1 !important;
 }
