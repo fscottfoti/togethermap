@@ -21,8 +21,10 @@ Template.map.rendered = function () {
             if(deviceWidth < 768) {
                 mobileFormFactor = true;
                 Map.removeDrawControl();
+                Map.removeDesktopControls();
             } else {
                 mobileFormFactor = false;
+                Map.addDesktopControls();
             }
         }).trigger('resize');
     }

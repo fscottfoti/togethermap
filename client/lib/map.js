@@ -201,6 +201,7 @@ Map = {
     create: function (id) {
 
         L.mapbox.accessToken = MAPBOX_TOKEN;
+        L.mapbox.config.FORCE_HTTPS = true;
 
         this.baseMaps = {
             'aerial': L.mapbox.tileLayer('fscottfoti.kaeo1aml'),
@@ -217,6 +218,7 @@ Map = {
 
         this.map = L.mapbox.map(id, null, {
             attributionControl: false,
+            zoomControl: false,
             contextmenu: true,
             contextmenuWidth: 140,
             contextmenuItems: [{
@@ -232,9 +234,12 @@ Map = {
         geocoder.on('autoselect', function (feature) {
             Map.markPosition(feature);
         });
+        this.geocoder = geocoder;
 
-        this.map.addControl(geocoder);
-        L.control.locate().addTo(this.map);
+        this.zoomControl = L.control.zoom();
+
+        this.locateControl = L.control.locate();
+        this.locateControl.addTo(this.map);
 
         // layer control selection
         this.layerControl = L.control.layers(this.baseMaps);
@@ -242,7 +247,6 @@ Map = {
 
         // this is social media sharing
         this.shareControl = new MyShareControl();
-        this.shareControl.addTo(this.map);
         this.shareControl.link_f = function () {
             return {
                 url: location.href,
@@ -270,7 +274,7 @@ Map = {
             Map.sidebarOpened = true;
         });
 
-        L.mapbox.infoControl().addTo(this.map);
+        //L.mapbox.infoControl().addTo(this.map);
 
         if (!this.map.restoreView()) {
             this.map.setView(DEFAULT_CENTER, DEFAULT_ZOOM);
@@ -709,6 +713,32 @@ Map = {
     },
 
 
+    addDesktopControls: function () {
+        if(this.desktopControls === true) {
+            return;
+        }
+        this.map.removeControl(this.locateControl);
+        this.map.addControl(this.zoomControl);
+        this.map.addControl(this.shareControl);
+        this.map.addControl(this.geocoder);
+        this.map.addControl(this.locateControl);
+
+
+        this.desktopControls = true;
+    },
+
+
+    removeDesktopControls: function () {
+        if(this.desktopControls != true) {
+            return;
+        }
+        this.map.removeControl(this.zoomControl);
+        this.map.removeControl(this.shareControl);
+        this.map.removeControl(this.geocoder);
+        this.desktopControls = false;
+    },
+
+
     /* hide shape layer */
     hideShapes: function () {
         this.shapeLayerGroup.hide();
@@ -938,8 +968,10 @@ Map = {
                 post_count.toString() +
                 (post_count !== 1 ? ' posts': ' post');
         }
-        shape.bindLabel(label, {direction: 'auto'});
-        shape.labelStr = label;
+        if(!mobileFormFactor) {
+            shape.bindLabel(label, {direction: 'auto'});
+            shape.labelStr = label;
+        }
 
         shape.on('click', function () {
             Map.mapDriver.activatePlace(this.key);

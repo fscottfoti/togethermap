@@ -9,7 +9,7 @@ Date: 2015-04-29 */
 }
 .leaflet-touch .leaflet-control-locate {
 	box-shadow: none;
-	border: 2px solid rgba(0, 0, 0, 0.2);
+	border: 1px solid rgba(0, 0, 0, 0.4);
 	background-clip: padding-box;
 }
 
