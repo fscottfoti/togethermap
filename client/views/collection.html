@@ -96,40 +96,23 @@
 
         </div>
 
-        {{#if write_permission }}
-
-            <div class="form-group">
-
-                <span>
-                    <a class="edit-link">
-                        <button class="btn btn-primary">
-                            <i class="fa fa-edit"></i>
-                            Edit
-                        </button>
-                    </a>
-                </span>
-
-                <span>
-                    <a class="permissions-link">
-                        <button class="btn btn-primary">
-                            <i class="fa fa-eye-slash"></i>
-                            Permissions
-                        </button>
-                    </a>
-                </span>
-
-                <span>
-                    <button class="btn btn-primary pan-collection">
-                        <i class="fa fa-location-arrow"></i>
-                        Go
-                    </button>
-                </span>
-
-            </div>
-
-        {{/if}}
-
         <div class="form-group">
+
+            <span>
+                <a class="recent-go">
+                    <button class="btn btn-primary">
+                        <i class="fa fa-clock-o"></i>
+                        Recent
+                    </button>
+                </a>
+            </span>
+
+            <span>
+                <button class="btn btn-primary pan-collection">
+                    <i class="fa fa-location-arrow"></i>
+                    Go
+                </button>
+            </span>
 
             {{#if followable }}
 
@@ -157,20 +140,45 @@
 
             {{/if}}
 
-            <span>
-                {{> vote type="collection" _id=_id }}
-            </span>
-
-            <span>
-                <a class="recent-go">
-                    <button class="btn btn-primary">
-                        <i class="fa fa-clock-o"></i>
-                        Recent
-                    </button>
-                </a>
-            </span>
-
         </div>
+
+        {{#if write_permission }}
+
+            <div class="form-group">
+
+                <span>
+                    <a class="edit-link">
+                        <button class="btn btn-primary">
+                            <i class="fa fa-edit"></i>
+                            Edit
+                        </button>
+                    </a>
+                </span>
+
+                <span>
+                    <a class="permissions-link">
+                        <button class="btn btn-primary">
+                            <i class="fa fa-eye-slash"></i>
+                            Permissions
+                        </button>
+                    </a>
+                </span>
+
+            </div>
+
+        {{/if}}
+
+        {{#if isPostWriter }}
+
+            <div class="form-group">
+
+                <span>
+                    {{> vote type="collection" _id=_id }}
+                </span>
+
+            </div>
+
+        {{/if}}
 
     {{/with}}
 

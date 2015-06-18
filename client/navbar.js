@@ -43,6 +43,10 @@ Template.navItems.helpers({
         var cid = Session.get('active_collection');
         if(!cid)
             return;
+        if(Router.current().route.path())
+            // in the search route, this is set to the factual collection
+            // but we don't want to display the Factual name here
+            return;
         var c = MCollections.findOne(cid);
         if(!c)
             return;
