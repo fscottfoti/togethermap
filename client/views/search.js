@@ -89,7 +89,7 @@ var searchFactual = function (val) {
     }
 
 };
-var searchFactualThrottled = _.debounce(searchFactual, 200);
+var searchFactualThrottled = _.throttle(searchFactual, 500);
 
 
 Template.search.events({

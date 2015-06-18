@@ -874,7 +874,7 @@ Map = {
     },
 
 
-    goToPlace: function (place) {
+    goToPlace: function (place, bounce) {
         var center = Map.jsonGetCenter(place);
 
         if (this.lastPlace == place._id) {
@@ -888,7 +888,9 @@ Map = {
         }
         this.lastPlace = place._id;
 
-        Map.bounceMarker(place._id);
+        if(bounce != false) {
+            Map.bounceMarker(place._id);
+        }
     },
 
 
