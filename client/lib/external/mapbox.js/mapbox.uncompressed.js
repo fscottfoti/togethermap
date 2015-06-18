@@ -12748,13 +12748,13 @@ var GeocoderControl = L.Control.extend({
     },
 
     _chooseResult: function(result) {
-        if (result.bbox) {
+        /*if (result.bbox) {
             this._map.fitBounds(util.lbounds(result.bbox));
         } else if (result.center) {
             this._map.setView([result.center[1], result.center[0]], (this._map.getZoom() === undefined) ?
                 this.options.pointZoom :
                 Math.max(this._map.getZoom(), this.options.pointZoom));
-        }
+        }*/
     },
 
     _geocode: function(e) {

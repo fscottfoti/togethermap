@@ -266,6 +266,7 @@ Map = {
             if(!cid)
                 cid = 'empty';
             Router.go('map', {'_id': cid});
+            Map.sidebarOpened = false;
         });
         this.sidebar.on('show', function () {
             // this is a bit odd - we need to know, when we close the sidebar,
@@ -495,6 +496,7 @@ Map = {
     /* mark a position, like for a geocoder, with a marker and a bounce */
     markPosition: function (feature) {
         var center = feature.feature.center;
+        Map.panTo([center[1], center[0]]);
         var icon = L.mapbox.marker.icon({
             'marker-color': '00F'
         });
@@ -551,6 +553,8 @@ Map = {
         var intended_x = (w - sidebar_w) / 2;
         var actual_x = w / 2;
         var off = w < 768 ? 0 : intended_x - actual_x;
+        if(!Map.sidebarOpened)
+            off = 0;
         Map.map.panToOffset(latlng, [off, 0]);
     },
 
