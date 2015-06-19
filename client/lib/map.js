@@ -132,10 +132,6 @@ DefaultMapDriver = {
         });
     },
 
-    contextMenuAdd: function (e) {
-        this.doubleClick(e.latlng);
-    },
-
     doubleClick: function (latlng) {
         if (!Meteor.userId()) { // must be logged in
             growl.warning('Must be logged in to add a place.');
@@ -266,7 +262,6 @@ Map = {
             if(!cid)
                 cid = 'empty';
             Router.go('map', {'_id': cid});
-            Map.sidebarOpened = false;
         });
         this.sidebar.on('show', function () {
             // this is a bit odd - we need to know, when we close the sidebar,
@@ -305,7 +300,7 @@ Map = {
     },
 
     contextMenuAdd: function (e) {
-        this.mapDriver.contextMenuAdd(e);
+        Map.mapDriver.doubleClick(e.latlng);
     },
 
     enableDoubleClickAdd: function () {
@@ -497,6 +492,10 @@ Map = {
     markPosition: function (feature) {
         var center = feature.feature.center;
         Map.panTo([center[1], center[0]]);
+        Map.zoomTo(17);
+        _.delay(function () {
+            Map.panTo([center[1], center[0]]);
+        }, 300);
         var icon = L.mapbox.marker.icon({
             'marker-color': '00F'
         });
@@ -513,7 +512,7 @@ Map = {
 
     /* bounce any marker to show where it is */
     bouncing: {},
-    bounceMarker: function (key) {
+    bounceMarker: function (key, duration) {
         if(this.bouncing[key])
             return;
         var shape = Map.keysToLayers[key];
@@ -524,12 +523,12 @@ Map = {
             shape.setZIndexOffset(10000);
 
             this.bouncing[key] = true;
-            shape.bounce(4);
+            shape.bounce(duration || 4);
             var that = this;
             setTimeout(function() {
                 that.bouncing[key] = false;
                 shape.setZIndexOffset(originalOffset);
-            }, 4000);
+            }, duration * 1000 || 4000);
         }
     },
 
@@ -553,7 +552,7 @@ Map = {
         var intended_x = (w - sidebar_w) / 2;
         var actual_x = w / 2;
         var off = w < 768 ? 0 : intended_x - actual_x;
-        if(!Map.sidebarOpened)
+        if(!Map.sidebar.isVisible())
             off = 0;
         Map.map.panToOffset(latlng, [off, 0]);
     },
@@ -875,6 +874,23 @@ Map = {
             marker.setIcon(icon);
         });
         return marker;
+    },
+
+    highlightPlace: function (id) {
+        var layer = this.keysToLayers[id];
+        if(layer && layer.highlight_icon) {
+            layer.setIcon(layer.highlight_icon);
+            layer.original_offset = layer.options.zIndexOffset;
+            layer.setZIndexOffset(10000);
+        }
+    },
+
+    unHighlightPlace: function (id) {
+        var layer = this.keysToLayers[id];
+        if(layer && layer.normal_icon) {
+            layer.setIcon(layer.normal_icon);
+            layer.setZIndexOffset(layer.original_offset);
+        }
     },
 
 

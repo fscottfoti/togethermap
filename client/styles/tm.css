@@ -5,14 +5,17 @@ a:hover {text-decoration:none;}
     background: #f1fff6;
 }
 
-.alternative-colors div:nth-child(2n+2) {
-    background: #def7e5;
+.shadow {
+    border: 1px solid #AAA;
+    -webkit-box-shadow: 3px 3px 5px -2px #888 ;
+    -moz-box-shadow: 3px 3px 5px -2px #888 ;
+    box-shadow: 3px 3px 5px -2px #888 ;
 }
 
 .top-right {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 1px;
+    right: 1px;
     cursor: pointer;
 }
 

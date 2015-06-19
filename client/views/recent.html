@@ -42,7 +42,7 @@
     <div class="alternate-colors">
 
         {{#each recent_posts}}
-            <div class="quick-post">
+            <div class="quick-post shadow" style="margin-bottom: 4px;">
                 <span class="post-go" style="cursor: pointer;">
                     <h4>
                         {{title}}
@@ -71,10 +71,10 @@
     <div class="alternate-colors">
 
         {{#each recent_comments}}
-            <div class="quick-post">
+            <div class="quick-post shadow" style="margin-bottom: 4px;">
                 <span class="comment-go" style="cursor: pointer;">
                     <h4>
-                        To post
+                        <i class="fa fa-link"> link</i>
                     </h4>
                 </span>
                 {{{ text }}}

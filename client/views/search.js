@@ -1,5 +1,7 @@
 Template.search.rendered = function () {
 
+    Session.set('zoom_level', Map.zoom());
+
     _.delay(function () {
         $('#toggle-search').bootstrapToggle();
         Session.set('search_type', "Factual");
@@ -36,11 +38,18 @@ Template.search.helpers({
         if(Session.get('search_type') == "TogetherMap") {
             return MPlaces.find().count();
         } else {
-            return FactualConnector.places.length;
+            return FactualConnector.places ? FactualConnector.places.length : 0;
         }
     },
     zoomIn: function () {
-        return Session.get('zoom_level') < minFactualZoomLevel;
+        var z = Session.get('zoom_level') < minFactualZoomLevel;
+        if(!z) {
+            _.delay(function () {
+                $('#toggle-search').bootstrapToggle();
+                Session.set('search_type', "Factual");
+            }, 200);
+        }
+        return z;
     },
     searchResults: function () {
         if(Session.get('search_type') == "TogetherMap") {

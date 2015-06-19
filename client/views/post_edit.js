@@ -1,5 +1,9 @@
 var jqueryInit = function (id) {
     initFroala(function (html) {
+        if(html.length > 2000) {
+            growl.error("Topic too long (maybe you pasted an image?");
+            return;
+        }
         Meteor.call('updatePost', id, {$set:{'description': html}});
     });
 };

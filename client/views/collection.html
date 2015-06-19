@@ -98,23 +98,14 @@
 
         <div class="form-group">
 
-            <span>
-                <a class="recent-go">
-                    <button class="btn btn-primary">
-                        <i class="fa fa-clock-o"></i>
-                        Recent
-                    </button>
-                </a>
-            </span>
-
-            <span>
-                <button class="btn btn-primary pan-collection">
-                    <i class="fa fa-location-arrow"></i>
-                    Go
-                </button>
-            </span>
-
             {{#if followable }}
+
+                <span>
+                    <button class="btn btn-primary pan-collection">
+                        <i class="fa fa-location-arrow"></i>
+                        Go
+                    </button>
+                </span>
 
                 <span>
                     <a class="follow">
@@ -128,6 +119,13 @@
             {{/if}}
 
             {{#if followed }}
+
+                <span>
+                    <button class="btn btn-primary pan-collection">
+                        <i class="fa fa-location-arrow"></i>
+                        Go
+                    </button>
+                </span>
 
                 <span>
                     <a class="unfollow">
@@ -168,30 +166,48 @@
 
         {{/if}}
 
-        {{#if isPostWriter }}
+        <div class="form-group">
 
-            <div class="form-group">
-
+            {{#if isPostWriter }}
                 <span>
                     {{> vote type="collection" _id=_id }}
                 </span>
+            {{/if}}
 
-            </div>
-
-        {{/if}}
+            <span>
+                <a class="recent-go">
+                    <button class="btn btn-primary">
+                        <i class="fa fa-clock-o"></i>
+                        Recent
+                    </button>
+                </a>
+            </span>
+        </div>
 
     {{/with}}
 
 
-    <div class="alternate-colors">
+    {{#unless viewPlaces }}
 
-        {{#each places}}
+        <div class="form-group">
+            <span class="btn btn-primary view-place-list">
+                View Place List
+            </span>
+        </div>
 
-            {{> quick_place }}
+    {{else}}
 
-        {{/each}}
+        <div class="alternate-colors">
 
-    </div>
+            {{#each places}}
+
+                {{> quick_place }}
+
+            {{/each}}
+
+        </div>
+
+    {{/unless}}
 
 
     {{#unless collection.creator }}

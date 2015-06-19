@@ -79,6 +79,11 @@ Template.post.events = {
             return;
         }
 
+        if(html.length > 2000) {
+            growl.error("Description too long (maybe you pasted an image?");
+            return;
+        }
+
         Meteor.call('insertComment', {
             text: html
         }, pid, cid, postid);

@@ -18,19 +18,17 @@
             {{ formatDate createDate }}
         </span>
 
-    </div>
+        {{#if writePermission}}
 
-    {{#if writePermission}}
-
-        <div>
-            <a href="" class="remove-comment">
-                <span class="btn btn-sm btn-warning">
+            <span> //
+                <a href="" class="remove-comment">
                     <i class="fa fa-remove"></i>
                     Delete
-                </span>
-            </a>
-        </div>
+                </a>
+            </span>
 
-    {{/if}}
+        {{/if}}
+
+    </div>
 
 </template>

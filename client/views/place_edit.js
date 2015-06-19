@@ -1,6 +1,10 @@
 var jqueryInit = function (id) {
     var place = MPlaces.findOne(Session.get('active_place'));
     initFroala(function (html) {
+        if(html.length > 2000) {
+            growl.error("Description too long (maybe you pasted an image?");
+            return;
+        }
         Meteor.call('updatePlace', id, {$set:{'properties.description': html}});
     });
     $('#shape-color').val(place.properties.color);

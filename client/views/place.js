@@ -197,6 +197,13 @@ Template.place.events = {
         var html = $( "#editable" ).val();
 
         if(!title || title.trim().length == 0) {
+            growl.warning("Need to enter a post title.");
+            return;
+        }
+
+        console.log(html.length);
+        if(html.length > 2000) {
+            growl.error("Topic too long (maybe you pasted an image?");
             return;
         }
 

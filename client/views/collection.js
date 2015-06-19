@@ -1,5 +1,6 @@
 Template.collection.rendered = function () {
     $('[data-toggle="tooltip"]').tooltip()
+    Session.set('viewPlaces', false);
 };
 
 
@@ -32,6 +33,10 @@ Template.collection.helpers({
     places: function () {
         var cid = Session.get('active_collection');
         return MPlaces.find({collectionId: cid});
+    },
+
+    viewPlaces: function () {
+        return Session.get('viewPlaces');
     },
 
     visible_places_count: function () {
@@ -94,6 +99,14 @@ Template.collection.events = {
         e.preventDefault();
         // don't want to follow it twice, so we do an upsert
         Meteor.call('addFollow', this._id, this.name);
+    },
+
+    'click .view-place-list': function () {
+        Session.set('viewPlaces', true);
+    },
+
+    'click .hide-place-list': function () {
+        Session.set('viewPlaces', false);
     },
 
     'click .unfollow': function (e) {
