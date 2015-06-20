@@ -68,9 +68,8 @@ initFroala = function (f) {
         }
     });
 
-    $('#editable').on('editable.beforeImageUpload', function (e, editor, images) {
-        console.log('here');
-        // Do something here.
+    $('#editable').on('editable.beforeUploadPastedImage', function (e, editor) {
+        return false;
     });
 
     $('#editable').on('editable.contentChanged', function (e, editor) {
