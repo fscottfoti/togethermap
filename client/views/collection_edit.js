@@ -141,6 +141,16 @@ Template.collectionEdit.events = {
         makeBootbox(d);
     },
 
+    'click .place-template-label-sample': function () {
+
+        var t = $('#place-template-label').val();
+        var p = getSamplePlace();
+        var d = Handlebars.compile(t)(p);
+        if(!t)
+            d = "No template";
+        makeBootbox(d);
+    },
+
     'click .place-autoform-sample': function () {
 
         var t = $('#place-autoform').val();
@@ -194,6 +204,16 @@ Template.collectionEdit.events = {
             Handlebars.compile(t || defaultPlaceTemplateList);
 
         Meteor.call('updateCollection', this._id, {$set: {place_template_list: t}});
+    },
+
+    'change #place-template-label': function (e) {
+
+        var t = e.target.value;
+
+        templates.place_template_label =
+            Handlebars.compile(t || defaultPlaceTemplateList);
+
+        Meteor.call('updateCollection', this._id, {$set: {place_template_label: t}});
     },
 
     'change #place-autoform': function (e) {

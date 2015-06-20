@@ -980,8 +980,8 @@ Map = {
             var post_count = place.post_count || 0;
 
             var l = '';
-            if(templates.place_template_list) {
-                l = templates.place_template_list(place);
+            if(templates.place_template_label) {
+                l = templates.place_template_label(place);
             } else {
                 l = Handlebars.compile(defaultPlaceTemplateList)(place);
             }
