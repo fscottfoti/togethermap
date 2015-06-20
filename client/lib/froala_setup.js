@@ -22,7 +22,6 @@ var imagePicker = function (froalaRef) {
 
 
 initFroala = function (f) {
-    // pass in the function of what to do with the edited html on blur
 
     $('#editable').editable({
         key: '9iqxeujfvhgwD3jef==',
@@ -32,7 +31,9 @@ initFroala = function (f) {
         theme: 'gray',
         placeholder: '',
         imageUpload: false,
+        imageUploadURL: '/doesnotexist',
         mediaManager: false,
+
         buttons: [
             'bold',
             'italic',
@@ -41,11 +42,11 @@ initFroala = function (f) {
             'sep',
             'createLink',
             'insertVideo',
-            'filePicker',
             'imagePicker',
             'sep',
             'html'
         ],
+
         customButtons: {
 
             // Insert HTML button with image button.
@@ -65,6 +66,11 @@ initFroala = function (f) {
                 }
             }
         }
+    });
+
+    $('#editable').on('editable.beforeImageUpload', function (e, editor, images) {
+        console.log('here');
+        // Do something here.
     });
 
     $('#editable').on('editable.contentChanged', function (e, editor) {

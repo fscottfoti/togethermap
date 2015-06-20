@@ -7,6 +7,10 @@ Meteor.startup(function(){
         return this.setView(point, this._zoom, { pan: options })
     }
 
+    Mousetrap.bind(['command+d', 'ctrl+d'], function() {
+        toggleDoubleClickAdd();
+        return false;
+    });
 });
 
 
