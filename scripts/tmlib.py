@@ -1,8 +1,8 @@
 import random
 import time
 
-def createPlace(lat, lng, color, name, description):
-    return {
+def createPlace(lat, lng, color, name, description, properties):
+    d = {
         "type": "Feature",
         "bbox": {
             "type": "Point",
@@ -20,7 +20,9 @@ def createPlace(lat, lng, color, name, description):
             "description": description
         }
     }
-
+    for k, v in properties.items():
+       d["properties"][k] = v
+    return d
 
 def randomColor():
     return "#%06x" % random.randint(0,0xFFFFFF)

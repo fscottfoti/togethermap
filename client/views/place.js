@@ -200,7 +200,7 @@ Template.place.events = {
             growl.warning("Need to enter a post title.");
             return;
         }
-        
+
         if(html.length > 2000) {
             growl.error("Topic too long (maybe you pasted an image?");
             return;
