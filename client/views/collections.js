@@ -9,7 +9,7 @@ Template.collections.helpers({
     collections: function () {
         return MCollections.find(
             { name: { $ne: 'NEW COLLECTION' } },
-            { sort: { place_count: -1 }});
+            { sort: { createDate: -1}});
     },
 
     readPublic: function () {
