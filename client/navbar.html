@@ -56,25 +56,29 @@
         </a>
         <ul class="dropdown-menu" role="menu">
             <li>
-                <a href="#" class="collections-go">Browse</a>
+                <a href="#" class="collections-go"><i class="fa fa-list"></i> Browse</a>
             </li>
 
             <li>
-                <a href="#" class="search-go">Search</a>
+                <a href="#" class="search-go"><i class="fa fa-search"></i> Search</a>
             </li>
 
             {{#if currentUser }}
 
                 <li>
-                    <a href="#" class="settings-go">Settings</a>
+                    <a href="#" class="settings-go"><i class="fa fa-gear"></i> Settings</a>
                 </li>
 
                 <li>
-                    <a href="#" class="import-go">Import</a>
+                    <a href="#" class="import-go"><i class="fa fa-arrow-circle-o-up"></i> Import</a>
                 </li>
 
                 <li>
-                    <a href="#" class="newCollection">New</a>
+                    <a href="#" class="newCollection">&nbsp;<i class="fa fa-map-marker"></i>&nbsp;New</a>
+                </li>
+
+                <li>
+                    <a href="http://togethermap.bitbucket.org/" target="_blank"><i class="fa fa-question-circle"></i> Docs</a>
                 </li>
 
             {{/if}}
