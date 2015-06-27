@@ -165,6 +165,13 @@ Template.collectionEdit.events = {
         Meteor.call('updateCollection', this._id, {$set: {flickr_link: t}});
     },
 
+    'change #transit_name': function (e) {
+
+        var t = e.target.value;
+
+        Meteor.call('updateCollection', this._id, {$set: {transit_name: t}});
+    },
+
     'change #icon_f': function (e) {
 
         var t = e.target.value;
