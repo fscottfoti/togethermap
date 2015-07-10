@@ -7,37 +7,6 @@
 
         {{{ properties.description }}}
 
-        <div class="form-group">
-
-            <span>
-                {{#unless creatorUID}}
-                    <i class="fa fa-user"></i>
-                    {{ creator }}
-                {{else}}
-                    <a href="#" class="profile-go">
-                        <i class="fa fa-user"></i>
-                        {{ creator }}
-                    </a>
-                {{/unless}}
-            </span>
-
-            <span> //
-                <i class="fa fa-comment"></i>
-                {{ postCount }}
-            </span>
-
-            <span> //
-                <i class="fa fa-trophy"></i>
-                {{ pluralize votes "Vote" }}
-            </span>
-
-            {{#if postPermission }}
-                <span>
-                    {{> vote type="place" _id=place._id }}
-                </span>
-            {{/if}}
-
-        </div>
     </div>
 
 
@@ -86,6 +55,38 @@
                 </ul>
             </span>
 
+        {{/if}}
+
+    </div>
+
+    <div class="form-group">
+
+            <span>
+                {{#unless creatorUID}}
+                    <i class="fa fa-user"></i>
+                    {{ creator }}
+                {{else}}
+                    <a href="#" class="profile-go">
+                        <i class="fa fa-user"></i>
+                        {{ creator }}
+                    </a>
+                {{/unless}}
+            </span>
+
+            <span> //
+                <i class="fa fa-comment"></i>
+                {{ postCount }}
+            </span>
+
+            <span> //
+                <i class="fa fa-trophy"></i>
+                {{ pluralize votes "Vote" }}
+            </span>
+
+        {{#if postPermission }}
+            <span>
+                {{> vote type="place" _id=place._id }}
+            </span>
         {{/if}}
 
     </div>
