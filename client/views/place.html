@@ -85,7 +85,7 @@
 
         {{#if postPermission }}
             <span>
-                {{> vote type="place" _id=place._id }}
+                {{> vote type="place" _id=_id }}
             </span>
         {{/if}}
 
@@ -143,7 +143,7 @@
             {{> quick_post }}
 
             <a class="read-more">
-                <button class="btn btn-success">
+                <button class="btn btn-sm btn-success">
 
                     <i class="fa fa-book"></i>
                     Read More
@@ -183,7 +183,7 @@
 
                 <div>
                     <a class="new-topic">
-                        <button class="btn btn-warning">
+                        <button class="btn btn-sm btn-warning">
                             <i class="fa fa-file"></i>
                             Post New Topic
                         </button>
@@ -211,12 +211,12 @@
             </div>
 
             <div>
-                <button class="btn btn-success add-topic">
+                <button class="btn btn-sm btn-success add-topic">
                     <i class="fa fa-plus-square-o"></i>
                     Add Topic
                 </button>
 
-                <button class="btn btn-default cancel">
+                <button class="btn btn-sm btn-default cancel">
                     <i class="fa fa-close"></i>
                     Cancel
                 </button>
