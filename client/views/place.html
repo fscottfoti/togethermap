@@ -22,13 +22,6 @@
             </span>
 
             <span> //
-                <i class="fa fa-calendar"></i>
-                {{ formatDate dateField }}
-            </span>
-
-            <br>
-
-            <span>
                 <i class="fa fa-comment"></i>
                 {{ postCount }}
             </span>
@@ -38,6 +31,12 @@
                 {{ pluralize votes "Vote" }}
             </span>
 
+            {{#if postPermission }}
+                <span>
+                    {{> vote type="place" _id=place._id }}
+                </span>
+            {{/if}}
+
         </div>
     </div>
 
@@ -45,7 +44,7 @@
     <div class="form-group">
 
         <a class="collection-go">
-            <button class="btn btn-primary">
+            <button class="btn btn-primary btn-sm">
                 <i class="fa fa-arrow-left"></i>
                 Collection
             </button>
@@ -54,17 +53,40 @@
 
         {{#if writePermission }}
 
-            <button class="btn btn-primary edit-link">
+            <button class="btn btn-primary btn-sm edit-link">
                 <i class="fa fa-edit"></i>
                 Edit
             </button>
 
         {{/if}}
 
-        <button class="btn btn-primary pan-map">
-            <i class="fa fa-location-arrow"></i>
-            Go
-        </button>
+        {{#if currentUser }}
+
+            <span class="dropdown">
+
+                <button class="btn btn-sm btn-primary dropdown-toggle copy-to"
+                        data-toggle="dropdown">
+                    <i class="fa fa-copy"></i>
+                    Copy
+                    <span class="caret"></span>
+                </button>
+
+                <ul class="dropdown-menu" role="menu">
+                    {{#each myCollections}}
+                        <li role="presentation">
+                            <a role="menuitem"
+                               class="do-copy"
+                               id="{{_id}}"
+                               cid="{{cid}}"
+                               href="#">
+                                {{name}}
+                            </a>
+                        </li>
+                    {{/each}}
+                </ul>
+            </span>
+
+        {{/if}}
 
     </div>
 
@@ -72,41 +94,9 @@
 
 {{#if place}}
 
-    {{#if currentUser }}
-
-        <div class="dropdown">
-
-            <button class="btn btn-primary dropdown-toggle copy-to"
-                    data-toggle="dropdown">
-                <i class="fa fa-copy"></i>
-                Copy to
-                <span class="caret"></span>
-            </button>
-
-            {{#if postPermission }}
-                <span>
-                    {{> vote type="place" _id=place._id }}
-                </span>
-            {{/if}}
-
-            <ul class="dropdown-menu" role="menu">
-                {{#each myCollections}}
-                    <li role="presentation">
-                        <a role="menuitem"
-                           class="do-copy"
-                           id="{{_id}}"
-                           cid="{{cid}}"
-                           href="#">
-                            {{name}}
-                        </a>
-                    </li>
-                {{/each}}
-            </ul>
-        </div>
 
         {{#if anyPlaceInstances}}
         <div>
-            <br>
             Collections this place is a member of:
 
             {{#each allPlaceInstances}}
@@ -138,8 +128,6 @@
             {{/each}}
         </div>
         {{/if}}
-
-    {{/if}}
 
     <hr>
 
@@ -186,7 +174,7 @@
             {{#unless postPermission}}
 
                 <div>
-                        Contact collection admin to get post writing permission.
+                    Contact collection admin to get post writing permission.
                 </div>
                 <br>
 

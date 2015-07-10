@@ -82,12 +82,20 @@ Template.collectionEdit.events = {
 
         Meteor.call('updateCollection',
             this._id, {$set:{default_map: Map.activeBaseMap}});
+
+        growl.success('Default view set.')
     },
 
     'click .toggle-expert': function() {
 
         Session.set('expertConfiguration',
                     !Session.get('expertConfiguration'));
+    },
+
+    'click .permissions-link': function (e) {
+
+        e.preventDefault();
+        Router.go('permissions', {_id: this._id});
     },
 
     'click .delete-link': function(e) {

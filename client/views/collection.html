@@ -1,53 +1,108 @@
 <template name="collection">
-    
-    <h2>
-        {{ collection.name }}
-
-        <br>
-
-        {{#if isOwner}}
-            <span>
-                <i class="fa fa-user"
-                   data-toggle="tooltip"
-                   data-placement="right"
-                   title="You can edit other people's contributions (owner)"></i>
-            </span>
-        {{/if}}
-
-        {{#if isPlaceWriter}}
-            <span>
-                <i class="fa fa-map-marker"
-                   data-toggle="tooltip"
-                   data-placement="right"
-                   title="You can add places"></i>
-            </span>
-        {{/if}}
-
-        {{#if isPostWriter}}
-            <span>
-                <i class="fa fa-comment"
-                   data-toggle="tooltip"
-                   data-placement="right"
-                   title="You can make posts and comments"></i>
-            </span>
-        {{/if}}
-
-        {{#if isReader}}
-            <span>
-                <i class="fa fa-eye"
-                   data-toggle="tooltip"
-                   data-placement="right"
-                   title="You may observe the collection"></i>
-            </span>
-        {{/if}}
-    </h2>
-
-    <div>
-    </div>
 
     {{#with collection}}
 
+        <h2>
+            {{ name }}
+
+            <i class="fa fa-location-arrow pan-collection" style="cursor:pointer;"></i>
+        </h2>
+
+        <div class="form-group">
+
+            <span>
+                <a class="recent-go">
+                    <button class="btn btn-sm btn-primary">
+                        <i class="fa fa-clock-o"></i>
+                        Recent
+                    </button>
+                </a>
+            </span>
+
+            {{#if write_permission}}
+
+                <span>
+                    <a class="edit-link">
+                        <button class="btn btn-sm btn-primary">
+                            <i class="fa fa-edit"></i>
+                            Edit
+                        </button>
+                    </a>
+                </span>
+
+            {{/if}}
+
+            {{#if followable }}
+
+                <span>
+                    <a class="follow">
+                        <button class="btn btn-sm btn-primary">
+                            <i class="fa fa-star"></i>
+                            Follow
+                        </button>
+                    </a>
+                </span>
+
+            {{/if}}
+
+            {{#if followed }}
+
+                <span>
+                    <a class="unfollow">
+                        <button class="btn btn-sm btn-primary">
+                            <i class="fa fa-star-o"></i>
+                            Unfollow
+                        </button>
+                    </a>
+                </span>
+
+            {{/if}}
+
+        </div>
+
         {{{ description }}}
+
+        {{#if 0}}
+        <div>
+
+            {{#if isOwner}}
+                <span>
+                    <i class="fa fa-2x fa-user"
+                       data-toggle="tooltip"
+                       data-placement="right"
+                       title="You can edit other people's contributions (owner)"></i>
+                </span>
+            {{/if}}
+
+            {{#if isPlaceWriter}}
+                <span>
+                    <i class="fa fa-2x fa-map-marker"
+                       data-toggle="tooltip"
+                       data-placement="right"
+                       title="You can add places"></i>
+                </span>
+            {{/if}}
+
+            {{#if isPostWriter}}
+                <span>
+                    <i class="fa fa-2x fa-comment"
+                       data-toggle="tooltip"
+                       data-placement="right"
+                       title="You can make posts and comments"></i>
+                </span>
+            {{/if}}
+
+            {{#if isReader}}
+                <span>
+                    <i class="fa fa-2x fa-eye"
+                       data-toggle="tooltip"
+                       data-placement="right"
+                       title="You may observe the collection"></i>
+                </span>
+            {{/if}}
+
+        </div>
+        {{/if}}
     
         <!-- display a line of collection attributes (dates and such) -->
 
@@ -65,23 +120,29 @@
             </span>
 
             <span> //
-                <i class="fa fa-calendar"></i>
-                {{ formatDate createDate }}
+                <i class="fa fa-comment"></i>
+                {{pluralize place_count "Place"}}
             </span>
 
-            <br>
-
-            <span>
+            <span> //
                 <i class="fa fa-trophy"></i>
                 {{ pluralize votes "Vote" }}
             </span>
 
-            <br>
+            {{#if isPostWriter }}
+                <span>
+                    {{> vote type="collection" _id=_id }}
+                </span>
+            {{/if}}
+
+        </div>
+
+        {{#if 0}}
+        <div class="form-group">
 
             <span>
-                {{ formatNumber visible_places_count }} shown,
-                {{ formatNumber places_loaded_count }} loaded,
-                out of {{ formatNumber place_count }} Places
+                {{ formatNumber visible_places_count }} visible
+                out of {{ formatNumber place_count }} total places
             </span>
 
             <br>
@@ -95,97 +156,11 @@
             </span>
 
         </div>
-
-        <div class="form-group">
-
-            {{#if followable }}
-
-                <span>
-                    <button class="btn btn-primary pan-collection">
-                        <i class="fa fa-location-arrow"></i>
-                        Go
-                    </button>
-                </span>
-
-                <span>
-                    <a class="follow">
-                        <button class="btn btn-primary">
-                            <i class="fa fa-star"></i>
-                            Follow
-                        </button>
-                    </a>
-                </span>
-
-            {{/if}}
-
-            {{#if followed }}
-
-                <span>
-                    <button class="btn btn-primary pan-collection">
-                        <i class="fa fa-location-arrow"></i>
-                        Go
-                    </button>
-                </span>
-
-                <span>
-                    <a class="unfollow">
-                        <button class="btn btn-primary">
-                            <i class="fa fa-star-o"></i>
-                            Unfollow
-                        </button>
-                    </a>
-                </span>
-
-            {{/if}}
-
-        </div>
-
-        {{#if write_permission }}
-
-            <div class="form-group">
-
-                <span>
-                    <a class="edit-link">
-                        <button class="btn btn-primary">
-                            <i class="fa fa-edit"></i>
-                            Edit
-                        </button>
-                    </a>
-                </span>
-
-                <span>
-                    <a class="permissions-link">
-                        <button class="btn btn-primary">
-                            <i class="fa fa-eye-slash"></i>
-                            Permissions
-                        </button>
-                    </a>
-                </span>
-
-            </div>
-
         {{/if}}
-
-        <div class="form-group">
-
-            {{#if isPostWriter }}
-                <span>
-                    {{> vote type="collection" _id=_id }}
-                </span>
-            {{/if}}
-
-            <span>
-                <a class="recent-go">
-                    <button class="btn btn-primary">
-                        <i class="fa fa-clock-o"></i>
-                        Recent
-                    </button>
-                </a>
-            </span>
-        </div>
 
     {{/with}}
 
+    <hr>
 
     {{#unless viewPlaces }}
 

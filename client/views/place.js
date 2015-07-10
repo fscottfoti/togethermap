@@ -52,7 +52,7 @@ Template.place.helpers({
     myCollections: function () {
         var mine = MCollections.find(userIdExpression(Meteor.user())).fetch();
         var followed = MFollowed.find().fetch();
-        var places = this.allPlaceInstances.fetch();
+        var places = Template.parentData().allPlaceInstances.fetch();
         var docs = _.filter(mine.concat(followed), function (c) {
             var cid = c.cid || c._id; // can be followed or owned
 
@@ -81,7 +81,7 @@ Template.place.helpers({
     },
 
     anyPlaceInstances: function () {
-        return this.allPlaceInstances.fetch().length > 0;
+        return this.allPlaceInstances.fetch().length > 1;
     }
 });
 

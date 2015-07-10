@@ -76,12 +76,6 @@ Template.collection.events = {
         Router.go('collection_edit', {_id: this._id});
     },
 
-    'click .permissions-link': function (e) {
-
-        e.preventDefault();
-        Router.go('permissions', {_id: this._id});
-    },
-
     'click .recent-go': function (e) {
 
         e.preventDefault();
