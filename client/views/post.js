@@ -24,6 +24,10 @@ Template.post.helpers({
 
     newTopic: function () {
         return Session.get('newTopic');
+    },
+
+    noNav: function () {
+        return Session.get('noNav');
     }
 });
 

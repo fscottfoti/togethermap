@@ -35,7 +35,7 @@
     <div>
     {{#if noComments }}
 
-        There are no comments on this place - add one below.
+        There are no comments on this place.
 
         <hr>
 
@@ -59,11 +59,15 @@
 
         {{#unless currentUser}}
 
-            <div>
-                <h3>
-                    Login to add a comment
-                </h3>
-            </div>
+            {{#unless noNav}}
+
+                <div>
+                    <h3>
+                        Login to add a comment
+                    </h3>
+                </div>
+
+            {{/unless}}
 
         {{else}}
 

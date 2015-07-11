@@ -134,7 +134,7 @@
 
     {{#if noPosts }}
 
-        There are no topics on this place - add one below.
+        There are no topics on this place.
 
     {{else}}
 
@@ -164,11 +164,15 @@
 
         {{#unless currentUser }}
 
-            <div>
-                <h3>
-                    Login to add a topic
-                </h3>
-            </div>
+            {{#unless noNav}}
+
+                <div>
+                    <h3>
+                        Login to add a topic
+                    </h3>
+                </div>
+
+            {{/unless}}
 
         {{else}}
 
