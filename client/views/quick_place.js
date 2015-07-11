@@ -16,11 +16,11 @@ Template.quick_place.events = {
 
     "mouseenter .quick-place": function (e) {
         Map.bounceMarker(this._id, 1);
-        //Map.highlightPlace(this._id);
+        Map.highlightPlace(this._id);
     },
 
     "mouseleave .quick-place": function (e) {
-        //Map.unHighlightPlace(this._id);
+        Map.unHighlightPlace(this._id);
     },
 
     'click .pan-map': function () {

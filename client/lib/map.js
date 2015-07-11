@@ -242,14 +242,14 @@ Map = {
         this.layerControl.addTo(this.map);
 
         // this is social media sharing
-        this.shareControl = new MyShareControl();
+        /*this.shareControl = new MyShareControl();
         this.shareControl.link_f = function () {
             return {
                 url: location.href,
                 name: 'Check out TogetherMap',
                 image: window.location.origin + '/img/map-pin.jpg'
             };
-        };
+        };*/
 
         this.sidebar = L.control.sidebar('sidebar', {
             position: 'right',
@@ -262,12 +262,25 @@ Map = {
             if(!cid)
                 cid = 'empty';
             Router.go('map', {'_id': cid});
+            Map.sideBarActive = true;
+            Map.sideBarButton.addTo(Map.map);
         });
         this.sidebar.on('show', function () {
             // this is a bit odd - we need to know, when we close the sidebar,
             // that it has ever been opened (presumably to a valid state).
             // Otherwise calling history.back() would go to a different website
             Map.sidebarOpened = true;
+            if(Map.sideBarActive) {
+                Map.sideBarActive = false;
+                Map.sideBarButton.removeFrom(Map.map);
+            }
+        });
+
+        this.sideBarButton = L.easyButton('fa-home', function(){
+            Map.sidebar.toggle();
+            if(Map.sidebar.isVisible()) {
+                history.back();
+            }
         });
 
         //L.mapbox.infoControl().addTo(this.map);
@@ -722,7 +735,7 @@ Map = {
         }
         this.map.removeControl(this.locateControl);
         this.map.addControl(this.zoomControl);
-        this.map.addControl(this.shareControl);
+        //this.map.addControl(this.shareControl);
         this.map.addControl(this.geocoder);
         this.map.addControl(this.locateControl);
 
@@ -736,7 +749,7 @@ Map = {
             return;
         }
         this.map.removeControl(this.zoomControl);
-        this.map.removeControl(this.shareControl);
+        //this.map.removeControl(this.shareControl);
         this.map.removeControl(this.geocoder);
         this.desktopControls = false;
     },
@@ -878,18 +891,27 @@ Map = {
 
     highlightPlace: function (id) {
         var layer = this.keysToLayers[id];
+        if(!layer)
+            return;
         if(layer && layer.highlight_icon) {
             layer.setIcon(layer.highlight_icon);
             layer.original_offset = layer.options.zIndexOffset;
             layer.setZIndexOffset(10000);
+        } else {
+            // not marker
+            layer.setStyle({fillOpacity: 0.65, opacity: 0.8});
         }
     },
 
     unHighlightPlace: function (id) {
         var layer = this.keysToLayers[id];
-        if(layer && layer.normal_icon) {
+        if(!layer)
+            return;
+        if(layer.normal_icon) {
             layer.setIcon(layer.normal_icon);
             layer.setZIndexOffset(layer.original_offset);
+        } else {
+            layer.setStyle({fillOpacity: 0.2, opacity: 0.45});
         }
     },
 

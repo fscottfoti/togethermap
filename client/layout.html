@@ -5,9 +5,11 @@
 </head>
 
 <template name="layout">
-    <header>
-        {{> nav }}
-    </header>
+    {{#unless noNav}}
+        <header>
+            {{> nav }}
+        </header>
+    {{/unless}}
 
     {{#if spinning}}
         {{> spinner}}

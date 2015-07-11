@@ -6,8 +6,13 @@ Template.map.rendered = function () {
 
         $(window).resize(function () {
             var h = $(window).height(), offsetTop = 55; // Calculate the top offset
+            if (Session.get('noNav')) {
+                offsetTop = 0;
+                $('body').css('margin-top', "0px");
+            } else {
+                $('body').css('margin-top', "55px");
+            }
             $('#map_canvas').css('height', (h - offsetTop));
-            //$('#info_panel').css('height', (h - offsetTop));
         }).resize();
 
         Map.create('map_canvas');

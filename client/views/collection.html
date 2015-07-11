@@ -10,14 +10,16 @@
 
         <div class="form-group">
 
-            <span>
-                <a class="recent-go">
-                    <button class="btn btn-sm btn-primary">
-                        <i class="fa fa-clock-o"></i>
-                        Recent
-                    </button>
-                </a>
-            </span>
+            {{#if currentUser }}
+                <span>
+                    <a class="recent-go">
+                        <button class="btn btn-sm btn-primary">
+                            <i class="fa fa-clock-o"></i>
+                            Recent
+                        </button>
+                    </a>
+                </span>
+            {{/if}}
 
             {{#if write_permission}}
 
