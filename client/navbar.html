@@ -39,7 +39,7 @@
 
 
 <template name="navBrand">
-    <a class="navbar-brand" href="{{ pathFor 'home' }}">TogetherMap</a>
+    <a class="navbar-brand home-go" style="cursor: pointer;">TogetherMap</a>
 </template>
 
 
@@ -77,11 +77,12 @@
                     <a href="#" class="newCollection">&nbsp;<i class="fa fa-map-marker"></i>&nbsp;New</a>
                 </li>
 
-                <li>
-                    <a href="http://togethermap.bitbucket.org/" target="_blank"><i class="fa fa-question-circle"></i> Docs</a>
-                </li>
-
             {{/if}}
+
+            <li>
+                <a href="http://togethermap.bitbucket.org/" target="_blank"><i class="fa fa-question-circle"></i> Help</a>
+            </li>
+
         </ul>
     </li>
 

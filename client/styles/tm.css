@@ -10,6 +10,11 @@ a:hover {text-decoration:none;}
     -webkit-box-shadow: 3px 3px 5px -2px #888 ;
     -moz-box-shadow: 3px 3px 5px -2px #888 ;
     box-shadow: 3px 3px 5px -2px #888 ;
+    margin-bottom: 7px;
+}
+
+.home-content {
+    margin: 8px;
 }
 
 .top-right {

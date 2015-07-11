@@ -78,6 +78,15 @@ renderTmp = function (template, data) {
     return node;
 };
 
+
+Template.navBrand.events = {
+    'click .home-go': function (e) {
+        e.preventDefault();
+        makeBootbox(renderTmp(Template.home));
+    }
+};
+
+
 Template.navItems.events = {
 
     'click .settings-go': function (e) {
