@@ -17,6 +17,8 @@ Template.quick_place.events = {
     "mouseenter .quick-place": function (e) {
         Map.bounceMarker(this._id, 1);
         Map.highlightPlace(this._id);
+        if(Session.get('panOnMouseOver'))
+            Map.goToPlace(this, false, true);
     },
 
     "mouseleave .quick-place": function (e) {

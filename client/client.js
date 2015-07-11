@@ -11,6 +11,11 @@ Meteor.startup(function(){
         toggleDoubleClickAdd();
         return false;
     });
+
+    Mousetrap.bind(['command+p', 'ctrl+p'], function() {
+        togglePanOnMouseOver();
+        return false;
+    });
 });
 
 

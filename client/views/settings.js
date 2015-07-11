@@ -8,9 +8,16 @@ toggleDoubleClickAdd = function () {
     }
 };
 
+togglePanOnMouseOver = function () {
+    Session.set('panOnMouseOver', !Session.get('panOnMouseOver'));
+};
+
 Template.settings.helpers({
     doubleClickAdd: function () {
         return !!Session.get('doubleclickadd');
+    },
+    panToPlace: function () {
+        return Session.get('panOnMouseOver');
     }
 });
 
@@ -18,5 +25,9 @@ Template.settings.events = {
     'click .toggle-double-click': function () {
 
         toggleDoubleClickAdd();
+    },
+    'click .toggle-pan-to-place': function () {
+
+        togglePanOnMouseOver();
     }
 };

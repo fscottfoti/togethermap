@@ -916,10 +916,10 @@ Map = {
     },
 
 
-    goToPlace: function (place, bounce) {
+    goToPlace: function (place, bounce, noZoom) {
         var center = Map.jsonGetCenter(place);
 
-        if (this.lastPlace == place._id) {
+        if (this.lastPlace == place._id && !noZoom) {
 
             // for the second click, zoom in instead
             Map.zoomToFeature(place._id);
