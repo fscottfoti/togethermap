@@ -22,7 +22,14 @@
         </div>
     {{/unless}}
 
+    <div>
+        <span>
+            <i class="fa fa-comment"></i>
+            {{pluralize userPlaceCount "Place"}}
+        </span>
+    </div>
 
+    {{#if 0}}
     <div>
             <span>
                 {{ formatNumber visible_places_count }} shown,
@@ -41,6 +48,7 @@
             </span>
 
     </div>
+    {{/if}}
 
     <br>
 
