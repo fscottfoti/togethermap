@@ -31,6 +31,13 @@ Template.collection.helpers({
     },
 
     places: function () {
+        if(Session.get('active_connector')) {
+            if(!Session.get('results_ready'))
+                return;
+            var conn = connectors[Session.get('active_connector')];
+            // if special connector to places for this collection
+            return conn.places;
+        }
         var cid = Session.get('active_collection');
         return MPlaces.find({collectionId: cid});
     },
