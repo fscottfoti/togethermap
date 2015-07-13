@@ -5,7 +5,7 @@ Meteor.startup(function(){
         var y = this.latLngToContainerPoint(latlng).y - offset[1];
         var point = this.containerPointToLatLng([x, y]);
         return this.setView(point, this._zoom, { pan: options })
-    }
+    };
 
     Mousetrap.bind(['command+d', 'ctrl+d'], function() {
         toggleDoubleClickAdd();
@@ -14,6 +14,11 @@ Meteor.startup(function(){
 
     Mousetrap.bind(['command+p', 'ctrl+p'], function() {
         togglePanOnMouseOver();
+        return false;
+    });
+
+    Mousetrap.bind(['command+n', 'ctrl+n'], function() {
+        toggleNavbar();
         return false;
     });
 });

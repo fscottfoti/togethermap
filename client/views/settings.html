@@ -5,28 +5,44 @@
         <a href="" class="toggle-double-click">
             <button class="btn btn-default">Toggle Double Click (ctrl+d)</button>
         </a>
+
         <br>
-        <h4>
-            {{#if doubleClickAdd }}
-                Double click is set to add new markers.  Click to switch to zooming.
-            {{else}}
-                Double click is set to zoom in.  Click to switch to marker add.
-            {{/if}}
-        </h4>
+
+        {{#if doubleClickAdd }}
+            Double click is set to add new markers.  Click to switch to zooming.
+        {{else}}
+            Double click is set to zoom in.  Click to switch to marker add.
+        {{/if}}
     </div>
+    <br>
     {{/if}}
 
     <div style="align: center">
         <a href="" class="toggle-pan-to-place">
             <button class="btn btn-default">Toggle pan to place (ctrl+p)</button>
         </a>
+
         <br>
-        <h4>
-            {{#unless panToPlace }}
-                Moving the mouse over a place in the place list will highlight the place.
-            {{else}}
-                Moving the mouse over a place in the place list will highlight the place and pan there.
-            {{/unless}}
-        </h4>
+
+        {{#unless panToPlace }}
+            Moving the mouse over a place in the place list will highlight the place.
+        {{else}}
+            Moving the mouse over a place in the place list will highlight the place and pan there.
+        {{/unless}}
+    </div>
+    <br>
+
+    <div style="align: center">
+        <a href="" class="toggle-navbar">
+            <button class="btn btn-default">Toggle navbar (ctrl+n)</button>
+        </a>
+
+        <br>
+
+        {{#if navbarDisabled }}
+            Click this to re-enable the navbar.  Or if you hide this, you can use ctrl+n.
+        {{else}}
+            Click the button to hide the navbar.
+        {{/if}}
     </div>
 </template>
