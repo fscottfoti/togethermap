@@ -34,7 +34,7 @@ function readerLoadCsv(e) {
 
 
 // data should be geojson format by this point
-function loadShapes(data) {
+loadShapes = function (data, collection) {
     if(data.features.length > 5000) {
         growl.error('Import currently limited to 2500 shapes.  This file is '+
         +data.features.length+
@@ -61,11 +61,11 @@ function loadShapes(data) {
     }
     console.log("Loading " + data.features.length + " features");
 
-    var col = {
+    var col = _.extend({
         'name': data.fileName || fileName || 'NEW COLLECTION',
         'location': location,
         'place_count': data.features.length
-    };
+    }, collection);
 
     Meteor.call('createCollectionWithPlaces',
         col,
@@ -76,7 +76,7 @@ function loadShapes(data) {
         Session.set('spinning', false);
         Router.go('collection', {_id: key});
     });
-}
+};
 
 
 function handleZipFile(file) {

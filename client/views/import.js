@@ -8,3 +8,19 @@ Template.import.rendered = function () {
         handleFile(file);
     });
 };
+
+Template.import.events({
+    'click .import-flickr': function(e) {
+
+        e.preventDefault();
+        var url = $('#flickr-link').val();
+        Session.set('spinning', true);
+        FlickrConnector.fetch(url, undefined, function (places) {
+            loadShapes({
+                features: places
+            }, {
+                useConnectorTemplates: 'flickr'
+            });
+        });
+    }
+});
