@@ -55,6 +55,10 @@ Template.collectionEdit.helpers({
 
     disable_geoindex_checked: function () {
         return this.disable_geoindex ? "checked" : null;
+    },
+
+    enable_clustering_checked: function () {
+        return this.enable_clustering ? "checked" : null;
     }
 });
 
@@ -248,6 +252,12 @@ Template.collectionEdit.events = {
 
         Meteor.call('updateCollection', this._id,
             {$set: {disable_geoindex: e.target.checked}});
+    },
+
+    'change #enable-clustering': function (e) {
+
+        Meteor.call('updateCollection', this._id,
+            {$set: {enable_clustering: e.target.checked}});
     }
 };
 

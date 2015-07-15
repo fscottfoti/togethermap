@@ -86,10 +86,12 @@
 
             <br>
 
+            {{#if 0}}
             <div class="form-group">
                 <label>Flickr Album Link:</label><br>
                 <input id="flickr_link" class="form-control" type="text" placeholder="{{flickr_link}}"/>
             </div>
+            {{/if}}
 
             <div class="form-group">
                 <label>Firebase Transit Name:</label><br>
@@ -246,6 +248,15 @@
                            id="disable-geoindex"
                         {{disable_geoindex_checked}}>
                     Turn off geoindex
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"
+                           id="enable-clustering"
+                        {{enable_clustering_checked}}>
+                    Enable marker clustering
                 </label>
             </div>
 

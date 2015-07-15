@@ -36,6 +36,11 @@
         <h2 align="center">
             {{#if currentUser }}
                 Permission Denied - contact collection owner for access.
+                {{#if followed }}
+                    <div>
+                        <span class="btn btn-primary unfollow">Unfollow</span>
+                    </div>
+                {{/if}}
             {{else}}
                 Permission Denied - need to login?
             {{/if}}

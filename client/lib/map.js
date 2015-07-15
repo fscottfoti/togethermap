@@ -19,6 +19,12 @@ DefaultMapDriver = {
             Map.drop_markers = false;
         }
 
+        if(options.enable_clustering !== undefined) {
+            Map.enable_clustering = options.enable_clustering;
+        } else {
+            Map.enable_clustering = false;
+        }
+
         ['icon', 'color', 'icon_size'].forEach(function (f) {
             if (options[f+'_f'] !== undefined) {
                 DefaultMapDriver[f+'_f'] = options[f+'_f'];
@@ -38,9 +44,6 @@ DefaultMapDriver = {
         } else {
             Map.dont_delete_places = false;
         }
-
-        // should make this configurable in the UI
-        Map.enable_clustering = false;
 
         if(options.location !== undefined) {
             // change the map view IFF we're loading
@@ -429,8 +432,8 @@ Map = {
             this.hide();
 
             if(param == 'cluster' || Map.enable_clustering) {
-                this.writeShapeLayerGroup = (new L.MarkerClusterGroup()).addTo(Map.map);
-                this.readShapeLayerGroup = (new L.MarkerClusterGroup()).addTo(Map.map);
+                this.writeShapeLayerGroup = (new L.MarkerClusterGroup({disableClusteringAtZoom: 15})).addTo(Map.map);
+                this.readShapeLayerGroup = (new L.MarkerClusterGroup({disableClusteringAtZoom: 15})).addTo(Map.map);
             } else {
                 this.writeShapeLayerGroup = L.featureGroup().addTo(Map.map);
                 this.readShapeLayerGroup = L.featureGroup().addTo(Map.map);
