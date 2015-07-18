@@ -432,8 +432,8 @@ Map = {
             this.hide();
 
             if(param == 'cluster' || Map.enable_clustering) {
-                this.writeShapeLayerGroup = (new L.MarkerClusterGroup({disableClusteringAtZoom: 15})).addTo(Map.map);
-                this.readShapeLayerGroup = (new L.MarkerClusterGroup({disableClusteringAtZoom: 15})).addTo(Map.map);
+                this.writeShapeLayerGroup = (new L.MarkerClusterGroup()).addTo(Map.map);
+                this.readShapeLayerGroup = (new L.MarkerClusterGroup()).addTo(Map.map);
             } else {
                 this.writeShapeLayerGroup = L.featureGroup().addTo(Map.map);
                 this.readShapeLayerGroup = L.featureGroup().addTo(Map.map);

@@ -15,6 +15,7 @@ Template.import.events({
         e.preventDefault();
         var url = $('#flickr-link').val();
         Session.set('spinning', true);
+        bootbox.hideAll();
         FlickrConnector.fetch(url, undefined, function (places) {
             loadShapes({
                 features: places
