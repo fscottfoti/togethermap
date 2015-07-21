@@ -172,6 +172,16 @@ Template.place.events = {
         });
     },
 
+    'click .lightbox-image': function (e) {
+
+        e.preventDefault();
+        var size = e.altKey ? 'large' : null;
+        var src = $(e.target).attr('src');
+        var link = $(e.target).attr('link');
+        var t = '<div><a href="'+link+'"><img src="' + src + '" style="width: 100%"></a></div>';
+        makeBootbox(t, size);      
+    },
+
     'click .edit-link': function (e) {
 
         e.preventDefault();

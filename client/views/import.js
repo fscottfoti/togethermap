@@ -20,7 +20,8 @@ Template.import.events({
             loadShapes({
                 features: places
             }, {
-                useConnectorTemplates: 'flickr'
+                useConnectorTemplates: 'flickr',
+                sourceUrl: url
             });
         });
     }
