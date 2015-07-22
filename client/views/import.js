@@ -21,7 +21,8 @@ Template.import.events({
                 features: places
             }, {
                 useConnectorTemplates: 'flickr',
-                sourceUrl: url
+                sourceUrl: url,
+                disable_geoindex: true
             });
         });
     }

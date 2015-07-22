@@ -59,6 +59,10 @@ Template.collectionEdit.helpers({
 
     enable_clustering_checked: function () {
         return this.enable_clustering ? "checked" : null;
+    },
+
+    isFlickr: function () {
+        return this.useConnectorTemplates == "flickr";
     }
 });
 
@@ -175,6 +179,25 @@ Template.collectionEdit.events = {
         var t = e.target.value;
 
         Meteor.call('updateCollection', this._id, {$set: {flickr_link: t}});
+    },
+
+    'click .flickr-refresh': function(e) {
+
+        e.preventDefault();
+
+        var url = this.sourceUrl;
+        FlickrConnector.fetch(url, undefined, function (places) {
+            to_add = _.filter(places, function (p) {
+                return !Map.keysToLayers[p._id];
+            })
+            var cid = Session.get('active_collection');
+            Meteor.call('insertPlaces', to_add, cid, function(error, result) {
+                if(result == 1)
+                    growl.success('Added '+result+' new place');
+                else
+                    growl.success('Added '+result+' new places');
+            }); 
+        });
     },
 
     'change #transit_name': function (e) {
