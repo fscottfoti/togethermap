@@ -535,15 +535,15 @@ Map = {
 
         if(shape.hasOwnProperty('_icon')) {
 
-            var originalOffset = shape.options.zIndexOffset;
-            shape.setZIndexOffset(10000);
+            shape.originalOffset = shape.options.zIndexOffset;
+            shape.setZIndexOffset(9999);
 
             this.bouncing[key] = true;
             shape.bounce(duration || 4);
             var that = this;
             setTimeout(function() {
                 that.bouncing[key] = false;
-                shape.setZIndexOffset(originalOffset);
+                shape.setZIndexOffset(1000); //shape.originalOffset);
             }, duration * 1000 || 4000);
         }
     },
@@ -896,10 +896,10 @@ Map = {
         var layer = this.keysToLayers[id];
         if(!layer)
             return;
-        if(layer && layer.highlight_icon) {
+        if(layer.normal_icon) {
             layer.setIcon(layer.highlight_icon);
             layer.original_offset = layer.options.zIndexOffset;
-            layer.setZIndexOffset(10000);
+            layer.setZIndexOffset(99999);
         } else {
             // not marker
             layer.setStyle({fillOpacity: 0.65, opacity: 0.8});
@@ -912,7 +912,7 @@ Map = {
             return;
         if(layer.normal_icon) {
             layer.setIcon(layer.normal_icon);
-            layer.setZIndexOffset(layer.original_offset);
+            layer.setZIndexOffset(1000); //layer.original_offset);
         } else {
             layer.setStyle({fillOpacity: 0.2, opacity: 0.45});
         }
