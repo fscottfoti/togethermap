@@ -205,7 +205,10 @@ Template.collectionEdit.events = {
         e.preventDefault();
 
         var cid = Session.get('active_collection');
-        Meteor.call('exportCollectionAsJson', cid, function (err, data) {
+
+        var method = e.altKey ? 'exportCollectionAsJson' : 'exportCollectionAsCsv';
+
+        Meteor.call(method, cid, function (err, data) {
             if(err) {
                 growl.warning(data);
             } else {
