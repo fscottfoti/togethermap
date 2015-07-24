@@ -25,7 +25,7 @@
 
             <span>
                 <a class="save-location">
-                    <button class="btn btn-default">
+                    <button class="btn btn-sm btn-default">
                         <i class="fa fa-location-arrow"></i>
                         Default View
                     </button>
@@ -34,39 +34,48 @@
 
             <span>
                 <a class="permissions-link">
-                    <button class="btn btn-primary">
+                    <button class="btn btn-sm btn-primary">
                         <i class="fa fa-eye-slash"></i>
                         Permissions
                     </button>
                 </a>
             </span>
 
-            {{#if isFlickr}}
-                <span class="btn btn-primary flickr-refresh">Refresh</span>
-            {{/if}}
+            <span>
+                <a class="export-go">
+                    <button class="btn btn-sm btn-primary">
+                        <i class="fa fa-arrow-circle-o-down"></i>
+                        Export
+                    </button>
+                </a>
+            </span>
 
         </div>
 
         <div class="form-group">
 
             <a class="cancel">
-                <button class="btn btn-primary">
+                <button class="btn btn-sm btn-primary">
                     <i class="fa fa-arrow-left"></i>
                     Save
                 </button>
             </a>
 
             <a class="delete-link">
-                <button class="btn btn-danger">
+                <button class="btn btn-sm btn-danger">
                     <i class="fa fa-trash"></i>
                     Delete
                 </button>
             </a>
 
+            {{#if isFlickr}}
+                <span class="btn btn-sm btn-primary flickr-refresh">Refresh</span>
+            {{/if}}
+
             {{#unless expertConfiguration}}
 
                 <a class="toggle-expert">
-                    <button class="btn btn-primary">
+                    <button class="btn btn-sm btn-primary">
                         <i class="fa fa-arrow-down"></i>
                         More
                     </button>
@@ -75,7 +84,7 @@
             {{ else }}
 
                 <a class="toggle-expert">
-                    <button class="btn btn-primary">
+                    <button class="btn btn-sm btn-primary">
                         <i class="fa fa-arrow-up"></i>
                         Less
                     </button>
@@ -112,14 +121,14 @@
                 <br>
 
                 <a class="place-template-sample">
-                    <button class="btn btn-primary">
+                    <button class="btn btn-sm btn-primary">
                         <i class="fa fa-eye"></i>
                         Test
                     </button>
                 </a>
 
                 <a class="place-template-json">
-                    <button class="btn btn-primary">
+                    <button class="btn btn-sm btn-primary">
                         <i class="fa fa-code"></i>
                         Json
                     </button>
@@ -139,7 +148,7 @@
                 <br>
 
                 <a class="place-template-list-sample">
-                    <button class="btn btn-primary">
+                    <button class="btn btn-sm btn-primary">
                         <i class="fa fa-eye"></i>
                         Test
                     </button>
@@ -159,7 +168,7 @@
                 <br>
 
                 <a class="place-template-label-sample">
-                    <button class="btn btn-primary">
+                    <button class="btn btn-sm btn-primary">
                         <i class="fa fa-eye"></i>
                         Test
                     </button>
@@ -181,7 +190,7 @@
                 <br>
 
                 <a class="place-autoform-sample">
-                    <button class="btn btn-primary">
+                    <button class="btn btn-sm btn-primary">
                         <i class="fa fa-eye"></i>
                         Test
                     </button>
@@ -216,19 +225,19 @@
                  data-toggle="buttons-radio"
                  id="my_radiogroup">
                 <button type="radio"
-                        class="btn btn-primary cedit_mode"
+                        class="btn btn-sm btn-primary cedit_mode"
                         name="cedit_mode"
                         value="Icon">
                     Icon
                 </button>
                 <button type="radio"
-                        class="btn btn-primary cedit_mode"
+                        class="btn btn-sm btn-primary cedit_mode"
                         name="cedit_mode"
                         value="Size">
                     Icon Size
                 </button>
                 <button type="radio"
-                        class="btn btn-primary cedit_mode"
+                        class="btn btn-sm btn-primary cedit_mode"
                         name="cedit_mode"
                         value="Color">
                     Icon Color

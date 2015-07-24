@@ -200,6 +200,22 @@ Template.collectionEdit.events = {
         });
     },
 
+    'click .export-go': function (e) {
+
+        e.preventDefault();
+
+        var cid = Session.get('active_collection');
+        Meteor.call('exportCollectionAsJson', cid, function (err, data) {
+            if(err) {
+                growl.warning(data);
+            } else {
+                var blob = base64toBlob(data);
+                var name = MCollections.findOne(cid).name;
+                saveAs(blob, name+'.zip');
+            }
+        });
+    },
+
     'change #transit_name': function (e) {
 
         var t = e.target.value;
