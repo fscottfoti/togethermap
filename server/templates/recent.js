@@ -9,6 +9,13 @@ OriginalHandlebars.registerHelper('ifEmpty', function(list, options) {
 });
 
 
+OriginalHandlebars.registerHelper('unlessEmpty', function(list, options) {
+    if(list.length > 0) {
+        return options.fn(this);
+    }
+});
+
+
 OriginalHandlebars.registerHelper('collectionUrl', function(cid) {
     return urlBase + Router.path("collection", {_id: cid});
 });
@@ -43,7 +50,8 @@ OriginalHandlebars.registerHelper('dynamic_place', function (obj, template) {
     }
 });
 
-
+/*
+this won't quite work - do it like below if you want to bring this back
 recentPlacesData = function () {
 
     var dateFilter = {createDate: {$gt: new Date(Date.now() - 24*60*60*1000)}};
@@ -55,18 +63,39 @@ recentPlacesData = function () {
         recent_comments: MComments.find(dateFilter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch()
     }
 };
+*/
 
 
 recentPlacesDataByUser = function (userId) {
     var dateFilter = {createDate: {$gt: new Date(Date.now() - 24*60*60*1000)}};
-    var filter = limitToMyCollections(userId, dateFilter, true);
+    var cids = limitToMyCollections(userId, undefined, true, true);
+
+    var recent_data = _.map(cids, function (cid) {
+
+        var filter = {
+            $and: [
+                {collectionId: cid},
+                dateFilter
+            ]
+        };
+
+        return {
+            collection: MCollections.findOne(cid),
+            recent_places: MPlaces.find(filter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
+            recent_posts: MPosts.find(filter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
+            recent_comments: MComments.find(filter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch()
+        };
+    });
+
+
+    recent_data = _.filter(recent_data, function (obj) {
+        return obj.recent_places.length > 0 || obj.recent_posts.length > 0 || obj.recent_comments.length > 0;
+    });
+
 
     return {
-        collections: undefined,
-        header: "Recent Activity for Your Collections",
-        recent_places: MPlaces.find(filter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
-        recent_posts: MPosts.find(filter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
-        recent_comments: MComments.find(filter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch()
+        collections: recent_data,
+        header: "Recent Activity for Your Collections"
     }
 };
 

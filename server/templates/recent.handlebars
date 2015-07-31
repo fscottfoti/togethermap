@@ -1,107 +1,99 @@
-{{#if collection}}
-    <h2>
-        Recent Activity for
-        <a href="{{collectionUrl collection._id}}">
-            {{ collection.name }}
-        </a>
-    </h2>
-{{else}}
-    <h2>
-       {{header}}
-    </h2>
-{{/if}}
+{{#each collections}}
 
-<hr>
-
-<h3>
-    <i class="fa fa-clock-o">
-       Recent Places
-    </i>
-</h3>
-
-<div class="alternate-colors">
-
-    {{#each recent_places}}
-
-        <div>
-
-            <a href="{{placeUrl collectionId _id}}">
-                {{{ dynamic_place . collection.place_template }}}
+    {{#if collection}}
+        <h2>
+            Recent Activity for
+            <a href="{{collectionUrl collection._id}}">
+                {{ collection.name }}
             </a>
+        </h2>
+    {{else}}
+        <h2>
+           {{header}}
+        </h2>
+    {{/if}}
 
-            {{{ properties.description }}}
+    {{#unlessEmpty recent_places}}
+
+        <hr>
+
+        <h3>
+            <i class="fa fa-clock-o">
+               Recent Places
+            </i>
+        </h3>
+
+        <div class="alternate-colors">
+
+            {{#each recent_places}}
+
+                <div>
+
+                    <a href="{{placeUrl collectionId _id}}">
+                        {{{ dynamic_place . collection.place_template }}}
+                    </a>
+
+                    {{{ properties.description }}}
+
+                </div>
+
+            {{/each}}
 
         </div>
 
-    {{/each}}
+    {{/unlessEmpty}}
 
-</div>
+    {{#unlessEmpty recent_posts }}
 
-{{#ifEmpty recent_places }}
-    <div>
-        No recent places
-    </div>
-    <br>
-{{/ifEmpty}}
+        <hr>
 
-<hr>
+        <h3>
+            <i class="fa fa-clock-o">
+                Recent Posts
+            </i>
+        </h3>
+        
 
-<h3>
-    <i class="fa fa-clock-o">
-        Recent Posts
-    </i>
-</h3>
+        <div class="alternate-colors">
 
-<div class="alternate-colors">
+            {{#each recent_posts}}
+                <div>
+                    <h4>
+                        <a href="{{postUrl collectionId _id}}">
+                            {{title}}
+                        </a>
+                    </h4>
+                </div>
+            {{/each}}
 
-    {{#each recent_posts}}
-        <div>
-            <h4>
-                <a href="{{postUrl collectionId _id}}">
-                    {{title}}
-                </a>
-            </h4>
         </div>
-    {{/each}}
 
-</div>
+    {{/unlessEmpty}}
 
-{{#ifEmpty recent_posts }}
-    <div>
-        No recent posts
-    </div>
-    <br>
-{{/ifEmpty}}
+    {{#unlessEmpty recent_comments }}
 
-<hr>
+        <hr>
 
-<h3>
-    <i class="fa fa-clock-o">
-        Recent Comments
-    </i>
-</h3>
+        <h3>
+            <i class="fa fa-clock-o">
+                Recent Comments
+            </i>
+        </h3>
 
-<div class="alternate-colors">
+        <div class="alternate-colors">
 
-    {{#each recent_comments}}
-        <div>
-            <h4>
-                <a href="{{postUrl collectionId postId}}">
-                    {{{text}}}
-                </a>
-            </h4>
+            {{#each recent_comments}}
+                <div>
+                    <h4>
+                        <a href="{{postUrl collectionId postId}}">
+                            {{{text}}}
+                        </a>
+                    </h4>
+                </div>
+            {{/each}}
+
         </div>
-    {{/each}}
 
-</div>
+    {{/unlessEmpty}}
 
-{{#ifEmpty recent_comments }}
-    <div>
-        No recent comments
-    </div>
-    <br>
-{{/ifEmpty}}
-
-<div>
-    To unsubscribe, reply to this email with UNSUBSCRIBE in the subject or body.
-</div>
+{{/each}}
