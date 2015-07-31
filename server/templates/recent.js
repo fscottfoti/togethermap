@@ -44,7 +44,7 @@ OriginalHandlebars.registerHelper('defaultValue', function(v, def) {
 
 OriginalHandlebars.registerHelper('dynamic_place', function (obj, template) {
     if(template) {
-        return Handlebars.compile(template)(obj);
+        return OriginalHandlebars.compile(template)(obj);
     } else {
         return OriginalHandlebars.compile(defaultPlaceTemplateList)(obj);
     }
