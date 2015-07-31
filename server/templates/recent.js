@@ -50,32 +50,15 @@ OriginalHandlebars.registerHelper('dynamic_place', function (obj, template) {
     }
 });
 
-/*
-this won't quite work - do it like below if you want to bring this back
-recentPlacesData = function () {
 
-    var dateFilter = {createDate: {$gt: new Date(Date.now() - 24*60*60*1000)}};
-    return {
-        collection: undefined,
-        header: "Recent Activity for All Collections",
-        recent_places: MPlaces.find(dateFilter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
-        recent_posts: MPosts.find(dateFilter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
-        recent_comments: MComments.find(dateFilter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch()
-    }
-};
-*/
-
-
-recentPlacesDataByUser = function (userId) {
-    var dateFilter = {createDate: {$gt: new Date(Date.now() - 24*60*60*1000)}};
-    var cids = limitToMyCollections(userId, undefined, true, true);
+var recentPlacesByCid = function (cids, extraFilter) {
 
     var recent_data = _.map(cids, function (cid) {
 
         var filter = {
             $and: [
                 {collectionId: cid},
-                dateFilter
+                extraFilter
             ]
         };
 
@@ -97,6 +80,28 @@ recentPlacesDataByUser = function (userId) {
         collections: recent_data,
         header: "Recent Activity for Your Collections"
     }
+}
+
+
+recentPlacesData = function () {
+
+    var dateFilter = {createDate: {$gt: new Date(Date.now() - 24*60*60*1000)}};
+    
+    var cids = _.map(MCollections.find().fetch(), function (c) {
+        return c._id;
+    });
+
+    return recentPlacesByCid(cids, dateFilter);
+};
+
+
+recentPlacesDataByUser = function (userId) {
+
+    var dateFilter = {createDate: {$gt: new Date(Date.now() - 24*60*60*1000)}};
+
+    var cids = limitToMyCollections(userId, undefined, true, true);
+
+    return recentPlacesByCid(cids, dateFilter);
 };
 
 
