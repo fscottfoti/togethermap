@@ -1,6 +1,6 @@
 Template.image.events({
 
-    'click .lightbox-image': function (e) {
+    'click .lightbox-img': function (e) {
 
         e.preventDefault();
         var size = e.altKey ? 'large' : null;
