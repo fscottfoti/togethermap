@@ -129,5 +129,12 @@ Template.placeEdit.events({
             _cid: Session.get('active_collection'),
             _id: this._id
         });
-    }
+    },
+
+    'click .show-json': function () {
+
+        console.log(this);
+        var d = "<pre>"+syntaxHighlight(this);
+        makeBootbox(d);
+    },
 });
