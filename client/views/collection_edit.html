@@ -97,19 +97,12 @@
 
         {{#if expertConfiguration}}
 
-            <br>
-
             {{#if 0}}
             <div class="form-group">
                 <label>Flickr Album Link:</label><br>
                 <input id="flickr_link" class="form-control" type="text" placeholder="{{flickr_link}}"/>
             </div>
             {{/if}}
-
-            <div class="form-group">
-                <label>Firebase Transit Name:</label><br>
-                <input id="transit_name" class="form-control" type="text" placeholder="{{transit_name}}"/>
-            </div>
 
             <div>
 
@@ -271,6 +264,13 @@
                         {{enable_clustering_checked}}>
                     Enable marker clustering
                 </label>
+            </div>
+
+            <br>
+            
+            <div class="form-group">
+                <label>Firebase Transit Name:</label><br>
+                <input id="transit_name" class="form-control" type="text" placeholder="{{transit_name}}"/>
             </div>
 
         {{/if}}
