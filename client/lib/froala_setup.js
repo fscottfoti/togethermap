@@ -9,7 +9,7 @@ var imagePicker = function (froalaRef) {
                 'FLICKR', 'INSTAGRAM', 'IMAGE_SEARCH', 'URL', 'PICASA']
         },
         function(Blob){
-            var url = Blob.url;
+            var url = Blob.url + "/convert?rotate=exif";
             var html = '<img alt=\"Image Not Found\" src=\"' + url + '\" width=\"300\">';
             froalaRef.insertHTML(html);
             froalaRef.saveUndoStep();
