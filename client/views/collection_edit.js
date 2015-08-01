@@ -272,7 +272,7 @@ Template.collectionEdit.events = {
         var t = e.target.value;
 
         templates.place_template_label =
-            Handlebars.compile(t || defaultPlaceTemplateList);
+            Handlebars.compile(t || defaultPlaceTemplateLabel);
 
         Meteor.call('updateCollection', this._id, {$set: {place_template_label: t}});
     },

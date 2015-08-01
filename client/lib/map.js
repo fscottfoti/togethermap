@@ -1009,7 +1009,7 @@ Map = {
             if(templates.place_template_label) {
                 l = templates.place_template_label(place);
             } else {
-                l = Handlebars.compile(defaultPlaceTemplateList)(place);
+                l = Handlebars.compile(defaultPlaceTemplateLabel)(place);
             }
 
             label = l +

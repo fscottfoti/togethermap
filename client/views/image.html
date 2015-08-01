@@ -1,7 +1,14 @@
 <template name="image">
 	{{#if image_url}}
-	<div style="padding-bottom: 10px;">
-		<img src="{{ image_url }}" style="width:100%; cursor: pointer;" class="lightbox-img">
-	</div>
+		{{#if makeLink}}
+			<div style="padding-bottom: 10px; cursor: pointer; background-color: inherit;"
+				 class="link-img">
+				<img src="{{image_url}}" style="width: 100%;">
+			</div>
+		{{else}}
+			<div style="padding-bottom: 10px;">
+				<img src="{{ image_url }}" style="width:100%; cursor: pointer;" class="lightbox-img">
+			</div>
+		{{/if}}
 	{{/if}}
 </template>

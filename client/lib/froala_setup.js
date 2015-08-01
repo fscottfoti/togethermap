@@ -40,7 +40,8 @@ initFroala = function (f) {
             'sep',
             'createLink',
             'insertVideo',
-            'imagePicker',
+            'sep',
+            //'imagePicker',
             'sep',
             'html'
         ],

@@ -9,6 +9,13 @@ Template.quick_place.helpers({
         } else {
             return Handlebars.compile(defaultPlaceTemplateList)(this);
         }
+    },
+    link_url: function () {
+        var url = Router.routes.place.path({
+            _id: this._id,
+            _cid: this.collectionId
+        });
+        return url;
     }
 });
 
