@@ -144,7 +144,6 @@ Template.placeEdit.events({
 
     'click .show-json': function () {
 
-        console.log(this);
         var d = "<pre>"+syntaxHighlight(this);
         makeBootbox(d);
     },
