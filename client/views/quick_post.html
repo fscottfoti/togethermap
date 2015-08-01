@@ -14,7 +14,15 @@
 
     {{/if}}
 
-    {{> image image_url=image_url postId=_id collectionId=collectionId makeLink=1 }}
+    {{#if postRoute }}
+
+        {{> image image_url=image_url }}
+
+    {{else}}
+
+        {{> image image_url=image_url postId=_id collectionId=collectionId makeLink=1 }}
+
+    {{/if}}
 
     <div>
 
