@@ -39,8 +39,8 @@ initFroala = function (f) {
             'insertUnorderedList',
             'sep',
             'createLink',
-            'insertVideo',
             'sep',
+            'insertVideo',
             //'imagePicker',
             'sep',
             'html'

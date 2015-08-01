@@ -86,6 +86,10 @@ Template.place.helpers({
 
     anyPlaceInstances: function () {
         return this.allPlaceInstances.fetch().length > 1;
+    },
+
+    post_image_url: function () {
+        return Session.get('post_image_url');
     }
 });
 
@@ -201,6 +205,18 @@ Template.place.events = {
 
     },
 
+    'click .pick-image': function (e) {
+        var cb = function (url, param) {
+            console.log(url);
+            Session.set('post_image_url', url);
+        };
+        imagePicker(cb, this);
+    },
+
+    'click .remove-image': function (e) {
+        Session.set('post_image_url', undefined);
+    },
+
     'click .add-topic': function (e) {
 
         e.preventDefault();
@@ -222,10 +238,12 @@ Template.place.events = {
 
         Meteor.call('insertPost', {
             title: title,
-            description: html
+            description: html,
+            image_url: Session.get('post_image_url')
         }, pid, cid);
 
         Session.set('newTopic', false);
+        Session.set('post_image_url', undefined);
     },
 
     'click .cancel': function (e) {

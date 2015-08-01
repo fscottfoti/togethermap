@@ -16,6 +16,21 @@
         </div>
 
         <div class="form-group">
+            <button class="btn btn-sm btn-primary pick-image">
+                <i class="fa fa-image"></i>
+                Set Image
+            </button>
+
+            {{#if image_url}}
+                <button class="btn btn-sm btn-primary remove-image">
+                    Unset
+                </button>
+            {{/if}}
+        </div>
+
+        {{> image image_url=image_url }}
+
+        <div class="form-group">
             <textarea id="editable">
                 {{description}}
             </textarea>

@@ -51,9 +51,11 @@
             Set Image
         </button>
 
-        <button class="btn btn-sm btn-primary remove-image">
-            Unset
-        </button>
+        {{#if image_url}}
+            <button class="btn btn-sm btn-primary remove-image">
+                Unset
+            </button>
+        {{/if}}
     </div>
 
     {{> image image_url=properties.image_url }}

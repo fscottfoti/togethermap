@@ -37,6 +37,17 @@ Template.postEdit.events({
         });
     },
 
+    'click .pick-image': function (e) {
+        var cb = function (url, param) {
+            Meteor.call('updatePost', param, {$set: {'image_url': url}});
+        };
+        imagePicker(cb, this._id);
+    },
+
+    'click .remove-image': function (e) {
+        Meteor.call('updatePost', this._id, {$unset: {'image_url': ''}});
+    },
+
     'click .cancel': function(e) {
 
         e.preventDefault();

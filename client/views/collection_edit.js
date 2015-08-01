@@ -124,6 +124,17 @@ Template.collectionEdit.events = {
         Router.go('collection', {_id: this._id});
     },
 
+    'click .pick-image': function (e) {
+        var cb = function (url, param) {
+            Meteor.call('updateCollection', param, {$set: {'image_url': url}});
+        };
+        imagePicker(cb, this._id);
+    },
+
+    'click .remove-image': function (e) {
+        Meteor.call('updateCollection', this._id, {$unset: {'image_url': ''}});
+    },
+
     'click .cedit_mode': function (e) {
 
         e.preventDefault();

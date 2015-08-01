@@ -8,6 +8,10 @@
             <i class="fa fa-location-arrow pan-collection" style="cursor:pointer;"></i>
         </h2>
 
+        {{{ description }}}
+
+        {{> image image_url=image_url }}
+
         <div class="form-group">
 
             {{#if currentUser }}
@@ -61,8 +65,6 @@
             {{/if}}
 
         </div>
-
-        {{{ description }}}
 
         {{#if 0}}
         <div>

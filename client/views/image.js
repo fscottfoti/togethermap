@@ -14,10 +14,21 @@ Template.image.events({
         e.preventDefault();
 
         if(this.collectionId && this.placeId) {
-	        Router.go('place', {
+	        return Router.go('place', {
 	            _id: this.placeId,
 	            _cid: this.collectionId
 	        });
 		}
+
+        if(this.collectionId && this.postId) {
+            return Router.go('post', {
+                _id: this.postId,
+                _cid: this.collectionId
+            });
+        }
+
+        if(this.collectionId) {
+            return Router.go('collection', {_id: this.collectionId});
+        }
     },
 });
