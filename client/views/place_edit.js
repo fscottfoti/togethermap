@@ -108,6 +108,17 @@ Template.placeEdit.events({
 
     },
 
+    'click .pick-image': function (e) {
+        var cb = function (url, param) {
+            Meteor.call('updatePlace', param, {$set: {'properties.image_url': url}});
+        };
+        imagePicker(cb, this._id);
+    },
+
+    'click .remove-image': function (e) {
+        Meteor.call('updatePlace', this._id, {$unset: {'properties.image_url': ''}});
+    },
+
     'click .delete-link': function(e) {
 
         e.preventDefault();

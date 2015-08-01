@@ -1,4 +1,4 @@
-var imagePicker = function (froalaRef) {
+imagePicker = function (callback, param) {
     filepicker.setKey('AK659iitRNyjQKFZQdx80z');
     filepicker.pick(
         {
@@ -10,9 +10,7 @@ var imagePicker = function (froalaRef) {
         },
         function(Blob){
             var url = Blob.url + "/convert?rotate=exif";
-            var html = '<img alt=\"Image Not Found\" src=\"' + url + '\" width=\"300\">';
-            froalaRef.insertHTML(html);
-            froalaRef.saveUndoStep();
+            callback(url, param);
         },
         function(FPError){
             console.log(FPError.toString());
@@ -60,7 +58,12 @@ initFroala = function (f) {
                 },
                 callback: function () {
                     // Insert HTML.
-                    imagePicker(this);
+                    var cb = function (url, param) {                  
+                        var html = '<img alt=\"Image Not Found\" src=\"' + url + '\" width=\"300\">';
+                        param.insertHTML(html);
+                        param.saveUndoStep();
+                    }
+                    imagePicker(cb, this);
                 },
                 refresh: function () {
                 }
