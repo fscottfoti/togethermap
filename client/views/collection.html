@@ -14,6 +14,29 @@
 
         <div class="form-group">
 
+            <span class="dropdown">
+
+                <button class="btn btn-sm btn-primary dropdown-toggle sortings"
+                        data-toggle="dropdown">
+                    <i class="fa fa-sort-amount-asc"></i>
+                    Sort
+                    <span class="caret"></span>
+                </button>
+
+                <ul class="dropdown-menu" role="menu">
+                    {{#each sortTypes}}
+                        <li role="presentation">
+                            <a role="menuitem"
+                               class="sort-by"
+                               id="{{this}}"
+                               href="">
+                                {{this}}
+                            </a>
+                        </li>
+                    {{/each}}
+                </ul>
+            </span>
+
             {{#if currentUser }}
                 <span>
                     <a class="recent-go">

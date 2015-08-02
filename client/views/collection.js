@@ -38,8 +38,10 @@ Template.collection.helpers({
             // if special connector to places for this collection
             return conn.places;
         }
+
         var cid = Session.get('active_collection');
-        return MPlaces.find({collectionId: cid});
+        var sort = Session.get('active_sort') || {createDate: -1};
+        return MPlaces.find({collectionId: cid}, {sort: sort});
     },
 
     viewPlaces: function () {
@@ -71,11 +73,56 @@ Template.collection.helpers({
 
     followed: function () {
         return MFollowed.findOne({cid: this._id});
+    },
+
+    sortTypes: function () {
+        return ['Recent', 'Votes', 'Name', 'Image', 'User', 'Posts'];
     }
 });
 
+var closed = true;
 
 Template.collection.events = {
+
+    'click .sortings': function () {
+        // I really shouldn't have to do this - there's some sort of bad
+        // interaction with bootstrap and the leaflet container
+        if(closed) {
+            $('.dropdown-toggle').dropdown('toggle');
+        } else {
+            $('.dropdown.open .dropdown-toggle').dropdown('toggle');
+        }
+        closed = !closed;
+    },
+
+    'click .sort-by': function (e) {
+
+        e.preventDefault();
+        var type = $(e.target).attr('id');
+
+        if(Map.mapDriver.sortChanged) {
+
+            var sort;
+
+            if(type == "Recent")
+                sort = {createDate: -1};
+            if(type == "Votes")
+                sort = {'votes': -1};
+            if(type == "Name")
+                sort = {'properties.name': +1};
+            if(type == "Image")
+                sort = {'properties.image_url': -1};
+            if(type == "User")
+                sort = {'creator': +1};
+            if(type == "Posts")
+                sort = {'post_count': -1};
+
+            Session.set('active_sort', sort);
+            Map.mapDriver.sortChanged();
+        }
+        $('.dropdown.open .dropdown-toggle').dropdown('toggle');
+        closed = true;
+    },
 
     'click .edit-link': function (e) {
 

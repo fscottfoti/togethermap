@@ -88,6 +88,19 @@ DefaultMapDriver = {
         this.getAll(cid);
     },
 
+    sortChanged: function () {
+        var cid = Session.get('active_collection');
+        var sort = Session.get('active_sort');
+        var poly = Map.getBoundsAsPolygon();
+        Meteor.subscribe("places", cid, poly, sort, {
+            onReady: function() {
+                var cnt = Map.countVisiblePlaces();
+                Session.set('map_visible_places', cnt);
+            }
+        });
+        this.getAll(cid);
+    },
+
     maybeSetLocation: function () {
         // the purpose of this method is to set the map view after all the initial
         // places are loaded IFF there is not a location set on the map - and make

@@ -130,7 +130,6 @@ Template.place.events = {
                 return;
             }
 
-            console.log(data);
             Router.go('place', {
                 _id: data,
                 _cid: cid
