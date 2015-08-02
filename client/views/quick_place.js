@@ -10,13 +10,24 @@ Template.quick_place.helpers({
             return Handlebars.compile(defaultPlaceTemplateList)(this);
         }
     },
+
     link_url: function () {
         var url = Router.routes.place.path({
             _id: this._id,
             _cid: this.collectionId
         });
         return url;
-    }
+    },
+
+    recentSort: function () { return Session.get('active_sort_type') == "Recent"},
+
+    voteSort: function () { return Session.get('active_sort_type') == "Votes"},
+
+    imageSort: function () { return Session.get('active_sort_type') == "Image"},
+
+    creatorSort: function () { return Session.get('active_sort_type') == "User"},
+
+    postSort: function () { return Session.get('active_sort_type') == "Posts"}
 });
 
 Template.quick_place.events = {

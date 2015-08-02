@@ -118,6 +118,7 @@ Template.collection.events = {
                 sort = {'post_count': -1};
 
             Session.set('active_sort', sort);
+            Session.set('active_sort_type', type);
             Map.mapDriver.sortChanged();
         }
         $('.dropdown.open .dropdown-toggle').dropdown('toggle');
