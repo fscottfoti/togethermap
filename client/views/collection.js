@@ -172,5 +172,8 @@ Template.collection.events = {
         } else {
             Map.zoomToBounds();
         }
+        if(mobileFormFactor) {
+            Map.sidebar.toggle();
+        }
     }
 };

@@ -46,6 +46,10 @@ Template.quick_place.events = {
     'click .pan-map': function () {
 
         Map.goToPlace(this);
+        
+        if(mobileFormFactor) {
+            Map.sidebar.toggle();
+        }
     },
 
     'click .go-to-place': function (e) {

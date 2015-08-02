@@ -14,14 +14,18 @@
                     <span class="icon-bar"></span>
                 </button>
                 {{> navBrand}}
+                {{#if showSidebar}}
                 <button type="button"
                         class="navbar-toggle map-sidebar-toggle"
                         style="float: right;">
                     <span class="sr-only">Toggle map info</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                    {{#if sidebarOpen}}
+                        <div style="color: white; height: 18px; width:22px; margin-top: -4px;"><i class="fa fa-map-marker"></i></div>
+                    {{else}}
+                        <div style="color: white; height: 18px; width:22px; margin-top: -4px;"><i class="fa fa-list-ul"></i></div>
+                    {{/if}}
                 </button>
+                {{/if}}
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"

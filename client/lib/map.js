@@ -278,6 +278,7 @@ Map = {
             if(!cid)
                 cid = 'empty';
             Router.go('map', {'_id': cid});
+            Session.set('sidebarOpen', false);
             if(!mobileFormFactor) {
                 Map.sideBarActive = true;
                 Map.sideBarButton.addTo(Map.map);
@@ -288,6 +289,7 @@ Map = {
             // that it has ever been opened (presumably to a valid state).
             // Otherwise calling history.back() would go to a different website
             Map.sidebarOpened = true;
+            Session.set('sidebarOpen', true);
             if(Map.sideBarActive) {
                 Map.sideBarActive = false;
                 Map.sideBarButton.removeFrom(Map.map);

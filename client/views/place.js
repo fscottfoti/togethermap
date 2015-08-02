@@ -141,6 +141,10 @@ Template.place.events = {
     'click .pan-map': function () {
 
         Map.goToPlace(this);
+
+        if(mobileFormFactor) {
+            Map.sidebar.toggle();
+        }
     },
 
     'click .profile-go': function (e) {

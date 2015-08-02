@@ -4,6 +4,17 @@ Template.nav.rendered = function () {
 };
 
 
+Template.nav.helpers({
+    sidebarOpen: function () {
+        return Session.get('sidebarOpen');
+    },
+
+    showSidebar: function () {
+        return Session.get('sidebarOpen') !== undefined;
+    }
+});
+
+
 Template.nav.events = {
 
     'click .map-sidebar-toggle': function (e) {
