@@ -14,23 +14,6 @@
 
     <div class="form-group">
 
-        <a class="collection-go">
-            <button class="btn btn-primary btn-sm">
-                <i class="fa fa-arrow-left"></i>
-                Collection
-            </button>
-        </a>
-
-
-        {{#if writePermission }}
-
-            <button class="btn btn-primary btn-sm edit-link">
-                <i class="fa fa-edit"></i>
-                Edit
-            </button>
-
-        {{/if}}
-
         {{#if currentUser }}
 
             <span class="dropdown">
@@ -56,6 +39,24 @@
                     {{/each}}
                 </ul>
             </span>
+
+        {{/if}}
+
+
+        <a class="collection-go">
+            <button class="btn btn-primary btn-sm">
+                <i class="fa fa-arrow-left"></i>
+                Collection
+            </button>
+        </a>
+
+
+        {{#if writePermission }}
+
+            <button class="btn btn-primary btn-sm edit-link">
+                <i class="fa fa-edit"></i>
+                Edit
+            </button>
 
         {{/if}}
 

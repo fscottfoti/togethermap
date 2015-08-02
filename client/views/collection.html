@@ -48,19 +48,6 @@
                 </span>
             {{/if}}
 
-            {{#if write_permission}}
-
-                <span>
-                    <a class="edit-link">
-                        <button class="btn btn-sm btn-primary">
-                            <i class="fa fa-edit"></i>
-                            Edit
-                        </button>
-                    </a>
-                </span>
-
-            {{/if}}
-
             {{#if followable }}
 
                 <span>
@@ -81,6 +68,19 @@
                         <button class="btn btn-sm btn-primary">
                             <i class="fa fa-star-o"></i>
                             Unfollow
+                        </button>
+                    </a>
+                </span>
+
+            {{/if}}
+
+            {{#if write_permission}}
+
+                <span>
+                    <a class="edit-link">
+                        <button class="btn btn-sm btn-primary">
+                            <i class="fa fa-edit"></i>
+                            Edit
                         </button>
                     </a>
                 </span>

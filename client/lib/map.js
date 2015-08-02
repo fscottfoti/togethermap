@@ -278,8 +278,10 @@ Map = {
             if(!cid)
                 cid = 'empty';
             Router.go('map', {'_id': cid});
-            Map.sideBarActive = true;
-            Map.sideBarButton.addTo(Map.map);
+            if(!mobileFormFactor) {
+                Map.sideBarActive = true;
+                Map.sideBarButton.addTo(Map.map);
+            }
         });
         this.sidebar.on('show', function () {
             // this is a bit odd - we need to know, when we close the sidebar,

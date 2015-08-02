@@ -5,6 +5,50 @@
         <h2>
             Collection Edit
         </h2>
+
+
+        <div class="form-group">
+
+            <a class="cancel">
+                <button class="btn btn-sm btn-primary">
+                    <i class="fa fa-arrow-left"></i>
+                    Save
+                </button>
+            </a>
+
+            <a class="delete-link">
+                <button class="btn btn-sm btn-danger">
+                    <i class="fa fa-trash"></i>
+                    Delete
+                </button>
+            </a>
+
+            {{#if isFlickr}}
+                <span class="btn btn-sm btn-primary flickr-refresh">Refresh</span>
+            {{/if}}
+
+            {{#unless expertConfiguration}}
+
+                <a class="toggle-expert">
+                    <button class="btn btn-sm btn-primary">
+                        <i class="fa fa-arrow-down"></i>
+                        More
+                    </button>
+                </a>
+
+            {{ else }}
+
+                <a class="toggle-expert">
+                    <button class="btn btn-sm btn-primary">
+                        <i class="fa fa-arrow-up"></i>
+                        Less
+                    </button>
+                </a>
+
+            {{/unless}}
+
+        </div>
+
     
         <div class="form-group">
             <label>Collection Name:</label>
@@ -64,48 +108,6 @@
                     </button>
                 </a>
             </span>
-
-        </div>
-
-        <div class="form-group">
-
-            <a class="cancel">
-                <button class="btn btn-sm btn-primary">
-                    <i class="fa fa-arrow-left"></i>
-                    Save
-                </button>
-            </a>
-
-            <a class="delete-link">
-                <button class="btn btn-sm btn-danger">
-                    <i class="fa fa-trash"></i>
-                    Delete
-                </button>
-            </a>
-
-            {{#if isFlickr}}
-                <span class="btn btn-sm btn-primary flickr-refresh">Refresh</span>
-            {{/if}}
-
-            {{#unless expertConfiguration}}
-
-                <a class="toggle-expert">
-                    <button class="btn btn-sm btn-primary">
-                        <i class="fa fa-arrow-down"></i>
-                        More
-                    </button>
-                </a>
-
-            {{ else }}
-
-                <a class="toggle-expert">
-                    <button class="btn btn-sm btn-primary">
-                        <i class="fa fa-arrow-up"></i>
-                        Less
-                    </button>
-                </a>
-
-            {{/unless}}
 
         </div>
 

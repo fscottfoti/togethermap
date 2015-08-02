@@ -26,7 +26,7 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 8px 24px;
+    padding: 8px 20px;
     font-size: 1.1em;
     background: white;
     box-shadow: 0 1px 7px rgba(0, 0, 0, 0.65);
@@ -86,10 +86,10 @@
     width: 31px;
     height: 31px;
     color: #333;
-    font-size: 25pt;
+    font-size: 20pt;
     line-height: 1em;
     text-align: center;
-    background: white;
+    background: #EEE;
     -webkit-border-radius: 16px;
     border-radius: 16px;
     cursor: pointer;
