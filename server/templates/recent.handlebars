@@ -35,6 +35,10 @@
 
                     {{{ properties.description }}}
 
+                    {{#if properties.image_url}}
+                        <img src="{{properties.image_url}}" style="width: 100%;">
+                    {{/if}}
+
                 </div>
 
             {{/each}}
@@ -63,6 +67,12 @@
                             {{title}}
                         </a>
                     </h4>
+
+                    {{{ description }}}
+
+                    {{#if image_url}}
+                        <img src="{{image_url}}" style="width: 100%;">
+                    {{/if}}
                 </div>
             {{/each}}
 
