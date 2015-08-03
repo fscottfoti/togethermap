@@ -1,16 +1,9 @@
-var jqueryInit = function (id) {
-    initFroala(function (html) {
-        if(html.length > 2000) {
-            growl.error("Topic too long (maybe you pasted an image?");
-            return;
-        }
+Template.postEdit.rendered = function () {
+    var that = this;
+    textEditorInit(this.data.post.description, function (html) {
+        var id = that.data.post._id;
         Meteor.call('updatePost', id, {$set:{'description': html}});
     });
-};
-
-
-Template.postEdit.rendered = function () {
-    jqueryInit(this.data.post._id);
 };
 
 

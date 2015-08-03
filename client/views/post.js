@@ -1,6 +1,8 @@
 var jqueryInit = function () {
-    initFroala(function (html) {});
-};
+    textEditorInit('', function (html) {
+        Session.set('current_html', html);
+    });
+}
 
 Template.post.rendered = function () {
     jqueryInit();
@@ -77,7 +79,7 @@ Template.post.events = {
         var pid = Session.get('active_place');
         var cid = Session.get('active_collection');
         var postid = this.post._id;
-        var html = $( "#editable" ).val();
+        var html = Session.get('current_html');
 
         if(!html || html.trim().length == 0) {
             return;
@@ -93,6 +95,7 @@ Template.post.events = {
         }, pid, cid, postid);
 
         Session.set('newTopic', false);
+        Session.set('current_html', '');
     },
 
     'click .cancel': function (e) {

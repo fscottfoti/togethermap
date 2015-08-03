@@ -61,9 +61,12 @@
     {{> image image_url=properties.image_url }}
 
     <div class="form-group">
-        <textarea id="editable">
-            {{properties.description}}
-        </textarea>
+        <label>Place Description:</label>
+        <div class="quill-wrapper">
+            {{> quill }}
+            <div id="full-editor" class="editor">
+            </div>
+        </div>
     </div>
 
     {{#if autoFormExists }}

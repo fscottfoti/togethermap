@@ -1,6 +1,8 @@
-var jqueryInit = function (id) {
-    initFroala();
-};
+var jqueryInit = function () {
+    textEditorInit('', function (html) {
+        Session.set('current_html', html);
+    });
+}
 
 Template.place.rendered = function () {
     jqueryInit();
@@ -227,7 +229,8 @@ Template.place.events = {
         var pid = Session.get('active_place');
         var cid = Session.get('active_collection');
         var title = $( "#title" ).val();
-        var html = $( "#editable" ).val();
+
+        var html = Session.get('current_html');
 
         if(!title || title.trim().length == 0) {
             growl.warning("Need to enter a post title.");
@@ -247,6 +250,7 @@ Template.place.events = {
 
         Session.set('newTopic', false);
         Session.set('post_image_url', undefined);
+        Session.set('current_html', '');
     },
 
     'click .cancel': function (e) {

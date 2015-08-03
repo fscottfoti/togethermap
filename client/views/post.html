@@ -87,7 +87,11 @@
         <div>
 
             <div class="form-group">
-                <textarea id="editable"></textarea>
+                <div class="quill-wrapper">
+                    {{> quill }}
+                    <div id="full-editor" class="editor">
+                    </div>
+                </div>
             </div>
 
             <div>

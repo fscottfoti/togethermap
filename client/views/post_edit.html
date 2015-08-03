@@ -52,9 +52,12 @@
     {{> image image_url=image_url }}
 
     <div class="form-group">
-        <textarea id="editable">
-            {{description}}
-        </textarea>
+        <div class="quill-wrapper">
+            {{> quill }}
+            <div id="full-editor" class="editor">
+            </div>
+        </div>
     </div>
+
 {{/with}}
 </template>

@@ -44,6 +44,7 @@ iron:location@1.0.7
 iron:middleware-stack@1.0.7
 iron:router@1.0.7
 iron:url@1.0.7
+jhartma:quill@0.0.2
 jiku:bootstrap-toggle@0.0.1
 jquery@1.11.3_2
 json@1.0.3

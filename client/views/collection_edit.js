@@ -1,17 +1,11 @@
-var jqueryInit = function (id) {
-    initFroala(function (html) {
-        if(html.length > 2000) {
-            growl.error("Description too long (maybe you pasted an image?");
-            return;
-        }
-        Meteor.call('updateCollection', id, {$set:{'description': html}});
-    });
-};
-
-
 Template.collectionEdit.rendered = function () {
     Session.set('cedit_mode', 'Icon');
-    jqueryInit(this.data.collection._id);
+    Session.set('expertConfiguration', false);
+    var that = this;
+    textEditorInit(this.data.collection.description, function (html) {
+        var id = that.data.collection._id;
+        Meteor.call('updateCollection', id, {$set:{'description': html}});
+    });
     Session.set('expertConfiguration', false);
 };
 

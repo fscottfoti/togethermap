@@ -1,12 +1,5 @@
-var jqueryInit = function (id) {
+var jqueryInit = function () {
     var place = MPlaces.findOne(Session.get('active_place'));
-    initFroala(function (html) {
-        if(html.length > 2000) {
-            growl.error("Description too long (maybe you pasted an image?");
-            return;
-        }
-        Meteor.call('updatePlace', id, {$set:{'properties.description': html}});
-    });
     $('#shape-color').val(place.properties.color);
     $('#shape-color').pickAColor({
         showAdvanced: false,
@@ -17,7 +10,13 @@ var jqueryInit = function (id) {
 
 
 Template.placeEdit.rendered = function () {
-    jqueryInit(this.data.place._id);
+    jqueryInit();
+    var that = this;
+    textEditorInit(this.data.place.properties.description, function (html) {
+        console.log(html);
+        var id = that.data.place._id
+        Meteor.call('updatePlace', id, {$set:{'properties.description': html}});
+    });
 };
 
 
