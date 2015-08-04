@@ -29,9 +29,11 @@ Template.map.rendered = function () {
                 mobileFormFactor = true;
                 Map.removeDrawControl();
                 Map.removeDesktopControls();
+                Map.addMobileControls();
             } else {
                 mobileFormFactor = false;
                 Map.addDesktopControls();
+                Map.removeMobileControls();
             }
         }).trigger('resize');
     }

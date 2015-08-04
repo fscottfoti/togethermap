@@ -1,6 +1,6 @@
 App.info({
   name: 'TogetherMap',
-  description: 'Make maps of things',
+  description: 'Interactive, collaborative maps.',
   version: '0.0.1'
 });
 

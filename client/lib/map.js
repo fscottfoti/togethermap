@@ -303,6 +303,42 @@ Map = {
             }
         });
 
+        this.mobileAddMarkerButton = L.easyButton('fa-plus', function() {
+            Map.tempMarker = L.marker(Map.center()).addTo(Map.map);
+            Map.map.removeControl(Map.mobileAddMarkerButton);
+            Map.map.addControl(Map.mobileSaveMarkerButton);
+            Map.map.addControl(Map.mobileCancelMarkerButton);
+        });
+
+        this.mobileCancelMarkerButton = L.easyButton('fa-remove', function() {
+            Map.map.removeLayer(Map.tempMarker);
+            Map.tempMarker = undefined;
+            Map.map.removeControl(Map.mobileSaveMarkerButton);
+            Map.map.removeControl(Map.mobileCancelMarkerButton);
+            Map.map.addControl(Map.mobileAddMarkerButton);
+        });
+
+        this.map.on('drag', function () {
+            if(!Map.tempMarker)
+                return;
+            Map.tempMarker.setLatLng(Map.center());
+        });
+
+        this.map.on('zoomend', function () {
+            if(!Map.tempMarker)
+                return;
+            Map.tempMarker.setLatLng(Map.center());
+        });
+
+        this.mobileSaveMarkerButton = L.easyButton('fa-save', function() {
+            Map.map.removeLayer(Map.tempMarker);
+            Map.tempMarker = undefined;
+            Map.mapDriver.doubleClick(Map.center());
+            Map.map.removeControl(Map.mobileSaveMarkerButton);
+            Map.map.removeControl(Map.mobileCancelMarkerButton);
+            Map.map.addControl(Map.mobileAddMarkerButton);
+        });
+
         //L.mapbox.infoControl().addTo(this.map);
 
         if (!this.map.restoreView()) {
@@ -746,6 +782,15 @@ Map = {
         }
         this.map.removeControl(this.drawControl);
         this.drawControlAdded = false;
+    },
+
+
+    addMobileControls: function () {
+        Map.map.addControl(Map.mobileAddMarkerButton);
+    },
+
+
+    removeMobileControls: function () {
     },
 
 
