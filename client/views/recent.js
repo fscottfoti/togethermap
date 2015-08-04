@@ -1,12 +1,9 @@
 Template.recent.helpers({
-    noPlaces: function () {
-        return this.recent_places.length == 0;
-    },
     noPosts: function () {
-        return this.recent_posts.length == 0;
+        return this.recent_posts.fetch().length == 0;
     },
     noComments: function () {
-        return this.recent_comments.length == 0;
+        return this.recent_comments.fetch().length == 0;
     }
 });
 

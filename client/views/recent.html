@@ -1,37 +1,17 @@
 <template name="recent">
 
     <h2>
-        Recent Activity for
-        <a href="#" class="collection-go">
-            {{ collection.name }}
-        </a>
+        Recent Activity
     </h2>
 
-    <hr>
-
-    <h4>
-        <i class="fa fa-clock-o">
-           Recent Places
-        </i>
-    </h4>
-
-    <div class="alternate-colors">
-
-        {{#each recent_places}}
-
-            {{> quick_place }}
-
-        {{/each}}
-
+    <div class="form-group">
+        <a class="collection-go">
+            <button class="btn btn-sm btn-primary">
+                <i class="fa fa-arrow-left"></i>
+                Back
+            </button>
+        </a>
     </div>
-
-    {{#if noPlaces }}
-        <div>
-            No recent places
-        </div>
-    {{/if}}
-
-    <hr>
 
     <h4>
         <i class="fa fa-clock-o">
