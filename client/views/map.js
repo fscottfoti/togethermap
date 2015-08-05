@@ -11,6 +11,7 @@ resizeMap = function() {
     $('#map_canvas').css('height', (h - offsetTop));
 };
 
+
 Template.map.rendered = function () {
 
     if(!Map.map) {

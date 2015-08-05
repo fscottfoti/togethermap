@@ -251,11 +251,10 @@ Map = {
         this.zoomControl = L.control.zoom();
 
         this.locateControl = L.control.locate();
-        this.locateControl.addTo(this.map);
 
         // layer control selection
         this.layerControl = L.control.layers(this.baseMaps);
-        this.layerControl.addTo(this.map);
+        //this.layerControl.addTo(this.map);
 
         // this is social media sharing
         /*this.shareControl = new MyShareControl();
@@ -301,6 +300,11 @@ Map = {
             if(Map.sidebar.isVisible()) {
                 history.back();
             }
+        });
+
+
+        this.mobileLocateButton = L.easyButton('fa-location-arrow', function () {
+            Map.goToMyLoc();
         });
 
         this.mobileAddMarkerButton = L.easyButton('fa-plus', function() {
@@ -785,12 +789,32 @@ Map = {
     },
 
 
+    goToMyLoc: function () {
+
+        var loc = Geolocation.latLng();
+
+        if(!loc) {
+            _.delay(Map.goToMyLoc, 200);
+            return;
+        }
+
+        Map.map.setView(loc, 17);
+    },
+
+
     addMobileControls: function () {
-        Map.map.addControl(Map.mobileAddMarkerButton);
+        Map.hasMobileControls = true;
+        Map.map.addControl(Map.mobileLocateButton);
+        Map.map.addControl(Map.mobileAddMarkerButton);        
     },
 
 
     removeMobileControls: function () {
+        if(Map.hasMobileControls) {
+            Map.map.removeControl(Map.mobileAddMarkerButton);
+            Map.map.removeControl(Map.mobileLocateButton);
+        }
+        Map.hasMobileControls = false;
     },
 
 
@@ -798,12 +822,11 @@ Map = {
         if(this.desktopControls === true) {
             return;
         }
-        this.map.removeControl(this.locateControl);
         this.map.addControl(this.zoomControl);
         //this.map.addControl(this.shareControl);
         this.map.addControl(this.geocoder);
         this.map.addControl(this.locateControl);
-
+        this.map.addControl(this.layerControl);
 
         this.desktopControls = true;
     },
@@ -816,6 +839,8 @@ Map = {
         this.map.removeControl(this.zoomControl);
         //this.map.removeControl(this.shareControl);
         this.map.removeControl(this.geocoder);
+        this.map.removeControl(this.locateControl);
+        this.map.removeControl(this.layerControl);
         this.desktopControls = false;
     },
 
