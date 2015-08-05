@@ -13,7 +13,6 @@ Template.placeEdit.rendered = function () {
     jqueryInit();
     var that = this;
     textEditorInit(this.data.place.properties.description, function (html) {
-        console.log(html);
         var id = that.data.place._id
         Meteor.call('updatePlace', id, {$set:{'properties.description': html}});
     });
@@ -42,12 +41,12 @@ Template.placeEdit.helpers({
     },
 
     icon_sizes: function () {
-        return _.map(['s', 'm', 'l'],
+        return _.map(['small', 'medium', 'large'],
             function (v) { return {name: v} });
     },
 
     sizeSelected: function() {
-        return this.name === (Template.parentData(1).properties.icon_size || 'm')
+        return this.name === (Template.parentData(1).properties.icon_size || 'medium')
             ? 'selected' : '';
     },
 
@@ -96,6 +95,7 @@ Template.placeEdit.events({
     "change #icon_size": function (evt) {
 
         var v = $(evt.target).val();
+        v = {'small': 's', 'medium': 'm', 'large': 'l'}[v];
         Meteor.call('updatePlace', this._id, {$set: {'properties.icon_size': v}});
 
     },
