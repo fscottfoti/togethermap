@@ -763,6 +763,13 @@ Map = {
             return;
         }
 
+        this.drawControlAdded = true;
+
+        if(mobileFormFactor) {
+            Map.map.addControl(Map.mobileAddMarkerButton);
+            return;
+        }
+
         // add the draw control too for adding markers and shapes
         this.drawControl = new L.Control.Draw({
             position: 'bottomleft',
@@ -776,7 +783,6 @@ Map = {
         });
 
         this.map.addControl(this.drawControl);
-        this.drawControlAdded = true;
     },
 
 
@@ -784,8 +790,15 @@ Map = {
         if(this.drawControlAdded === false) {
             return;
         }
-        this.map.removeControl(this.drawControl);
+
         this.drawControlAdded = false;
+
+        if(mobileFormFactor) {
+            Map.map.removeControl(Map.mobileAddMarkerButton);
+            return;
+        }
+
+        this.map.removeControl(this.drawControl);
     },
 
 
@@ -803,13 +816,13 @@ Map = {
 
 
     addMobileControls: function () {
-        //Map.map.addControl(Map.mobileAddMarkerButton);
+        Map.hasMobileControls = true;
+        Map.map.addControl(Map.mobileLocateButton);       
     },
 
 
     removeMobileControls: function () {
         if(Map.hasMobileControls) {
-            Map.map.removeControl(Map.mobileAddMarkerButton);
             Map.map.removeControl(Map.mobileLocateButton);
         }
         Map.hasMobileControls = false;

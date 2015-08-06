@@ -28,7 +28,7 @@ Template.map.rendered = function () {
             var deviceWidth = window.innerWidth;
             if(deviceWidth < 768) {
                 mobileFormFactor = true;
-                Map.removeDrawControl();
+                //Map.removeDrawControl();
                 Map.removeDesktopControls();
                 Map.addMobileControls();
             } else {
