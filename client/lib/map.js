@@ -803,9 +803,7 @@ Map = {
 
 
     addMobileControls: function () {
-        Map.hasMobileControls = true;
-        Map.map.addControl(Map.mobileLocateButton);
-        Map.map.addControl(Map.mobileAddMarkerButton);        
+        //Map.map.addControl(Map.mobileAddMarkerButton);
     },
 
 
