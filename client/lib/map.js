@@ -766,6 +766,7 @@ Map = {
         this.drawControlAdded = true;
 
         if(mobileFormFactor) {
+            this.drawControlType = 'mobile';
             Map.map.addControl(Map.mobileAddMarkerButton);
             return;
         }
@@ -781,19 +782,21 @@ Map = {
                 featureGroup: this.shapeLayerGroup.writeShapeLayerGroup
             }
         });
+        this.drawControlType = 'desktop';
 
         this.map.addControl(this.drawControl);
     },
 
 
     removeDrawControl: function () {
+
         if(this.drawControlAdded === false) {
             return;
         }
 
         this.drawControlAdded = false;
 
-        if(mobileFormFactor) {
+        if(this.drawControlType == 'mobile') {
             Map.map.removeControl(Map.mobileAddMarkerButton);
             return;
         }
@@ -817,7 +820,7 @@ Map = {
 
     addMobileControls: function () {
         Map.hasMobileControls = true;
-        Map.map.addControl(Map.mobileLocateButton);       
+        Map.map.addControl(Map.mobileLocateButton);
     },
 
 
@@ -852,6 +855,7 @@ Map = {
         this.map.removeControl(this.geocoder);
         this.map.removeControl(this.locateControl);
         this.map.removeControl(this.layerControl);
+
         this.desktopControls = false;
     },
 

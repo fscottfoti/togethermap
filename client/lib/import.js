@@ -22,8 +22,11 @@ function readerLoadCsv(e) {
         return;
     }
     csv2geojson.csv2geojson(e.target.result, function(err, data) {
-        if(err) {
-            growl.error("Error parsing csv:", err);
+        if(err.message) {
+            console.log(err, data);
+            growl.error("Error parsing csv: " + err.message);
+            Session.set('spinning', false);
+            return
         }
         loadShapes(data);
     });
@@ -42,14 +45,8 @@ loadShapes = function (data, collection) {
         return;
     }
 
-    var shps = L.geoJson(data);
-    Map.map.fitBounds(shps.getBounds());
-
-    var location = {
-        center: Map.map.getCenter(),
-        zoom: Map.map.getZoom()
-    };
-
+    var invalid = 0;
+    var keep_features = [];
     for(var i = 0 ; i < data.features.length ; i++) {
 
         var f = data.features[i];
@@ -58,8 +55,41 @@ loadShapes = function (data, collection) {
         var l = L.geoJson(f).getLayers()[0];
 
         f.bbox = Map.shapeAsBbox(l);
+
+        if(f.bbox.type == "Point") {
+            var a = f.bbox.coordinates,
+                lon = a[0];
+                lat = a[1];
+                if(lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+                    invalid += 1;
+                    continue;
+                }
+        }
+
+        keep_features.push(data.features[i]);
     }
+
+    data.features = keep_features;
+
+    if(invalid) {
+        growl.warning(invalid + " invalid geometries, attempting to continue.");
+    }
+
+    if(data.features.length == 0) {
+        growl.error("No valid features, stopping.");
+        Session.set('spinning', false);
+        return;
+    }
+
     console.log("Loading " + data.features.length + " features");
+
+    var shps = L.geoJson(data);
+    Map.map.fitBounds(shps.getBounds());
+
+    var location = {
+        center: Map.map.getCenter(),
+        zoom: Map.map.getZoom()
+    };
 
     var col = _.extend({
         'name': data.fileName || fileName || 'NEW COLLECTION',

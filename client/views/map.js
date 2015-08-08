@@ -27,14 +27,24 @@ Template.map.rendered = function () {
         $(window).bind('resize', function () {
             var deviceWidth = window.innerWidth;
             if(deviceWidth < 768) {
-                mobileFormFactor = true;
-                //Map.removeDrawControl();
-                Map.removeDesktopControls();
-                Map.addMobileControls();
+                if(!mobileFormFactor || mobileFormFactor === false) {
+                    mobileFormFactor = true;
+                    //Map.removeDrawControl();
+                    Map.removeDesktopControls();
+                    Map.addMobileControls();
+                    var addBack = Map.drawControlAdded;
+                    Map.removeDrawControl();
+                    if(addBack) Map.addDrawControl();
+                }
             } else {
-                mobileFormFactor = false;
-                Map.addDesktopControls();
-                Map.removeMobileControls();
+                if(!mobileFormFactor || mobileFormFactor === true) {
+                    mobileFormFactor = false;
+                    Map.addDesktopControls();
+                    Map.removeMobileControls();
+                    var addBack = Map.drawControlAdded;
+                    Map.removeDrawControl();
+                    if(addBack) Map.addDrawControl();
+                }
             }
         }).trigger('resize');
     }
