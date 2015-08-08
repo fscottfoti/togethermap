@@ -228,15 +228,28 @@ Map = {
         this.defaultBaseMap = DEFAULT_BASEMAP;
         this.activeBaseMap = undefined;
 
-        this.map = L.mapbox.map(id, null, {
-            attributionControl: false,
-            zoomControl: false,
-            contextmenu: true,
-            contextmenuWidth: 140,
-            contextmenuItems: [{
-            text: 'Add marker',
-            callback: Map.contextMenuAdd
-        }]});
+        var mobile = window.innerWidth < 768;
+
+        if(!mobile) {
+
+            this.map = L.mapbox.map(id, null, {
+                attributionControl: false,
+                zoomControl: false,
+                contextmenu: true,
+                contextmenuWidth: 140,
+                contextmenuItems: [{
+                text: 'Add marker',
+                callback: Map.contextMenuAdd
+            }]});
+
+        } else {
+
+            this.map = L.mapbox.map(id, null, {
+                attributionControl: false,
+                zoomControl: false,    
+            });
+
+        }
 
         /* geocoder always gets added */
         var geocoder = L.mapbox.geocoderControl('mapbox.places-v1');
