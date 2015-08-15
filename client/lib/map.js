@@ -998,10 +998,19 @@ Map = {
         var bounce = bounce_override != undefined ? bounce_override:
             (this.drop_markers || false);
 
+        var i = icon;
+        if(Map.highlitPlace) {
+            if(Map.highlitPlace == place._id) {
+                i = highlight_icon;
+            } else {
+                i = fade_icon;
+            }
+        }
+
         var marker = L.marker(coords, {
             draggable: false,
             bounceOnAdd: bounce,
-            icon: icon,
+            icon: i,
             riseOnHover: true
         });
 
@@ -1012,20 +1021,25 @@ Map = {
         marker.fade_icon = fade_icon;
 
         marker.on('mouseover', function () {
+            if(Session.get('disableHover')) return;
             Map.highlightPlace(place._id);
-            //marker.setIcon(highlight_icon);
         });
         marker.on('mouseout', function () {
+            if(Session.get('disableHover')) return;
             Map.unHighlightPlace(place._id);
-            //marker.setIcon(icon);
         });
         return marker;
     },
 
     highlightPlace: function (id) {
+
+        Map.highlitPlace = id;
+
         var layer = this.keysToLayers[id];
+
         if(!layer)
             return;
+        
         if(layer.normal_icon) {
             layer.setIcon(layer.highlight_icon);
             //layer.original_offset = layer.options.zIndexOffset;
@@ -1034,7 +1048,8 @@ Map = {
             // not marker
             layer.setStyle({fillOpacity: 0.65, opacity: 0.8});
         }
-        this.fadeOtherPlaces(id);
+        //this.fadeOtherPlaces(id);
+        this.normalOtherPlaces(id);
     },
 
     fadeOtherPlaces: function (id) {
@@ -1061,6 +1076,7 @@ Map = {
         } else {
             layer.setStyle({fillOpacity: 0.2, opacity: 0.45});
         }
+        Map.highlitPlace = undefined;
         this.normalOtherPlaces(id);
     },
 
@@ -1143,10 +1159,12 @@ Map = {
                 },
                 onEachFeature: function (feature, layer) {
                     layer.on('mouseover', function () {
-                        //layer.setStyle({fillOpacity: 0.65, opacity: 0.8});
+                        if(Session.get('disableHover')) return;
                         Map.highlightPlace(place._id);
+                        //layer.setStyle({fillOpacity: 0.65, opacity: 0.8});
                     });
                     layer.on('mouseout', function () {
+                        if(Session.get('disableHover')) return;
                         Map.unHighlightPlace(place._id);
                         //layer.setStyle({fillOpacity: 0.2, opacity: 0.45});
                     });
