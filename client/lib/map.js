@@ -383,6 +383,8 @@ Map = {
         this.shapeLayerGroup.new();
         this.enable_clustering = false;
         this.mapDriver = DefaultMapDriver;
+
+        this.panToThrottled = _.throttle(Map.panTo, 500, {trailing: false});
     },
 
     contextMenuAdd: function (e) {
@@ -950,11 +952,9 @@ Map = {
         });
 
         var icon;
-        var highlight_icon, fade_icon;
+        var highlight_icon;
         var highlight_color = tinycolor(place.properties.color || '00F');
         highlight_color = highlight_color.darken(20).toString();
-        var fade_color = tinycolor(place.properties.color || '00F');
-        fade_color = fade_color.lighten(20).toString();
 
         if(place.properties.custom_icon !== undefined) {
 
@@ -975,12 +975,6 @@ Map = {
                 size: place.properties.icon_size
             });
 
-            fade_icon = L.MakiMarkers.icon({
-                icon: place.properties.icon,
-                color: fade_color,
-                size: place.properties.icon_size
-            });
-
         } else {
 
             icon = L.mapbox.marker.icon({
@@ -988,9 +982,6 @@ Map = {
             });
             highlight_icon = L.mapbox.marker.icon({
                 'marker-color': highlight_color
-            });
-            fade_icon = L.mapbox.marker.icon({
-                'marker-color': fade_color
             });
 
         }
@@ -1003,7 +994,7 @@ Map = {
             if(Map.highlitPlace == place._id) {
                 i = highlight_icon;
             } else {
-                i = fade_icon;
+                i = icon;
             }
         }
 
@@ -1018,7 +1009,6 @@ Map = {
 
         marker.highlight_icon = highlight_icon;
         marker.normal_icon = icon;
-        marker.fade_icon = fade_icon;
 
         marker.on('mouseover', function () {
             if(Session.get('disableHover')) return;
@@ -1048,22 +1038,7 @@ Map = {
             // not marker
             layer.setStyle({fillOpacity: 0.65, opacity: 0.8});
         }
-        //this.fadeOtherPlaces(id);
         this.normalOtherPlaces(id);
-    },
-
-    fadeOtherPlaces: function (id) {
-        // in addition to highlighting places as above, also
-        // fade all other places
-        _.each(this.keysToLayers, function (layer) {
-            if(layer.key == id)
-                return;
-            if(layer.fade_icon) {
-                layer.setIcon(layer.fade_icon);
-            } else {
-                layer.setStyle({fillOpacity: 0.15, opacity: 0.25});
-            }
-        });
     },
 
     unHighlightPlace: function (id) {
@@ -1081,8 +1056,6 @@ Map = {
     },
 
     normalOtherPlaces: function (id) {
-        // in addition to highlighting places as above, also
-        // fade all other places
         _.each(this.keysToLayers, function (layer) {
             if(layer.key == id)
                 return;
@@ -1105,7 +1078,7 @@ Map = {
 
         } else {
 
-            Map.panTo(center);
+            Map.panToThrottled(center);
         }
         this.lastPlace = place._id;
 
