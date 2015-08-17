@@ -607,15 +607,17 @@ Map = {
 
         if(shape.hasOwnProperty('_icon')) {
 
-            shape.originalOffset = shape.options.zIndexOffset;
-            shape.setZIndexOffset(9999);
+            if(shape.originalOffset == undefined) // only set it once
+                shape.originalOffset = shape.options.zIndexOffset;
+
+            shape.setZIndexOffset(20);
 
             this.bouncing[key] = true;
             shape.bounce(duration || 4);
             var that = this;
             setTimeout(function() {
                 that.bouncing[key] = false;
-                shape.setZIndexOffset(shape.originalOffset);
+                //shape.setZIndexOffset(shape.originalOffset);
             }, duration * 1000 || 4000);
         }
     },
@@ -678,7 +680,7 @@ Map = {
                 Map.panTo(c);
             }, 300);
         } else {
-            console.log(layer.getBounds());
+            
             this.map.fitBounds(layer.getBounds());
         }
     },
@@ -1047,7 +1049,8 @@ Map = {
             return;
         if(layer.normal_icon) {
             layer.setIcon(layer.normal_icon);
-            //layer.setZIndexOffset(layer.original_offset);
+            if(layer.originalOffset != undefined)
+                layer.setZIndexOffset(layer.originalOffset);
         } else {
             layer.setStyle({fillOpacity: 0.2, opacity: 0.45});
         }
@@ -1061,6 +1064,8 @@ Map = {
                 return;
             if(layer.normal_icon) {
                 layer.setIcon(layer.normal_icon);
+                if(layer.originalOffset != undefined)
+                    layer.setZIndexOffset(layer.originalOffset);
             } else {
                 layer.setStyle({fillOpacity: 0.2, opacity: 0.45});
             }
