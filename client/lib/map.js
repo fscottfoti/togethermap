@@ -1013,10 +1013,12 @@ Map = {
         marker.normal_icon = icon;
 
         marker.on('mouseover', function () {
+            Map.activeMarker = place._id;
             if(Session.get('disableHover')) return;
             Map.highlightPlace(place._id);
         });
         marker.on('mouseout', function () {
+            Map.activeMarker = undefined;
             if(Session.get('disableHover')) return;
             Map.unHighlightPlace(place._id);
         });
@@ -1083,6 +1085,9 @@ Map = {
 
         } else {
 
+            if(Map.activeMarker) {
+                Map.keysToLayers[Map.activeMarker].hideLabel();
+            }
             Map.panToThrottled(center);
         }
         this.lastPlace = place._id;
