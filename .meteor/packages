@@ -9,15 +9,11 @@ accounts-password
 momentjs:moment
 numeral:numeral
 mizzao:bootboxjs
-ian:accounts-ui-bootstrap-3
 accounts-google
 d3
 chrismbeckett:toastr
-froala:editor
 iron:router
 iron:layout
-meteorhacks:kadira
-matteodem:easy-search
 reywood:publish-composite
 mikowals:batch-insert
 sacha:spin
@@ -26,10 +22,6 @@ percolate:synced-cron
 cmather:handlebars-server
 sacha:juice
 meteorhacks:npm
-
-
-
-
 npm-container
 force-ssl
 arsnebula:reactive-promise
@@ -40,3 +32,7 @@ czbaker:lightbox2
 pfafman:filesaver
 jhartma:quill
 mdg:geolocation
+materialize:materialize
+useraccounts:materialize
+fortawesome:fontawesome
+pfafman:materialize-modal

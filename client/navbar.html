@@ -1,8 +1,87 @@
 <template name='nav'>
+
+    <ul id="dropdown1" class="dropdown-content">
+
+    </ul>
+
+
+
+<nav class="blue accent-2">
+  <ul id="slide-out" class="side-nav">
+            <li>
+            <a href="#" class="collections-go"><i class="fa fa-list"></i> Browse</a>
+        </li>
+
+        <li>
+            <a href="#" class="search-go"><i class="fa fa-search"></i> Search</a>
+        </li>
+
+        <li>
+            <a href="#" class="settings-go"><i class="fa fa-gear"></i> Settings</a>
+        </li>
+
+        {{#if currentUser }}
+
+            <li>
+                <a href="#" class="import-go"><i class="fa fa-arrow-circle-o-up"></i> Import</a>
+            </li>
+
+            <li>
+                <a href="#" class="newCollection">&nbsp;<i class="fa fa-map-marker"></i>&nbsp;New</a>
+            </li>
+
+        {{/if}}
+
+        <li>
+            <a href="https://fscottfoti.github.io/togethermap-help" target="_blank"><i class="fa fa-question-circle"></i> Help</a>
+        </li>
+    <li class="no-padding">
+
+
+              <ul class="collapsible collapsible-accordion">
+            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Mine</a>
+              <div class="collapsible-body">
+                <ul>
+            {{#if currentUser}}
+
+                {{#each my_collections}}
+                    <li><a class="collection-go" href="#">{{name}}</a></li>
+                {{/each}}
+                {{#if no_collections}}
+                    <li><a href="#">No collections</a></li>
+                {{/if}}
+
+            {{ else }}
+
+                <li><a>Login to add collections</a></li>
+
+            {{/if}}
+                </ul>
+              </div>
+            </li>
+        </ul>
+    </li>
+  </ul>
+  <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="mdi-navigation-menu"></i></a>
+
+  <div class="nav-wrapper">
+      <a href="#" class="brand-logo center">
+        
+    {{#if active_collection}}  
+            <a href="#" class="active-collection">
+                <i>{{active_collection}}</i>
+            </a>
+    {{else}}
+        TogetherMap
+    {{/if}}
+    </a></div>
+</nav>
+   
+
+<!--
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
          style="padding-left: 15px; padding-right: 15px;">
         <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button"
                         class="navbar-toggle toggle-menu menu-left"
@@ -27,18 +106,18 @@
                 </button>
                 {{/if}}
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
                  id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     {{> navItems}}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    {{> loginButtons }} <!-- here -->
+                    {{> loginButtons }}
                 </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
+            </div>
+        </div>
     </nav>
+-->
 </template>
 
 
@@ -48,74 +127,6 @@
 
 
 <template name='navItems'>
-
-    <li class="dropdown">
-        <a href="#"
-           class="dropdown-toggle"
-           data-toggle="dropdown"
-           role="button"
-           aria-expanded="false">
-            Go
-            <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-            <li>
-                <a href="#" class="collections-go"><i class="fa fa-list"></i> Browse</a>
-            </li>
-
-            <li>
-                <a href="#" class="search-go"><i class="fa fa-search"></i> Search</a>
-            </li>
-
-            <li>
-                <a href="#" class="settings-go"><i class="fa fa-gear"></i> Settings</a>
-            </li>
-
-            {{#if currentUser }}
-
-                <li>
-                    <a href="#" class="import-go"><i class="fa fa-arrow-circle-o-up"></i> Import</a>
-                </li>
-
-                <li>
-                    <a href="#" class="newCollection">&nbsp;<i class="fa fa-map-marker"></i>&nbsp;New</a>
-                </li>
-
-            {{/if}}
-
-            <li>
-                <a href="https://fscottfoti.github.io/togethermap-help" target="_blank"><i class="fa fa-question-circle"></i> Help</a>
-            </li>
-
-        </ul>
-    </li>
-
-    <li class="dropdown">
-        <a href="#"
-           class="dropdown-toggle"
-           data-toggle="dropdown"
-           role="button"
-           aria-expanded="false">
-            Mine
-            <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-            {{#if currentUser}}
-
-                {{#each my_collections}}
-                    <li><a class="collection-go" href="#">{{name}}</a></li>
-                {{/each}}
-                {{#if no_collections}}
-                    <li><a href="#">No collections</a></li>
-                {{/if}}
-
-            {{ else }}
-
-                <li><a>Login to add collections</a></li>
-
-            {{/if}}
-        </ul>
-    </li>
 
     <li class="dropdown">
         <a href="#"
@@ -145,21 +156,6 @@
         </ul>
     </li>
 
-    {{#if active_collection}}
-        <li>
-            <a href="#" class="active-collection">
-                <i>{{active_collection}}</i>
-            </a>
-        </li>
-    {{/if}}
 
-
-    {{#if active_profile}}
-        <li>
-            <a href="#" class="active-profile">
-                {{active_profile}}
-            </a>
-        </li>
-    {{/if}}
 
 </template>

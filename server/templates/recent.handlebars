@@ -1,14 +1,14 @@
 {{#each collections}}
 
     {{#if collection}}
-        <h2>
+        <h4>
             Recent Activity for
             <a href="{{collectionUrl collection._id}}">
                 {{ collection.name }}
             </a>
         </h2>
     {{else}}
-        <h2>
+        <h4>
            {{header}}
         </h2>
     {{/if}}

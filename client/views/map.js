@@ -2,12 +2,12 @@ mobileFormFactor = false;
 
 resizeMap = function() {
     var h = $(window).height(), offsetTop = 55; // Calculate the top offset
-    if (Session.get('noNav')) {
+    /*if (Session.get('noNav')) {
         offsetTop = 0;
         $('body').css('margin-top', "0px");
     } else {
         $('body').css('margin-top', "55px");
-    }
+    }*/
     $('#map_canvas').css('height', (h - offsetTop));
 };
 

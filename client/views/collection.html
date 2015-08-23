@@ -14,20 +14,16 @@
 
         <div class="form-group">
 
-            <span class="dropdown">
+            <span>
 
-                <button class="btn btn-sm btn-primary dropdown-toggle sortings"
-                        data-toggle="dropdown">
+                <a class='dropdown-button btn' href='#' data-activates='drop-sort'>
                     <i class="fa fa-sort-amount-asc"></i>
-                    Sort
-                    <span class="caret"></span>
-                </button>
+                </a>
 
-                <ul class="dropdown-menu" role="menu">
+                <ul id='drop-sort' class='dropdown-content'>
                     {{#each sortTypes}}
-                        <li role="presentation">
-                            <a role="menuitem"
-                               class="sort-by"
+                        <li>
+                            <a class="sort-by"
                                id="{{this}}"
                                href="">
                                 {{this}}
@@ -42,7 +38,6 @@
                     <a class="recent-go">
                         <button class="btn btn-sm btn-primary">
                             <i class="fa fa-clock-o"></i>
-                            Recent
                         </button>
                     </a>
                 </span>
@@ -80,7 +75,6 @@
                     <a class="edit-link">
                         <button class="btn btn-sm btn-primary">
                             <i class="fa fa-edit"></i>
-                            Edit
                         </button>
                     </a>
                 </span>

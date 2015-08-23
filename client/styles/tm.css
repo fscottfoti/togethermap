@@ -1,6 +1,10 @@
 a {text-decoration:none}
 a:hover {text-decoration:none;}
 
+.form-group {
+    margin-bottom: 15px;
+}
+
 .alternate-colors div:nth-child(2n+1) {
     background: #f1fff6;
 }

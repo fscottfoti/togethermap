@@ -1,28 +1,28 @@
 <template name="vote">
     <span>
         {{#if upVoted}}
-            <span class="btn btn-xs btn-success" style="cursor: default">
+            <span class="btn-floating btn-small waves-effect waves-light" style="cursor: default">
               <i class="fa fa-thumbs-up"></i>
             </span>
-            <span class="btn btn-xs btn-primary un-vote" style="cursor: pointer;">
+            <span class="btn-floating btn-small waves-effect waves-light un-vote">
                 <i class="fa fa-times un-vote"></i>
             </span>
         {{/if}}
 
         {{#if downVoted}}
-            <span class="btn btn-xs btn-primary un-vote" style="cursor: pointer;">
+            <span class="btn-floating btn-small waves-effect waves-light un-vote">
                 <i class="fa fa-times un-vote"></i>
             </span>
-            <span class="btn btn-xs btn-warning" style="cursor: default">
+            <span class="btn-floating btn-small waves-effect waves-light" style="cursor: default">
               <i class="fa fa-thumbs-down"></i>
             </span>
         {{/if}}
 
         {{#if notVoted}}
-            <span class="btn btn-xs btn-primary up-vote" style="cursor: pointer;">
+            <span class="btn-floating btn-small waves-effect waves-light up-vote">
               <i class="fa fa-thumbs-o-up"></i>
             </span>
-            <span class="btn btn-xs btn-primary down-vote" style="cursor: pointer;">
+            <span class="btn-floating btn-small waves-effect waves-light down-vote">
                 <i class="fa fa-thumbs-o-down"></i>
             </span>
         {{/if}}

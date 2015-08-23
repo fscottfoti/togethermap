@@ -1,6 +1,12 @@
 Template.nav.rendered = function () {
     $('.toggle-menu').jPushMenu({closeOnClickLink: false});
-    $('.dropdown-toggle').dropdown();
+    $('.button-collapse').sideNav({
+      menuWidth: 300, // Default is 240
+      edge: 'left', // Choose the horizontal origin
+      closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+    }
+  );
+    $('.collapsible').collapsible();
 };
 
 
@@ -11,30 +17,9 @@ Template.nav.helpers({
 
     showSidebar: function () {
         return Session.get('sidebarOpen') !== undefined;
-    }
-});
+    },
 
-
-Template.nav.events = {
-
-    'click .map-sidebar-toggle': function (e) {
-
-        e.preventDefault();
-        if(!Map.sidebarOpened) {
-            // don't do anything unless we've opened the sidebar before
-            return;
-        }
-        Map.sidebar.toggle();
-        if(Map.sidebar.isVisible()) {
-            history.back();
-        }
-    }
-};
-
-
-Template.navItems.helpers({
-
-    my_collections: function () {
+        my_collections: function () {
         return MCollections.find(userIdExpression(Meteor.user()), {sort: {name: 1}});
     },
 
@@ -75,30 +60,21 @@ Template.navItems.helpers({
     }
 });
 
-infoHidden = {};
 
-closeDropdowns = function () {
-    $('.dropdown.open .dropdown-toggle').dropdown('toggle');
-    $('.toggle-menu:visible').click();
-};
+Template.nav.events = {
 
-renderTmp = function (template, data) {
-    var node = document.createElement("div");
-    document.body.appendChild(node);
-    UI.renderWithData(template, data, node);
-    return node;
-};
+    'click .map-sidebar-toggle': function (e) {
 
-
-Template.navBrand.events = {
-    'click .home-go': function (e) {
         e.preventDefault();
-        makeBootbox(renderTmp(Template.home));
-    }
-};
-
-
-Template.navItems.events = {
+        if(!Map.sidebarOpened) {
+            // don't do anything unless we've opened the sidebar before
+            return;
+        }
+        Map.sidebar.toggle();
+        if(Map.sidebar.isVisible()) {
+            history.back();
+        }
+    },
 
     'click .settings-go': function (e) {
 
@@ -161,4 +137,40 @@ Template.navItems.events = {
             closeDropdowns();
         });
     }
+};
+
+
+Template.navItems.rendered = function () {
+    $(".dropdown-button").dropdown();
+};
+
+
+Template.navItems.helpers({
+
+});
+
+infoHidden = {};
+
+closeDropdowns = function () {
+    $('.dropdown.open .dropdown-toggle').dropdown('toggle');
+    $('.toggle-menu:visible').click();
+};
+
+renderTmp = function (template, data) {
+    var node = document.createElement("div");
+    document.body.appendChild(node);
+    UI.renderWithData(template, data, node);
+    return node;
+};
+
+
+Template.navBrand.events = {
+    'click .home-go': function (e) {
+        e.preventDefault();
+        makeBootbox(renderTmp(Template.home));
+    }
+};
+
+
+Template.navItems.events = {
 };
