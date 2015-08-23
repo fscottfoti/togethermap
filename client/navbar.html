@@ -1,12 +1,6 @@
 <template name='nav'>
 
-    <ul id="dropdown1" class="dropdown-content">
-
-    </ul>
-
-
-
-<nav class="blue accent-2">
+<nav class="light-blue darken-4 black-text" style="padding-left: 10px;">
   <ul id="slide-out" class="side-nav">
             <li>
             <a href="#" class="collections-go"><i class="fa fa-list"></i> Browse</a>
@@ -45,7 +39,7 @@
             {{#if currentUser}}
 
                 {{#each my_collections}}
-                    <li><a class="collection-go" href="#">{{name}}</a></li>
+                    <li><a class="collection-go truncate" href="#">{{name}}</a></li>
                 {{/each}}
                 {{#if no_collections}}
                     <li><a href="#">No collections</a></li>
@@ -69,7 +63,7 @@
         
     {{#if active_collection}}  
             <a href="#" class="active-collection">
-                <i>{{active_collection}}</i>
+                {{active_collection}}
             </a>
     {{else}}
         TogetherMap

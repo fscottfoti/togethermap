@@ -7,6 +7,7 @@ var jqueryInit = function () {
 Template.place.rendered = function () {
     Session.set('current_html', '');
     jqueryInit();
+    $('.dropdown-button').dropdown();
     closed = true;
 };
 

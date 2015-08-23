@@ -1,12 +1,24 @@
 a {text-decoration:none}
 a:hover {text-decoration:none;}
 
+h2 {
+    font-size: 2.28rem;
+}
+
+h3 {
+    font-size: 1.64rem;
+}
+
+h4 {
+    font-size: 1.2rem;
+}
+
 .form-group {
     margin-bottom: 15px;
 }
 
 .alternate-colors div:nth-child(2n+1) {
-    background: #f1fff6;
+    background: #eceff1;
 }
 
 .shadow {
@@ -15,10 +27,6 @@ a:hover {text-decoration:none;}
     -moz-box-shadow: 3px 3px 5px -2px #888 ;
     box-shadow: 3px 3px 5px -2px #888 ;
     margin-bottom: 7px;
-}
-
-.home-content {
-    margin: 8px;
 }
 
 .top-right {
@@ -51,12 +59,12 @@ a:hover {text-decoration:none;}
     opacity: 1 !important;
 }
 
-
+/*
 @media (max-width: 768px) { 
     .navbar-brand { position: absolute; left: 50%; margin-left: -72px; }
     
     .sidebar-close { visibility: hidden; }
-}
+}*/
 
 
 .btn-file {

@@ -18,12 +18,14 @@
 
             <span class="dropdown">
 
-                <a class='dropdown-button btn' href='#' data-activates='drop-copy'>Copy</a>
+                <a class='dropdown-button btn' href='#' data-hover="true" data-beloworigin="true" data-activates='drop-copy'>
+                    <i class="fa fa-copy"></i>
+                </a>
 
                 <ul id="drop-copy" class='dropdown-content'>
                     {{#each myCollections}}
                         <li>
-                            <a class="do-copy"
+                            <a class="do-copy truncate"
                                id="{{_id}}"
                                cid="{{cid}}"
                                href="#">
@@ -40,7 +42,6 @@
         <a class="collection-go">
             <button class="btn btn-primary btn-sm">
                 <i class="fa fa-arrow-left"></i>
-                Collection
             </button>
         </a>
 
@@ -49,7 +50,6 @@
 
             <button class="btn btn-primary btn-sm edit-link">
                 <i class="fa fa-edit"></i>
-                Edit
             </button>
 
         {{/if}}
@@ -141,10 +141,7 @@
 
             <a class="read-more">
                 <button class="btn btn-sm btn-success">
-
-                    <i class="fa fa-reply"></i>
-                    Respond
-
+                   <i class="fa fa-reply"></i>
                 </button>
             </a>
 
@@ -186,7 +183,6 @@
                     <a class="new-topic">
                         <button class="btn btn-sm btn-warning">
                             <i class="fa fa-file"></i>
-                            Post New Topic
                         </button>
                     </a>
                 </div>

@@ -22,7 +22,6 @@ percolate:synced-cron
 cmather:handlebars-server
 sacha:juice
 meteorhacks:npm
-npm-container
 force-ssl
 arsnebula:reactive-promise
 aldeed:autoform
@@ -32,7 +31,11 @@ czbaker:lightbox2
 pfafman:filesaver
 jhartma:quill
 mdg:geolocation
-materialize:materialize
 useraccounts:materialize
 fortawesome:fontawesome
 pfafman:materialize-modal
+fourseven:scss
+poetic:materialize-scss
+
+
+npm-container

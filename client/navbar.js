@@ -1,5 +1,4 @@
 Template.nav.rendered = function () {
-    $('.toggle-menu').jPushMenu({closeOnClickLink: false});
     $('.button-collapse').sideNav({
       menuWidth: 300, // Default is 240
       edge: 'left', // Choose the horizontal origin
@@ -19,7 +18,7 @@ Template.nav.helpers({
         return Session.get('sidebarOpen') !== undefined;
     },
 
-        my_collections: function () {
+    my_collections: function () {
         return MCollections.find(userIdExpression(Meteor.user()), {sort: {name: 1}});
     },
 
