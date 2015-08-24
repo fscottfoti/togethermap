@@ -1,5 +1,4 @@
 Template.collection.rendered = function () {
-    $('[data-toggle="tooltip"]').tooltip()
     Session.set('viewPlaces', true); // might be better to show places by default
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip({delay: 50});

@@ -10,7 +10,8 @@ h3 {
 }
 
 h4 {
-    font-size: 1.2rem;
+    font-size: 24px;
+    font-weight: 300;
 }
 
 .form-group {
@@ -34,15 +35,6 @@ h4 {
     top: 1px;
     right: 1px;
     cursor: pointer;
-}
-
-
-.quick-place {
-    position: relative;
-    padding-left: 10px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-right: 10px;
 }
 
 

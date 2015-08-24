@@ -15,7 +15,7 @@
         <div class="form-group">
 
             <span>
-                <a class='dropdown-button btn btn-primary' href='#' data-hover="true" data-beloworigin="true" data-activates='drop-sort'>
+                <a class='dropdown-button btn btn-primary tooltipped' href='' data-beloworigin="true" data-activates='drop-sort' data-position="top" data-tooltip="Sort">
                     <i class="fa fa-sort-amount-asc"></i>
                 </a>
 
@@ -35,7 +35,7 @@
             {{#if currentUser }}
                 <span>
                     <a class="recent-go">
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary tooltipped" data-position="top" data-tooltip="Recent">
                             <i class="fa fa-clock-o"></i>
                         </button>
                     </a>
@@ -46,9 +46,8 @@
 
                 <span>
                     <a class="follow">
-                        <button class="btn btn-sm btn-primary">
+                        <button class="btn btn-sm btn-primary tooltipped" data-position="top" data-tooltip="Follow">
                             <i class="fa fa-star"></i>
-                            Follow
                         </button>
                     </a>
                 </span>
@@ -59,9 +58,8 @@
 
                 <span>
                     <a class="unfollow">
-                        <button class="btn btn-sm btn-primary">
+                        <button class="btn btn-sm btn-primary tooltipped" data-position="top" data-tooltip="Unfollow">
                             <i class="fa fa-star-o"></i>
-                            Unfollow
                         </button>
                     </a>
                 </span>
@@ -72,7 +70,7 @@
 
                 <span>
                     <a class="edit-link">
-                        <button class="btn btn-sm btn-primary">
+                        <button class="btn btn-sm btn-primary tooltipped" data-position="top" data-tooltip="Edit">
                             <i class="fa fa-edit"></i>
                         </button>
                     </a>
@@ -190,15 +188,13 @@
 
     {{else}}
 
-        <div class="alternate-colors">
+        {{#each places}}
 
-            {{#each places}}
+            {{> quick_place }}
 
-                {{> quick_place }}
+            <div style="height: 10px;"></div>
 
-            {{/each}}
-
-        </div>
+        {{/each}}
 
     {{/unless}}
 

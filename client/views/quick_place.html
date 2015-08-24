@@ -1,56 +1,59 @@
 <template name="quick_place">
 
-    <div class="quick-place shadow">
-        <div class="pan-map">
-            <span>
-                <i class="fa fa-location-arrow fa-2x top-right"
-                   data-toggle="tooltip"
-                   data-placement="left"
-                   title="Click to go to the place"></i>
-            </span>
-        </div>
+        <div class="card black-text quick-place" style="width: 100%">
+            {{#if properties.image_url }}
+                <div class="card-image">
+                    {{> image image_url=properties.image_url makeLink=1 placeId=_id collectionId=collectionId }}
+                </div>
+            {{/if}}
+            <div class="card-content">
 
-        {{{ dynamic_place }}}
+                {{{ dynamic_place }}}
 
-        {{{ properties.description }}}
+                {{{ properties.description }}}
+            </div>
+            <div class="card-action">
 
-        {{> image image_url=properties.image_url makeLink=1 placeId=_id collectionId=collectionId }}
+                <span class="pan-map" style="cursor: pointer;">
+                    <i class="fa fa-location-arrow"></i> Center Map
+                </span>
 
-        {{#if recentSort}}
-          {{formatDate createDate}}
-        {{/if}}
-
-        {{#if voteSort}}
-            <span>
-                <i class="fa fa-trophy"></i>
-                {{ pluralize votes "Vote" }}
-            </span>
-        {{/if}}
-
-        {{#if imageSort}}
-            {{#unless properties.image_url}}
-              (no image)
-            {{/unless}}
-        {{/if}}
-
-        {{#if creatorSort}}
-            <span>
-                {{#if creator}}
-                    <a href="#" class="profile-go">
-                        <i class="fa fa-user"></i>
-                        {{ creator }}
-                    </a>
+                {{#if recentSort}}
+                    {{formatDate createDate}}
                 {{/if}}
-            </span>
-        {{/if}}
 
-        {{#if postSort}}
-            <span>
-                <i class="fa fa-comment"></i>
-                {{ pluralize post_count "Post" }}
-            </span>
-        {{/if}}
+                {{#if voteSort}}
+                    <span>
+                        <i class="fa fa-trophy"></i>
+                        {{ pluralize votes "Vote" }}
+                    </span>
+                {{/if}}
 
-    </div>
+                {{#if imageSort}}
+                    {{#unless properties.image_url}}
+                      (no image)
+                    {{/unless}}
+                {{/if}}
+
+                {{#if creatorSort}}
+                    <span>
+                        {{#if creator}}
+                            <a href="#" class="profile-go">
+                                <i class="fa fa-user"></i>
+                                {{ creator }}
+                            </a>
+                        {{/if}}
+                    </span>
+                {{/if}}
+
+                {{#if postSort}}
+                    <span>
+                        <i class="fa fa-comment"></i>
+                        {{ pluralize post_count "Post" }}
+                    </span>
+                {{/if}}
+                
+            </div>
+        </div>
 
 </template>

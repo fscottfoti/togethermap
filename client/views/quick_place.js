@@ -1,5 +1,4 @@
 Template.quick_place.rendered = function () {
-    $('[data-toggle="tooltip"]').tooltip()
 };
 
 Template.quick_place.helpers({
@@ -17,6 +16,10 @@ Template.quick_place.helpers({
             _cid: this.collectionId
         });
         return url;
+    },
+
+    creator: function () {
+        return this.creator || 'No Creator';
     },
 
     recentSort: function () { return Session.get('active_sort_type') == "Recent"},
