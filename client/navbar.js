@@ -79,42 +79,36 @@ Template.nav.events = {
 
         e.preventDefault();
         makeBootbox(renderTmp(Template.settings));
-        closeDropdowns();
     },
 
     'click .import-go': function (e) {
 
         e.preventDefault();
         makeBootbox(renderTmp(Template.import));
-        closeDropdowns();
     },
 
     'click .collection-go': function (e) {
 
         e.preventDefault();
         Router.go('collection', {_id: this._id});
-        closeDropdowns();
     },
 
     'click .collections-go': function (e) {
 
         e.preventDefault();
         Router.go('collections');
-        closeDropdowns();
     },
 
     'click .search-go': function (e) {
 
         e.preventDefault();
         Router.go('search');
-        closeDropdowns();
     },
 
-    'click .followed-go': function (e) {
+    'click .logout': function (e) {
 
         e.preventDefault();
-        Router.go('collection', {_id: this.cid});
-        closeDropdowns();
+        AccountsTemplates.logout();
     },
 
     'click .active-collection': function (e) {
@@ -133,43 +127,14 @@ Template.nav.events = {
                 console.log(err);
         
             Router.go('collection_edit', {_id: key});
-            closeDropdowns();
         });
     }
 };
 
-
-Template.navItems.rendered = function () {
-    $(".dropdown-button").dropdown();
-};
-
-
-Template.navItems.helpers({
-
-});
-
-infoHidden = {};
-
-closeDropdowns = function () {
-    $('.dropdown.open .dropdown-toggle').dropdown('toggle');
-    $('.toggle-menu:visible').click();
-};
 
 renderTmp = function (template, data) {
     var node = document.createElement("div");
     document.body.appendChild(node);
     UI.renderWithData(template, data, node);
     return node;
-};
-
-
-Template.navBrand.events = {
-    'click .home-go': function (e) {
-        e.preventDefault();
-        makeBootbox(renderTmp(Template.home));
-    }
-};
-
-
-Template.navItems.events = {
 };

@@ -1,157 +1,59 @@
 <template name='nav'>
 
-<nav class="light-blue darken-4 black-text" style="padding-left: 10px;">
-  <ul id="slide-out" class="side-nav">
-            <li>
-            <a href="#" class="collections-go"><i class="fa fa-list"></i> Browse</a>
-        </li>
-
-        <li>
-            <a href="#" class="search-go"><i class="fa fa-search"></i> Search</a>
-        </li>
-
-        <li>
-            <a href="#" class="settings-go"><i class="fa fa-gear"></i> Settings</a>
-        </li>
-
-        {{#if currentUser }}
+    <nav class="light-blue darken-4 black-text" style="padding-left: 10px;">
+        <ul id="slide-out" class="side-nav">
 
             <li>
-                <a href="#" class="import-go"><i class="fa fa-arrow-circle-o-up"></i> Import</a>
+                {{#unless currentUser}}
+                    <a href="{{pathFor 'login'}}"><i class="fa fa-user"></i> Login</a>
+                {{else}}
+                    <a href="" class="logout"><i class="fa fa-user-times"></i> Logout</a>
+                {{/unless}}
             </li>
 
             <li>
-                <a href="#" class="newCollection">&nbsp;<i class="fa fa-map-marker"></i>&nbsp;New</a>
+                <a href="#" class="collections-go"><i class="fa fa-list"></i> Collections</a>
             </li>
 
-        {{/if}}
+            <li>
+                <a href="#" class="search-go"><i class="fa fa-search"></i> Search</a>
+            </li>
 
-        <li>
-            <a href="https://fscottfoti.github.io/togethermap-help" target="_blank"><i class="fa fa-question-circle"></i> Help</a>
-        </li>
-    <li class="no-padding">
+            <li>
+                <a href="#" class="settings-go"><i class="fa fa-gear"></i> Settings</a>
+            </li>
 
+            {{#if currentUser }}
 
-              <ul class="collapsible collapsible-accordion">
-            <li class="bold"><a class="collapsible-header  waves-effect waves-teal">Mine</a>
-              <div class="collapsible-body">
-                <ul>
-            {{#if currentUser}}
+                <li>
+                    <a href="#" class="import-go"><i class="fa fa-arrow-circle-o-up"></i> Import</a>
+                </li>
 
-                {{#each my_collections}}
-                    <li><a class="collection-go truncate" href="#">{{name}}</a></li>
-                {{/each}}
-                {{#if no_collections}}
-                    <li><a href="#">No collections</a></li>
-                {{/if}}
-
-            {{ else }}
-
-                <li><a>Login to add collections</a></li>
+                <li>
+                    <a href="#" class="newCollection">&nbsp;<i class="fa fa-map-marker"></i>&nbsp;New</a>
+                </li>
 
             {{/if}}
-                </ul>
-              </div>
+
+            <li>
+                <a href="https://fscottfoti.github.io/togethermap-help" target="_blank"><i class="fa fa-question-circle"></i> Help</a>
             </li>
 
-            <li>{{> atNavButton }}</li>
         </ul>
-    </li>
-  </ul>
-  <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="mdi-navigation-menu"></i></a>
+        <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="mdi-navigation-menu"></i></a>
 
-  <div class="nav-wrapper">
-      <a href="#" class="brand-logo center">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo center">
         
-    {{#if active_collection}}  
-            <a href="#" class="active-collection">
-                {{active_collection}}
-            </a>
-    {{else}}
-        TogetherMap
-    {{/if}}
-    </a></div>
-</nav>
-   
+            {{#if active_collection}}  
+                    <a href="#" class="active-collection">
+                        {{active_collection}}
+                    </a>
+            {{else}}
+                TogetherMap
+            {{/if}}
 
-<!--
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
-         style="padding-left: 15px; padding-right: 15px;">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button"
-                        class="navbar-toggle toggle-menu menu-left"
-                        data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                {{> navBrand}}
-                {{#if showSidebar}}
-                <button type="button"
-                        class="navbar-toggle map-sidebar-toggle"
-                        style="float: right;">
-                    <span class="sr-only">Toggle map info</span>
-                    {{#if sidebarOpen}}
-                        <div style="color: white; height: 18px; width:22px; margin-top: -4px;"><i class="fa fa-map-marker"></i></div>
-                    {{else}}
-                        <div style="color: white; height: 18px; width:22px; margin-top: -4px;"><i class="fa fa-list-ul"></i></div>
-                    {{/if}}
-                </button>
-                {{/if}}
-            </div>
-            <div class="collapse navbar-collapse cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-                 id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    {{> navItems}}
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    {{> loginButtons }}
-                </ul>
-            </div>
+            </a>
         </div>
     </nav>
--->
-</template>
-
-
-<template name="navBrand">
-    <a class="navbar-brand home-go" style="cursor: pointer;">TogetherMap</a>
-</template>
-
-
-<template name='navItems'>
-
-    <li class="dropdown">
-        <a href="#"
-           class="dropdown-toggle"
-           data-toggle="dropdown"
-           role="button"
-           aria-expanded="false">
-            Following
-            <span class="caret"></span>
-        </a>
-        <ul class="dropdown-menu" role="menu">
-
-            {{#if currentUser}}
-
-                {{#each followed}}
-                    <li><a href="#" class="followed-go">{{name}}</a></li>
-                {{/each}}
-                {{#if none_followed}}
-                    <li><a href="">None followed</a></li>
-                {{/if}}
-
-            {{ else }}
-
-                <li><a>Login to follow collections</a></li>
-
-            {{/if}}
-        </ul>
-    </li>
-
-
-
 </template>

@@ -1,7 +1,6 @@
 Template.collection.rendered = function () {
     Session.set('viewPlaces', true); // might be better to show places by default
     $('.dropdown-button').dropdown();
-    $('.tooltipped').tooltip({delay: 50});
 };
 
 

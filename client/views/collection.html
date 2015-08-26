@@ -15,7 +15,7 @@
         <div class="form-group">
 
             <span>
-                <a class='dropdown-button btn btn-primary tooltipped' href='' data-beloworigin="true" data-activates='drop-sort' data-position="top" data-tooltip="Sort">
+                <a class='dropdown-button btn btn-primary' href='' data-beloworigin="true" data-activates='drop-sort' data-hover="true">
                     <i class="fa fa-sort-amount-asc"></i>
                 </a>
 
@@ -35,7 +35,7 @@
             {{#if currentUser }}
                 <span>
                     <a class="recent-go">
-                        <button class="btn btn-primary tooltipped" data-position="top" data-tooltip="Recent">
+                        <button class="btn btn-primary">
                             <i class="fa fa-clock-o"></i>
                         </button>
                     </a>
@@ -46,7 +46,7 @@
 
                 <span>
                     <a class="follow">
-                        <button class="btn btn-sm btn-primary tooltipped" data-position="top" data-tooltip="Follow">
+                        <button class="btn btn-sm btn-primary">
                             <i class="fa fa-star"></i>
                         </button>
                     </a>
@@ -58,7 +58,7 @@
 
                 <span>
                     <a class="unfollow">
-                        <button class="btn btn-sm btn-primary tooltipped" data-position="top" data-tooltip="Unfollow">
+                        <button class="btn btn-sm btn-primary">
                             <i class="fa fa-star-o"></i>
                         </button>
                     </a>
@@ -70,7 +70,7 @@
 
                 <span>
                     <a class="edit-link">
-                        <button class="btn btn-sm btn-primary tooltipped" data-position="top" data-tooltip="Edit">
+                        <button class="btn btn-sm btn-primary">
                             <i class="fa fa-edit"></i>
                         </button>
                     </a>
@@ -79,48 +79,6 @@
             {{/if}}
 
         </div>
-
-        {{#if 0}}
-        <div>
-
-            {{#if isOwner}}
-                <span>
-                    <i class="fa fa-2x fa-user"
-                       data-toggle="tooltip"
-                       data-placement="right"
-                       title="You can edit other people's contributions (owner)"></i>
-                </span>
-            {{/if}}
-
-            {{#if isPlaceWriter}}
-                <span>
-                    <i class="fa fa-2x fa-map-marker"
-                       data-toggle="tooltip"
-                       data-placement="right"
-                       title="You can add places"></i>
-                </span>
-            {{/if}}
-
-            {{#if isPostWriter}}
-                <span>
-                    <i class="fa fa-2x fa-comment"
-                       data-toggle="tooltip"
-                       data-placement="right"
-                       title="You can make posts and comments"></i>
-                </span>
-            {{/if}}
-
-            {{#if isReader}}
-                <span>
-                    <i class="fa fa-2x fa-eye"
-                       data-toggle="tooltip"
-                       data-placement="right"
-                       title="You may observe the collection"></i>
-                </span>
-            {{/if}}
-
-        </div>
-        {{/if}}
     
         <!-- display a line of collection attributes (dates and such) -->
 
@@ -155,48 +113,16 @@
 
         </div>
 
-        {{#if 0}}
-        <div class="form-group">
-
-            <span>
-                {{ formatNumber visible_places_count }} visible
-                out of {{ formatNumber place_count }} total places
-            </span>
-
-            <br>
-
-            <span>
-                {{#if exceeds_place_limit }}
-                    More places are available, zoom in for more places.
-                {{else}}
-                    All places in visible area are available.
-                {{/if}}
-            </span>
-
-        </div>
-        {{/if}}
-
     {{/with}}
 
-    {{#unless viewPlaces }}
 
-        <div class="form-group">
-            <span class="btn btn-primary view-place-list">
-                View Place List
-            </span>
-        </div>
+    {{#each places}}
 
-    {{else}}
+        {{> quick_place }}
 
-        {{#each places}}
+        <div style="height: 10px;"></div>
 
-            {{> quick_place }}
-
-            <div style="height: 10px;"></div>
-
-        {{/each}}
-
-    {{/unless}}
+    {{/each}}
 
 
     {{#unless collection.creator }}

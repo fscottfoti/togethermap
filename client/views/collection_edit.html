@@ -16,7 +16,7 @@
             </a>
 
             <a class="delete-link">
-                <button class="btn red">
+                <button class="btn">
                     <i class="fa fa-trash"></i>
                 </button>
             </a>
@@ -25,24 +25,13 @@
                 <span class="btn btn-sm btn-primary flickr-refresh">Refresh</span>
             {{/if}}
 
-            {{#unless expertConfiguration}}
-
-                <a class="toggle-expert">
+            <span>
+                <a class="save-location">
                     <button class="btn btn-sm btn-primary">
-                        <i class="fa fa-arrow-down"></i>
+                        <i class="fa fa-location-arrow"></i>
                     </button>
                 </a>
-
-            {{ else }}
-
-                <a class="toggle-expert">
-                    <button class="btn btn-sm btn-primary">
-                        <i class="fa fa-arrow-up"></i>
-                        Less
-                    </button>
-                </a>
-
-            {{/unless}}
+            </span>
 
         </div>
 
@@ -68,7 +57,9 @@
             {{/if}}
         </div>
 
+
         {{> image image_url=image_url }}
+
 
         <div class="form-group">
             <label>Collection Description:</label>
@@ -81,13 +72,23 @@
 
         <div class="form-group">
 
-            <span>
-                <a class="save-location">
+            {{#unless expertConfiguration}}
+
+                <a class="toggle-expert">
                     <button class="btn btn-sm btn-primary">
-                        <i class="fa fa-location-arrow"></i>
+                        <i class="fa fa-arrow-down"></i>
                     </button>
                 </a>
-            </span>
+
+            {{ else }}
+
+                <a class="toggle-expert">
+                    <button class="btn btn-sm btn-primary">
+                        <i class="fa fa-arrow-up"></i>
+                    </button>
+                </a>
+
+            {{/unless}}
 
             <span>
                 <a class="permissions-link">
@@ -110,13 +111,6 @@
 
         {{#if expertConfiguration}}
 
-            {{#if 0}}
-            <div class="form-group">
-                <label>Flickr Album Link:</label><br>
-                <input id="flickr_link" class="form-control" type="text" placeholder="{{flickr_link}}"/>
-            </div>
-            {{/if}}
-
             <div>
 
                 <label>Custom Place Template (for Place Detail):</label>
@@ -129,14 +123,12 @@
                 <a class="place-template-sample">
                     <button class="btn btn-sm btn-primary">
                         <i class="fa fa-eye"></i>
-                        Test
                     </button>
                 </a>
 
                 <a class="place-template-json">
                     <button class="btn btn-sm btn-primary">
                         <i class="fa fa-code"></i>
-                        Json
                     </button>
                 </a>
 
@@ -156,7 +148,6 @@
                 <a class="place-template-list-sample">
                     <button class="btn btn-sm btn-primary">
                         <i class="fa fa-eye"></i>
-                        Test
                     </button>
                 </a>
 
@@ -176,7 +167,6 @@
                 <a class="place-template-label-sample">
                     <button class="btn btn-sm btn-primary">
                         <i class="fa fa-eye"></i>
-                        Test
                     </button>
                 </a>
 
@@ -198,7 +188,6 @@
                 <a class="place-autoform-sample">
                     <button class="btn btn-sm btn-primary">
                         <i class="fa fa-eye"></i>
-                        Test
                     </button>
                 </a>
 
@@ -252,39 +241,55 @@
 
             <br><br>
 
-            <div class="checkbox">
+            <div class="switch">
+                
                 <label>
+                    Drop Markers:<br>
+                    Off
                     <input type="checkbox"
                            id="drop-markers"
                            {{drop_markers_checked}}>
-                           Drop Markers
+                    <span class="lever"></span>
+                    On
                 </label>
             </div>
 
-            <div class="checkbox">
+            <br>
+
+            <div class="switch">
                 <label>
+                    Turn off geoindex:<br>
+                    Off
                     <input type="checkbox"
                            id="disable-geoindex"
                         {{disable_geoindex_checked}}>
-                    Turn off geoindex
+                    <span class="lever"></span>
+                    On
                 </label>
             </div>
 
-            <div class="checkbox">
+            <br>
+
+            <div class="switch">
                 <label>
+                    Enable marker clustering:<br>
+                    Off
                     <input type="checkbox"
                            id="enable-clustering"
                         {{enable_clustering_checked}}>
-                    Enable marker clustering
+                    <span class="lever"></span>
+                    On
                 </label>
             </div>
 
+            <!--
             <br>
             
             <div class="form-group">
                 <label>Firebase Transit Name:</label><br>
                 <input id="transit_name" class="form-control" type="text" placeholder="{{transit_name}}"/>
             </div>
+            -->
 
         {{/if}}
 
