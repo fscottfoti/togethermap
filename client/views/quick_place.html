@@ -1,59 +1,59 @@
 <template name="quick_place">
 
-        <div class="card black-text quick-place" style="width: 100%">
-            {{#if properties.image_url }}
-                <div class="card-image">
-                    {{> image image_url=properties.image_url makeLink=1 placeId=_id collectionId=collectionId }}
-                </div>
-            {{/if}}
-            <div class="card-content">
-
-                {{{ dynamic_place }}}
-
-                {{{ properties.description }}}
+    <div class="card black-text quick-place" style="width: 100%">
+        {{#if properties.image_url }}
+            <div class="card-image">
+                {{> image image_url=properties.image_url makeLink=1 placeId=_id collectionId=collectionId }}
             </div>
-            <div class="card-action">
+        {{/if}}
+        <div class="card-content">
 
-                <span class="pan-map" style="cursor: pointer;">
-                    <i class="fa fa-location-arrow"></i> Center Map
-                </span>
+            {{{ dynamic_place }}}
 
-                {{#if recentSort}}
-                    {{formatDate createDate}}
-                {{/if}}
-
-                {{#if voteSort}}
-                    <span>
-                        <i class="fa fa-trophy"></i>
-                        {{ pluralize votes "Vote" }}
-                    </span>
-                {{/if}}
-
-                {{#if imageSort}}
-                    {{#unless properties.image_url}}
-                      (no image)
-                    {{/unless}}
-                {{/if}}
-
-                {{#if creatorSort}}
-                    <span>
-                        {{#if creator}}
-                            <a href="#" class="profile-go">
-                                <i class="fa fa-user"></i>
-                                {{ creator }}
-                            </a>
-                        {{/if}}
-                    </span>
-                {{/if}}
-
-                {{#if postSort}}
-                    <span>
-                        <i class="fa fa-comment"></i>
-                        {{ pluralize post_count "Post" }}
-                    </span>
-                {{/if}}
-                
-            </div>
+            {{{ properties.description }}}
         </div>
+        <div class="card-action">
+
+            <span class="pan-map" style="cursor: pointer;">
+                <i class="fa fa-location-arrow"></i> Center Map
+            </span>
+
+            {{#if recentSort}}
+                {{formatDate createDate}}
+            {{/if}}
+
+            {{#if voteSort}}
+                <span>
+                    <i class="fa fa-trophy"></i>
+                    {{ pluralize votes "Vote" }}
+                </span>
+            {{/if}}
+
+            {{#if imageSort}}
+                {{#unless properties.image_url}}
+                  (no image)
+                {{/unless}}
+            {{/if}}
+
+            {{#if creatorSort}}
+                <span>
+                    {{#if creator}}
+                        <a href="#" class="profile-go">
+                            <i class="fa fa-user"></i>
+                            {{ creator }}
+                        </a>
+                    {{/if}}
+                </span>
+            {{/if}}
+
+            {{#if postSort}}
+                <span>
+                    <i class="fa fa-comment"></i>
+                    {{ pluralize post_count "Post" }}
+                </span>
+            {{/if}}
+            
+        </div>
+    </div>
 
 </template>
