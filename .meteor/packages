@@ -22,7 +22,6 @@ percolate:synced-cron
 cmather:handlebars-server
 sacha:juice
 meteorhacks:npm
-force-ssl
 arsnebula:reactive-promise
 aldeed:autoform
 jiku:bootstrap-toggle
