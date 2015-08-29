@@ -38,7 +38,7 @@ function readerLoadCsv(e) {
 
 // data should be geojson format by this point
 loadShapes = function (data, collection) {
-    if(data.features.length > 5000) {
+    if(data.features.length > 5000 && !isAdmin(Meteor.userId())) {
         growl.error('Import currently limited to 2500 shapes.  This file is '+
         +data.features.length+
         ' shapes.  If you need more shapes contact TogetherMap and we will hook you up.')
