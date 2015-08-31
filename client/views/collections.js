@@ -7,9 +7,35 @@ Template.collections.rendered = function () {
 
 Template.collections.helpers({
     collections: function () {
+        var mine = MCollections.find(userIdExpression(Meteor.user())).fetch();
+        mine = _.map(mine, function (c) {return c._id;})
+
+        var followed = MFollowed.find().fetch();
+        followed = _.map(followed, function (c) { return c.cid;})
+
+        var cf = Session.get('collectionFilter') || 'mine';
+
+        var filter;
+        if(cf == 'mine') {
+            filter = {_id: { $in: mine }};
+        } else if(cf == 'followed') {
+            filter = {_id: { $in: followed }};
+        } else {
+            var all = mine.concat(followed);
+            filter = {_id: { $nin: all }};
+        }
+
         return MCollections.find(
-            { name: { $ne: 'NEW COLLECTION' } },
-            { sort: { createDate: -1}});
+            {  $and: [ 
+                filter,
+                {
+                    name: { 
+                    $ne: 'NEW COLLECTION' 
+                    }
+                }
+            ]},
+            { sort: { createDate: -1}}
+        );
     },
 
     readPublic: function () {
@@ -28,6 +54,24 @@ Template.collections.helpers({
 
 
 Template.collections.events = {
+
+    'click .my-collections': function (e) {
+
+        e.preventDefault();
+        Session.set('collectionFilter', 'mine');
+    },
+
+    'click .followed-collections': function (e) {
+
+        e.preventDefault();
+        Session.set('collectionFilter', 'followed');
+    },
+
+    'click .public-collections': function (e) {
+
+        e.preventDefault();
+        Session.set('collectionFilter', 'public');
+    },
 
     'click .collection-go': function (e) {
 

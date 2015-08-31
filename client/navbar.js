@@ -75,16 +75,22 @@ Template.nav.events = {
         }
     },
 
+    'click .landing-go': function (e) {
+
+        e.preventDefault();
+        Router.go('landing');
+    },
+
     'click .settings-go': function (e) {
 
         e.preventDefault();
-        makeBootbox(renderTmp(Template.settings));
+        Router.go('settings');
     },
 
     'click .import-go': function (e) {
 
         e.preventDefault();
-        makeBootbox(renderTmp(Template.import));
+        Router.go('import');
     },
 
     'click .collection-go': function (e) {

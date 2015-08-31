@@ -24,7 +24,7 @@ deps@1.0.7
 ejson@1.0.6
 email@1.0.6
 fastclick@1.0.3
-fortawesome:fontawesome@4.4.0
+fortawesome:fontawesome@4.2.0_2
 fourseven:scss@3.2.0
 geojson-utils@1.0.3
 google@1.1.5
@@ -70,7 +70,7 @@ observe-sequence@1.0.6
 ordered-dict@1.0.3
 percolate:synced-cron@1.2.1
 pfafman:filesaver@0.2.0_1
-pfafman:materialize-modal@0.2.3
+pfafman:materialize-modal@0.3.3
 poetic:materialize-scss@1.2.6
 random@1.0.3
 reactive-dict@1.1.0
@@ -84,7 +84,7 @@ sacha:spin@2.0.4
 service-configuration@1.0.4
 session@1.1.0
 sha@1.0.3
-softwarerero:accounts-t9n@1.0.9
+softwarerero:accounts-t9n@1.1.4
 spacebars@1.0.6
 spacebars-compiler@1.0.6
 srp@1.0.3
