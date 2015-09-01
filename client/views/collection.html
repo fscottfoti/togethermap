@@ -5,7 +5,9 @@
         <h2>
             {{ name }}
 
-            <i class="fa fa-location-arrow pan-collection" style="cursor:pointer;"></i>
+            {{#if 0}}
+                <i class="fa fa-location-arrow pan-collection" style="cursor:pointer;"></i>
+            {{/if}}
         </h2>
 
         {{{ description }}}
@@ -106,11 +108,19 @@
             </span>
 
             {{#if isPostWriter }}
-                <span>
+                <span class="hide-on-small-only">
                     {{> vote type="collection" _id=_id }}
                 </span>
             {{/if}}
 
+        </div>
+
+        <div class="hide-on-med-and-up form-group">
+            {{#if isPostWriter }}
+                <span class="hide-on-med-and-up">
+                    {{> vote type="collection" _id=_id }}
+                </span>
+            {{/if}}
         </div>
 
     {{/with}}

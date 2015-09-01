@@ -6,9 +6,21 @@
 
     <div class=form-group>
         <h4>
-            <a href="#" class="my-collections">Mine</a> |
-            <a href="#" class="followed-collections">Followed</a> |
-            <a href="#" class="public-collections">Public</a>
+            {{#if myCollections}}
+                Mine
+            {{else}}
+                <a href="#" class="my-collections">Mine</a>
+            {{/if}} |
+            {{#if followedCollections}}
+                Followed
+            {{else}}
+                <a href="#" class="followed-collections">Followed</a>
+            {{/if}} |
+            {{#if publicCollections}}
+                Public
+            {{else}}
+                <a href="#" class="public-collections">Public</a>
+            {{/if}}
         </h4>
     </div>
 
@@ -21,7 +33,15 @@
                 </div>
             {{/if}}
             <div class="card-content collection-go" style="cursor: pointer;">
-                 <h4>{{ name }}</h4>
+                 <h4>
+                    {{ name }} 
+
+                    {{#unless readPublic}}
+                        <span>
+                            <i class="fa fa-eye-slash"></i>
+                        </span>
+                    {{/unless}}
+                </h4>
 
                 {{{ description }}}
             </div>
@@ -32,12 +52,6 @@
                 </a>
 
                 {{pluralize place_count "Place"}}
-
-                {{#unless readPublic}}
-                    <span>
-                        <i class="fa fa-eye-slash"></i>
-                    </span>
-                {{/unless}}
             </div>
         </div>
 

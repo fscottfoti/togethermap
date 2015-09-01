@@ -6,6 +6,18 @@ Template.collections.rendered = function () {
 
 
 Template.collections.helpers({
+    myCollections: function () {
+        return (Session.get('collectionFilter') || 'mine') == 'mine';
+    },
+
+    followedCollections: function () {
+        return (Session.get('collectionFilter') || 'mine') == 'followed';
+    },
+
+    publicCollections: function () {
+        return (Session.get('collectionFilter') || 'mine') == 'public';
+    },
+
     collections: function () {
         var mine = MCollections.find(userIdExpression(Meteor.user())).fetch();
         mine = _.map(mine, function (c) {return c._id;})
@@ -34,7 +46,7 @@ Template.collections.helpers({
                     }
                 }
             ]},
-            { sort: { createDate: -1}}
+            { sort: { name: +1}}
         );
     },
 

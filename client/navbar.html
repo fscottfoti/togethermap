@@ -3,7 +3,7 @@
     <nav class="light-blue darken-4 black-text" style="padding-left: 10px;">
         <ul id="slide-out" class="side-nav">
 
-            <li>
+            <li style="background-color: #e65100">
                 {{#unless currentUser}}
                     <a href="{{pathFor 'login'}}"><i class="fa fa-user"></i> Login</a>
                 {{else}}
@@ -45,17 +45,30 @@
         <div class="nav-wrapper">
             <a href="#" class="brand-logo center">
         
-            {{#if active_collection}}  
+                {{#if active_collection}}  
                     <a href="#" class="active-collection">
                         {{active_collection}}
                     </a>
-            {{else}}
-                 <a href="#" class="landing-go">
-                    TogetherMap
-                </a>
-            {{/if}}
+                {{else}}
+                    <a href="#" class="landing-go">
+                        TogetherMap
+                    </a>
+                {{/if}}
 
             </a>
+
+            <span class="map-sidebar-toggle hide-on-med-and-up"
+                  style="float: right; cursor: pointer;">
+                {{#if sidebarOpen}}
+                    <div style="color: white; width:22px; margin-top: 14px; margin-right: 18px;">
+                        <i class="fa fa-map"></i>
+                    </div>
+                {{else}}
+                    <div style="color: white; width:22px; margin-top: 14px; margin-right: 18px;">
+                        <i class="fa fa-list-ul"></i>
+                    </div>
+                {{/if}}
+            </span>
         </div>
     </nav>
 </template>

@@ -11,21 +11,18 @@
             <a class="cancel">
                 <button class="btn btn-sm btn-primary">
                     <i class="fa fa-arrow-left"></i>
-                    Save
                 </button>
             </a>
 
             <a class="delete-link">
                 <button class="btn btn-sm btn-danger">
                     <i class="fa fa-trash"></i>
-                    Delete
                 </button>
             </a>
 
             <a class="show-json">
                 <button class="btn btn-sm btn-primary">
                     <i class="fa fa-code"></i>
-                    Json
                 </button>
             </a>
         </div>
@@ -48,12 +45,11 @@
     <div class="form-group">
         <button class="btn btn-sm btn-primary pick-image">
             <i class="fa fa-image"></i>
-            Set Image
         </button>
 
         {{#if properties.image_url}}
             <button class="btn btn-sm btn-primary remove-image">
-                Unset
+                <i class="fa fa-times"></i>
             </button>
         {{/if}}
     </div>
@@ -79,7 +75,7 @@
 
     {{/if}}
 
-    <div class="form-group">
+    <!--<div class="form-group">
 
         <label for="shape-color">
             Shape Color:
@@ -88,35 +84,42 @@
         <input id="shape-color"
                class="pick-a-color more-pick-a-color">
 
-    </div>
+    </div>-->
 
     {{#if isMarker}}
 
         <div class="form-group">
 
-            <label for="icon">
+             <label>
                 Marker Icon:
-            </label>&nbsp;
+            </label>
 
-            <select id="icons" class="form-control">
-                {{#each icons}}
-                    <option {{iconSelected}}>{{name}}</option>
-                {{/each}}
-            </select>
+            <br>
 
+            <div>
+                <select id="icons" class="browser-default">
+                    {{#each icons}}
+                        <option {{iconSelected}}>{{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
         </div>
 
         <div class="form-group">
 
-            <label for="icon">
+            <label>
                 Marker Size:
-            </label>&nbsp;
+            </label>
 
-            <select id="icon_size" class="form-control">
-                {{#each icon_sizes}}
-                    <option {{sizeSelected}}>{{name}}</option>
-                {{/each}}
-            </select>
+            <br>
+
+            <div>
+                <select id="icon_size" class="browser-default">
+                    {{#each icon_sizes}}
+                        <option {{sizeSelected}}>{{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
 
         </div>
 
@@ -126,11 +129,13 @@
 
         <div class="form-group">
 
-            <label for="icon">
+            <label>
                 Line Width:
-            </label>&nbsp;
+            </label>
 
-            <select id="line_width">
+            <br>
+
+            <select id="line_width" class="browser-default">
                 {{#each line_widths}}
                     <option {{widthSelected}}>{{name}}</option>
                 {{/each}}

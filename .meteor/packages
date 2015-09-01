@@ -31,7 +31,6 @@ pfafman:filesaver
 jhartma:quill
 mdg:geolocation
 useraccounts:materialize
-fortawesome:fontawesome
 pfafman:materialize-modal
 fourseven:scss
 poetic:materialize-scss
@@ -39,3 +38,4 @@ poetic:materialize-scss
 
 npm-container
 useraccounts:iron-routing
+fortawesome:fontawesome

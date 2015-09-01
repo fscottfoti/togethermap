@@ -320,7 +320,7 @@ Map = {
             Map.goToMyLoc();
         });
 
-        this.mobileAddMarkerButton = L.easyButton('fa-plus', function() {
+        this.mobileAddMarkerButton = L.easyButton('fa-map-marker', function() {
             Map.tempMarker = L.marker(Map.center()).addTo(Map.map);
             Map.map.removeControl(Map.mobileAddMarkerButton);
             Map.map.addControl(Map.mobileSaveMarkerButton);
