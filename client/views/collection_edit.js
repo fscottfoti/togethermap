@@ -104,12 +104,15 @@ Template.collectionEdit.events = {
 
         e.preventDefault();
         var that = this;
-        bootbox.confirm("Are you sure you want to delete this COLLECTION?", function(result) {
+        MaterializeModal.confirm({
+            title: "Confirm Delete",
+            message: "Are you sure you want to delete this COLLECTION?", 
+            callback: function(result) {
             if(result) {
                 Meteor.call('removeCollection', that._id);
                 Router.go('collections');
             }
-        });
+        }});
     },
 
     'click .cancel': function(e) {

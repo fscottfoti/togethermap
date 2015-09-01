@@ -122,14 +122,17 @@ Template.placeEdit.events({
 
         e.preventDefault();
         var that = this;
-        bootbox.confirm("Are you sure you want to delete this PLACE?", function(result) {
+        MaterializeModal.confirm({
+            title: "Confirm Delete",
+            message: "Are you sure you want to delete this PLACE?", 
+            callback: function(result) {
             if(result) {
                 Meteor.call('removePlace', that._id, that.collectionId);
                 Router.go('collection', {
                     _id: Session.get('active_collection')
                 });
             }
-        });
+        }});
     },
 
     'click .cancel': function(e) {

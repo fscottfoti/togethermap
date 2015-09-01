@@ -3,26 +3,26 @@
 
     {{> quick_post }}
 
-    <div>
+    <div class="form-group">
         <a class="place-go">
             <button class="btn btn-sm btn-primary">
                 <i class="fa fa-arrow-left"></i>
-                Place
             </button>
         </a>
 
+        {{#if 0}}
         <a class="collection-go">
             <button class="btn btn-sm btn-primary">
                 <i class="fa fa-arrow-left"></i>
                 Collection
             </button>
         </a>
+        {{/if}}
 
         {{#if writePermission}}
 
             <button class="btn btn-sm btn-primary edit-link">
                 <i class="fa fa-edit"></i>
-                Edit
             </button>
 
         {{/if}}
@@ -30,14 +30,10 @@
 
 {{/with}}
 
-    <hr>
-
-    <div>
+    <div style="margin-bottom: 15px;">
     {{#if noComments }}
 
-        There are no comments on this place.
-
-        <hr>
+        There are no comments on this topic.
 
     {{else}}
 
@@ -45,8 +41,6 @@
 
 
             {{> quick_comment }}
-
-            <hr>
 
         {{/each}}
 
@@ -71,10 +65,9 @@
 
         {{else}}
 
-        <div>
+        <div class="form-group">
             <a class="new-topic">
                 <button class="btn btn-sm btn-warning">
-                    <i class="fa fa-file"></i>
                     New Comment
                 </button>
             </a>
@@ -97,12 +90,10 @@
             <div>
                 <button class="btn btn-sm btn-success add-comment">
                     <i class="fa fa-plus-square-o"></i>
-                    Add Comment
                 </button>
 
                 <button class="btn btn-sm btn-default cancel">
                     <i class="fa fa-close"></i>
-                    Cancel
                 </button>
             </div>
 

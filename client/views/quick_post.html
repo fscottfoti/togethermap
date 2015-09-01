@@ -35,10 +35,27 @@
                 </a>
             </span>
 
-            <span> //
-                <i class="fa fa-comment"></i>
-                {{ commentCount }}
-            </span>
+            {{#if commentMode}}
+
+                <span> //
+                    <i class="fa fa-comment"></i>
+                    {{ commentCount }}
+                </span>
+
+            {{else}}
+
+                {{#if writePermission}}
+
+                    <span> //
+                        <a href="" class="remove-post">
+                            <i class="fa fa-remove"></i>
+                            Delete
+                        </a>
+                    </span>
+
+                {{/if}}
+
+            {{/if}}
 
         </div>
 

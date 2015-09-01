@@ -18,7 +18,10 @@ Template.postEdit.events({
 
         e.preventDefault();
         var that = this;
-        bootbox.confirm("Are you sure you want to delete this POST?", function(result) {
+        MaterializeModal.confirm({
+            title: 'Confirm Delete',
+            message: "Are you sure you want to delete this POST?", 
+            callback: function(result) {
             if(result) {
                 var pid = that.placeId; // save it in case reactivity is fast
                 Meteor.call('removePost', that._id, pid);
@@ -27,7 +30,7 @@ Template.postEdit.events({
                     _id: pid
                 });
             }
-        });
+        }});
     },
 
     'click .pick-image': function (e) {

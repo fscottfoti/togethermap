@@ -14,6 +14,20 @@
 
     <div class="form-group">
 
+        <a class="collection-go">
+            <button class="btn btn-primary btn-sm">
+                <i class="fa fa-arrow-left"></i>
+            </button>
+        </a>
+
+        {{#if writePermission }}
+
+            <button class="btn btn-primary btn-sm edit-link">
+                <i class="fa fa-edit"></i>
+            </button>
+
+        {{/if}}
+
         {{#if currentUser }}
 
             <span class="dropdown">
@@ -38,22 +52,6 @@
 
         {{/if}}
 
-
-        <a class="collection-go">
-            <button class="btn btn-primary btn-sm">
-                <i class="fa fa-arrow-left"></i>
-            </button>
-        </a>
-
-
-        {{#if writePermission }}
-
-            <button class="btn btn-primary btn-sm edit-link">
-                <i class="fa fa-edit"></i>
-            </button>
-
-        {{/if}}
-
     </div>
 
     <div class="form-group">
@@ -72,7 +70,7 @@
 
             <span> //
                 <i class="fa fa-comment"></i>
-                {{ postCount }}
+                {{ pluralize post_count "Comment" }}
             </span>
 
             <span> //
@@ -81,7 +79,7 @@
             </span>
 
         {{#if postPermission }}
-            <span>
+            <span class="hide-on-small-only">
                 {{> vote type="place" _id=_id }}
             </span>
         {{/if}}
@@ -127,23 +125,21 @@
         </div>
         {{/if}}
 
-    <hr>
-
     {{#if noPosts }}
-
-        There are no topics on this place.
 
     {{else}}
 
+        <hr>
+
         {{#each posts }}
 
-            {{> quick_post }}
+            <div style="margin-bottom: 15px;">
 
-            <a class="read-more">
-                <button class="btn btn-sm btn-success">
-                   <i class="fa fa-reply"></i>
-                </button>
-            </a>
+                {{> quick_post }}
+
+                <hr>
+
+            </div>
 
         {{/each}}
 
@@ -151,8 +147,6 @@
 {{/if}}
 
 {{#with place }}
-
-    <hr>
 
     {{#unless newTopic}}
 
@@ -179,10 +173,17 @@
 
             {{else}}
 
-                <div>
+                <div class="form-group">
+
+                    <span class="hide-on-med-and-up form-group">
+                        <span>
+                            {{> vote type="place" _id=_id }}
+                        </span>&nbsp;
+                    </span>
+
                     <a class="new-topic">
                         <button class="btn btn-sm btn-warning">
-                            <i class="fa fa-file"></i>
+                            <i class="fa fa-plus-square-o"></i>
                         </button>
                     </a>
                 </div>
@@ -199,41 +200,38 @@
                 <input type="text"
                        id="title"
                        class="form-control"
-                       placeholder="Subject"/>
+                       placeholder="Enter Comment Here"/>
             </div>
 
-            <div class="form-group">
+            <!--<div class="form-group">
                 <button class="btn btn-sm btn-primary pick-image">
                     <i class="fa fa-image"></i>
-                    Set Image
                 </button>
 
                 {{#if post_image_url}}
                     <button class="btn btn-sm btn-primary remove-image">
-                        Unset
+                        <i class="fa fa-times"></i>
                     </button>
                 {{/if}}
-            </div>
+            </div>-->
 
             {{> image image_url=post_image_url }}
 
-            <div class="form-group">
+            <!--<div class="form-group">
                 <div class="quill-wrapper">
                     {{> quill }}
                     <div id="full-editor" class="editor">
                     </div>
                 </div>
-            </div>
+            </div>-->
 
             <div>
                 <button class="btn btn-sm btn-success add-topic">
                     <i class="fa fa-plus-square-o"></i>
-                    Add Topic
                 </button>
 
                 <button class="btn btn-sm btn-default cancel">
                     <i class="fa fa-close"></i>
-                    Cancel
                 </button>
             </div>
 

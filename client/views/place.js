@@ -35,11 +35,6 @@ Template.place.helpers({
         return this.creator || this.properties.creator;
     },
 
-    postCount: function () {
-        var c = this.post_count || 0;
-        return c + ' Post' + (c == 1 ? '' : 's');
-    },
-
     newTopic: function () {
         return Session.get('newTopic');
     },

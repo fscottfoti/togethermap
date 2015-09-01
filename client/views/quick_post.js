@@ -7,6 +7,15 @@ Template.quick_post.helpers({
     commentCount: function () {
         var c = this.comment_count || 0;
         return c + ' Comment' + (c == 1 ? '' : 's');
+    },
+
+    commentMode: function () {
+        return false;
+    },
+
+    writePermission: function () {
+        var cid = Session.get('active_collection');
+        return writePermission(this, cid, Meteor.user());
     }
 });
 
@@ -16,5 +25,11 @@ Template.quick_post.events = {
 
         e.preventDefault();
         Router.go('profile', {_id: this.creatorUID});
+    },
+
+    'click .remove-post': function (e) {
+
+        e.preventDefault();
+        Meteor.call('removePost', this._id, this.placeId);
     }
 };
