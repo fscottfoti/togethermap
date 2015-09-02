@@ -3,14 +3,6 @@
     <nav class="light-blue darken-4 black-text" style="padding-left: 10px;">
         <ul id="slide-out" class="side-nav">
 
-            <li style="background-color: #e65100">
-                {{#unless currentUser}}
-                    <a href="{{pathFor 'login'}}"><i class="fa fa-user"></i> Login</a>
-                {{else}}
-                    <a href="" class="logout"><i class="fa fa-user-times"></i> Logout</a>
-                {{/unless}}
-            </li>
-
             <li>
                 <a href="#" class="collections-go"><i class="fa fa-list"></i> Collections</a>
             </li>
@@ -37,6 +29,14 @@
 
             <li>
                 <a href="https://fscottfoti.github.io/togethermap-help" target="_blank"><i class="fa fa-question-circle"></i> Help</a>
+            </li>
+
+            <li style="background-color: #e65100">
+                {{#unless currentUser}}
+                    <a href="{{pathFor 'login'}}"><i class="fa fa-user"></i> Login</a>
+                {{else}}
+                    <a href="" class="logout"><i class="fa fa-user-times"></i> Logout</a>
+                {{/unless}}
             </li>
 
         </ul>

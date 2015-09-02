@@ -132,7 +132,7 @@
 
                 <label>Custom Place Template (for Place Detail):</label>
                 <textarea id="place-template"
-                          class="form-control"
+                          class="materialize-textarea"
                           rows="4">{{place_template}}</textarea>
 
                 <br>
@@ -157,7 +157,7 @@
 
                 <label>Custom Place Template (for Place List):</label>
                 <textarea id="place-template-list"
-                          class="form-control"
+                          class="materialize-textarea"
                           rows="4">{{place_template_list}}</textarea>
 
                 <br>
@@ -176,7 +176,7 @@
 
                 <label>Custom Place Template (for Label Box):</label>
                 <textarea id="place-template-label"
-                          class="form-control"
+                          class="materialize-textarea"
                           rows="4">{{place_template_label}}</textarea>
 
                 <br>
@@ -198,7 +198,7 @@
                             Autoform</a>):</label>
 
                     <textarea id="place-autoform"
-                              class="form-control"
+                              class="materialize-textarea"
                               rows="4">{{place_autoform}}</textarea>
                 <br>
 
@@ -216,44 +216,26 @@
 
             {{#if icon_mode}}
                 <textarea rows="4"
-                          class="form-control"
+                          class="materialize-textarea"
                           id="icon_f">{{icon_f}}</textarea>
             {{/if}}
 
             {{#if icon_size_mode}}
                 <textarea rows="4"
-                          class="form-control"
+                          class="materialize-textarea"
                           id="icon_size_f">{{icon_size_f}}</textarea>
             {{/if}}
 
             {{#if icon_color_mode}}
                 <textarea rows="4"
-                          class="form-control"
+                          class="materialize-textarea"
                           id="color_f">{{color_f}}</textarea>
             {{/if}}
-            <br>
 
-            <div class="btn-group"
-                 data-toggle="buttons-radio"
-                 id="my_radiogroup">
-                <button type="radio"
-                        class="btn btn-sm btn-primary cedit_mode"
-                        name="cedit_mode"
-                        value="Icon">
-                    Icon
-                </button>
-                <button type="radio"
-                        class="btn btn-sm btn-primary cedit_mode"
-                        name="cedit_mode"
-                        value="Size">
-                    Icon Size
-                </button>
-                <button type="radio"
-                        class="btn btn-sm btn-primary cedit_mode"
-                        name="cedit_mode"
-                        value="Color">
-                    Icon Color
-                </button>
+            <div>
+                <button class="btn" id="Icon">Icon</button>
+                <button class="btn" id="Size">Size</button>
+                <button class="btn" id="Color">Color</button>
             </div>
 
             <br><br>

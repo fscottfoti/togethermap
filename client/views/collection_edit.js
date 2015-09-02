@@ -153,10 +153,22 @@ Template.collectionEdit.events = {
         Meteor.call('updateCollection', this._id, {$unset: {'image_url': ''}});
     },
 
-    'click .cedit_mode': function (e) {
+    'click #Icon': function (e) {
 
         e.preventDefault();
-        Session.set("cedit_mode", e.target.value);
+        Session.set("cedit_mode", e.target.id);
+    },
+
+    'click #Size': function (e) {
+
+        e.preventDefault();
+        Session.set("cedit_mode", e.target.id);
+    },
+
+    'click #Color': function (e) {
+
+        e.preventDefault();
+        Session.set("cedit_mode", e.target.id);
     },
 
     'click .place-template-sample': function () {
