@@ -72,6 +72,23 @@
 
         <div class="form-group">
 
+             <label>
+                Base map:
+            </label>
+
+            <br>
+
+            <div>
+                <select id="basemap" class="browser-default">
+                    {{#each base_maps}}
+                        <option {{basemapSelected}}>{{name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+
             {{#unless expertConfiguration}}
 
                 <a class="toggle-expert">

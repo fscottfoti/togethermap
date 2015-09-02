@@ -857,7 +857,7 @@ Map = {
         //this.map.addControl(this.shareControl);
         this.map.addControl(this.geocoder);
         this.map.addControl(this.locateControl);
-        this.map.addControl(this.layerControl);
+        //this.map.addControl(this.layerControl);
 
         this.desktopControls = true;
     },
@@ -871,7 +871,7 @@ Map = {
         //this.map.removeControl(this.shareControl);
         this.map.removeControl(this.geocoder);
         this.map.removeControl(this.locateControl);
-        this.map.removeControl(this.layerControl);
+        //this.map.removeControl(this.layerControl);
 
         this.desktopControls = false;
     },

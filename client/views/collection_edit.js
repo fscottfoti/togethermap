@@ -17,6 +17,16 @@ Template.collectionEdit.helpers({
         return MCollections.findOne(cid);
     },
 
+    base_maps: function () {
+        return _.map(['aerial', 'streets', 'grey', 'dark', 'atlas', 'outline', 'watercolor'],
+            function (v) { return {name: v} });
+    },
+
+    basemapSelected: function() {
+        return this.name === (Template.parentData(1).default_map || 'medium')
+            ? 'selected' : '';
+    },
+
     locationDisplay: function () {
         return 'Center: ' +
                numeral(this.location.center.lat).format('0.00') + "," +
@@ -82,10 +92,21 @@ Template.collectionEdit.events = {
         Meteor.call('updateCollection',
             this._id, {$set:{location: location}});
 
-        Meteor.call('updateCollection',
-            this._id, {$set:{default_map: Map.activeBaseMap}});
+        /*Meteor.call('updateCollection',
+            this._id, {$set:{default_map: Map.activeBaseMap}});*/
 
         growl.success('Default view set.')
+    },
+
+    "change #basemap": function (evt) {
+
+        var v = $(evt.target).val();
+
+        Map.switchBaseLayer(v);
+
+        Meteor.call('updateCollection',
+            this._id, {$set:{default_map: v}});
+
     },
 
     'click .toggle-expert': function() {
