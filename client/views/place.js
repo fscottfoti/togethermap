@@ -186,7 +186,7 @@ Template.place.events = {
         var src = $(e.target).attr('src');
         var link = $(e.target).attr('link');
         var t = '<div><a href="'+link+'"><img src="' + src + '" style="width: 100%"></a></div>';
-        makeBootbox(t, size);      
+        makeModal(t, size);      
     },
 
     'click .edit-link': function (e) {

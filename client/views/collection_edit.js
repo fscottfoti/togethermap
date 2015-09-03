@@ -178,14 +178,14 @@ Template.collectionEdit.events = {
         var d = Handlebars.compile(t)(p);
         if(!t)
             d = "No template";
-        makeBootbox(d);
+        makeModal(d, "Sample Place");
     },
 
     'click .place-template-json': function () {
 
         var p = getSamplePlace();
         var d = "<pre>"+syntaxHighlight(p);
-        makeBootbox(d);
+        makeModal(d, "Place as JSON");
     },
 
     'click .place-template-list-sample': function () {
@@ -195,7 +195,7 @@ Template.collectionEdit.events = {
         var d = Handlebars.compile(t)(p);
         if(!t)
             d = "No template";
-        makeBootbox(d);
+        makeModal(d, "Sample Place");
     },
 
     'click .place-template-label-sample': function () {
@@ -205,14 +205,18 @@ Template.collectionEdit.events = {
         var d = Handlebars.compile(t)(p);
         if(!t)
             d = "No template";
-        makeBootbox(d);
+        makeModal(d, "Sample Place");
     },
 
     'click .place-autoform-sample': function () {
 
         var t = $('#place-autoform').val();
         Session.set('quick_form', t);
-        makeBootbox(renderTmp(Template.quick_form));
+        var frm = 'Form is empty';
+        if(t) {
+            frm = renderTmp(Template.quick_form);
+        }
+        makeModal(frm, "Sample Form");
     },
 
     'change #flickr_link': function (e) {

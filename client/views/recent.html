@@ -1,7 +1,8 @@
 <template name="recent">
 
     <h2>
-        Recent Activity
+        <i class="fa fa-clock-o"></i>
+        Recent Comments
     </h2>
 
     <div class="form-group">
@@ -12,11 +13,12 @@
         </a>
     </div>
 
-    <h4>
+    {{#if 0}}<h4>
         <i class="fa fa-clock-o">
-            Recent Posts
+            Recent Comments
         </i>
     </h4>
+    {{/if}}
 
     <div class="alternate-colors">
 
@@ -42,6 +44,7 @@
         </div>
     {{/if}}
 
+    {{#if 0}}
     <div style="height: 10px;"></div>
 
     <h4>
@@ -69,6 +72,7 @@
         <div>
             No recent comments
         </div>
+    {{/if}}
     {{/if}}
 
 </template>

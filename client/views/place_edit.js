@@ -147,6 +147,6 @@ Template.placeEdit.events({
     'click .show-json': function () {
 
         var d = "<pre>"+syntaxHighlight(this);
-        makeBootbox(d);
+        makeModal(d);
     },
 });
