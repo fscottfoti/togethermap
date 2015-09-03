@@ -3,7 +3,7 @@ Template.search.rendered = function () {
     Session.set('zoom_level', Map.zoom());
 
     _.delay(function () {
-        $('#toggle-search').bootstrapToggle();
+        /*$('#toggle-search').bootstrapToggle();*/
         Session.set('search_type', "Factual");
     }, 200);
 
@@ -45,7 +45,7 @@ Template.search.helpers({
         var z = Session.get('zoom_level') < minFactualZoomLevel;
         if(!z) {
             _.delay(function () {
-                $('#toggle-search').bootstrapToggle();
+                /*$('#toggle-search').bootstrapToggle();*/
                 Session.set('search_type', "Factual");
             }, 200);
         }

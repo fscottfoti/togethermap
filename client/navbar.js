@@ -79,7 +79,7 @@ Template.nav.events = {
 
         e.preventDefault();
 
-        makeModalFromTemplate("home", "About");
+        $.fancybox( renderTmp(Template.landing) );
     },
 
     'click .settings-go': function (e) {

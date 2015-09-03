@@ -5,8 +5,9 @@ Template.image.events({
         e.preventDefault();
         var size = e.altKey ? 'large' : null;
         var src = $(e.target).attr('src');
+
         var t = '<div><img src="' + src + '" style="width: 100%"></div>';
-        makeModal(t, size);
+        $.fancybox( t );
     },
 
     'click .link-img': function (e) {
