@@ -1,7 +1,9 @@
 <template name="login">
-	{{#unless isLoggedIn}}
-		{{> atForm}}
-	{{else}}
-		Logged in.  Click close to enter TM.
-	{{/unless}}
+	<div style="width: 400px;">
+		{{#unless isLoggedIn}}
+			{{> atForm}}
+		{{else}}
+			Logged in.  Click close to enter TM.
+		{{/unless}}
+	</div>
 </template>

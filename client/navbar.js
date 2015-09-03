@@ -86,14 +86,18 @@ Template.nav.events = {
 
         e.preventDefault();
 
-        makeModalFromTemplate("settings", "Settings");
+        $.fancybox( renderTmp(Template.settings) );
+        //makeModalFromTemplate("settings", "Settings");
     },
 
     'click .import-go': function (e) {
 
         e.preventDefault();
 
-        makeModalFromTemplate("import", "Import");
+
+        $.fancybox( renderTmp(Template.import) );
+
+        //makeModalFromTemplate("import", "Import");
     },
 
     'click .collection-go': function (e) {
@@ -118,7 +122,9 @@ Template.nav.events = {
 
         e.preventDefault();
 
-        makeModalFromTemplate("login", "Welcome to TogetherMap");
+        $.fancybox( renderTmp(Template.login) );
+
+        //makeModalFromTemplate("login", "Welcome to TogetherMap");
     },
 
     'click .logout': function (e) {
