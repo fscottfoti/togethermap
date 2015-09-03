@@ -1,3 +1,7 @@
 <template name="login">
-	{{> atForm}}
+	{{#unless isLoggedIn}}
+		{{> atForm}}
+	{{else}}
+		Logged in.  Click close to enter TM.
+	{{/unless}}
 </template>

@@ -78,19 +78,22 @@ Template.nav.events = {
     'click .landing-go': function (e) {
 
         e.preventDefault();
-        Router.go('landing');
+
+        makeModalFromTemplate("home", "About");
     },
 
     'click .settings-go': function (e) {
 
         e.preventDefault();
-        Router.go('settings');
+
+        makeModalFromTemplate("settings", "Settings");
     },
 
     'click .import-go': function (e) {
 
         e.preventDefault();
-        Router.go('import');
+
+        makeModalFromTemplate("import", "Import");
     },
 
     'click .collection-go': function (e) {
@@ -109,6 +112,13 @@ Template.nav.events = {
 
         e.preventDefault();
         Router.go('search');
+    },
+
+    'click .login': function (e) {
+
+        e.preventDefault();
+
+        makeModalFromTemplate("login", "Welcome to TogetherMap");
     },
 
     'click .logout': function (e) {
