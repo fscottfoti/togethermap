@@ -30,25 +30,9 @@
 
         {{#if currentUser }}
 
-            <span class="dropdown">
-
-                <a class='dropdown-button btn' href='#' data-hover="true" data-beloworigin="true" data-activates='drop-copy'>
-                    <i class="fa fa-copy"></i>
-                </a>
-
-                <ul id="drop-copy" class='dropdown-content'>
-                    {{#each myCollections}}
-                        <li>
-                            <a class="do-copy truncate"
-                               id="{{_id}}"
-                               cid="{{cid}}"
-                               href="#">
-                                {{name}}
-                            </a>
-                        </li>
-                    {{/each}}
-                </ul>
-            </span>
+            <button class="btn btn-primary btn-sm open-copy">
+                <i class="fa fa-copy"></i>
+            </button>    
 
         {{/if}}
 
@@ -92,7 +76,7 @@
 
 
         {{#if anyPlaceInstances}}
-        <div>
+        <div class="form-group">
             Collections this place is a member of:
 
             {{#each allPlaceInstances}}

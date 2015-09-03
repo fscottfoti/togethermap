@@ -1,0 +1,19 @@
+<template name="copy">
+
+    <h2>Copy to Collection</h2>
+
+    <div class="form-group">
+        <form action="#">
+            {{#each myCollections}}
+                <p>
+                    <input name="collectionId" type="radio" value="{{getId}}" id="{{this._id}}" {{checkFirst}}/>
+                    <label for="{{this._id}}">{{this.name}}</label>
+                </p>
+            {{/each}}
+        </form>
+    </div>
+    <div class="right-align">
+        <button class="btn do-copy">Copy</button>
+        <button class="btn do-cancel">Cancel</button>
+    </div>
+</template>

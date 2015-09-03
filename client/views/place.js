@@ -53,29 +53,6 @@ Template.place.helpers({
         return writePermission(undefined, cid, Meteor.user(), "post");
     },
 
-    myCollections: function () {
-        var mine = MCollections.find(userIdExpression(Meteor.user())).fetch();
-        var followed = MFollowed.find().fetch();
-        var places = Template.parentData().allPlaceInstances.fetch();
-        var docs = _.filter(mine.concat(followed), function (c) {
-            var cid = c.cid || c._id; // can be followed or owned
-
-            var c_obj = MCollections.findOne(cid);
-            var p = MPermissions.findOne(cid);
-            if(!c_obj) // this happens because you might not have read permission anymore
-                return false;
-            if(c_obj && c_obj.place_write_private == true && p && p.placeWriter == false && p.owner == false)
-                return false;
-
-            var i = _.find(places, function (p) {
-                return p.collectionId == cid;
-            });
-            // if i is defined we don't want to show the collection id again
-            return i === undefined;
-        });
-        return _.sortBy(docs, function(doc) {return doc.name;});
-    },
-
     collectionName: function () {
         return MCollections.findOne(this.collectionId).name;
     },
@@ -97,45 +74,14 @@ var closed = true;
 
 Template.place.events = {
 
-    'click .copy-to': function () {
-        // I really shouldn't have to do this - there's some sort of bad
-        // interaction with bootstrap and the leaflet container
-        if(closed) {
-            $('.dropdown-toggle').dropdown('toggle');
-        } else {
-            $('.dropdown.open .dropdown-toggle').dropdown('toggle');
-        }
-        closed = !closed;
-    },
-
-    'click .do-copy': function (e) {
-
-        // the collection can come from either the set of followed collections
-        // in which case we need the cid attribute, or the set of owner
-        // collection in which case we need the id attribute - this expression
-        // should cover it
-        var cid = $(e.target).attr('cid') || $(e.target).attr('id');
-        var id = Session.get('active_place');
-        var p = Template.parentData().place;
-        p = JSON.parse(JSON.stringify(p));
-        p.post_count = 0;
-        if(!p.parent_id) {
-            // leave it if it's already on there so it points back to the original
-            p.parent_id = p._id;
-        }
-        delete p._id;
-        Meteor.call('insertPlace', p, cid, function(err, data) {
-            if (err) {
-                console.log(err);
-                return;
-            }
-
-            Router.go('place', {
-                _id: data,
-                _cid: cid
-            })
+    'click .open-copy': function () {
+        var places = Template.parentData().allPlaceInstances.fetch();
+        var i = _.map(places, function (p) {
+            return p.collectionId;
         });
+        Session.set('allPlaceInstances', i);
 
+        $.fancybox( renderTmp(Template.copy) );
     },
 
     'click .pan-map': function () {

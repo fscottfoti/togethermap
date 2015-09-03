@@ -70,6 +70,7 @@ observe-sequence@1.0.6
 ordered-dict@1.0.3
 percolate:synced-cron@1.2.1
 pfafman:filesaver@0.2.0_1
+pfafman:materialize-modal@0.3.3
 poetic:materialize-scss@1.2.6
 random@1.0.3
 reactive-dict@1.1.0
