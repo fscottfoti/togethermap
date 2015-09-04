@@ -106,18 +106,36 @@ Template.permissions.helpers({
 
 Template.permissions.events = {
 
-    'click .per_mode': function (e) {
-
-        e.preventDefault();
-        Session.set("permission_type", e.target.value);
-    },
-
     'click .collection-go': function (e) {
 
         e.preventDefault();
-        Router.go('collection', {
-            _id: this._id
+        Router.go('collection_edit', {
+            _id: Session.get('active_collection')
         });
+    },
+
+    'click #Owners': function (e) {
+
+        e.preventDefault();
+        Session.set("permission_type", 'owners');
+    },
+
+    'click #Placers': function (e) {
+
+        e.preventDefault();
+        Session.set("permission_type", 'place_writers');
+    },
+
+    'click #Posters': function (e) {
+
+        e.preventDefault();
+        Session.set("permission_type", 'post_writers');
+    },
+
+    'click #Readers': function (e) {
+
+        e.preventDefault();
+        Session.set("permission_type", 'readers');
     },
 
     'click .delete-link': function(e) {

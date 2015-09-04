@@ -3,42 +3,34 @@
     {{#with collection}}
 
         <h2>
-            Permissions for
-            <a href="#" class="collection-go">
-                {{ name }}
-            </a>
+            Permissions
         </h2>
 
-        <div class="btn-group"
-             data-toggle="buttons-radio"
-             id="my_radiogroup">
-            <button type="radio"
-                    class="btn btn-primary per_mode"
-                    name="per_mode"
-                    value="owners">
-                Owners
-            </button>
-            <button type="radio"
-                    class="btn btn-primary per_mode"
-                    name="per_mode"
-                    value="place_writers">
-                Placers
-            </button>
-            <button type="radio"
-                    class="btn btn-primary per_mode"
-                    name="per_mode"
-                    value="post_writers">
-                Posters
-            </button>
-            <button type="radio"
-                    class="btn btn-primary per_mode"
-                    name="per_mode"
-                    value="readers">
-                Readers
-            </button>
+        <div class="form-group">
+            <a class="collection-go">
+                <button class="btn btn-primary btn-sm">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+            </a>
         </div>
 
-        <br><br>
+        <div>
+            <h2 class="hide-on-small-only">
+                <a href="#" id="Owners">Own</a> |
+                <a href="#" id="Placers">Place</a> |
+                <a href="#" id="Posters">Post</a> |
+                <a href="#" id="Readers">Read</a>
+            </h2>
+
+            <h3 class="hide-on-med-and-up"><b>
+                <a href="#" id="Owners">Own</a> |
+                <a href="#" id="Placers">Place</a> |
+                <a href="#" id="Posters">Post</a> |
+                <a href="#" id="Readers">Read</a>
+            </b></h3>
+        </div>
+
+        <br>
 
         {{#if is_public }}
 
@@ -47,7 +39,7 @@
 
             <br><br>
 
-            Click to make this collection
+            Make this collection
             <button class="btn btn-sm btn-success make-private">
                 private
             </button>
