@@ -4,6 +4,7 @@
         Collections
     </h2>
 
+    {{#if currentUser}}
     <div class=form-group>
         <h4>
             {{#if myCollections}}
@@ -23,6 +24,7 @@
             {{/if}}
         </h4>
     </div>
+    {{/if}}
 
     {{#each collections}}
 

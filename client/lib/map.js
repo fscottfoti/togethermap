@@ -293,7 +293,7 @@ Map = {
             Session.set('sidebarOpen', false);
             if(!mobileFormFactor) {
                 Map.sideBarActive = true;
-                Map.sideBarButton.addTo(Map.map);
+                //Map.sideBarButton.addTo(Map.map);
             }
         });
         this.sidebar.on('show', function () {
@@ -304,16 +304,16 @@ Map = {
             Session.set('sidebarOpen', true);
             if(Map.sideBarActive) {
                 Map.sideBarActive = false;
-                Map.sideBarButton.removeFrom(Map.map);
+                //Map.sideBarButton.removeFrom(Map.map);
             }
         });
 
-        this.sideBarButton = L.easyButton('fa-home', function(){
+        /*this.sideBarButton = L.easyButton('fa-home', function(){
             Map.sidebar.toggle();
             if(Map.sidebar.isVisible()) {
                 history.back();
             }
-        });
+        });*/
 
 
         this.mobileLocateButton = L.easyButton('fa-location-arrow', function () {

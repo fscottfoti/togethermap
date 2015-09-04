@@ -74,6 +74,12 @@ var closed = true;
 
 Template.place.events = {
 
+    'click .login': function (e) {
+
+        e.preventDefault();
+        $.fancybox( renderTmp(Template.login) );
+    },
+
     'click .open-copy': function () {
         var places = Template.parentData().allPlaceInstances.fetch();
         var i = _.map(places, function (p) {

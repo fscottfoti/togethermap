@@ -1,7 +1,12 @@
 'use strict';
 
 Template.collections.rendered = function () {
-    $('[data-toggle="tooltip"]').tooltip()
+    if(!Meteor.user()) {
+        Session.set('collectionFilter', 'public');
+    } else {
+        Session.set('collectionFilter', 'mine');
+    }
+    $('[data-toggle="tooltip"]').tooltip();
 };
 
 
