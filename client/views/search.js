@@ -2,10 +2,7 @@ Template.search.rendered = function () {
 
     Session.set('zoom_level', Map.zoom());
 
-    _.delay(function () {
-        /*$('#toggle-search').bootstrapToggle();*/
-        Session.set('search_type', "Factual");
-    }, 200);
+    Session.set('search_type', "Factual");
 
     if(Session.get('query_string')) {
         $('#srch').val(Session.get('query_string'));
@@ -44,10 +41,7 @@ Template.search.helpers({
     zoomIn: function () {
         var z = Session.get('zoom_level') < minFactualZoomLevel;
         if(!z) {
-            _.delay(function () {
-                /*$('#toggle-search').bootstrapToggle();*/
-                Session.set('search_type', "Factual");
-            }, 200);
+            Session.set('search_type', "Factual");
         }
         return z;
     },
@@ -108,15 +102,12 @@ Template.search.events({
         searchFactualThrottled(event.target.value);
     },
 
-    'click .toggle-search': function () {
 
-        $('#toggle-search').bootstrapToggle('toggle');
+    'click input[name=searchToggle]': function () {
 
-        if(Session.get('search_type') == "TogetherMap") {
-            Session.set('search_type', "Factual");
-        } else {
-            Session.set('search_type', "TogetherMap");
-        }
+        var v = $('input[name=searchToggle]:checked').val();
+
+        Session.set('search_type', v);
 
         searchFactualThrottled();
     }

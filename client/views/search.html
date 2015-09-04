@@ -1,6 +1,6 @@
 <template name="search">
 
-    <h2>Search Place Data</h2>
+    <h2>Search Places</h2>
 
     {{#unless zoomIn}}
 
@@ -12,14 +12,17 @@
                    placeholder="Search terms"/>
         </div>
 
-        <div class="toggle-search">
-            <input id="toggle-search"
-                   data-toggle="toggle"
-                   type="checkbox"
-                   data-off="Factual"
-                   data-on=" TogetherMap "
-                   data-onstyle="primary"
-                   data-offstyle="primary">
+        <div class="form-group">
+            <form action="#">
+                <p>
+                    <input name="searchToggle" type="radio" id="search1" value="Factual" checked />
+                    <label for="search1">Place DB</label>
+                </p>
+                <p>
+                    <input name="searchToggle" type="radio" id="search2" value="TogetherMap" />
+                    <label for="search2">TogetherMap</label>
+                </p>
+            </form>
         </div>
 
     {{else}}
@@ -34,18 +37,19 @@
 
         <div style="margin-top: 10px; margin-bottom: 10px;">
             {{#if latestQuery}}
-                Results for '{{latestQuery}}'.<br>
+                Results for '{{latestQuery}}'<br>
             {{/if}}
 
-
+            {{#if 0}}
             {{#if factualSearch}}
                 Showing {{includedRows}} rows out of {{totalRows}} within current map ({{loadedRows}} loaded).
             {{else}}
                     Showing {{includedRows}} within current map ({{loadedRows}} loaded).
             {{/if}}
+            {{/if}}
         </div>
 
-        <div class="alternate-colors">
+        <div>
 
             {{#each searchResults}}
 
