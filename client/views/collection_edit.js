@@ -92,9 +92,6 @@ Template.collectionEdit.events = {
         Meteor.call('updateCollection',
             this._id, {$set:{location: location}});
 
-        /*Meteor.call('updateCollection',
-            this._id, {$set:{default_map: Map.activeBaseMap}});*/
-
         growl.success('Default view set.')
     },
 
@@ -184,7 +181,7 @@ Template.collectionEdit.events = {
     'click .place-template-json': function () {
 
         var p = getSamplePlace();
-        var d = "<pre>"+syntaxHighlight(p);
+        var d = "<div style='width: 600px;'><pre>"+syntaxHighlight(p)+"</pre></div>";
         makeModal(d, "Place as JSON");
     },
 

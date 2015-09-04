@@ -186,7 +186,7 @@ Template.placeEdit.events({
 
     'click .show-json': function () {
 
-        var d = "<pre>"+syntaxHighlight(this);
+        var d = "<div style='width: 600px;'><pre>"+syntaxHighlight(this)+"</pre></div>";
         makeModal(d);
     },
 });
