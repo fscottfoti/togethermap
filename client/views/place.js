@@ -81,6 +81,14 @@ Template.place.events = {
         });
         Session.set('allPlaceInstances', i);
 
+        if ($('#copyForm').length) {
+            // I don't know why this happens, but apparently using the fancybox
+            // modal, the dom still exists from the last time you opened the 
+            // modal, which means the ids on the radio buttons are duplicates
+            // and you can't click on them - anyway, this is hacky fix for now
+            $('#copyForm').remove();
+        }
+
         $.fancybox( renderTmp(Template.copy) );
     },
 
