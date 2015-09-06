@@ -67,11 +67,11 @@
 
     {{#if autoFormExists }}
 
-        <hr>
-
-        {{> quick_form }}
-
-        <hr>
+        <div class="form-group">
+            <button class="btn open-qf">
+                <i class="fa fa-edit"></i>
+            </button>
+        </div>
 
     {{/if}}
 
@@ -143,6 +143,7 @@
         </div>
 
     {{/if}}
+
 {{/with}}
 
 {{#unless place }}

@@ -114,6 +114,10 @@ Template.placeEdit.helpers({
 
 Template.placeEdit.events({
 
+    'click .open-qf': function (evt) {
+        $.fancybox( renderTmp(Template.quick_form) );
+    },
+
     'change input[name=name]': function(event) {
         Meteor.call('updatePlace', this._id, {$set:{'properties.name': event.target.value}});
     },

@@ -148,6 +148,7 @@ Template.collection.events = {
         e.preventDefault();
         // don't want to follow it twice, so we do an upsert
         Meteor.call('addFollow', this._id, this.name);
+        growl.success("Collection followed");
     },
 
     'click .view-place-list': function () {
@@ -163,6 +164,7 @@ Template.collection.events = {
         e.preventDefault();
         var obj = MFollowed.findOne({cid: this._id});
         Meteor.call('removeFollow', obj._id);
+        growl.success("Collection unfollowed");
     },
 
     'click .pan-collection': function () {

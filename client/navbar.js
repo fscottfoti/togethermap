@@ -120,6 +120,8 @@ Template.nav.events = {
     'click .logout': function (e) {
 
         e.preventDefault();
+
+        Session.set('showSidebar', false);
         AccountsTemplates.logout();
     },
 

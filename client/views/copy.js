@@ -59,8 +59,10 @@ Template.copy.events = {
         Meteor.call('insertPlace', p, cid, function(err, data) {
             if (err) {
                 console.log(err);
+                growl.success("Copy failed");
                 return;
             }
+            growl.success("Copy successful");
 
             Router.go('place', {
                 _id: data,
