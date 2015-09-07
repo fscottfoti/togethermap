@@ -1,13 +1,13 @@
 <template name="image">
 	{{#if image_url}}
 		{{#if makeLink}}
-			<div style="cursor: pointer; background-color: inherit;"
+			<div style="cursor: pointer; background-color: inherit; margin-bottom: -5px;"
 				 class="link-img">
 				<img src="{{image_url}}" style="width: 100%;">
 			</div>
 		{{else}}
 			<div>
-				<img src="{{ image_url }}" style="width:100%; cursor: pointer;" class="lightbox-img">
+				<img src="{{ image_url }}" style="width:100%; cursor: pointer; margin-bottom: -5px" class="lightbox-img">
 			</div>
 		{{/if}}
 	{{/if}}

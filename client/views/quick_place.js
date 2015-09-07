@@ -22,6 +22,8 @@ Template.quick_place.helpers({
         return this.creator || 'No Creator';
     },
 
+    anySort: function () {return Session.get('active_sort_type') !== undefined},
+
     recentSort: function () { return Session.get('active_sort_type') == "Recent"},
 
     voteSort: function () { return Session.get('active_sort_type') == "Votes"},

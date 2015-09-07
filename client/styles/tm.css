@@ -14,6 +14,17 @@ h4 {
     font-weight: 300;
 }
 
+.my-card {
+    padding-bottom: -3px !important;
+}
+
+.my-card-content {
+    padding-top: 0px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-bottom: 0px !important;
+}
+
 .form-group {
     margin-bottom: 15px;
 }
@@ -42,8 +53,8 @@ h4 {
 
 .top-right {
     position: absolute;
-    top: 1px;
-    right: 1px;
+    top: 2px;
+    right: 2px;
     cursor: pointer;
 }
 
