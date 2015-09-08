@@ -115,7 +115,9 @@ Template.placeEdit.helpers({
 Template.placeEdit.events({
 
     'click .open-qf': function (evt) {
-        $.fancybox( renderTmp(Template.quick_form) );
+        var html = renderTmp(Template.quick_form);
+        //$(html).find('select').addClass('browser-default');
+        $.fancybox( html );
     },
 
     'change input[name=name]': function(event) {

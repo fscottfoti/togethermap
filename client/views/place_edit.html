@@ -25,6 +25,16 @@
                     <i class="fa fa-code"></i>
                 </button>
             </a>
+
+            {{#if autoFormExists }}
+
+                <a class="open-qf">
+                    <button class="btn btn-sm btn-primary">
+                        <i class="fa fa-database"></i>
+                    </button>
+                </a>
+
+            {{/if}}
         </div>
 
     </div>
@@ -64,16 +74,6 @@
             </div>
         </div>
     </div>
-
-    {{#if autoFormExists }}
-
-        <div class="form-group">
-            <button class="btn open-qf">
-                <i class="fa fa-edit"></i>
-            </button>
-        </div>
-
-    {{/if}}
 
     <div class="form-group">
 
