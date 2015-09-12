@@ -115,6 +115,7 @@ Template.nav.events = {
 
         e.preventDefault();
         $.fancybox( renderTmp(Template.login) );
+        Session.set('collectionFilter', 'mine');
     },
 
     'click .logout': function (e) {
@@ -123,6 +124,7 @@ Template.nav.events = {
 
         Session.set('showSidebar', false);
         AccountsTemplates.logout();
+        Session.set('collectionFilter', 'public');
     },
 
     'click .active-collection': function (e) {

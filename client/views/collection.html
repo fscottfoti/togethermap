@@ -12,6 +12,10 @@
 
         {{> image image_url=image_url }}
 
+        {{#if image_url}}
+            <div style="height: 15px;"></div>
+        {{/if}}
+
         <div class="form-group">
 
             <span>
@@ -127,8 +131,6 @@
     {{#each places}}
 
         {{> quick_place }}
-
-        <div style="height: 10px;"></div>
 
     {{/each}}
 

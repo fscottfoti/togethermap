@@ -8,10 +8,8 @@ meteor-platform
 accounts-password
 momentjs:moment
 numeral:numeral
-mizzao:bootboxjs
 accounts-google
 d3
-chrismbeckett:toastr
 iron:router
 iron:layout
 reywood:publish-composite
@@ -24,7 +22,6 @@ sacha:juice
 meteorhacks:npm
 arsnebula:reactive-promise
 aldeed:autoform
-jiku:bootstrap-toggle
 awatson1978:mousetrap
 czbaker:lightbox2
 pfafman:filesaver
@@ -42,4 +39,3 @@ sinda:fancybox
 ryanswapp:spectrum-colorpicker
 pfafman:materialize-modal
 gildaspk:autoform-materialize
-force-ssl

@@ -31,6 +31,7 @@ Template.collections.helpers({
         followed = _.map(followed, function (c) { return c.cid;})
 
         var cf = Session.get('collectionFilter') || 'mine';
+        if(!Meteor.user()) cf = 'public';
 
         var filter;
         if(cf == 'mine') {
