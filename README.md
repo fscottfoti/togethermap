@@ -1,4 +1,4 @@
 TogetherMap
 ===========
 
-A platform for place-based conversations
+A web and mobile app for collaborative mapping
