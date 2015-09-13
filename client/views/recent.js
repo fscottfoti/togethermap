@@ -33,10 +33,14 @@ Template.recent.events = {
 
         e.preventDefault();
         var cid = Session.get('active_collection');
-        Router.go('post', {
-            _id: this._id,
+        Router.go('place', {
+            _id: this.placeId,
             _cid: cid
         });
+        /*Router.go('post', {
+            _id: this._id,
+            _cid: cid
+        });*/
     },
 
     'click .comment-go': function (e) {

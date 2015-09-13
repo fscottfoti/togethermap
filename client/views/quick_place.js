@@ -22,7 +22,10 @@ Template.quick_place.helpers({
         return this.creator || 'No Creator';
     },
 
-    anySort: function () {return Session.get('active_sort_type') !== undefined},
+    anySort: function () {
+        var s = Session.get('active_sort_type');
+        return s !== undefined && s !== 'Name' && s !== 'Image';
+    },
 
     recentSort: function () { return Session.get('active_sort_type') == "Recent"},
 

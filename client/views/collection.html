@@ -18,6 +18,7 @@
 
         <div class="form-group">
 
+            {{#if currentUser }}
             <span>
                 <a class='dropdown-button btn btn-primary' href='#' data-beloworigin="true" data-activates='drop-sort' data-hover="true">
                     <i class="fa fa-sort-amount-asc"></i>
@@ -35,6 +36,7 @@
                     {{/each}}
                 </ul>
             </span>
+            {{/if}}
 
             {{#if currentUser }}
                 <span>

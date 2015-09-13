@@ -14,7 +14,9 @@
 
             {{{ dynamic_place }}}
 
-            {{{ properties.description }}}
+            <div class="go-to-place" style="cursor: pointer;">
+                {{{ properties.description }}}
+            </div>
 
             {{#if properties.description}}
             <div style="height: 10px;"></div>
@@ -34,12 +36,6 @@
             {{#if voteSort}}
                 <i class="fa fa-trophy"></i>
                 {{ pluralize votes "Vote" }}
-            {{/if}}
-
-            {{#if imageSort}}
-                {{#unless properties.image_url}}
-                  (no image)
-                {{/unless}}
             {{/if}}
 
             {{#if creatorSort}}
