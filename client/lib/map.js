@@ -265,20 +265,6 @@ Map = {
 
         this.locateControl = L.control.locate();
 
-        // layer control selection
-        this.layerControl = L.control.layers(this.baseMaps);
-        //this.layerControl.addTo(this.map);
-
-        // this is social media sharing
-        /*this.shareControl = new MyShareControl();
-        this.shareControl.link_f = function () {
-            return {
-                url: location.href,
-                name: 'Check out TogetherMap',
-                image: window.location.origin + '/img/map-pin.jpg'
-            };
-        };*/
-
         this.sidebar = L.control.sidebar('sidebar', {
             position: 'right',
             //closeButton: false,
@@ -314,7 +300,6 @@ Map = {
                 history.back();
             }
         });*/
-
 
         this.mobileLocateButton = L.easyButton('fa-location-arrow', function () {
             Map.goToMyLoc();
@@ -355,8 +340,6 @@ Map = {
             Map.map.removeControl(Map.mobileCancelMarkerButton);
             Map.map.addControl(Map.mobileAddMarkerButton);
         });
-
-        //L.mapbox.infoControl().addTo(this.map);
 
         if (!this.map.restoreView()) {
             this.map.setView(DEFAULT_CENTER, DEFAULT_ZOOM);
@@ -617,7 +600,6 @@ Map = {
             var that = this;
             setTimeout(function() {
                 that.bouncing[key] = false;
-                //shape.setZIndexOffset(shape.originalOffset);
             }, duration * 1000 || 4000);
         }
     },
@@ -854,10 +836,8 @@ Map = {
             return;
         }
         this.map.addControl(this.zoomControl);
-        //this.map.addControl(this.shareControl);
         this.map.addControl(this.geocoder);
         //this.map.addControl(this.locateControl);
-        //this.map.addControl(this.layerControl);
 
         this.desktopControls = true;
     },
@@ -868,10 +848,8 @@ Map = {
             return;
         }
         this.map.removeControl(this.zoomControl);
-        //this.map.removeControl(this.shareControl);
         this.map.removeControl(this.geocoder);
         //this.map.removeControl(this.locateControl);
-        //this.map.removeControl(this.layerControl);
 
         this.desktopControls = false;
     },
@@ -1036,8 +1014,6 @@ Map = {
         
         if(layer.normal_icon) {
             layer.setIcon(layer.highlight_icon);
-            //layer.original_offset = layer.options.zIndexOffset;
-            //layer.setZIndexOffset(99999);
         } else {
             // not marker
             layer.setStyle({fillOpacity: 0.65, opacity: 0.8});
@@ -1144,12 +1120,10 @@ Map = {
                     layer.on('mouseover', function () {
                         if(Session.get('disableHover')) return;
                         Map.highlightPlace(place._id);
-                        //layer.setStyle({fillOpacity: 0.65, opacity: 0.8});
                     });
                     layer.on('mouseout', function () {
                         if(Session.get('disableHover')) return;
                         Map.unHighlightPlace(place._id);
-                        //layer.setStyle({fillOpacity: 0.2, opacity: 0.45});
                     });
                 }
             });

@@ -12,13 +12,6 @@
         </a>
     </div>
 
-    {{#if 0}}<h4>
-        <i class="fa fa-clock-o">
-            Recent Comments
-        </i>
-    </h4>
-    {{/if}}
-
     <div class="alternate-colors">
 
         {{#each recent_posts}}
@@ -28,9 +21,10 @@
                         {{title}}
                     </h4>
                 </span>
+
                 {{{ description }}}
 
-                    {{> image image_url=image_url postId=_id collectionId=collectionId makeLink=1 }}
+                {{> image image_url=image_url postId=_id collectionId=collectionId makeLink=1 }}
 
             </div>
         {{/each}}
@@ -41,37 +35,6 @@
         <div>
             No recent comments
         </div>
-    {{/if}}
-
-    {{#if 0}}
-    <div style="height: 10px;"></div>
-
-    <h4>
-        <i class="fa fa-clock-o">
-            Recent Comments
-        </i>
-    </h4>
-
-    <div class="alternate-colors">
-
-        {{#each recent_comments}}
-            <div class="quick-post shadow" style="margin-bottom: 7px;">
-                <span class="comment-go" style="cursor: pointer;">
-                    <h4>
-                        <i class="fa fa-link"> link</i>
-                    </h4>
-                </span>
-                {{{ text }}}
-            </div>
-        {{/each}}
-
-    </div>
-
-    {{#if noComments }}
-        <div>
-            No recent comments
-        </div>
-    {{/if}}
     {{/if}}
 
 </template>

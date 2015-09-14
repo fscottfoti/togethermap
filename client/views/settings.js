@@ -8,14 +8,17 @@ toggleDoubleClickAdd = function () {
     }
 };
 
+
 togglePanOnMouseOver = function () {
     Session.set('panOnMouseOver', !Session.get('panOnMouseOver'));
 };
+
 
 toggleNavbar = function () {
     Session.set('noNav', !Session.get('noNav'));
     resizeMap();
 };
+
 
 Template.settings.helpers({
     doubleClickAdd: function () {
@@ -28,6 +31,7 @@ Template.settings.helpers({
         return Session.get('noNav');
     }
 });
+
 
 Template.settings.events = {
     'click .toggle-double-click': function () {

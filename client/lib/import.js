@@ -17,6 +17,7 @@ function readerLoadJson(e) {
     loadShapes(json);
 }
 
+
 function readerLoadCsv(e) {
     if (this.readyState !== 2 || this.error) {
         return;
@@ -31,9 +32,6 @@ function readerLoadCsv(e) {
         loadShapes(data);
     });
 }
-
-
-
 
 
 // data should be geojson format by this point
@@ -115,11 +113,13 @@ function handleZipFile(file) {
     reader.readAsArrayBuffer(file);
 }
 
+
 function handleJsonFile(file) {
     var reader = new FileReader();
     reader.onload = readerLoadJson;
     reader.readAsText(file);
 }
+
 
 function handleCsvFile(file) {
     var reader = new FileReader();
@@ -127,7 +127,9 @@ function handleCsvFile(file) {
     reader.readAsText(file);
 }
 
+
 var fileName = undefined;
+
 
 handleFile = function(file) {
 

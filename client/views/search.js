@@ -57,7 +57,9 @@ Template.search.helpers({
     }
 });
 
+
 var last_search = undefined;
+
 
 var searchFactual = function (val) {
 
@@ -126,6 +128,7 @@ Template.factual_place.helpers({
         }, {key: key});
     }
 });
+
 
 Template.factual_place.events = {
 };

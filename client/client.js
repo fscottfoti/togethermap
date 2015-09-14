@@ -52,13 +52,21 @@ var formatDate = function (date, format) {
     return moment(date).format(format || 'MMM Do YYYY, h:mm a');
 };
 
+
 var formatNumber = function (num, format) {
     return numeral(num || 0).format(format || '0,0');
 };
 
+
+// these are all added to meteor handlebars and regular handlebars - 
+// regular handlebars is used to dynamically provide templates on the places
+// the place list, the place labels, etc
+
+
 Template.registerHelper('formatDate', function(date) {
     return formatDate(date);
 });
+
 
 Handlebars.registerHelper('formatDate', function(date, options) {
     return formatDate(date, options.hash.format);
@@ -69,15 +77,19 @@ Template.registerHelper('formatNumber', function(num) {
     return formatNumber(num);
 });
 
+
 Handlebars.registerHelper('formatNumber', function(num, options) {
     return formatNumber(num, options.hash.format);
 });
 
 
+// formats json nicely
 Template.registerHelper('json', function(json) {
     return JSON.stringify(json, undefined, 2);
 });
 
+
+// formats json nicely
 Handlebars.registerHelper('json', function(json) {
     return JSON.stringify(json, undefined, 2);
 });
@@ -92,6 +104,7 @@ Template.registerHelper('pluralize', function(n, thing) {
         return n + ' ' + thing + 's';
     }
 });
+
 
 
 syntaxHighlight = function (json) {
@@ -117,6 +130,7 @@ syntaxHighlight = function (json) {
 };
 
 
+
 function strip(html)
 {
     var tmp = document.createElement("DIV");
@@ -124,6 +138,8 @@ function strip(html)
     return tmp.textContent || tmp.innerText || "";
 }
 
+
+// strips html tags...
 Template.registerHelper('stripContent', function(content){
     return strip(content);
 });

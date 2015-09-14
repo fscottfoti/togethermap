@@ -6,7 +6,6 @@ Template.collections.rendered = function () {
     } else {
         Session.set('collectionFilter', 'mine');
     }
-    $('[data-toggle="tooltip"]').tooltip();
 };
 
 

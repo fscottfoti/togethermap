@@ -8,6 +8,7 @@ var isOwnerF = function (data) {
     return data.permission.owner || data.collection.creatorUID == Meteor.userId();
 };
 
+
 Template.collection.helpers({
 
     isOwner: function () {

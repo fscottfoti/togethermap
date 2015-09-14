@@ -64,31 +64,12 @@ h4 {
 }
 
 
-.quick-post {
-    position: relative;
-    padding-left: 10px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-    padding-right: 10px;
-}
-
-
-.toast {
-    opacity: 1 !important;
-}
-
-/*
-@media (max-width: 768px) { 
-    .navbar-brand { position: absolute; left: 50%; margin-left: -72px; }
-    
-    .sidebar-close { visibility: hidden; }
-}*/
-
-
 .btn-file {
     position: relative;
     overflow: hidden;
 }
+
+
 .btn-file input[type=file] {
     position: absolute;
     top: 0;

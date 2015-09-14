@@ -4,12 +4,13 @@ var jqueryInit = function () {
     });
 }
 
+
 Template.place.rendered = function () {
     Session.set('current_html', '');
     jqueryInit();
     $('.dropdown-button').dropdown();
-    closed = true;
 };
+
 
 Template.place.helpers({
 
@@ -70,7 +71,6 @@ Template.place.helpers({
     }
 });
 
-var closed = true;
 
 Template.place.events = {
 
