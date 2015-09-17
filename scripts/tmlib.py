@@ -1,5 +1,6 @@
 import random
 import time
+from shapely.geometry import shape
 
 def createPlace(lat, lng, color, name, description, properties):
     d = {
@@ -24,6 +25,24 @@ def createPlace(lat, lng, color, name, description, properties):
        d["properties"][k] = v
     return d
 
+
+def add_bbox(p):
+    if p['geometry']['type'] in ['Polygon', 'MultiPolygon']:
+        bounds = shape(p['geometry']).bounds
+        minx, miny, maxx, maxy = bounds
+        poly = {
+            "type": "Polygon",
+            "coordinates": [
+                [ [minx, miny], [minx, maxy], [maxx, maxy],
+                  [maxx, miny], [minx, miny] ]
+            ]
+        } 
+    else:
+        poly = p['geometry']
+    p['bbox'] = poly
+    return p
+
+
 def randomColor():
     return "#%06x" % random.randint(0,0xFFFFFF)
 
@@ -37,18 +56,18 @@ def callback_function(error, result):
 
     print(result)
 
-def connect(user, password, server=None):
+def connect(user, password, server=None, callback=None):
     server = server or "wss://togethermap.com/websocket"
     client = MeteorClient(
         server,
         debug=False,
         auto_reconnect=False)
     client.connect()
-    client.login(user, password, callback=callback_function)
+    client.login(user, password, callback=(callback or callback_function))
     return client
 
-def call(client, method, args):
-    client.call(method, args, callback=callback_function)
+def call(client, method, args, callback=None):
+    client.call(method, args, callback=(callback or callback_function))
 
 def wait():
     # so this is Python that looks like node - it's all async

@@ -42,15 +42,19 @@ Template.collections.helpers({
             filter = {_id: { $nin: all }};
         }
 
-        return MCollections.find(
-            {  $and: [ 
+        if(cf != 'mine') {
+            filter = {  $and: [ 
                 filter,
                 {
                     name: { 
                     $ne: 'NEW COLLECTION' 
                     }
                 }
-            ]},
+            ]};
+        }
+
+        return MCollections.find(
+            filter,
             { sort: { name: +1}}
         );
     },
