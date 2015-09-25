@@ -33,10 +33,10 @@ poetic:materialize-scss
 
 npm-container
 useraccounts:iron-routing
-fortawesome:fontawesome
 sinda:fancybox
 ryanswapp:spectrum-colorpicker
 pfafman:materialize-modal
 gildaspk:autoform-materialize
 force-ssl
 froala:editor
+natestrauser:font-awesome
