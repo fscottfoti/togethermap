@@ -47,9 +47,8 @@ Template.copy.events = {
         // collection in which case we need the id attribute - this expression
         // should cover it
         var cid = $('input[name=collectionId]:checked').val();
-        var id = Session.get('active_place');
-        var p = MPlaces.findOne(id); //Template.parentData().place;
-        p = JSON.parse(JSON.stringify(p));
+        var p = Session.get('placeToCopy');
+        
         p.post_count = 0;
         if(!p.parent_id) {
             // leave it if it's already on there so it points back to the original

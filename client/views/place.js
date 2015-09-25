@@ -87,6 +87,12 @@ Template.place.events = {
         });
         Session.set('allPlaceInstances', i);
 
+        // need to get and add the place since the copy modal doesn't
+        // have access to this state
+        var p = Template.parentData().place;
+        p = JSON.parse(JSON.stringify(p));
+        Session.set('placeToCopy', p);
+
         if ($('#copyForm').length) {
             // I don't know why this happens, but apparently using the fancybox
             // modal, the dom still exists from the last time you opened the 
