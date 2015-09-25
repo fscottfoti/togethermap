@@ -25,7 +25,6 @@ aldeed:autoform
 awatson1978:mousetrap
 czbaker:lightbox2
 pfafman:filesaver
-jhartma:quill
 mdg:geolocation
 useraccounts:materialize
 fourseven:scss
@@ -40,3 +39,4 @@ ryanswapp:spectrum-colorpicker
 pfafman:materialize-modal
 gildaspk:autoform-materialize
 force-ssl
+froala:editor

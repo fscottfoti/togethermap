@@ -24,8 +24,9 @@ ejson@1.0.6
 email@1.0.6
 fastclick@1.0.3
 force-ssl@1.0.4
-fortawesome:fontawesome@4.4.0
+fortawesome:fontawesome@4.2.0_2
 fourseven:scss@3.2.0
+froala:editor@1.2.8
 geojson-utils@1.0.3
 gildaspk:autoform-materialize@0.0.24
 google@1.1.5
@@ -42,7 +43,6 @@ iron:location@1.0.9
 iron:middleware-stack@1.0.9
 iron:router@1.0.9
 iron:url@1.0.9
-jhartma:quill@0.0.2
 jquery@1.11.3_2
 json@1.0.3
 launch-screen@1.0.2
@@ -70,7 +70,7 @@ ordered-dict@1.0.3
 percolate:synced-cron@1.2.1
 pfafman:filesaver@0.2.0_1
 pfafman:materialize-modal@0.3.3
-poetic:materialize-scss@1.2.6
+poetic:materialize-scss@1.2.10
 random@1.0.3
 reactive-dict@1.1.0
 reactive-var@1.0.5

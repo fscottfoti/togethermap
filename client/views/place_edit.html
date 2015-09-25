@@ -66,12 +66,13 @@
 
     {{> image image_url=properties.image_url }}
 
+    {{#if properties.image_url}}
+        <div style="height: 15px;"></div>
+    {{/if}}
+
     <div class="form-group">
         <label>Place Description:</label>
-        <div class="quill-wrapper">
-            {{> quill }}
-            <div id="full-editor" class="editor">
-            </div>
+        <div id="editable">
         </div>
     </div>
 
