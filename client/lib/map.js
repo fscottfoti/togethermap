@@ -301,9 +301,9 @@ Map = {
             }
         });*/
 
-        this.mobileLocateButton = L.easyButton('fa-location-arrow', function () {
+        this.mobileLocateButton = L.control.locate(); /*L.easyButton('fa-location-arrow', function () {
             Map.goToMyLoc();
-        });
+        });*/
 
         this.mobileAddMarkerButton = L.easyButton('fa-map-marker', function() {
             Map.tempMarker = L.marker(Map.center()).addTo(Map.map);
@@ -837,7 +837,7 @@ Map = {
         }
         this.map.addControl(this.zoomControl);
         this.map.addControl(this.geocoder);
-        //this.map.addControl(this.locateControl);
+        this.map.addControl(this.locateControl);
 
         this.desktopControls = true;
     },
@@ -849,7 +849,7 @@ Map = {
         }
         this.map.removeControl(this.zoomControl);
         this.map.removeControl(this.geocoder);
-        //this.map.removeControl(this.locateControl);
+        this.map.removeControl(this.locateControl);
 
         this.desktopControls = false;
     },
