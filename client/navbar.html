@@ -65,11 +65,26 @@
                   style="float: right; cursor: pointer;">
 
                 {{#if sidebarOpen}}
-                    <div style="color: white; width:22px; margin-top: 14px; margin-right: 18px;">
+                    <div style="color: white; width:22px; position: absolute; top: 14px; right: 18px;">
                         <i class="fa fa-map"></i>
                     </div>
                 {{else}}
-                    <div style="color: white; width:22px; margin-top: 14px; margin-right: 18px;">
+                    <div style="color: white; width:22px; position: absolute; top: 14px; right: 18px;">
+                        <i class="fa fa-list-ul"></i>
+                    </div>
+                {{/if}}
+                
+            </span>
+
+            <span class="map-sidebar-toggle hide-on-small-only"
+                  style="float: right; cursor: pointer;">
+
+                {{#if sidebarOpen}}
+                    <div style="color: white; width:22px; position: absolute; right: 18px;">
+                        <i class="fa fa-map"></i>
+                    </div>
+                {{else}}
+                    <div style="color: white; width:22px; position: absolute; right: 18px;">
                         <i class="fa fa-list-ul"></i>
                     </div>
                 {{/if}}

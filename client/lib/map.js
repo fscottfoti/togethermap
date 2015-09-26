@@ -1077,7 +1077,9 @@ Map = {
     // add the shape to the map
     addShape: function(place, key, bounce_override) {
 
-        if(place === undefined) {
+        // this one is baffling to me, but sometimes the collection marker
+        // gets added as a place in the set of places.  totally confusticating.
+        if(place === undefined || place._id == Session.get('active_collection')) {
             return;
         }
 
@@ -1183,6 +1185,10 @@ Map = {
 
             this.shapeLayerGroup.add(layer);
             this.keysToLayers[key] = layer;
+        }
+
+        if(place._id == Session.get('active_place')) {
+            Map.highlightPlace(place._id);
         }
 
         return shape;

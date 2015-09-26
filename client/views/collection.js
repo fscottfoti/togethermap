@@ -85,6 +85,10 @@ var closed = true;
 
 Template.collection.events = {
 
+    'click .back': function () {
+        Router.go('collections');
+    },
+
     'click .sortings': function () {
         // I really shouldn't have to do this - there's some sort of bad
         // interaction with bootstrap and the leaflet container

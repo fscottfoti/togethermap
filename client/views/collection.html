@@ -18,6 +18,12 @@
 
         <div class="form-group">
 
+            <a class="back">
+                <button class="btn btn-sm btn-primary">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+            </a>
+
             {{#if currentUser }}
             <span>
                 <a class='dropdown-button btn btn-primary' href='#' data-beloworigin="true" data-activates='drop-sort' data-hover="true">
@@ -39,7 +45,7 @@
             {{/if}}
 
             {{#if currentUser }}
-                <span>
+                <span class="hide-on-small-only">
                     <a class="recent-go">
                         <button class="btn btn-primary">
                             <i class="fa fa-clock-o"></i>
