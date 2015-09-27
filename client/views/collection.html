@@ -19,14 +19,20 @@
         <div class="form-group">
 
             <a class="back">
-                <button class="btn btn-sm btn-primary">
+                <button class="btn btn-sm btn-primary tooltipped"
+                        data-tooltip="Collections"
+                        data-position="top">
                     <i class="fa fa-arrow-left"></i>
                 </button>
             </a>
 
             {{#if currentUser }}
             <span style="position: relative;">
-                <a class='dropdown-button btn btn-primary' href='#' data-beloworigin="true" data-activates='drop-sort' data-hover="true">
+                <a class='dropdown-button btn btn-primary' 
+                    href='#' 
+                    data-beloworigin="true" 
+                    data-activates='drop-sort' 
+                    data-hover="true">
                     <i class="fa fa-sort-amount-asc"></i>
                 </a>
 
@@ -45,7 +51,9 @@
             {{/if}}
 
             {{#if currentUser }}
-                <span class="hide-on-small-only">
+                <span class="tooltipped"
+                      data-tooltip="Recent"
+                      data-position="top">
                     <a class="recent-go">
                         <button class="btn btn-primary">
                             <i class="fa fa-clock-o"></i>
@@ -54,11 +62,27 @@
                 </span>
             {{/if}}
 
+            {{#if write_permission}}
+
+                <span>
+                    <a class="edit-link">
+                        <button class="btn btn-sm btn-primary tooltipped"
+                                data-tooltip="Edit"
+                                data-position="top">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                    </a>
+                </span>
+
+            {{/if}}
+
             {{#if followable }}
 
                 <span>
-                    <a class="follow">
-                        <button class="btn btn-sm btn-primary">
+                    <a class="follow tooltipped">
+                        <button class="btn btn-floating tooltipped"
+                                data-tooltip="Follow"
+                                data-position="top">
                             <i class="fa fa-star"></i>
                         </button>
                     </a>
@@ -70,20 +94,10 @@
 
                 <span>
                     <a class="unfollow">
-                        <button class="btn btn-sm btn-primary">
+                        <button class="btn btn-floating tooltipped"
+                                data-tooltip="Unfollow"
+                                data-position="top">
                             <i class="fa fa-star-o"></i>
-                        </button>
-                    </a>
-                </span>
-
-            {{/if}}
-
-            {{#if write_permission}}
-
-                <span>
-                    <a class="edit-link">
-                        <button class="btn btn-sm btn-primary">
-                            <i class="fa fa-edit"></i>
                         </button>
                     </a>
                 </span>
@@ -95,6 +109,7 @@
         <!-- display a line of collection attributes (dates and such) -->
 
         <div class="form-group">
+
             <span>
                 {{#if creatorUID }}
                     <a href="#" class="profile-go">

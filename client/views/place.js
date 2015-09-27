@@ -8,7 +8,7 @@ var jqueryInit = function () {
 Template.place.rendered = function () {
     Session.set('current_html', '');
     jqueryInit();
-    $('.dropdown-button').dropdown();
+    $('.tooltipped').tooltip();
 };
 
 
@@ -168,8 +168,10 @@ Template.place.events = {
 
         e.preventDefault();
         Session.set('newTopic', true);
+        $('.tooltipped').tooltip('remove');
         Meteor.defer(function() {
             jqueryInit();
+            $('.tooltipped').tooltip();
         });
 
     },
@@ -188,6 +190,8 @@ Template.place.events = {
 
     'click .add-topic': function (e) {
 
+        $('.tooltipped').tooltip('remove');
+        
         e.preventDefault();
 
         var pid = Session.get('active_place');
@@ -215,12 +219,20 @@ Template.place.events = {
         Session.set('newTopic', false);
         Session.set('post_image_url', undefined);
         Session.set('current_html', '');
+
+        Meteor.defer(function() {
+            $('.tooltipped').tooltip();
+        });
     },
 
     'click .cancel': function (e) {
 
+        $('.tooltipped').tooltip('remove');
         e.preventDefault();
         Session.set('newTopic', false);
+        Meteor.defer(function() {
+            $('.tooltipped').tooltip();
+        });
 
     }
 };

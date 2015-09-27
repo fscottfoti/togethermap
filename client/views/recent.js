@@ -1,3 +1,8 @@
+Template.recent.rendered = function () {
+    $('.tooltipped').tooltip();
+}
+
+
 Template.recent.helpers({
     noPosts: function () {
         return this.recent_posts.fetch().length == 0;

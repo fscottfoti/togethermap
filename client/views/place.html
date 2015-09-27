@@ -19,14 +19,18 @@
     <div class="form-group">
 
         <a class="collection-go">
-            <button class="btn btn-primary btn-sm">
+            <button class="btn btn-primary btn-sm tooltipped"
+                    data-tooltip="Collection"
+                    data-position="top">
                 <i class="fa fa-arrow-left"></i>
             </button>
         </a>
 
         {{#if writePermission }}
 
-            <button class="btn btn-primary btn-sm edit-link">
+            <button class="btn btn-primary btn-sm edit-link tooltipped"
+                    data-tooltip="Edit"
+                    data-position="top">
                 <i class="fa fa-edit"></i>
             </button>
 
@@ -34,7 +38,9 @@
 
         {{#if currentUser }}
 
-            <button class="btn btn-primary btn-sm open-copy">
+            <button class="btn btn-primary btn-sm open-copy tooltipped"
+                    data-tooltip="Copy"
+                    data-position="top">
                 <i class="fa fa-copy"></i>
             </button>    
 
@@ -170,7 +176,9 @@
                     </span>
 
                     <a class="new-topic">
-                        <button class="btn btn-sm btn-warning">
+                        <button class="btn btn-sm btn-warning tooltipped"
+                                data-tooltip="Comment"
+                                data-position="top">
                             <i class="fa fa-plus-square-o"></i>
                         </button>
                     </a>
@@ -194,11 +202,15 @@
             {{> image image_url=post_image_url }}
 
             <div>
-                <button class="btn btn-sm btn-success add-topic">
+                <button class="btn btn-sm btn-success add-topic tooltipped"
+                        data-tooltip="Add"
+                        data-position="top">
                     <i class="fa fa-plus-square-o"></i>
                 </button>
 
-                <button class="btn btn-sm btn-default cancel">
+                <button class="btn btn-sm btn-default cancel tooltipped"
+                        data-tooltip="Cancel"
+                        data-position="top">
                     <i class="fa fa-close"></i>
                 </button>
             </div>

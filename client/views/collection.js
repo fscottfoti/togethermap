@@ -1,6 +1,7 @@
 Template.collection.rendered = function () {
     Session.set('viewPlaces', true); // might be better to show places by default
     $('.dropdown-button').dropdown();
+    $('.tooltipped').tooltip();
 };
 
 
@@ -150,6 +151,9 @@ Template.collection.events = {
 
     'click .follow': function (e) {
 
+        $('.tooltipped').tooltip('remove');
+        $('.tooltipped').tooltip();
+
         e.preventDefault();
         // don't want to follow it twice, so we do an upsert
         Meteor.call('addFollow', this._id, this.name);
@@ -165,6 +169,9 @@ Template.collection.events = {
     },
 
     'click .unfollow': function (e) {
+
+        $('.tooltipped').tooltip('remove');
+        $('.tooltipped').tooltip();
 
         e.preventDefault();
         var obj = MFollowed.findOne({cid: this._id});
