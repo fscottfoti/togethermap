@@ -2,6 +2,7 @@ var initColorPicker = function (domId, currentColor) {
 
     $(domId).spectrum({
       color: currentColor,
+      appendTo: "#sidebar",
       showInput: false,
       className: "full-spectrum",
       showInitial: true,

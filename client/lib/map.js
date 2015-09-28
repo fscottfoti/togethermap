@@ -1152,7 +1152,7 @@ Map = {
 
             label = l +
                 post_count.toString() +
-                (post_count !== 1 ? ' posts': ' post');
+                (post_count !== 1 ? ' comments': ' comment');
         }
         if(!mobileFormFactor) {
             shape.bindLabel(label, {direction: 'auto'});
