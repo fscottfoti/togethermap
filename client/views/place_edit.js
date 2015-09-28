@@ -56,6 +56,7 @@ Template.placeEdit.rendered = function () {
         var id = that.data.place._id
         Meteor.call('updatePlace', id, {$set:{'properties.description': html}});
     });
+    $('.tooltipped').tooltip();
 };
 
 

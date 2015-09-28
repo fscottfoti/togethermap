@@ -10,24 +10,34 @@
         <div class="form-group">
 
             <a class="cancel">
-                <button class="btn btn-sm btn-primary">
+                <button class="btn btn-sm btn-primary tooltipped"
+                        data-tooltip="Collection"
+                        data-position="top">
                     <i class="fa fa-arrow-left"></i>
                 </button>
             </a>
 
             <a class="delete-link">
-                <button class="btn">
+                <button class="btn tooltipped"
+                        data-tooltip="Delete"
+                        data-position="top">
                     <i class="fa fa-trash"></i>
                 </button>
             </a>
 
             {{#if isFlickr}}
-                <span class="btn btn-sm btn-primary flickr-refresh">Refresh</span>
+                <span class="btn btn-sm btn-primary flickr-refresh tooltipped"
+                      data-tooltip="Refresh"
+                      data-position="top">
+                      <i class="fa fa-refresh"></i>
+                  </span>
             {{/if}}
 
             <span>
                 <a class="save-location">
-                    <button class="btn btn-sm btn-primary">
+                    <button class="btn btn-sm btn-primary tooltipped"
+                            data-tooltip="Set Default Map"
+                            data-position="top">
                         <i class="fa fa-location-arrow"></i>
                     </button>
                 </a>
@@ -46,12 +56,16 @@
         </div>
 
         <div class="form-group">
-            <button class="btn btn-sm btn-primary pick-image">
+            <button class="btn btn-sm btn-primary pick-image tooltipped"
+                    data-tooltip="Add Image"
+                    data-position="top">
                 <i class="fa fa-image"></i>
             </button>
 
             {{#if image_url}}
-                <button class="btn btn-sm btn-primary remove-image">
+                <button class="btn btn-sm btn-primary remove-image tooltipped"
+                        data-tooltip="Remove Image"
+                        data-position="top">
                     <i class="fa fa-times"></i>
                 </button>
             {{/if}}
@@ -94,7 +108,9 @@
             {{#unless expertConfiguration}}
 
                 <a class="toggle-expert">
-                    <button class="btn btn-sm btn-primary">
+                    <button class="btn btn-sm btn-primary tooltipped"
+                            data-tooltip="More Options"
+                            data-position="top">
                         <i class="fa fa-arrow-down"></i>
                     </button>
                 </a>
@@ -102,7 +118,9 @@
             {{ else }}
 
                 <a class="toggle-expert">
-                    <button class="btn btn-sm btn-primary">
+                    <button class="btn btn-sm btn-primary tooltipped"
+                            data-tooltip="Fewer Options"
+                            data-position="top">
                         <i class="fa fa-arrow-up"></i>
                     </button>
                 </a>
@@ -111,7 +129,9 @@
 
             <span>
                 <a class="permissions-link">
-                    <button class="btn btn-sm btn-primary">
+                    <button class="btn btn-sm btn-primary tooltipped"
+                            data-tooltip="Permissions"
+                            data-position="top">
                         <i class="fa fa-eye-slash"></i>
                     </button>
                 </a>
@@ -119,7 +139,9 @@
 
             <span>
                 <a class="export-go">
-                    <button class="btn btn-sm btn-primary">
+                    <button class="btn btn-sm btn-primary tooltipped"
+                            data-tooltip="Download"
+                            data-position="top">
                         <i class="fa fa-arrow-circle-o-down"></i>
                     </button>
                 </a>
@@ -140,13 +162,17 @@
                 <br>
 
                 <a class="place-template-sample">
-                    <button class="btn btn-sm btn-primary">
+                    <button class="btn btn-sm btn-primary tooltipped"
+                            data-tooltip="Test Template"
+                            data-position="top">
                         <i class="fa fa-eye"></i>
                     </button>
                 </a>
 
                 <a class="place-template-json">
-                    <button class="btn btn-sm btn-primary">
+                    <button class="btn btn-sm btn-primary tooltipped"
+                            data-tooltip="JSON"
+                            data-position="top">
                         <i class="fa fa-code"></i>
                     </button>
                 </a>
@@ -165,7 +191,9 @@
                 <br>
 
                 <a class="place-template-list-sample">
-                    <button class="btn btn-sm btn-primary">
+                    <button class="btn btn-sm btn-primary tooltipped"
+                            data-tooltip="Test Template"
+                            data-position="top">
                         <i class="fa fa-eye"></i>
                     </button>
                 </a>
@@ -184,7 +212,9 @@
                 <br>
 
                 <a class="place-template-label-sample">
-                    <button class="btn btn-sm btn-primary">
+                    <button class="btn btn-sm btn-primary tooltipped"
+                            data-tooltip="Test Template"
+                            data-position="top">
                         <i class="fa fa-eye"></i>
                     </button>
                 </a>
@@ -205,7 +235,9 @@
                 <br>
 
                 <a class="place-autoform-sample">
-                    <button class="btn btn-sm btn-primary">
+                    <button class="btn btn-sm btn-primary tooltipped"
+                            data-tooltip="Test Template"
+                            data-position="top">
                         <i class="fa fa-eye"></i>
                     </button>
                 </a>
@@ -235,9 +267,15 @@
             {{/if}}
 
             <div>
-                <button class="btn" id="Icon">Icon</button>
-                <button class="btn" id="Size">Size</button>
-                <button class="btn" id="Color">Color</button>
+                <button class="btn tooltipped" id="Icon"
+                        data-tooltip="Theme Place Icon"
+                        data-position="top">Icon</button>
+                <button class="btn tooltipped" id="Size"
+                        data-tooltip="Theme Place Size"
+                        data-position="top">Size</button>
+                <button class="btn tooltipped" id="Color"
+                        data-tooltip="Theme Place Color"
+                        data-position="top">Color</button>
             </div>
 
             <br><br>

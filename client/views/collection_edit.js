@@ -7,6 +7,7 @@ Template.collectionEdit.rendered = function () {
         Meteor.call('updateCollection', id, {$set:{'description': html}});
     });
     Session.set('expertConfiguration', false);
+    $('.tooltipped').tooltip();
 };
 
 
@@ -108,8 +109,14 @@ Template.collectionEdit.events = {
 
     'click .toggle-expert': function() {
 
+        $('.tooltipped').tooltip('remove');
+
         Session.set('expertConfiguration',
                     !Session.get('expertConfiguration'));
+
+        Meteor.defer(function() {
+            $('.tooltipped').tooltip();
+        });
     },
 
     'click .permissions-link': function (e) {

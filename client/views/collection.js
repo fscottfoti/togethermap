@@ -152,12 +152,15 @@ Template.collection.events = {
     'click .follow': function (e) {
 
         $('.tooltipped').tooltip('remove');
-        $('.tooltipped').tooltip();
 
         e.preventDefault();
         // don't want to follow it twice, so we do an upsert
         Meteor.call('addFollow', this._id, this.name);
         growl.success("Collection followed");
+
+        Meteor.defer(function() {
+            $('.tooltipped').tooltip();
+        });
     },
 
     'click .view-place-list': function () {
@@ -171,12 +174,15 @@ Template.collection.events = {
     'click .unfollow': function (e) {
 
         $('.tooltipped').tooltip('remove');
-        $('.tooltipped').tooltip();
 
         e.preventDefault();
         var obj = MFollowed.findOne({cid: this._id});
         Meteor.call('removeFollow', obj._id);
         growl.success("Collection unfollowed");
+
+        Meteor.defer(function() {
+            $('.tooltipped').tooltip();
+        });
     },
 
     'click .pan-collection': function () {
