@@ -1079,7 +1079,7 @@ Map = {
 
         // this one is baffling to me, but sometimes the collection marker
         // gets added as a place in the set of places.  totally confusticating.
-        if(place === undefined || place._id == Session.get('active_collection')) {
+        if(place === undefined || key == Session.get('active_collection')) {
             return;
         }
 
