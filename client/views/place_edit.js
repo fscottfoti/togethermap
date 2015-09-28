@@ -126,6 +126,10 @@ Template.placeEdit.events({
         Meteor.call('updatePlace', this._id, {$set:{'properties.name': event.target.value}});
     },
 
+    'change input[name=link_url]': function(event) {
+        Meteor.call('updatePlace', this._id, {$set:{'properties.link_url': event.target.value}});
+    },
+
     "change #shape-color": function (evt) {
 
         var v = $(evt.target).val();

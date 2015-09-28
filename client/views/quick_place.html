@@ -3,12 +3,12 @@
     <div class="card my-card black-text quick-place" style="width: 100%">
         <div class="my-card-content card-content">
 
-            <div class="pan-map">
+            <div class="top-right">
                 <span>
-                    <i class="fa fa-location-arrow fa-2x top-right"
-                       data-toggle="tooltip"
-                       data-placement="left"
-                       title="Click to go to the place"></i>
+                    {{#if properties.link_url}}
+                        <a href="{{properties.link_url}}" target="_blank"><i class="fa fa-link fa-2x"></i></a>
+                    {{/if}}
+                    <i class="fa fa-location-arrow fa-2x pan-map"></i>
                 </span>
             </div>
 
