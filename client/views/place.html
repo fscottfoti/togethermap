@@ -36,6 +36,7 @@
 
         {{/if}}
 
+        {{#if expertMode}}
         {{#if currentUser }}
 
             <button class="btn btn-primary btn-sm open-copy tooltipped"
@@ -45,17 +46,18 @@
             </button>    
 
         {{/if}}
+        {{/if}}
 
     </div>
 
     <div class="form-group">
 
             <span>
-                {{#unless creatorUID}}
+                {{#unless 0}}
                     <i class="fa fa-user"></i>
                     {{ creator }}
                 {{else}}
-                    <a href="#" class="profile-go">
+                    <a href="#">
                         <i class="fa fa-user"></i>
                         {{ creator }}
                     </a>
@@ -73,9 +75,11 @@
             </span>
 
         {{#if postPermission }}
+        {{#if enableThumbsVoting}}
             <span class="hide-on-small-only">
                 {{> vote type="place" _id=_id }}
             </span>
+        {{/if}}
         {{/if}}
 
     </div>
@@ -169,11 +173,15 @@
 
                 <div class="form-group">
 
+                    {{#if enableThumbsVoting}}
+
                     <span class="hide-on-med-and-up form-group">
                         <span>
                             {{> vote type="place" _id=_id }}
                         </span>&nbsp;
                     </span>
+
+                    {{/if}}
 
                     <a class="new-topic">
                         <button class="btn btn-sm btn-warning tooltipped"

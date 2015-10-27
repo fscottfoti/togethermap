@@ -12,18 +12,21 @@
                    placeholder="Search terms"/>
         </div>
 
+  
+        {{#if expertMode}}
         <div class="form-group">
             <form action="#">
                 <p>
-                    <input name="searchToggle" type="radio" id="search1" value="Factual" checked />
+                    <input name="searchToggle" type="radio" id="search1" value="Factual" />
                     <label for="search1">Place DB</label>
                 </p>
                 <p>
-                    <input name="searchToggle" type="radio" id="search2" value="TogetherMap" />
+                    <input name="searchToggle" type="radio" id="search2" value="TogetherMap" checked/>
                     <label for="search2">TogetherMap</label>
                 </p>
             </form>
         </div>
+        {{/if}}
 
     {{else}}
         Zoom in to search.

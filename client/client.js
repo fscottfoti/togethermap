@@ -14,6 +14,11 @@ Meteor.startup(function(){
         return false;
     });
 
+    Mousetrap.bind(['command+e', 'ctrl+e'], function() {
+        Session.set('expertMode', !Session.get('expertMode'));
+        return false;
+    });
+
     Mousetrap.bind(['command+p', 'ctrl+p'], function() {
         togglePanOnMouseOver();
         return false;

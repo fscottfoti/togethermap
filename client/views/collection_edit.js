@@ -58,6 +58,10 @@ Template.collectionEdit.helpers({
         return this.drop_markers ? "checked" : null;
     },
 
+    enable_thumbs_voting_checked: function () {
+        return this.enable_thumbs_voting ? "checked" : null;
+    },
+
     disable_geoindex_checked: function () {
         return this.disable_geoindex ? "checked" : null;
     },
@@ -337,6 +341,12 @@ Template.collectionEdit.events = {
 
         Meteor.call('updateCollection', this._id,
             {$set: {drop_markers: e.target.checked}});
+    },
+
+    'change #enable-thumbs-voting': function (e) {
+
+        Meteor.call('updateCollection', this._id,
+            {$set: {enable_thumbs_voting: e.target.checked}});
     },
 
     'change #disable-geoindex': function (e) {

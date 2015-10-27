@@ -2,7 +2,11 @@ Template.search.rendered = function () {
 
     Session.set('zoom_level', Map.zoom());
 
-    Session.set('search_type', "Factual");
+    if(Session.get('expertMode')) {
+        Session.set('search_type', "Factual");
+    } else {
+        Session.set('search_type', "TogetherMap");
+    }
 
     if(Session.get('query_string')) {
         $('#srch').val(Session.get('query_string'));
@@ -13,6 +17,9 @@ Template.search.rendered = function () {
 
 
 Template.search.helpers({
+    expertMode: function () {
+        return Session.get('expertMode');
+    },
     searchLoading: function () {
         return Session.get('search_state') == 'loading';
     },
@@ -41,7 +48,11 @@ Template.search.helpers({
     zoomIn: function () {
         var z = Session.get('zoom_level') < minFactualZoomLevel;
         if(!z) {
-            Session.set('search_type', "Factual");
+            if(Session.get("expertMode")) {
+                Session.set('search_type', "Factual");
+            } else {
+                Session.set('search_type', "TogetherMap");
+            }
         }
         return z;
     },

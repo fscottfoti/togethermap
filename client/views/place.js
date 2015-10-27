@@ -40,6 +40,10 @@ Template.place.helpers({
         return Session.get('newTopic');
     },
 
+    enableThumbsVoting: function () {
+        return MCollections.findOne(this.collectionId).enable_thumbs_voting;
+    },
+
     noNav: function () {
         return Session.get('noNav');
     },
@@ -47,6 +51,10 @@ Template.place.helpers({
     noPosts: function () {
         // doesn't count if place isn't loaded
         return this.posts.count() == 0 && this.place;
+    },
+
+    expertMode: function () {
+        return Session.get('expertMode');
     },
 
     postPermission: function () {

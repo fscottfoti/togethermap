@@ -78,7 +78,7 @@ Template.collection.helpers({
     },
 
     sortTypes: function () {
-        return ['Recent', 'Votes', 'Name', 'Image', 'User', 'Posts'];
+        return ['Recent', 'Votes', 'Name', 'Image', 'User', 'Comments'];
     }
 });
 
@@ -120,7 +120,7 @@ Template.collection.events = {
                 sort = {'properties.image_url': -1};
             if(type == "User")
                 sort = {'creator': +1};
-            if(type == "Posts")
+            if(type == "Comments")
                 sort = {'post_count': -1};
 
             Session.set('active_sort', sort);

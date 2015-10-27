@@ -17,7 +17,7 @@
         {{/if}}
 
         <div class="form-group">
-
+            {{#if 0}}
             <a class="back">
                 <button class="btn btn-sm btn-primary tooltipped"
                         data-tooltip="Collections"
@@ -25,6 +25,7 @@
                     <i class="fa fa-arrow-left"></i>
                 </button>
             </a>
+            {{/if}}
 
             {{#if currentUser }}
             <span style="position: relative;">
@@ -111,14 +112,14 @@
         <div class="form-group">
 
             <span>
-                {{#if creatorUID }}
+                {{#if 0 }}
                     <a href="#" class="profile-go">
                         <i class="fa fa-user"></i>
                         {{ creator }}
                     </a>
                 {{else}}
                     <i class="fa fa-user"></i>
-                    {{ creator }}
+                    Curated by {{ creator }}
                 {{/if}}
             </span>
 
@@ -127,19 +128,24 @@
                 {{pluralize place_count "Place"}}
             </span>
 
+            {{#if 0}}
             <span> //
                 <i class="fa fa-trophy"></i>
                 {{ pluralize votes "Vote" }}
             </span>
+            {{/if}}
 
+            {{#if 0}}
             {{#if isPostWriter }}
                 <span class="hide-on-small-only">
                     {{> vote type="collection" _id=_id }}
                 </span>
             {{/if}}
+            {{/if}}
 
         </div>
 
+        {{#if 0}}
         <div class="hide-on-med-and-up form-group">
             {{#if isPostWriter }}
                 <span>
@@ -147,6 +153,7 @@
                 </span>
             {{/if}}
         </div>
+        {{/if}}
 
     {{/with}}
 
