@@ -69,10 +69,12 @@
                 {{ pluralize post_count "Comment" }}
             </span>
 
+            {{#if enableThumbsVoting}}
             <span> //
                 <i class="fa fa-trophy"></i>
                 {{ pluralize votes "Vote" }}
             </span>
+            {{/if}}
 
         {{#if postPermission }}
         {{#if enableThumbsVoting}}
