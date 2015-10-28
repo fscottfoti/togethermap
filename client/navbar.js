@@ -105,6 +105,12 @@ Template.nav.events = {
         Router.go('collections');
     },
 
+    'click .gallery-go': function (e) {
+
+        e.preventDefault();
+        Router.go('gallery');
+    },
+
     'click .search-go': function (e) {
 
         e.preventDefault();

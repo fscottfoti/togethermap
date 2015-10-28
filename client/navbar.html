@@ -3,8 +3,14 @@
     <nav class="light-blue darken-4 black-text" style="padding-left: 10px;">
         <ul id="slide-out" class="side-nav">
 
+            {{#if currentUser}}
             <li>
                 <a href="#" class="collections-go"><i class="fa fa-list"></i> Collections</a>
+            </li>
+            {{/if}}
+
+            <li>
+                <a href="#" class="gallery-go"><i class="fa fa-th-large"></i> Gallery</a>
             </li>
 
             <li>

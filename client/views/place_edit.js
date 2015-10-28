@@ -100,27 +100,11 @@ Template.placeEdit.helpers({
     widthSelected: function() {
         return this.name === (Template.parentData(1).properties.weight || 9)
             ? 'selected' : '';
-    },
-
-    autoFormExists: function () {
-        var cid = Session.get('active_collection');
-        var c = MCollections.findOne(cid);
-        if(c  && c.place_autoform) {
-            Session.set('quick_form', c.place_autoform);
-            return true;
-        }
-        return false;
     }
 });
 
 
 Template.placeEdit.events({
-
-    'click .open-qf': function (evt) {
-        var html = renderTmp(Template.quick_form);
-        //$(html).find('select').addClass('browser-default');
-        $.fancybox( html );
-    },
 
     'change input[name=name]': function(event) {
         Meteor.call('updatePlace', this._id, {$set:{'properties.name': event.target.value}});

@@ -34,6 +34,18 @@
                 <i class="fa fa-edit"></i>
             </button>
 
+            {{#if autoFormExists }}
+
+                <a class="open-qf">
+                    <button class="btn btn-sm btn-primary tooltipped"
+                            data-tooltip="Survey"
+                            data-position="top">
+                        <i class="fa fa-database"></i>
+                    </button>
+                </a>
+
+            {{/if}}
+
         {{/if}}
 
         {{#if expertMode}}

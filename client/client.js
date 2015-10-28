@@ -31,7 +31,7 @@ Meteor.startup(function(){
 });
 
 
-var getFollowedCids = function () {
+getFollowedCids = function () {
     var followed = MFollowed.find().fetch();
     return _.map(followed, function (c) {
         return c.cid;

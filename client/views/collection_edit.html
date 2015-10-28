@@ -137,6 +137,28 @@
                 </a>
             </span>
 
+            {{#if isGallery}}
+                <span>
+                    <a class="gallery-link">
+                        <button class="btn btn-sm btn-primary tooltipped"
+                                data-tooltip="Remove from Gallery"
+                                data-position="top">
+                            <i class="fa fa-th-large"></i>
+                        </button>
+                    </a>
+                </span>
+            {{else}}
+                <span>
+                    <a class="gallery-link">
+                        <button class="btn btn-sm btn-primary tooltipped"
+                                data-tooltip="Add to Gallery"
+                                data-position="top">
+                            <i class="fa fa-th-large"></i>
+                        </button>
+                    </a>
+                </span>
+            {{/if}}
+
             <span>
                 <a class="export-go">
                     <button class="btn btn-sm btn-primary tooltipped"

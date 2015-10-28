@@ -1,26 +1,8 @@
 <template name="collections">
 
-    {{#if currentUser}}
-    <div class=form-group>
-        <h4>
-            {{#if myCollections}}
-                Mine
-            {{else}}
-                <a href="#" class="my-collections">Mine</a>
-            {{/if}} |
-            {{#if followedCollections}}
-                Following
-            {{else}}
-                <a href="#" class="followed-collections">Following</a>
-            {{/if}} |
-            {{#if publicCollections}}
-                Public
-            {{else}}
-                <a href="#" class="public-collections">Public</a>
-            {{/if}}
-        </h4>
-    </div>
-    {{/if}}
+    <h2>
+        {{heading}}
+    </h2>
 
     {{#each collections}}
 
@@ -32,13 +14,22 @@
             {{/if}}
             <div class="card-content my-card-content collection-go" style="cursor: pointer;">
                  <h4>
-                    {{ name }} 
+                    {{ name }}
+                    {{#if isFollowed}}
+                        <i class="fa fa-star-o"></i>
+                    {{/if}}
 
                     {{#unless readPublic}}
                         <span>
                             <i class="fa fa-eye-slash"></i>
                         </span>
                     {{/unless}}
+
+                    {{#if isInGallery}}
+                        <span>
+                            <i class="fa fa-th-large"></i>
+                        </span>
+                    {{/if}}
                 </h4>
 
                 {{{ description }}}

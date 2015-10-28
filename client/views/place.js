@@ -76,11 +76,28 @@ Template.place.helpers({
 
     post_image_url: function () {
         return Session.get('post_image_url');
+    },
+
+    autoFormExists: function () {
+        var cid = Session.get('active_collection');
+        var c = MCollections.findOne(cid);
+
+        if(c  && c.place_autoform) {
+            Session.set('quick_form', c.place_autoform);
+            return true;
+        }
+        return false;
     }
 });
 
 
 Template.place.events = {
+
+    'click .open-qf': function (evt) {
+        var html = renderTmp(Template.quick_form);
+        //$(html).find('select').addClass('browser-default');
+        $.fancybox( html );
+    },
 
     'click .login': function (e) {
 

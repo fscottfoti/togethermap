@@ -1,62 +1,19 @@
 'use strict';
 
 Template.collections.rendered = function () {
-    if(!Meteor.user()) {
-        Session.set('collectionFilter', 'public');
-    } else {
-        Session.set('collectionFilter', 'mine');
-    }
 };
 
 
 Template.collections.helpers({
-    myCollections: function () {
-        return (Session.get('collectionFilter') || 'mine') == 'mine';
+
+    isFollowed: function () {
+        return _.contains(
+            Template.instance().data.followedIds, 
+            this._id);
     },
 
-    followedCollections: function () {
-        return (Session.get('collectionFilter') || 'mine') == 'followed';
-    },
-
-    publicCollections: function () {
-        return (Session.get('collectionFilter') || 'mine') == 'public';
-    },
-
-    collections: function () {
-        var mine = MCollections.find(userIdExpression(Meteor.user())).fetch();
-        mine = _.map(mine, function (c) {return c._id;})
-
-        var followed = MFollowed.find().fetch();
-        followed = _.map(followed, function (c) { return c.cid;})
-
-        var cf = Session.get('collectionFilter') || 'mine';
-        if(!Meteor.user()) cf = 'public';
-
-        var filter;
-        if(cf == 'mine') {
-            filter = {_id: { $in: mine }};
-        } else if(cf == 'followed') {
-            filter = {_id: { $in: followed }};
-        } else {
-            var all = mine.concat(followed);
-            filter = {_id: { $nin: all }};
-        }
-
-        if(cf != 'mine') {
-            filter = {  $and: [ 
-                filter,
-                {
-                    name: { 
-                    $ne: 'NEW COLLECTION' 
-                    }
-                }
-            ]};
-        }
-
-        return MCollections.find(
-            filter,
-            { sort: { name: +1}}
-        );
+    isInGallery: function () {
+        return this.gallery;
     },
 
     readPublic: function () {
@@ -75,24 +32,6 @@ Template.collections.helpers({
 
 
 Template.collections.events = {
-
-    'click .my-collections': function (e) {
-
-        e.preventDefault();
-        Session.set('collectionFilter', 'mine');
-    },
-
-    'click .followed-collections': function (e) {
-
-        e.preventDefault();
-        Session.set('collectionFilter', 'followed');
-    },
-
-    'click .public-collections': function (e) {
-
-        e.preventDefault();
-        Session.set('collectionFilter', 'public');
-    },
 
     'click .collection-go': function (e) {
 

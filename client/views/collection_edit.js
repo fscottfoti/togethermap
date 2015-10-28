@@ -13,6 +13,10 @@ Template.collectionEdit.rendered = function () {
 
 Template.collectionEdit.helpers({
 
+    isGallery: function () {
+        return this.gallery;
+    },
+
     collection: function () {
         var cid = Session.get('active_collection');
         return MCollections.findOne(cid);
@@ -97,7 +101,7 @@ Template.collectionEdit.events = {
         Meteor.call('updateCollection',
             this._id, {$set:{location: location}});
 
-        growl.success('Default view set.')
+        growl.success('Default view set.');
     },
 
     "change #basemap": function (evt) {
@@ -232,6 +236,25 @@ Template.collectionEdit.events = {
         var t = e.target.value;
 
         Meteor.call('updateCollection', this._id, {$set: {flickr_link: t}});
+    },
+
+    'click .gallery-link': function (e) {
+
+        var t = e.target.value;
+
+        var g = !this.gallery;
+        $('.tooltipped').tooltip('remove');
+
+        if(g) {
+            growl.success('Added to gallery.')
+        } else {
+            growl.success('Removed from gallery.')
+        }
+        Meteor.call('updateCollection', this._id, {$set: {gallery: g}});
+
+        Meteor.defer(function() {
+            $('.tooltipped').tooltip();
+        });
     },
 
     'click .flickr-refresh': function(e) {
