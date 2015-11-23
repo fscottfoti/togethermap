@@ -1101,6 +1101,16 @@ Map = {
             shape = this.makeMarker(place, bounce_override);
         } else {
 
+            // assign color if there's a color function
+
+            if(Map.mapDriver.markerThemeFunc) {
+                var val = Map.mapDriver.markerThemeFunc('color', place);
+                if(val) {
+                    console.log(val);
+                    place.properties.color = val;
+                }
+            }
+
             if(place.properties.color && place.properties.color[0] !== '#') {
                 // color picker doesn't always append the pound
                 place.properties.color = '#' + place.properties.color;
