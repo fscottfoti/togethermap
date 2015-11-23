@@ -1016,7 +1016,7 @@ Map = {
             layer.setIcon(layer.highlight_icon);
         } else {
             // not marker
-            layer.setStyle({fillOpacity: 0.65, opacity: 0.8});
+            layer.setStyle({fillOpacity: 1.0, opacity: 0.9});
         }
         this.normalOtherPlaces(id);
     },
@@ -1030,7 +1030,7 @@ Map = {
             if(layer.originalOffset != undefined)
                 layer.setZIndexOffset(layer.originalOffset);
         } else {
-            layer.setStyle({fillOpacity: 0.2, opacity: 0.45});
+            layer.setStyle({fillOpacity: 0.6, opacity: 0.75});
         }
         Map.highlitPlace = undefined;
         this.normalOtherPlaces(id);
@@ -1045,7 +1045,7 @@ Map = {
                 if(layer.originalOffset != undefined)
                     layer.setZIndexOffset(layer.originalOffset);
             } else {
-                layer.setStyle({fillOpacity: 0.2, opacity: 0.45});
+                layer.setStyle({fillOpacity: 0.6, opacity: 0.75});
             }
         });
     },
@@ -1125,8 +1125,8 @@ Map = {
                     color: default_color || '#00D',
                     fillColor: place.properties.color || '#00F',
                     weight: place.properties.weight || default_weight,
-                    fillOpacity: 0.2,
-                    opacity: 0.45
+                    fillOpacity: 0.6,
+                    opacity: 0.75
                 },
                 onEachFeature: function (feature, layer) {
                     layer.on('mouseover', function () {
