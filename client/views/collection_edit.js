@@ -74,6 +74,10 @@ Template.collectionEdit.helpers({
         return this.enable_clustering ? "checked" : null;
     },
 
+    disable_place_list_checked: function () {
+        return this.disable_place_list ? "checked" : null;
+    },
+
     isFlickr: function () {
         return this.useConnectorTemplates == "flickr";
     }
@@ -382,6 +386,12 @@ Template.collectionEdit.events = {
 
         Meteor.call('updateCollection', this._id,
             {$set: {enable_clustering: e.target.checked}});
+    },
+
+    'change #disable-place-list': function (e) {
+
+        Meteor.call('updateCollection', this._id,
+            {$set: {disable_place_list: e.target.checked}});
     }
 };
 

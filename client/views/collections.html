@@ -16,18 +16,24 @@
                  <h4>
                     {{ name }}
                     {{#if isFollowed}}
-                        <i class="fa fa-star-o"></i>
+                        <i class="fa fa-star-o tooltipped"
+                           data-tooltip="Followed"
+                           data-position="bottom"></i>
                     {{/if}}
 
                     {{#unless readPublic}}
                         <span>
-                            <i class="fa fa-eye-slash"></i>
+                            <i class="fa fa-eye-slash tooltipped"
+                               data-tooltip="Private"
+                               data-position="bottom"></i>
                         </span>
                     {{/unless}}
 
                     {{#if isInGallery}}
                         <span>
-                            <i class="fa fa-th-large"></i>
+                            <i class="fa fa-th-large tooltipped"
+                               data-tooltip="In Gallery"
+                               data-position="bottom"></i>
                         </span>
                     {{/if}}
                 </h4>

@@ -1,12 +1,16 @@
 'use strict';
 
 Template.collections.rendered = function () {
+    $('.tooltipped').tooltip();
 };
 
 
 Template.collections.helpers({
 
     isFollowed: function () {
+        Meteor.defer(function() {
+            $('.tooltipped').tooltip();
+        });
         return _.contains(
             Template.instance().data.followedIds, 
             this._id);

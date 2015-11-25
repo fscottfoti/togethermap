@@ -5,7 +5,10 @@
         <h2>
             {{ name }}
 
-            <i class="fa fa-location-arrow pan-collection" style="cursor:pointer;"></i>
+            <i class="fa fa-location-arrow pan-collection tooltipped"
+                      data-tooltip="Center"
+                      data-position="top"
+                      style="cursor:pointer;"></i>
         </h2>
 
         {{{ description }}}
@@ -157,12 +160,30 @@
 
     {{/with}}
 
+    {{#if 0}}
+        <span>
+            {{ formatNumber visible_places_count }} shown,
+            {{ formatNumber places_loaded_count }} loaded,
+            out of {{ formatNumber place_count }} Places
+        </span>
+    {{/if}}
 
-    {{#each places}}
+    {{#if exceeds_place_limit }}
+        <div>
+            <b>More places are available, zoom in for more places.</b>
+        </div>
+    {{/if}}
 
-        {{> quick_place }}
 
-    {{/each}}
+    {{#if placeList}}
+        {{#each places}}
+
+            {{> quick_place }}
+
+        {{/each}}
+    {{else}}
+        <a class="show-list" style="cursor: pointer;">Show list of places (will reduce speed of website)</a>
+    {{/if}}
 
 
     {{#unless collection.creator }}

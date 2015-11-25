@@ -1106,7 +1106,6 @@ Map = {
             if(Map.mapDriver.markerThemeFunc) {
                 var val = Map.mapDriver.markerThemeFunc('color', place);
                 if(val) {
-                    console.log(val);
                     place.properties.color = val;
                 }
             }

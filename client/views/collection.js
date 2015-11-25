@@ -55,7 +55,8 @@ Template.collection.helpers({
     },
 
     exceeds_place_limit: function () {
-        return (Session.get('map_visible_places') || 0) >= PLACE_LIMIT;
+        return (Session.get('map_visible_places') || 0) >= 
+            (PLACE_LIMIT*Session.get('placesPage')||1);
     },
 
     places_loaded_count: function () {
@@ -78,7 +79,14 @@ Template.collection.helpers({
     },
 
     sortTypes: function () {
-        return ['Recent', 'Votes', 'Name', 'Image', 'User', 'Comments'];
+        return ['Recent', 'Votes', 'Name', 'Image', 'User', 'Fdbck'];
+    },
+
+    placeList: function () {
+        var c = this.collection;
+        return c.disable_place_list == undefined ||
+            c.disable_place_list == false ||
+            Session.get('placeList');
     }
 });
 
@@ -195,5 +203,10 @@ Template.collection.events = {
         if(mobileFormFactor) {
             Map.sidebar.toggle();
         }
-    }
+    },
+
+    'click .show-list': function (e) {
+        e.preventDefault();
+        Session.set('placeList', true);
+    },
 };

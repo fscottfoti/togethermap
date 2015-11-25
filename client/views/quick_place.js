@@ -1,4 +1,6 @@
 Template.quick_place.rendered = function () {
+    // this really slows down rendering!
+    $('.tooltipped').tooltip();
 };
 
 Template.quick_place.helpers({
