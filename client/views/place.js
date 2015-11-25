@@ -24,6 +24,9 @@ Template.place.helpers({
     },
 
     dynamicPlace: function () {
+        Meteor.defer(function() {
+            $('.tooltipped').tooltip();
+        });
         // compiled when we change the collection for performance
         if(templates.place_template_list) {
             return templates.place_template(this);
