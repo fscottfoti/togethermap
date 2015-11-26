@@ -21,16 +21,17 @@ Template.postEdit.events({
         MaterializeModal.confirm({
             title: 'Confirm Delete',
             message: "Are you sure you want to delete this POST?", 
-            callback: function(result) {
-            if(result) {
-                var pid = that.placeId; // save it in case reactivity is fast
-                Meteor.call('removePost', that._id, pid);
-                Router.go('place', {
-                    _cid: Session.get('active_collection'),
-                    _id: pid
-                });
+            callback: function(error, result) {
+                if(result && result.submit == true) {
+                    var pid = that.placeId; // save it in case reactivity is fast
+                    Meteor.call('removePost', that._id, pid);
+                    Router.go('place', {
+                        _cid: Session.get('active_collection'),
+                        _id: pid
+                    });
+                }
             }
-        }});
+        });
     },
 
     'click .pick-image': function (e) {

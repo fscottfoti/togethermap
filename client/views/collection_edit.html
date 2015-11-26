@@ -268,24 +268,58 @@
 
             <br>
 
+            {{#if enable_multi_theme}}
+                <div class="form-group">
+                    <label>Theme Name:</label>
+
+                    <input type="text"
+                           id="theme-name"
+                           class="form-control"/>
+
+                    <span class="btn new-theme">New Theme</span>
+                </div>
+
+                {{#unless hideThemeFunctions}}
+
+                    <div class="form-group">
+                        <div>
+                            <select id="theme_name_picker" class="browser-default">
+                                {{#each themeNames}}
+                                    <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+
+                {{/unless}}
+
+                {{#if currentTheme}}
+                    <div>
+                        <span class="btn delete-theme">Delete Theme</span><br><br>
+                    </div>
+                {{/if}}
+            {{/if}}
+
+            {{#unless hideThemeFunctions}}
+
             <label>Custom Theming Functions ({{cedit_mode}}):</label>
 
             {{#if icon_mode}}
                 <textarea rows="4"
                           class="materialize-textarea"
-                          id="icon_f">{{icon_f}}</textarea>
+                          id="icon_f">{{currentIconF}}</textarea>
             {{/if}}
 
             {{#if icon_size_mode}}
                 <textarea rows="4"
                           class="materialize-textarea"
-                          id="icon_size_f">{{icon_size_f}}</textarea>
+                          id="icon_size_f">{{currentIconSizeF}}</textarea>
             {{/if}}
 
             {{#if icon_color_mode}}
                 <textarea rows="4"
                           class="materialize-textarea"
-                          id="color_f">{{color_f}}</textarea>
+                          id="color_f">{{currentColorF}}</textarea>
             {{/if}}
 
             <div>
@@ -301,6 +335,8 @@
             </div>
 
             <br><br>
+
+            {{/unless}}
 
             <div class="switch">
                 <label>
@@ -366,6 +402,20 @@
                     <input type="checkbox"
                            id="disable-place-list"
                         {{disable_place_list_checked}}>
+                    <span class="lever"></span>
+                    On
+                </label>
+            </div>
+
+            <br>
+
+            <div class="switch">
+                <label>
+                    Enable multiple themes:<br>
+                    Off
+                    <input type="checkbox"
+                           id="enable-multi-theme"
+                        {{enable_multi_theme_checked}}>
                     <span class="lever"></span>
                     On
                 </label>

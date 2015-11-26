@@ -1,11 +1,21 @@
 Template.collectionEdit.rendered = function () {
+
     Session.set('cedit_mode', 'Icon');
     Session.set('expertConfiguration', false);
     var that = this;
+
+    if(this.data.collection.themes) {
+        var keys = _.keys(this.data.collection.themes);
+        if(keys.length) {
+            Session.set('currentTheme', keys[0]);
+        }
+    }
+
     textEditorInit(this.data.collection.description, function (html) {
         var id = that.data.collection._id;
         Meteor.call('updateCollection', id, {$set:{'description': html}});
     });
+
     Session.set('expertConfiguration', false);
     $('.tooltipped').tooltip();
 };
@@ -78,8 +88,58 @@ Template.collectionEdit.helpers({
         return this.disable_place_list ? "checked" : null;
     },
 
+    enable_multi_theme_checked: function () {
+        return this.enable_multi_theme ? "checked" : null;
+    },
+
     isFlickr: function () {
         return this.useConnectorTemplates == "flickr";
+    },
+
+    hideThemeFunctions: function () {
+        var keys = _.keys(this.themes);
+        return this.enable_multi_theme && keys.length == 0;
+    },
+
+    themeNames: function () {
+        return _.keys(this.themes);
+    },
+
+    currentTheme: function () {
+        return Session.get('currentTheme');
+    },
+
+    currentIconF: function () {
+        var multi = this.enable_multi_theme;
+        if(multi) {
+            var current = Session.get('currentTheme');
+            if(!this.themes[current]) return;
+            return this.themes[current].icon_f;
+        } else {
+            return this.icon_f;
+        }
+    },
+
+    currentIconSizeF: function () {
+        var multi = this.enable_multi_theme;
+        if(multi) {
+            var current = Session.get('currentTheme');
+            if(!this.themes[current]) return;
+            return this.themes[current].icon_size_f;
+        } else {
+            return this.icon_size_f;
+        }
+    },
+
+    currentColorF: function () {
+        var multi = this.enable_multi_theme;
+        if(multi) {
+            var current = Session.get('currentTheme');
+            if(!this.themes[current]) return;
+            return this.themes[current].color_f;
+        } else {
+            return this.color_f;
+        }
     }
 });
 
@@ -119,6 +179,77 @@ Template.collectionEdit.events = {
 
     },
 
+    "change #theme_name_picker": function (evt) {
+
+        var v = $(evt.target).val();
+
+        Session.set('currentTheme', v);
+    },
+
+    'click .delete-theme': function () {
+
+        var that = this;
+        var name = Session.get('currentTheme');
+
+        MaterializeModal.confirm({
+            title: "Confirm Delete",
+            message: "Are you sure you want to delete theme, '"+name+"'?", 
+            callback: function(error, result) {
+
+                if(result && result.submit == true) {
+                    var themes = that.themes;
+
+                    var name = Session.get('currentTheme');
+                    delete themes[name];
+
+                    Meteor.call('updateCollection',
+                        that._id, {$set:{themes: themes}});
+
+                    var keys = _.keys(themes);
+
+                    if(keys.length) {
+                        Session.set('currentTheme', keys[0]); 
+                    } else {
+                        Session.set('currentTheme', undefined); 
+                    }
+
+                    Materialize.toast('Theme deleted', 4000, "green");
+                }
+        }});
+    },
+
+    'click .new-theme': function () {
+
+        var themes = this.themes || {};
+        var name = $('#theme-name').val();
+
+        if(!name) {
+            Materialize.toast('Enter name', 4000, "red");
+            return;
+        }
+
+        if(themes[name]) {
+            Materialize.toast('Name already taken', 4000, "red");
+            return;
+        }
+
+        themes[name] = {};
+
+        Meteor.call('updateCollection',
+            this._id, {$set:{themes: themes}}); 
+
+        $('#theme-name').val(''); 
+
+        Materialize.toast('Theme added', 4000, "green");
+
+        Session.set('currentTheme', name);
+
+
+        Meteor.defer(function() { 
+            $('#theme_name_picker').val( name );  
+        });
+    },
+
     'click .toggle-expert': function() {
 
         $('.tooltipped').tooltip('remove');
@@ -144,11 +275,11 @@ Template.collectionEdit.events = {
         MaterializeModal.confirm({
             title: "Confirm Delete",
             message: "Are you sure you want to delete this COLLECTION?", 
-            callback: function(result) {
-            if(result) {
-                Meteor.call('removeCollection', that._id);
-                Router.go('collections');
-            }
+            callback: function(error, result) {
+                if(result && result.submit == true) {
+                    Meteor.call('removeCollection', that._id);
+                    Router.go('collections');
+                }
         }});
     },
 
@@ -310,21 +441,48 @@ Template.collectionEdit.events = {
 
         var t = e.target.value;
 
-        Meteor.call('updateCollection', this._id, {$set: {icon_f: t}});
+        if(this.enable_multi_theme) {
+
+            var obj = this.themes;
+            obj[Session.get('currentTheme')].icon_f = t;
+            Meteor.call('updateCollection', this._id, {$set: {themes: obj}});
+
+        } else {
+
+            Meteor.call('updateCollection', this._id, {$set: {icon_f: t}});
+        }
     },
 
     'change #icon_size_f': function (e) {
 
         var t = e.target.value;
 
-        Meteor.call('updateCollection', this._id, {$set: {icon_size_f: t}});
+        if(this.enable_multi_theme) {
+
+            var obj = this.themes;
+            obj[Session.get('currentTheme')].icon_size_f = t;
+            Meteor.call('updateCollection', this._id, {$set: {themes: obj}});
+
+        } else {
+
+            Meteor.call('updateCollection', this._id, {$set: {icon_size_f: t}});
+        }
     },
 
     'change #color_f': function (e) {
 
         var t = e.target.value;
 
-        Meteor.call('updateCollection', this._id, {$set: {color_f: t}});
+        if(this.enable_multi_theme) {
+
+            var obj = this.themes;
+            obj[Session.get('currentTheme')].color_f = t;
+            Meteor.call('updateCollection', this._id, {$set: {themes: obj}});
+
+        } else {
+
+            Meteor.call('updateCollection', this._id, {$set: {color_f: t}});
+        }
     },
 
     'change #place-template': function (e) {
@@ -392,6 +550,18 @@ Template.collectionEdit.events = {
 
         Meteor.call('updateCollection', this._id,
             {$set: {disable_place_list: e.target.checked}});
+    },
+
+    'change #enable-multi-theme': function (e) {
+
+        Meteor.call('updateCollection', this._id,
+            {$set: {enable_multi_theme: e.target.checked}});
+
+        if(!this.themes) {
+            // start with empty object
+            Meteor.call('updateCollection', this._id,
+                {$set: {themes: {}}});
+        }
     }
 };
 
