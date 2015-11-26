@@ -158,6 +158,26 @@
         </div>
         {{/if}}
 
+        {{#if enable_multi_theme}}
+
+            <label>
+                Active theme:
+            </label>
+
+            <br>
+
+            <div class="form-group">
+                <div>
+                    <select id="theme_name_picker" class="browser-default">
+                        {{#each themeNames}}
+                            <option value="{{this}}">{{this}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+        {{/if}}
+
     {{/with}}
 
     {{#if 0}}

@@ -87,12 +87,27 @@ Template.collection.helpers({
         return c.disable_place_list == undefined ||
             c.disable_place_list == false ||
             Session.get('placeList');
-    }
+    },
+
+    themeNames: function () {
+        return _.keys(this.themes);
+    },
 });
 
 var closed = true;
 
 Template.collection.events = {
+
+    "change #theme_name_picker": function (evt) {
+
+        var v = $(evt.target).val();
+
+        var f = this.themes[v].color_f;
+
+        Map.resetStyle(f);
+
+        Session.set('currentTheme', v);
+    },
 
     'click .back': function () {
         Router.go('collections');

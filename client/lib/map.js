@@ -199,9 +199,18 @@ DefaultMapDriver = {
     },
 
     markerThemeFunc: function (f, place) {
-        if(this[f+'_f']) {
-            return new Function('p', this[f+'_f'])(place.properties);
+        var theme = Session.get('currentTheme');
+
+        var c = MCollections.findOne(Session.get('active_collection'));
+
+        var f;
+        if(theme && c.themes && c.themes[theme][f+'_f']) {
+            f = c.themes[theme][f+'_f']
+        } else if(c[f+'_f']) {
+            f = c[f+'_f']
         }
+
+        if(f) return new Function('p', f)(place.properties);
     }
 };
 
@@ -1071,6 +1080,19 @@ Map = {
         if(bounce != false) {
             Map.bounceMarker(place._id);
         }
+    },
+
+
+    // used to switch themes for collections with multiple
+    // themes
+    resetStyle: function (color_f) { 
+        color_f = new Function('p', color_f);
+        _.each(this.keysToLayers, function (layer) {
+            var p = MPlaces.findOne({_id: layer.key});
+            var c = color_f(p.properties);
+            if(c[0] != "#") c = "#"+c;
+            layer.setStyle({fillColor: c});
+        });
     },
 
 
