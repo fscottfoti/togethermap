@@ -198,7 +198,7 @@ DefaultMapDriver = {
         Meteor.call('removePlace', key, cid);
     },
 
-    markerThemeFunc: function (f, place) {
+    markerThemeFunc: function (fname, place) {
         var theme = Session.get('currentTheme');
 
         var c = MCollections.findOne(Session.get('active_collection'));
@@ -210,10 +210,10 @@ DefaultMapDriver = {
 
         var f;
         if(theme && c.themes && c.themes[theme] &&
-            c.themes[theme][f+'_f']) {
-            f = c.themes[theme][f+'_f']
-        } else if(c[f+'_f']) {
-            f = c[f+'_f']
+            c.themes[theme][fname+'_f']) {
+            f = c.themes[theme][fname+'_f']
+        } else if(c[fname+'_f']) {
+            f = c[fname+'_f']
         }
 
         if(f) return new Function('p', f)(place.properties);

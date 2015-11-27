@@ -94,7 +94,9 @@ Template.collection.helpers({
     },
 
     themeSelected: function() {
-        return this == Template.parentData(1).default_theme
+        var theme = Session.get('currentTheme') ||
+            Template.parentData(1).default_theme;
+        return this == theme
             ? 'selected' : '';
     },
 });
