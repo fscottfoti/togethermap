@@ -42,6 +42,11 @@ Template.collectionEdit.helpers({
             ? 'selected' : '';
     },
 
+    themeSelected: function() {
+        return this == Template.parentData(1).default_theme
+            ? 'selected' : '';
+    },
+
     locationDisplay: function () {
         return 'Center: ' +
                numeral(this.location.center.lat).format('0.00') + "," +
@@ -184,6 +189,14 @@ Template.collectionEdit.events = {
         var v = $(evt.target).val();
 
         Session.set('currentTheme', v);
+    },
+
+    "change #default_theme_picker": function (evt) {
+
+        var v = $(evt.target).val();
+
+        Meteor.call('updateCollection',
+            this._id, {$set:{default_theme: v}});
     },
 
     'click .delete-theme': function () {

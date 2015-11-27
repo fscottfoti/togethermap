@@ -334,7 +334,26 @@
                         data-position="top">Color</button>
             </div>
 
-            <br><br>
+            <br>
+
+            <div class="form-group">
+
+                <label>
+                    Default Theme:
+                </label>
+
+                <br>
+
+                <div>
+                    <select id="default_theme_picker" class="browser-default">
+                        {{#each themeNames}}
+                            <option value="{{this}}" {{themeSelected}}>{{this}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+
+            <br>
 
             {{/unless}}
 

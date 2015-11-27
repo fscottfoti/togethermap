@@ -43,7 +43,7 @@ Template.collection.helpers({
 
         var cid = Session.get('active_collection');
         var sort = Session.get('active_sort') || {createDate: -1};
-        return MPlaces.find({collectionId: cid}, {sort: sort});
+        return MPlaces.find({collectionId: cid}, {sort: sort, limit: 20});
     },
 
     viewPlaces: function () {
