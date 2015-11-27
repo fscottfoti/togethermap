@@ -203,8 +203,14 @@ DefaultMapDriver = {
 
         var c = MCollections.findOne(Session.get('active_collection'));
 
+        if(!theme && c.enable_multi_theme && 
+            c.default_theme) {
+            theme = c.default_theme;
+        }
+
         var f;
-        if(theme && c.themes && c.themes[theme][f+'_f']) {
+        if(theme && c.themes && c.themes[theme] &&
+            c.themes[theme][f+'_f']) {
             f = c.themes[theme][f+'_f']
         } else if(c[f+'_f']) {
             f = c[f+'_f']

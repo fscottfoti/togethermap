@@ -92,6 +92,11 @@ Template.collection.helpers({
     themeNames: function () {
         return _.keys(this.themes);
     },
+
+    themeSelected: function() {
+        return this == Template.parentData(1).default_theme
+            ? 'selected' : '';
+    },
 });
 
 var closed = true;
