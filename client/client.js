@@ -116,6 +116,28 @@ Handlebars.registerHelper('prettyPrint', function(obj) {
 });
 
 
+Handlebars.registerHelper('jsonToTable', function(obj) {
+    var header = ""+
+    "<table class=\"bordered highlight\">"+
+    "    <thead>"+
+    "     <tr>"+
+    "          <th>Name</th>"+
+    "          <th>Value</th>"+
+    "      </tr>"+
+    "    </thead>"+
+    "    <tbody>"
+    var rows = _.map(obj, function (v, k) {
+        return ""+
+        "  <tr>"+
+        "    <td>"+k+"</td>"+
+        "    <td>"+v+"</td>"+
+        "  </tr>"
+    });
+    var footer = "</tbody></table>" 
+    return header + rows.join("") + footer;
+});
+
+
 syntaxHighlight = function (json) {
     if (typeof json != 'string') {
         json = JSON.stringify(json, undefined, 2);
