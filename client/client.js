@@ -111,6 +111,10 @@ Template.registerHelper('pluralize', function(n, thing) {
 });
 
 
+Handlebars.registerHelper('prettyPrint', function(obj) {
+    return prettyPrint(obj).outerHTML;
+});
+
 
 syntaxHighlight = function (json) {
     if (typeof json != 'string') {
