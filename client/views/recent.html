@@ -14,24 +14,21 @@
         </a>
     </div>
 
-    <div class="alternate-colors">
-
-        {{#each recent_posts}}
-            <div class="quick-post shadow" style="margin-bottom: 7px;">
-                <span class="post-go" style="cursor: pointer;">
-                    <h4>
-                        {{title}}
-                    </h4>
-                </span>
-
-                {{{ description }}}
-
-                {{> image image_url=image_url postId=_id collectionId=collectionId makeLink=1 }}
-
+    {{#each recent_posts}}
+        <div class="card my-card black-text" style="width: 100%">
+            <div class="card-content my-card-content post-go" style="cursor: pointer;">
+                <h4>
+                    {{ title }}
+                </h4>
             </div>
-        {{/each}}
-
-    </div>
+            <div class="card-action">
+                <a href="#" class="post-go">
+                    <i class="fa fa-user"></i>
+                    {{ creator }}
+                </a>
+            </div>
+        </div>
+    {{/each}}
 
     {{#if noPosts }}
         <div>
