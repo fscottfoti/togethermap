@@ -112,7 +112,8 @@ Template.registerHelper('pluralize', function(n, thing) {
 
 
 Handlebars.registerHelper('prettyPrint', function(obj) {
-    return prettyPrint(obj).outerHTML;
+    return prettyPrint(obj, {styles: {object: {th: 
+        {backgroundColor: "#0277bd"}}}}).outerHTML;
 });
 
 
@@ -124,7 +125,7 @@ Handlebars.registerHelper('jsonToTable', function(obj) {
     "          <th>Name</th>"+
     "          <th>Value</th>"+
     "      </tr>"+
-    "    </thead>"+
+    "    </thead>, "+
     "    <tbody>"
     var rows = _.map(obj, function (v, k) {
         return ""+
