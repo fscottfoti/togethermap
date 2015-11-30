@@ -14,6 +14,22 @@ h4 {
     font-weight: 300;
 }
 
+.note-toolbar {
+   background-color: #01579b !important;
+}
+
+.note-editor {
+   border-color: #01579b !important;
+}
+
+.note-editor .btn {
+   background-color: #01579b !important;
+}
+
+.note-editor .btn:hover {
+   background-color: #ff5a00 !important;
+}
+
 .select-wrapper + label {
     top: 0px !important;
 }
