@@ -15,19 +15,19 @@ h4 {
 }
 
 .note-toolbar {
-   background-color: #ff5a00 !important;
+   background-color: #e65100 !important;
 }
 
 .note-editor {
-   border-color: #ff5a00 !important;
+   border-color: #e65100 !important;
 }
 
 .note-editor .btn {
-   background-color: #ff5a00 !important;
+   background-color: #e65100 !important;
 }
 
 .note-editor .btn:hover {
-   background-color: #01579b !important;
+   background-color: #ff5a00 !important;
 }
 
 .select-wrapper + label {
