@@ -143,13 +143,17 @@ Template.permissions.events = {
         var user = $(e.target).attr('id');
 
         e.preventDefault();
-        bootbox.confirm("Are you sure you want to remove this permission for this user?", function(result) {
-            if(result) {
-                var attr = {};
-                var key = Session.get("permission_type");
-                attr[key] = user;
-                var cid = Session.get('active_collection');
-                Meteor.call('updateCollection', cid, {$pull: attr});
+        MaterializeModal.confirm({
+            title: "Confirm Remove Permission",
+            message: "Are you sure you want to remove this permission for this user?",
+            callback: function(error, result) {
+                if(result && result.submit == true) {
+                    var attr = {};
+                    var key = Session.get("permission_type");
+                    attr[key] = user;
+                    var cid = Session.get('active_collection');
+                    Meteor.call('updateCollection', cid, {$pull: attr});
+                }
             }
         });
     },
