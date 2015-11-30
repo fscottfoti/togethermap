@@ -11,7 +11,9 @@
                       style="cursor:pointer;"></i>
         </h2>
 
-        <div class="form-group">{{{ description }}}</div>
+        {{#if description}}
+            <div class="form-group">{{{ description }}}</div>
+        {{/if}}
 
         {{> image image_url=image_url }}
 

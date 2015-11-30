@@ -5,7 +5,11 @@
 
         {{{ dynamicPlace }}}
 
-        {{{ properties.description }}}
+        {{#if properties.description}}
+            <div class="form-group">
+                {{{ properties.description }}}
+            </div>
+        {{/if}}
 
         {{> image image_url=properties.image_url }}
 
