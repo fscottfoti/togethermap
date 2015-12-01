@@ -77,22 +77,23 @@ DefaultMapDriver = {
     },
 
     locationChanged: function () {
-        var cid = Session.get('active_collection');
-        var poly = Map.getBoundsAsPolygon();
-        Meteor.subscribe("places", cid, poly, {
-            onReady: function() {
-                var cnt = Map.countVisiblePlaces();
-                Session.set('map_visible_places', cnt);
-            }
-        });
-        this.getAll(cid);
+        this.sortChanged();
     },
 
     sortChanged: function () {
         var cid = Session.get('active_collection');
         var sort = Session.get('active_sort');
+        var limit = Session.get('active_limit');
+
+        if(limit === 0) {
+            // mongo says that a limit of zero records
+            // is eqivalent to setting no limit, but we
+            // don't want that
+            return;
+        }
         var poly = Map.getBoundsAsPolygon();
-        Meteor.subscribe("places", cid, poly, sort, {
+        Meteor.subscribe("places", cid, poly, 
+            sort, limit, {
             onReady: function() {
                 var cnt = Map.countVisiblePlaces();
                 Session.set('map_visible_places', cnt);

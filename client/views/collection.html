@@ -160,6 +160,24 @@
         </div>
         {{/if}}
 
+        {{#if exceeds_place_limit }}
+            <div class="form-group">
+                <b>More places are available, zoom in for more places.</b>
+            </div>
+        {{/if}}
+
+        {{#if 1}}
+
+            <label>
+                Number of places to load:
+            </label>
+
+            <br>
+            <p class="range-field">
+              <input type="range" id="subscribe_count_slider" min="0" max="1000" value="100" />
+            </p>
+        {{/if}}
+
         {{#if enable_multi_theme}}
 
             <label>
@@ -188,12 +206,6 @@
             {{ formatNumber places_loaded_count }} loaded,
             out of {{ formatNumber place_count }} Places
         </span>
-    {{/if}}
-
-    {{#if exceeds_place_limit }}
-        <div>
-            <b>More places are available, zoom in for more places.</b>
-        </div>
     {{/if}}
 
 

@@ -55,8 +55,9 @@ Template.collection.helpers({
     },
 
     exceeds_place_limit: function () {
+        var limit = Session.get('active_limit') || DEFAULT_PLACE_LIMIT;
         return (Session.get('map_visible_places') || 0) >= 
-            (PLACE_LIMIT*Session.get('placesPage')||1);
+            limit;
     },
 
     places_loaded_count: function () {
@@ -104,6 +105,15 @@ Template.collection.helpers({
 var closed = true;
 
 Template.collection.events = {
+
+    "change #subscribe_count_slider": function (evt) {
+
+        var v = $(evt.target).val();
+
+        Session.set('active_limit', parseInt(v));
+
+        Map.mapDriver.sortChanged();
+    },
 
     "change #theme_name_picker": function (evt) {
 
