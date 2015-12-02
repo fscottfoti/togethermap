@@ -93,17 +93,28 @@ Template.collectionEdit.helpers({
         return this.disable_place_list ? "checked" : null;
     },
 
-    enable_multi_theme_checked: function () {
-        return this.enable_multi_theme ? "checked" : null;
+    enable_advanced_controls_checked: function () {
+        return this.enable_advanced_controls ? "checked" : null;
     },
 
     isFlickr: function () {
         return this.useConnectorTemplates == "flickr";
     },
 
+    filters: function () {
+        if(!this.filters) return [];
+        return _.keys(this.filters);
+    },
+
+    currentFilter: function () {
+        var f = Session.get('currentFilter');
+        if(!f) f = _.keys(this.filters)[0];
+        return this.filters[f]
+    },
+
     hideThemeFunctions: function () {
         var keys = _.keys(this.themes);
-        return this.enable_multi_theme && keys.length == 0;
+        return this.enable_advanced_controls && keys.length == 0;
     },
 
     themeNames: function () {
@@ -115,7 +126,7 @@ Template.collectionEdit.helpers({
     },
 
     currentIconF: function () {
-        var multi = this.enable_multi_theme;
+        var multi = this.enable_advanced_controls;
         if(multi) {
             var current = Session.get('currentTheme');
             if(!this.themes[current]) return;
@@ -126,7 +137,7 @@ Template.collectionEdit.helpers({
     },
 
     currentIconSizeF: function () {
-        var multi = this.enable_multi_theme;
+        var multi = this.enable_advanced_controls;
         if(multi) {
             var current = Session.get('currentTheme');
             if(!this.themes[current]) return;
@@ -137,7 +148,7 @@ Template.collectionEdit.helpers({
     },
 
     currentColorF: function () {
-        var multi = this.enable_multi_theme;
+        var multi = this.enable_advanced_controls;
         if(multi) {
             var current = Session.get('currentTheme');
             if(!this.themes[current]) return;
@@ -173,6 +184,27 @@ Template.collectionEdit.events = {
         growl.success('Default view set.');
     },
 
+    'change #current_filter': function(evt) {
+
+        var v = $(evt.target).val();
+
+        Session.set('currentFilter', v);
+    },
+
+    'change #current_value': function(evt) {
+        
+        var v = $(evt.target).val();
+
+        var filters = this.filters;
+
+        var filter = $("#current_filter").val();
+
+        filters[filter] = v;
+
+        Meteor.call('updateCollection',
+            this._id, {$set:{filters: filters}});
+    },
+
     "change #basemap": function (evt) {
 
         var v = $(evt.target).val();
@@ -181,7 +213,6 @@ Template.collectionEdit.events = {
 
         Meteor.call('updateCollection',
             this._id, {$set:{default_map: v}});
-
     },
 
     "change #theme_name_picker": function (evt) {
@@ -229,6 +260,50 @@ Template.collectionEdit.events = {
                     Materialize.toast('Theme deleted', 4000, "green");
                 }
         }});
+    },
+
+    'click .delete-filter': function () {
+
+        var filters = this.filters;
+
+        var filter = $("#current_filter").val();
+
+        delete filters[filter];
+
+        Meteor.call('updateCollection',
+            this._id, {$set:{filters: filters}});
+    },
+
+    'click .new-filter': function () {
+
+        var filters = this.filters || {};
+        var filter = $('#filter').val();
+        var name = $('#filter_name').val();
+
+        if(!filter) {
+            Materialize.toast('Enter filter', 4000, "red");
+            return;
+        }
+
+        if(!name) {
+            Materialize.toast('Enter filter name', 4000, "red");
+            return;
+        }
+
+        if(filters[name]) {
+            Materialize.toast('Name already taken', 4000, "red");
+            return;
+        }
+
+        filters[name] = filter;
+
+        Meteor.call('updateCollection',
+            this._id, {$set:{filters: filters}}); 
+
+        $('#filter').val(''); 
+        $('#filter_name').val(''); 
+
+        Materialize.toast('Filter saved', 4000, "green");
     },
 
     'click .new-theme': function () {
@@ -454,7 +529,7 @@ Template.collectionEdit.events = {
 
         var t = e.target.value;
 
-        if(this.enable_multi_theme) {
+        if(this.enable_advanced_controls) {
 
             var obj = this.themes;
             obj[Session.get('currentTheme')].icon_f = t;
@@ -470,7 +545,7 @@ Template.collectionEdit.events = {
 
         var t = e.target.value;
 
-        if(this.enable_multi_theme) {
+        if(this.enable_advanced_controls) {
 
             var obj = this.themes;
             obj[Session.get('currentTheme')].icon_size_f = t;
@@ -486,7 +561,7 @@ Template.collectionEdit.events = {
 
         var t = e.target.value;
 
-        if(this.enable_multi_theme) {
+        if(this.enable_advanced_controls) {
 
             var obj = this.themes;
             obj[Session.get('currentTheme')].color_f = t;
@@ -565,15 +640,21 @@ Template.collectionEdit.events = {
             {$set: {disable_place_list: e.target.checked}});
     },
 
-    'change #enable-multi-theme': function (e) {
+    'change #enable-advanced-controls': function (e) {
 
         Meteor.call('updateCollection', this._id,
-            {$set: {enable_multi_theme: e.target.checked}});
+            {$set: {enable_advanced_controls: e.target.checked}});
 
         if(!this.themes) {
             // start with empty object
             Meteor.call('updateCollection', this._id,
                 {$set: {themes: {}}});
+        }
+
+        if(!this.filters) {
+            // start with empty object
+            Meteor.call('updateCollection', this._id,
+                {$set: {filters: {}}});
         }
     }
 };

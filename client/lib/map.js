@@ -71,8 +71,16 @@ DefaultMapDriver = {
     },
 
     getAll: function (cid) {
+        var filter = Session.get('active_filter');
+        if(filter) {
+            filter = JSON.parse(filter);
+            filter.collectionId = cid;
+        } else {
+            filter = {collectionId: cid};
+        }
+
         this.subscription(
-            MPlaces.find({collectionId: cid})
+            MPlaces.find(filter)
         );
     },
 
@@ -84,6 +92,7 @@ DefaultMapDriver = {
         var cid = Session.get('active_collection');
         var sort = Session.get('active_sort');
         var limit = Session.get('active_limit');
+        var filter = Session.get('active_filter');
 
         if(limit === 0) {
             // mongo says that a limit of zero records
@@ -92,8 +101,9 @@ DefaultMapDriver = {
             return;
         }
         var poly = Map.getBoundsAsPolygon();
+
         Meteor.subscribe("places", cid, poly, 
-            sort, limit, {
+            sort, limit, undefined, undefined, filter, {
             onReady: function() {
                 var cnt = Map.countVisiblePlaces();
                 Session.set('map_visible_places', cnt);

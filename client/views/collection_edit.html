@@ -268,7 +268,47 @@
 
             <br>
 
-            {{#if enable_multi_theme}}
+            {{# if enable_advanced_controls}}
+
+                <div class="form-group">
+                    <label>Filter name:</label>
+
+                    <input type="text"
+                           id="filter_name"
+                           class="form-control"/>
+
+                    <label>Filter:</label>
+
+                    <input type="text"
+                           id="filter"
+                           class="form-control"/>
+
+                    <span class="btn new-filter">Save Filter</span>
+                </div>
+
+                <div class="form-group">
+
+                    <label>Filters:</label>
+
+                    <select id="current_filter" class="browser-default">
+                        {{#each filters}}
+                            <option value="{{this}}" {{themeSelected}}>{{this}}</option>
+                        {{/each}}
+                    </select>
+
+                    {{#if currentFilter}}
+                        <label>Current Value:</label>
+
+                        <input type="text" id="current_value" value="{{currentFilter}}">
+                    {{/if}}
+
+                    <br>
+
+                    <span class="btn delete-filter">Delete Filter</span>
+                </div>
+            {{/if}}
+
+            {{#if enable_advanced_controls}}
                 <div class="form-group">
                     <label>Theme Name:</label>
 
@@ -336,24 +376,26 @@
 
             <br>
 
-            <div class="form-group">
+            {{#if enable_advanced_controls}}
+                <div class="form-group">
 
-                <label>
-                    Default Theme:
-                </label>
+                    <label>
+                        Default Theme:
+                    </label>
+
+                    <br>
+
+                    <div>
+                        <select id="default_theme_picker" class="browser-default">
+                            {{#each themeNames}}
+                                <option value="{{this}}" {{themeSelected}}>{{this}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
 
                 <br>
-
-                <div>
-                    <select id="default_theme_picker" class="browser-default">
-                        {{#each themeNames}}
-                            <option value="{{this}}" {{themeSelected}}>{{this}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-            </div>
-
-            <br>
+            {{/if}}
 
             {{/unless}}
 
@@ -430,11 +472,11 @@
 
             <div class="switch">
                 <label>
-                    Enable multiple themes:<br>
+                    Enable advanced controls:<br>
                     Off
                     <input type="checkbox"
-                           id="enable-multi-theme"
-                        {{enable_multi_theme_checked}}>
+                           id="enable-advanced-controls"
+                        {{enable_advanced_controls_checked}}>
                     <span class="lever"></span>
                     On
                 </label>

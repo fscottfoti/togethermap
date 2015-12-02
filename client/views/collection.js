@@ -90,6 +90,13 @@ Template.collection.helpers({
             Session.get('placeList');
     },
 
+    filters: function () {
+        if(!this.filters) return [];
+        var a = _.keys(this.filters);
+        a.unshift('None');
+        return a;
+    },
+
     themeNames: function () {
         return _.keys(this.themes);
     },
@@ -105,6 +112,19 @@ Template.collection.helpers({
 var closed = true;
 
 Template.collection.events = {
+
+    "change #active_filter": function (evt) {
+
+        var v = $(evt.target).val();
+        
+        v = this.filters[v];
+
+        Map.newShapes();
+
+        Session.set('active_filter', v);
+
+        Map.mapDriver.sortChanged();
+    },
 
     "change #subscribe_count_slider": function (evt) {
 
