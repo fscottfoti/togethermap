@@ -2,6 +2,29 @@ Template.collection.rendered = function () {
     Session.set('viewPlaces', true); // might be better to show places by default
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip();
+
+    var slider = document.getElementById('subscribe_count_slider');
+    noUiSlider.create(slider, {
+       start: 100,
+       step: 100,
+       range: {
+         'min': 0,
+         'max': 2000
+       },
+       format: wNumb({
+         decimals: 0
+       })
+    });
+
+    slider.noUiSlider.on('change', function(){
+
+        var v = slider.noUiSlider.get();
+
+        Session.set('active_limit', parseInt(v));
+
+        Map.mapDriver.sortChanged();
+
+    });
 };
 
 

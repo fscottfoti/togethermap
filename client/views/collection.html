@@ -167,23 +167,21 @@
         {{/if}}
 
         {{#if enable_advanced_controls}}
-            <div>
+            <div class="form-group">
                 <label>
                     Number of places to load:
                 </label>
 
-                <span class="range-field">
-                  <input type="range" id="subscribe_count_slider" min="0" max="1000" value="100" />
-                </span>
+                <div id="subscribe_count_slider"></div>
             </div>
-
-            <label>
-                Active filter:
-            </label>
-
             <br>
 
             <div class="form-group">
+
+                <label>
+                    Active filter:
+                </label>
+
                 <select id="active_filter" class="browser-default">
                     {{#each filters}}
                         <option value="{{this}}" {{themeSelected}}>{{this}}</option>
