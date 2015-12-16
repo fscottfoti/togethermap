@@ -102,8 +102,13 @@ DefaultMapDriver = {
         }
         var poly = Map.getBoundsAsPolygon();
 
+        near = {
+            center: [Map.center().lng, Map.center().lat],
+            maxDistance: Map.getMapRadiusKM()*1000
+        }
+
         Meteor.subscribe("places", cid, poly, 
-            sort, limit, undefined, undefined, filter, {
+            sort, limit, undefined, undefined, filter, near, {
             onReady: function() {
                 var cnt = Map.countVisiblePlaces();
                 Session.set('map_visible_places', cnt);
@@ -1044,7 +1049,7 @@ Map = {
             // not marker
             layer.setStyle({fillOpacity: 1.0, opacity: 0.9});
         }
-        this.normalOtherPlaces(id);
+        //this.normalOtherPlaces(id);
     },
 
     unHighlightPlace: function (id) {
@@ -1059,7 +1064,7 @@ Map = {
             layer.setStyle({fillOpacity: 0.6, opacity: 0.75});
         }
         Map.highlitPlace = undefined;
-        this.normalOtherPlaces(id);
+        //this.normalOtherPlaces(id);
     },
 
     normalOtherPlaces: function (id) {

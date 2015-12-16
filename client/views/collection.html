@@ -160,13 +160,16 @@
         </div>
         {{/if}}
 
+        {{#if 0}}
         {{#if exceeds_place_limit }}
             <div class="form-group">
                 <b>More places are available, zoom in for more places.</b>
             </div>
         {{/if}}
+        {{/if}}
 
         {{#if enable_advanced_controls}}
+            {{#if 0}}
             <div class="form-group">
                 <label>
                     Number of places to load:
@@ -174,7 +177,13 @@
 
                 <div id="subscribe_count_slider"></div>
             </div>
-            <br>
+            {{/if}}
+            {{#if autoLoading}}
+                <span class="btn load_all">Load More</span>
+            {{else}}
+                <span class="btn dont_load">Stop Loading</span>
+            {{/if}}
+            <br><br>
 
             <div class="form-group">
 

@@ -3,7 +3,9 @@ Template.collection.rendered = function () {
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip();
 
-    var slider = document.getElementById('subscribe_count_slider');
+    Session.set('autoLoading', true);
+
+    /*var slider = document.getElementById('subscribe_count_slider');
     noUiSlider.create(slider, {
        start: 100,
        step: 100,
@@ -24,7 +26,7 @@ Template.collection.rendered = function () {
 
         Map.mapDriver.sortChanged();
 
-    });
+    });*/
 };
 
 
@@ -130,6 +132,10 @@ Template.collection.helpers({
         return this == theme
             ? 'selected' : '';
     },
+
+    autoLoading: function () {
+        return Session.get('autoLoading');
+    }
 });
 
 var closed = true;
@@ -154,6 +160,22 @@ Template.collection.events = {
         var v = $(evt.target).val();
 
         Session.set('active_limit', parseInt(v));
+
+        Map.mapDriver.sortChanged();
+    },
+
+    "click .load_all": function (evt) {
+
+        Session.set('autoLoading', false);
+        Session.set('active_limit', 10000);
+
+        Map.mapDriver.sortChanged();
+    },
+
+    "click .dont_load": function (evt) {
+
+        Session.set('active_limit', 0);
+        Session.set('autoLoading', true);
 
         Map.mapDriver.sortChanged();
     },
