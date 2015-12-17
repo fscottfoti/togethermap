@@ -68,7 +68,7 @@ Router.map(function () {
             //    "sendEmail",
             //    "Fletcher <fletcher@togethermap.com>",
             //    "TogetherMap <info@togethermap.com>",
-            //    "Yesterday's News from TogetherMap2",
+            //    "Yesterday's News from TogetherMap",
             //    html
             //);
         }
@@ -361,7 +361,8 @@ Router.map(function () {
         subscriptions: function () {
             return [
                 Meteor.subscribe('allCollectionsForPlace', this.params._id),
-                Meteor.subscribe('posts', this.params._id, this.params._cid)
+                Meteor.subscribe('posts', this.params._id, this.params._cid),
+                Meteor.subscribe('place', this.params._id, this.params._cid)
             ]
         },
         data: function () {
@@ -385,7 +386,7 @@ Router.map(function () {
                     return;
                 }
 
-                Map.goToPlace(p, true, true);
+                if(!Map.placeIsVisible(p)) Map.goToPlace(p, true, true);
 
                 var pid = p.parent_id || p._id;
 
@@ -397,6 +398,9 @@ Router.map(function () {
             }
         },
         waitOn: function () {
+            return waitOn(this.params._cid);
+        },
+        /*waitOn: function () {
             var id = this.params._id;
             var cid = this.params._cid;
             var a = waitOn(cid);
@@ -413,17 +417,19 @@ Router.map(function () {
 
             a.push(promise);
             return a;
-        },
+        },*/
         onBeforeAction: function () {
             verifyPermissions(this, this.params._cid);
         },
         onAfterAction: function () {
             Session.set('active_place', this.params._id);
             Session.set('disableHover', true);
+            Session.set('dont_set_collection_location', true);
             switchCollection(this.params._cid);
             openSidebar();
         },
         unload: function () {
+            Map.unHighlightPlace(this.params._id);
             Session.set('disableHover', false);
             $('.tooltipped').tooltip('remove');
         }
