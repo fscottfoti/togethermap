@@ -80,10 +80,10 @@ DefaultMapDriver = {
     },
 
     locationChanged: function () {
-        this.sortChanged();
+        this.subscribe();
     },
 
-    sortChanged: function () {
+    subscribe: function () {
         var cid = Session.get('active_collection');
         var sort = Session.get('active_sort');
         var limit = Session.get('active_limit');

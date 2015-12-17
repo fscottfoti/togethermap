@@ -24,7 +24,7 @@ Template.collection.rendered = function () {
 
         Session.set('active_limit', parseInt(v));
 
-        Map.mapDriver.sortChanged();
+        Map.mapDriver.subscribe();
 
     });*/
 };
@@ -152,7 +152,7 @@ Template.collection.events = {
 
         Session.set('active_filter', v);
 
-        Map.mapDriver.sortChanged();
+        Map.mapDriver.subscribe();
     },
 
     "change #subscribe_count_slider": function (evt) {
@@ -161,7 +161,7 @@ Template.collection.events = {
 
         Session.set('active_limit', parseInt(v));
 
-        Map.mapDriver.sortChanged();
+        Map.mapDriver.subscribe();
     },
 
     "click .load_all": function (evt) {
@@ -169,7 +169,7 @@ Template.collection.events = {
         Session.set('autoLoading', false);
         Session.set('active_limit', 10000);
 
-        Map.mapDriver.sortChanged();
+        Map.mapDriver.subscribe();
     },
 
     "click .dont_load": function (evt) {
@@ -177,7 +177,7 @@ Template.collection.events = {
         Session.set('active_limit', 0);
         Session.set('autoLoading', true);
 
-        Map.mapDriver.sortChanged();
+        Map.mapDriver.subscribe();
     },
 
     "change #theme_name_picker": function (evt) {
@@ -211,7 +211,7 @@ Template.collection.events = {
         e.preventDefault();
         var type = $(e.target).attr('id');
 
-        if(Map.mapDriver.sortChanged) {
+        if(Map.mapDriver.subscribe) {
 
             var sort;
 
@@ -230,7 +230,7 @@ Template.collection.events = {
 
             Session.set('active_sort', sort);
             Session.set('active_sort_type', type);
-            Map.mapDriver.sortChanged();
+            Map.mapDriver.subscribe();
         }
         $('.dropdown.open .dropdown-toggle').dropdown('toggle');
         closed = true;

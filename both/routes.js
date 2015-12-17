@@ -298,30 +298,6 @@ Router.map(function () {
     });
 
 
-    this.route('profile', {
-        path: '/profile/:_id',
-        subscriptions: function () {
-            return [
-                Meteor.subscribe('userData', this.params._id)]
-        },
-        data: function () {
-            return {
-                userId: this.params._id,
-                profile: Meteor.users.findOne(this.params._id),
-                places: MPlaces.find({creatorUID: this.params._id})
-            }
-        },
-        onAfterAction: function () {
-            Session.set('active_user', this.params._id);
-            switchCollection('profile');
-            openSidebar();
-        },
-        onStop: function () {
-            Session.set('active_user', undefined);
-        }
-    });
-
-
     this.route('/geojson/:_cid/:z/:x/:y', function () {
         /* return geojson formatted shapes for the given x y and z
            note this needs to be verified for permissions!! */
@@ -647,7 +623,6 @@ closeSidebar = function () {
 
 connectors = {
     'home': SearchConnector,
-    'profile': ProfileConnector,
     'gallery': CollectionsConnector,
     'collections': CollectionsConnector,
     'flickr': FlickrConnector,
@@ -784,7 +759,7 @@ switchCollection = function (cid) {
     }
 
     //Session.set('currentTheme', undefined);
-    Map.mapDriver.sortChanged();
+    Map.mapDriver.subscribe();
 
     /*Meteor.subscribe("places", cid, poly, {
         onReady: function() {
