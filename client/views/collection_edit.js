@@ -7,7 +7,7 @@ Template.collectionEdit.rendered = function () {
     if(this.data.collection.themes) {
         var keys = _.keys(this.data.collection.themes);
         if(keys.length) {
-            Session.set('currentTheme', keys[0]);
+            Session.set('activeTheme', keys[0]);
         }
     }
 
@@ -121,14 +121,14 @@ Template.collectionEdit.helpers({
         return _.keys(this.themes);
     },
 
-    currentTheme: function () {
-        return Session.get('currentTheme');
+    activeTheme: function () {
+        return Session.get('activeTheme');
     },
 
     currentIconF: function () {
         var multi = this.enable_advanced_controls;
         if(multi) {
-            var current = Session.get('currentTheme');
+            var current = Session.get('activeTheme');
             if(!this.themes[current]) return;
             return this.themes[current].icon_f;
         } else {
@@ -139,7 +139,7 @@ Template.collectionEdit.helpers({
     currentIconSizeF: function () {
         var multi = this.enable_advanced_controls;
         if(multi) {
-            var current = Session.get('currentTheme');
+            var current = Session.get('activeTheme');
             if(!this.themes[current]) return;
             return this.themes[current].icon_size_f;
         } else {
@@ -150,7 +150,7 @@ Template.collectionEdit.helpers({
     currentColorF: function () {
         var multi = this.enable_advanced_controls;
         if(multi) {
-            var current = Session.get('currentTheme');
+            var current = Session.get('activeTheme');
             if(!this.themes[current]) return;
             return this.themes[current].color_f;
         } else {
@@ -219,7 +219,7 @@ Template.collectionEdit.events = {
 
         var v = $(evt.target).val();
 
-        Session.set('currentTheme', v);
+        Session.set('activeTheme', v);
     },
 
     "change #default_theme_picker": function (evt) {
@@ -233,7 +233,7 @@ Template.collectionEdit.events = {
     'click .delete-theme': function () {
 
         var that = this;
-        var name = Session.get('currentTheme');
+        var name = Session.get('activeTheme');
 
         MaterializeModal.confirm({
             title: "Confirm Delete",
@@ -243,7 +243,7 @@ Template.collectionEdit.events = {
                 if(result && result.submit == true) {
                     var themes = that.themes;
 
-                    var name = Session.get('currentTheme');
+                    var name = Session.get('activeTheme');
                     delete themes[name];
 
                     Meteor.call('updateCollection',
@@ -252,9 +252,9 @@ Template.collectionEdit.events = {
                     var keys = _.keys(themes);
 
                     if(keys.length) {
-                        Session.set('currentTheme', keys[0]); 
+                        Session.set('activeTheme', keys[0]); 
                     } else {
-                        Session.set('currentTheme', undefined); 
+                        Session.set('activeTheme', undefined); 
                     }
 
                     Materialize.toast('Theme deleted', 4000, "green");
@@ -330,7 +330,7 @@ Template.collectionEdit.events = {
 
         Materialize.toast('Theme added', 4000, "green");
 
-        Session.set('currentTheme', name);
+        Session.set('activeTheme', name);
 
 
         Meteor.defer(function() { 
@@ -532,7 +532,7 @@ Template.collectionEdit.events = {
         if(this.enable_advanced_controls) {
 
             var obj = this.themes;
-            obj[Session.get('currentTheme')].icon_f = t;
+            obj[Session.get('activeTheme')].icon_f = t;
             Meteor.call('updateCollection', this._id, {$set: {themes: obj}});
 
         } else {
@@ -548,7 +548,7 @@ Template.collectionEdit.events = {
         if(this.enable_advanced_controls) {
 
             var obj = this.themes;
-            obj[Session.get('currentTheme')].icon_size_f = t;
+            obj[Session.get('activeTheme')].icon_size_f = t;
             Meteor.call('updateCollection', this._id, {$set: {themes: obj}});
 
         } else {
@@ -564,7 +564,7 @@ Template.collectionEdit.events = {
         if(this.enable_advanced_controls) {
 
             var obj = this.themes;
-            obj[Session.get('currentTheme')].color_f = t;
+            obj[Session.get('activeTheme')].color_f = t;
             Meteor.call('updateCollection', this._id, {$set: {themes: obj}});
 
         } else {

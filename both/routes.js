@@ -605,7 +605,7 @@ switchCollection = function (cid) {
         console.log('Reset collection');
 
         Session.set('activeConnector', undefined);
-        Session.set('currentTheme', undefined);
+        Session.set('activeTheme', undefined);
         Session.set('autoLoading', true);
         Session.set('activeLimit', DEFAULT_PLACE_LIMIT);
         Session.set('activeFilter', undefined);

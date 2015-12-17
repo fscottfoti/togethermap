@@ -80,12 +80,18 @@ DefaultMapDriver = {
     },
 
     locationChanged: function () {
+        // I *think* the right thing to do here is to set it back
+        // to the default limit
+        Session.set('activeLimit', DEFAULT_PLACE_LIMIT);
         this.subscribe();
     },
 
     subscribe: function () {
+        if(Session.get('autoLoading') == false)
+            return;
+
         var cid = Session.get('activeCollection');
-        var sort = Session.get('active_sort');
+        var sort = Session.get('activeSort');
         var limit = Session.get('activeLimit');
         var filter = Session.get('activeFilter');
 
@@ -101,6 +107,8 @@ DefaultMapDriver = {
             center: [Map.center().lng, Map.center().lat],
             maxDistance: Map.getMapRadiusKM()*1000
         }
+
+        console.log(filter, near, cid, sort, limit);
 
         Meteor.subscribe("places", cid, poly, 
             sort, limit, undefined, undefined, filter, near, {
@@ -210,7 +218,7 @@ DefaultMapDriver = {
     },
 
     markerThemeFunc: function (fname, place) {
-        var theme = Session.get('currentTheme');
+        var theme = Session.get('activeTheme');
 
         var c = MCollections.findOne(Session.get('activeCollection'));
 

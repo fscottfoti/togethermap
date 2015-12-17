@@ -22,15 +22,6 @@
         {{/if}}
 
         <div class="form-group">
-            {{#if 0}}
-            <a class="back">
-                <button class="btn btn-sm btn-primary tooltipped"
-                        data-tooltip="Collections"
-                        data-position="top">
-                    <i class="fa fa-arrow-left"></i>
-                </button>
-            </a>
-            {{/if}}
 
             {{#if currentUser }}
                 <span style="position: relative;">
@@ -139,7 +130,7 @@
                     Off
                     <input type="checkbox"
                            id="enable-auto-load"
-                        {{auto_load_enabled}}>
+                        {{autoLoadEnabled}}>
                     <span class="lever"></span>
                     On
                 </label>

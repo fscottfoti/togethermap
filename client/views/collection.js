@@ -41,7 +41,7 @@ Template.collection.helpers({
         }
 
         var cid = Session.get('activeCollection');
-        var sort = Session.get('active_sort') || {createDate: -1};
+        var sort = Session.get('activeSort') || {createDate: -1};
         return MPlaces.find({collectionId: cid}, {sort: sort, limit: 20});
     },
 
@@ -54,7 +54,7 @@ Template.collection.helpers({
         return MPlaces.find({collectionId: cid}).count();
     },
 
-    write_permission: function () {
+    writePermission: function () {
         var cid = Session.get('activeCollection');
         return writePermission(this, cid, Meteor.user(), "collection");
     },
@@ -97,9 +97,9 @@ Template.collection.helpers({
             ? 'selected' : '';
     },
 
-    autoLoading: function () {
-        return Session.get('autoLoading');
-    }
+    autoLoadEnabled: function () {
+        return Session.get('autoLoading') ? "checked" : null;
+    },
 });
 
 var closed = true;
@@ -135,10 +135,6 @@ Template.collection.events = {
         Session.set('currentTheme', v);
     },
 
-    'click .back': function () {
-        Router.go('collections');
-    },
-
     'click .sortings': function () {
         // I really shouldn't have to do this - there's some sort of bad
         // interaction with bootstrap and the leaflet container
@@ -172,8 +168,8 @@ Template.collection.events = {
             if(type == "Comments")
                 sort = {'post_count': -1};
 
-            Session.set('active_sort', sort);
-            Session.set('active_sort_type', type);
+            Session.set('activeSort', sort);
+            Session.set('activeSortType', type);
             Map.mapDriver.subscribe();
         }
         $('.dropdown.open .dropdown-toggle').dropdown('toggle');
@@ -241,5 +237,9 @@ Template.collection.events = {
     'click .show-list': function (e) {
         e.preventDefault();
         Session.set('placeList', true);
+    },
+
+    'change #enable-auto-load': function (e) {
+        Session.set('autoLoading', !Session.get('autoLoading'));
     },
 };

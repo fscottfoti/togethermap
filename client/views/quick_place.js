@@ -25,19 +25,19 @@ Template.quick_place.helpers({
     },
 
     anySort: function () {
-        var s = Session.get('active_sort_type');
+        var s = Session.get('activeSortType');
         return s !== undefined && s !== 'Name' && s !== 'Image';
     },
 
-    recentSort: function () { return Session.get('active_sort_type') == "Recent"},
+    recentSort: function () { return Session.get('activeSortType') == "Recent"},
 
-    voteSort: function () { return Session.get('active_sort_type') == "Votes"},
+    voteSort: function () { return Session.get('activeSortType') == "Votes"},
 
-    imageSort: function () { return Session.get('active_sort_type') == "Image"},
+    imageSort: function () { return Session.get('activeSortType') == "Image"},
 
-    creatorSort: function () { return Session.get('active_sort_type') == "User"},
+    creatorSort: function () { return Session.get('activeSortType') == "User"},
 
-    postSort: function () { return Session.get('active_sort_type') == "Comments"}
+    postSort: function () { return Session.get('activeSortType') == "Comments"}
 });
 
 Template.quick_place.events = {

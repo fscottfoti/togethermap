@@ -1,9 +1,3 @@
-
-// Map driver drives the map with a few connection - e.g. connects the data with
-// the map.  Framework specific code goes here.
-
-/* global L, Map, MapDriver */
-
 // The actual map manipulation happens here - e.g. Leaflet code goes here
 
 Map = {
@@ -880,11 +874,11 @@ Map = {
 
     // used to switch themes for collections with multiple
     // themes
-    resetStyle: function (color_f) { 
-        color_f = new Function('p', color_f);
+    resetStyle: function (color-f) { 
+        color-f = new Function('p', color-f);
         _.each(this.keysToLayers, function (layer) {
             var p = MPlaces.findOne({_id: layer.key});
-            var c = color_f(p.properties);
+            var c = color-f(p.properties);
             if(c[0] != "#") c = "#"+c;
             layer.setStyle({fillColor: c});
         });
