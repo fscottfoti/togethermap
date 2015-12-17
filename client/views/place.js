@@ -15,7 +15,7 @@ Template.place.rendered = function () {
 Template.place.helpers({
 
     writePermission: function () {
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         return writePermission(this, cid, Meteor.user());
     },
 
@@ -28,8 +28,8 @@ Template.place.helpers({
             $('.tooltipped').tooltip();
         });
         // compiled when we change the collection for performance
-        if(templates.place_template_list) {
-            return templates.place_template(this);
+        if(templates.placeTemplateList) {
+            return templates.placeTemplate(this);
         } else {
             return Handlebars.compile(defaultPlaceTemplate)(this);
         }
@@ -61,7 +61,7 @@ Template.place.helpers({
     },
 
     postPermission: function () {
-        var cid = Session.get("active_collection");
+        var cid = Session.get("activeCollection");
         return writePermission(undefined, cid, Meteor.user(), "post");
     },
 
@@ -70,7 +70,7 @@ Template.place.helpers({
     },
 
     isThisCollection: function () {
-        return this.collectionId == Session.get('active_collection');
+        return this.collectionId == Session.get('activeCollection');
     },
 
     anyPlaceInstances: function () {
@@ -82,7 +82,7 @@ Template.place.helpers({
     },
 
     autoFormExists: function () {
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         var c = MCollections.findOne(cid);
 
         if(c  && c.place_autoform) {
@@ -187,7 +187,7 @@ Template.place.events = {
 
         e.preventDefault();
         Router.go('place_edit', {
-            _cid: Session.get('active_collection'),
+            _cid: Session.get('activeCollection'),
             _id: this._id
         });
     },
@@ -223,7 +223,7 @@ Template.place.events = {
         e.preventDefault();
 
         var pid = Session.get('active_place');
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         var title = $( "#title" ).val();
 
         var html = Session.get('current_html');

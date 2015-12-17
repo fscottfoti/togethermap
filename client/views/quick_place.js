@@ -5,8 +5,8 @@ Template.quick_place.rendered = function () {
 
 Template.quick_place.helpers({
     dynamic_place: function () {
-        if(templates.place_template_list) {
-            return templates.place_template_list(this);
+        if(templates.placeTemplateList) {
+            return templates.placeTemplateList(this);
         } else {
             return Handlebars.compile(defaultPlaceTemplateList)(this);
         }

@@ -5,7 +5,7 @@ var flickrToGeojson = function (obj) {
         _id: 'flickr_'+obj.key,
         creator: "Flickr, Inc.",
         type: "Feature",
-        collectionId: Session.get('active_collection'),
+        collectionId: Session.get('activeCollection'),
         bbox: {
             type: "Point",
             coordinates: [lng, lat]
@@ -33,20 +33,20 @@ var flickrToGeojson = function (obj) {
 FlickrConnector = {
 
 
-    place_template:
+    placeTemplate:
     '{{#if properties.name}}<h2>{{properties.name}}</h2>{{/if}}' +
     '<div style="padding-top:10px; padding-bottom: 10px;" class="lightbox-image">' +
     '<img link="{{properties.flickr_link}}" src="{{properties.url_m}}" style="width: 100%;"></div>',
 
 
-    place_template_list:
+    placeTemplateList:
     '{{#if properties.name}}<h4>{{properties.name}}</h4>{{/if}}' +
     '<span style="cursor: pointer;" class="go-to-place">' +
     '<img src="{{properties.url_m}}" style="width: 100%;"></span>'+
     '<div style="height: 10px; background-color: inherit;">&nbsp;</div>',
 
 
-    place_template_label:
+    placeTemplateLabel:
     '{{#if properties.name}}<h4>{{properties.name}}</h4>{{/if}}' +
     '<div style="padding-top: 5px;">' +
     '<img src="{{properties.url_m}}" style="width: 100px;"></div>',

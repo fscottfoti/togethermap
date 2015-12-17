@@ -353,8 +353,8 @@ Router.map(function () {
                     connectors[cid].getOne(id) :
                     MPlaces.findOne(id);
 
-                if(Session.get('active_connector') && Session.get('results_ready')) {
-                     p = connectors[Session.get('active_connector')].getOne(this.params._id);
+                if(Session.get('activeConnector') && Session.get('results_ready')) {
+                     p = connectors[Session.get('activeConnector')].getOne(this.params._id);
                 }
 
                 if(!p) {
@@ -632,7 +632,7 @@ connectors[factualCid] = FactualConnector;
 
 switchCollection = function (cid) {
 
-    Session.set('active_collection', cid);
+    Session.set('activeCollection', cid);
 
     if(!Meteor.userId()) {
         // if logged out
@@ -660,7 +660,7 @@ switchCollection = function (cid) {
         if(cid == currentCollection)
             return;
 
-        Session.set('active_connector', undefined);
+        Session.set('activeConnector', undefined);
 
         currentCollection = cid;
 
@@ -668,8 +668,8 @@ switchCollection = function (cid) {
 
         // custom data connector
 
-        templates.place_template = Handlebars.compile(defaultPlaceTemplate);
-        templates.place_template_list = Handlebars.compile(defaultPlaceTemplateList);
+        templates.placeTemplate = Handlebars.compile(defaultPlaceTemplate);
+        templates.placeTemplateList = Handlebars.compile(defaultPlaceTemplateList);
 
         conn.init();
         conn.getAll();
@@ -680,7 +680,7 @@ switchCollection = function (cid) {
     if(!cid) {
         if(currentCollection) {
             Map.newShapes();
-            Session.set('active_connector', undefined);
+            Session.set('activeConnector', undefined);
             Map.removeDrawControl();
             currentCollection = undefined;
         }
@@ -699,8 +699,14 @@ switchCollection = function (cid) {
     }
 
     if(cid != currentCollection) {
+        
+        console.log('Reset collection');
 
-        Session.set('active_connector', undefined);
+        Session.set('activeConnector', undefined);
+        Session.set('currentTheme', undefined);
+        Session.set('autoLoading', true);
+        Session.set('activeLimit', DEFAULT_PLACE_LIMIT);
+        Session.set('activeFilter', undefined);
 
         currentCollection = cid;
 
@@ -708,42 +714,30 @@ switchCollection = function (cid) {
 
         Map.newShapes();
 
-        if(c.flickr_link) {
-
-            // set up contomized flickr connector
-            Session.set('results_ready', false);
-            Session.set('active_connector', 'flickr');
-            FlickrConnector.init(c.flickr_link);
-            if(!c.place_template)
-                c.place_template = FlickrConnector.place_template;
-            if(!c.place_template_list)
-                c.place_template_list = FlickrConnector.place_template_list;
-            if(!c.place_template_label)
-                c.place_template_label = FlickrConnector.place_template_label;
-
-        } else if(c.transit_name) {
-            TransitConnector.init(c.transit_name);
+        if(c.transitName) {
+            TransitConnector.init(c.transitName);
         }
 
         if(c.useConnectorTemplates) {
             var conn = connectors[c.useConnectorTemplates];
-            if(!c.place_template)
-                c.place_template = conn.place_template;
-            if(!c.place_template_list)
-                c.place_template_list = conn.place_template_list;
-            if(!c.place_template_label)
-                c.place_template_label = conn.place_template_label;
+            if(!c.placeTemplate)
+                c.placeTemplate = conn.placeTemplate;
+            if(!c.placeTemplateList)
+                c.placeTemplateList = conn.placeTemplateList;
+            if(!c.placeTemplateLabel)
+                c.placeTemplateLabel = conn.placeTemplateLabel;
         }
 
-        templates.place_template = Handlebars.compile(
-            c.place_template || defaultPlaceTemplate);
+        templates.placeTemplate = Handlebars.compile(
+            c.placeTemplate || defaultPlaceTemplate);
 
-        templates.place_template_list = Handlebars.compile(
-            c.place_template_list || defaultPlaceTemplateList);
+        templates.placeTemplateList = Handlebars.compile(
+            c.placeTemplateList || defaultPlaceTemplateList);
 
-        templates.place_template_label = Handlebars.compile(
-            c.place_template_label || defaultPlaceTemplateLabel);
+        templates.placeTemplateLabel = Handlebars.compile(
+            c.placeTemplateLabel || defaultPlaceTemplateLabel);
 
+        Map.mapDriver.subscribe();
     }
 
     // this needs to be outside of the if statement above so it
@@ -753,21 +747,4 @@ switchCollection = function (cid) {
     } else {
         Map.removeDrawControl();
     }
-
-    if(!c.disable_geoindex) {
-        var poly = Map.getBoundsAsPolygon();
-    }
-
-    //Session.set('currentTheme', undefined);
-    Map.mapDriver.subscribe();
-
-    /*Meteor.subscribe("places", cid, poly, {
-        onReady: function() {
-            DefaultMapDriver.maybeSetLocation();
-            var cnt = Map.countVisiblePlaces();
-            Session.set('map_visible_places', cnt);
-        }
-    });
-    
-    DefaultMapDriver.getAll(cid);*/
 };

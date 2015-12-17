@@ -13,7 +13,7 @@ setUpClipboard = function () {
         var clipboard = event.clipboardData;
         var type = Session.get("permission_type");
         var currentKey = Session.get("permission_key");
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
 
         var txt = getPermissionsLink(type, cid, currentKey, forceNew);
         clipboard.setData( "text/plain", txt);
@@ -110,7 +110,7 @@ Template.permissions.events = {
 
         e.preventDefault();
         Router.go('collection_edit', {
-            _id: Session.get('active_collection')
+            _id: Session.get('activeCollection')
         });
     },
 
@@ -151,7 +151,7 @@ Template.permissions.events = {
                     var attr = {};
                     var key = Session.get("permission_type");
                     attr[key] = user;
-                    var cid = Session.get('active_collection');
+                    var cid = Session.get('activeCollection');
                     Meteor.call('updateCollection', cid, {$pull: attr});
                 }
             }

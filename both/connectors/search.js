@@ -6,9 +6,9 @@ customLabelForCollection = function (place) {
         MCollections.findOne(place.collectionId)) {
 
         var c = MCollections.findOne(place.collectionId);
-        if(c && c.place_template_list) {
+        if(c && c.placeTemplateList) {
             // this is the template off of the collection
-            l = Handlebars.compile(c.place_template_list)(place);
+            l = Handlebars.compile(c.placeTemplateList)(place);
         } else {
             l = Handlebars.compile(defaultPlaceTemplateList)(place);
         }
@@ -113,7 +113,7 @@ SearchConnector = {
     activatePlace: function (key) {
         Session.set('dont_set_collection_location', true);
         var layer = Map.keysToLayers[key];
-        var cid = layer.cid || Session.get('active_collection');
+        var cid = layer.cid || Session.get('activeCollection');
         Router.go('place', {_id: key, _cid: cid});
     },
 

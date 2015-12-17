@@ -66,7 +66,7 @@ DefaultMapDriver = {
     },
 
     getAll: function (cid) {
-        var filter = Session.get('active_filter');
+        var filter = Session.get('activeFilter');
         if(filter) {
             filter = JSON.parse(filter);
             filter.collectionId = cid;
@@ -84,10 +84,10 @@ DefaultMapDriver = {
     },
 
     subscribe: function () {
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         var sort = Session.get('active_sort');
-        var limit = Session.get('active_limit');
-        var filter = Session.get('active_filter');
+        var limit = Session.get('activeLimit');
+        var filter = Session.get('activeFilter');
 
         if(limit === 0) {
             // mongo says that a limit of zero records
@@ -147,12 +147,12 @@ DefaultMapDriver = {
     
     activatePlace: function (key) {
         var layer = Map.keysToLayers[key];
-        var cid = layer.cid || Session.get('active_collection');
+        var cid = layer.cid || Session.get('activeCollection');
         Router.go('place', {_id: key, _cid: cid});
     },
     
     createPlace: function (place) {
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         Meteor.call('insertPlace', place, cid, function(error, result){
             var key = result;
             Router.go("place_edit", {_id: key, _cid: cid})
@@ -164,7 +164,7 @@ DefaultMapDriver = {
             growl.warning('Must be logged in to add a place.');
             return;
         }
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         if (!cid) { // must be logged in
             growl.warning('Must be viewing a collection to add a place.');
             return;
@@ -205,14 +205,14 @@ DefaultMapDriver = {
     },
     
     deletePlace: function (key) {
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         Meteor.call('removePlace', key, cid);
     },
 
     markerThemeFunc: function (fname, place) {
         var theme = Session.get('currentTheme');
 
-        var c = MCollections.findOne(Session.get('active_collection'));
+        var c = MCollections.findOne(Session.get('activeCollection'));
 
         if(!theme && c.enable_multi_theme && 
             c.default_theme) {

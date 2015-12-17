@@ -34,8 +34,8 @@ Template.nav.helpers({
         return MFollowed.find().count() == 0;
     },
 
-    active_collection: function () {
-        var cid = Session.get('active_collection');
+    activeCollection: function () {
+        var cid = Session.get('activeCollection');
         if(!cid)
             return;
         if(mobileFormFactor)
@@ -136,7 +136,7 @@ Template.nav.events = {
     'click .active-collection': function (e) {
 
         e.preventDefault();
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         Router.go('collection', {_id: cid});
     },
 

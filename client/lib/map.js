@@ -1,3 +1,4 @@
+
 // Map driver drives the map with a few connection - e.g. connects the data with
 // the map.  Framework specific code goes here.
 
@@ -69,7 +70,7 @@ Map = {
         });
         this.map.addControl(this.sidebar);
         this.sidebar.on('hide', function () {
-            var cid = Session.get('active_collection');
+            var cid = Session.get('activeCollection');
             if(!cid)
                 cid = 'empty';
             Router.go('map', {'_id': cid});
@@ -895,7 +896,7 @@ Map = {
 
         // this one is baffling to me, but sometimes the collection marker
         // gets added as a place in the set of places.  totally confusticating.
-        if(place === undefined || key == Session.get('active_collection')) {
+        if(place === undefined || key == Session.get('activeCollection')) {
             return;
         }
 
@@ -969,8 +970,8 @@ Map = {
             var post_count = place.post_count || 0;
 
             var l = '';
-            if(templates.place_template_label) {
-                l = templates.place_template_label(place);
+            if(templates.placeTemplateLabel) {
+                l = templates.placeTemplateLabel(place);
             } else {
                 l = Handlebars.compile(defaultPlaceTemplateLabel)(place);
             }

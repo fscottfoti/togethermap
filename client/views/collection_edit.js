@@ -28,7 +28,7 @@ Template.collectionEdit.helpers({
     },
 
     collection: function () {
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         return MCollections.findOne(cid);
     },
 
@@ -161,7 +161,7 @@ Template.collectionEdit.helpers({
 
 
 var getSamplePlace = function () {
-    var cid = Session.get('active_collection');
+    var cid = Session.get('activeCollection');
     return _.sample(MPlaces.find({collectionId: cid}).fetch());
 };
 
@@ -489,7 +489,7 @@ Template.collectionEdit.events = {
             to_add = _.filter(places, function (p) {
                 return !Map.keysToLayers[p._id];
             })
-            var cid = Session.get('active_collection');
+            var cid = Session.get('activeCollection');
             Meteor.call('insertPlaces', to_add, cid, function(error, result) {
                 if(result == 1)
                     growl.success('Added '+result+' new place');
@@ -503,7 +503,7 @@ Template.collectionEdit.events = {
 
         e.preventDefault();
 
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
 
         var method = e.altKey ? 'exportCollectionAsJson' : 'exportCollectionAsCsv';
 
@@ -518,11 +518,11 @@ Template.collectionEdit.events = {
         });
     },
 
-    'change #transit_name': function (e) {
+    'change #transitName': function (e) {
 
         var t = e.target.value;
 
-        Meteor.call('updateCollection', this._id, {$set: {transit_name: t}});
+        Meteor.call('updateCollection', this._id, {$set: {transitName: t}});
     },
 
     'change #icon_f': function (e) {
@@ -577,30 +577,30 @@ Template.collectionEdit.events = {
 
         var t = e.target.value;
 
-        templates.place_template =
+        templates.placeTemplate =
             Handlebars.compile(t || defaultPlaceTemplate);
 
-        Meteor.call('updateCollection', this._id, {$set: {place_template: t}});
+        Meteor.call('updateCollection', this._id, {$set: {placeTemplate: t}});
     },
 
     'change #place-template-list': function (e) {
 
         var t = e.target.value;
 
-        templates.place_template_list =
+        templates.placeTemplateList =
             Handlebars.compile(t || defaultPlaceTemplateList);
 
-        Meteor.call('updateCollection', this._id, {$set: {place_template_list: t}});
+        Meteor.call('updateCollection', this._id, {$set: {placeTemplateList: t}});
     },
 
     'change #place-template-label': function (e) {
 
         var t = e.target.value;
 
-        templates.place_template_label =
+        templates.placeTemplateLabel =
             Handlebars.compile(t || defaultPlaceTemplateLabel);
 
-        Meteor.call('updateCollection', this._id, {$set: {place_template_label: t}});
+        Meteor.call('updateCollection', this._id, {$set: {placeTemplateLabel: t}});
     },
 
     'change #place-autoform': function (e) {

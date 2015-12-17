@@ -1,7 +1,7 @@
 mobileFormFactor = false;
 
 resizeMap = function() {
-    var h = $(window).height(), offsetTop = 55; // Calculate the top offset
+    var h = $(window).height(), offsetTop = 60; // Calculate the top offset
     /*if (Session.get('noNav')) {
         offsetTop = 0;
         $('body').css('margin-top', "0px");
@@ -19,7 +19,7 @@ Template.map.rendered = function () {
         $(window).resize(resizeMap).resize();
 
         Map.create('map_canvas');
-        switchCollection(Session.get('active_collection'));
+        switchCollection(Session.get('activeCollection'));
 
         // this one switches back and forth on the pan so you can
         // just go up and down on a mobile formatted screen

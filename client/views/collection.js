@@ -1,32 +1,6 @@
 Template.collection.rendered = function () {
-    Session.set('viewPlaces', true); // might be better to show places by default
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip();
-
-    Session.set('autoLoading', true);
-
-    /*var slider = document.getElementById('subscribe_count_slider');
-    noUiSlider.create(slider, {
-       start: 100,
-       step: 100,
-       range: {
-         'min': 0,
-         'max': 2000
-       },
-       format: wNumb({
-         decimals: 0
-       })
-    });
-
-    slider.noUiSlider.on('change', function(){
-
-        var v = slider.noUiSlider.get();
-
-        Session.set('active_limit', parseInt(v));
-
-        Map.mapDriver.subscribe();
-
-    });*/
 };
 
 
@@ -38,60 +12,50 @@ var isOwnerF = function (data) {
 Template.collection.helpers({
 
     isOwner: function () {
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         return writePermission(this, cid, Meteor.user(), "collection");
     },
 
     isPlaceWriter: function () {
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         return writePermission(undefined, cid, Meteor.user(), "place");
     },
 
     isPostWriter: function () {
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         return writePermission(undefined, cid, Meteor.user(), "post");
     },
 
     isReader: function () {
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         return readPermission(Meteor.user(), cid);
     },
 
     places: function () {
-        if(Session.get('active_connector')) {
+        if(Session.get('activeConnector')) {
             if(!Session.get('results_ready'))
                 return;
-            var conn = connectors[Session.get('active_connector')];
+            var conn = connectors[Session.get('activeConnector')];
             // if special connector to places for this collection
             return conn.places;
         }
 
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         var sort = Session.get('active_sort') || {createDate: -1};
         return MPlaces.find({collectionId: cid}, {sort: sort, limit: 20});
-    },
-
-    viewPlaces: function () {
-        return Session.get('viewPlaces');
     },
 
     visible_places_count: function () {
         return Session.get('map_visible_places') || 0;
     },
 
-    exceeds_place_limit: function () {
-        var limit = Session.get('active_limit') || DEFAULT_PLACE_LIMIT;
-        return (Session.get('map_visible_places') || 0) >= 
-            limit;
-    },
-
     places_loaded_count: function () {
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         return MPlaces.find({collectionId: cid}).count();
     },
 
     write_permission: function () {
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         return writePermission(this, cid, Meteor.user(), "collection");
     },
 
@@ -142,7 +106,7 @@ var closed = true;
 
 Template.collection.events = {
 
-    "change #active_filter": function (evt) {
+    "change #activeFilter": function (evt) {
 
         var v = $(evt.target).val();
         
@@ -150,33 +114,13 @@ Template.collection.events = {
 
         Map.newShapes();
 
-        Session.set('active_filter', v);
-
-        Map.mapDriver.subscribe();
-    },
-
-    "change #subscribe_count_slider": function (evt) {
-
-        var v = $(evt.target).val();
-
-        Session.set('active_limit', parseInt(v));
+        Session.set('activeFilter', v);
 
         Map.mapDriver.subscribe();
     },
 
     "click .load_all": function (evt) {
-
-        Session.set('autoLoading', false);
-        Session.set('active_limit', 10000);
-
-        Map.mapDriver.subscribe();
-    },
-
-    "click .dont_load": function (evt) {
-
-        Session.set('active_limit', 0);
-        Session.set('autoLoading', true);
-
+        Session.set('activeLimit', (Session.get('activeLimit') || 0) + 100);
         Map.mapDriver.subscribe();
     },
 
@@ -266,14 +210,6 @@ Template.collection.events = {
         Meteor.defer(function() {
             $('.tooltipped').tooltip();
         });
-    },
-
-    'click .view-place-list': function () {
-        Session.set('viewPlaces', true);
-    },
-
-    'click .hide-place-list': function () {
-        Session.set('viewPlaces', false);
     },
 
     'click .unfollow': function (e) {

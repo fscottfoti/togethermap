@@ -165,7 +165,7 @@ Template.placeEdit.events({
                 if(result && result.submit == true) {
                     Meteor.call('removePlace', that._id, that.collectionId);
                     Router.go('collection', {
-                        _id: Session.get('active_collection')
+                        _id: Session.get('activeCollection')
                     });
                 }
             }
@@ -176,7 +176,7 @@ Template.placeEdit.events({
 
         e.preventDefault();
         Router.go('place', {
-            _cid: Session.get('active_collection'),
+            _cid: Session.get('activeCollection'),
             _id: this._id
         });
     },

@@ -14,7 +14,7 @@ Template.quick_post.helpers({
     },
 
     writePermission: function () {
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         return writePermission(this, cid, Meteor.user());
     }
 });

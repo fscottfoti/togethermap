@@ -18,7 +18,7 @@ Template.recent.events = {
     'click .collection-go': function (e) {
 
         e.preventDefault();
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         Router.go('collection', {
             _id: cid
         });
@@ -27,7 +27,7 @@ Template.recent.events = {
     'click .place-go': function (e) {
 
         e.preventDefault();
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         Router.go('place', {
             _id: this._id,
             _cid: cid
@@ -37,7 +37,7 @@ Template.recent.events = {
     'click .post-go': function (e) {
 
         e.preventDefault();
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         Router.go('place', {
             _id: this.placeId,
             _cid: cid
@@ -51,7 +51,7 @@ Template.recent.events = {
     'click .comment-go': function (e) {
 
         e.preventDefault();
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         Router.go('post', {
             _id: this.postId,
             _cid: cid

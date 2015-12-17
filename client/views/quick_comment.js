@@ -1,6 +1,6 @@
 Template.quick_comment.helpers({
     writePermission: function () {
-        var cid = Session.get('active_collection');
+        var cid = Session.get('activeCollection');
         return writePermission(this, cid, Meteor.user());
     }
 });

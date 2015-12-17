@@ -33,27 +33,27 @@
             {{/if}}
 
             {{#if currentUser }}
-            <span style="position: relative;">
-                <a class='dropdown-button btn btn-primary' 
-                    href='#' 
-                    data-beloworigin="true" 
-                    data-activates='drop-sort' 
-                    data-hover="true">
-                    <i class="fa fa-sort-amount-asc"></i>
-                </a>
+                <span style="position: relative;">
+                    <a class='dropdown-button btn btn-primary' 
+                        href='#' 
+                        data-beloworigin="true" 
+                        data-activates='drop-sort' 
+                        data-hover="true">
+                        <i class="fa fa-sort-amount-asc"></i>
+                    </a>
 
-                <ul id='drop-sort' class='dropdown-content'>
-                    {{#each sortTypes}}
-                        <li>
-                            <a class="sort-by"
-                               id="{{this}}"
-                               href="">
-                                {{this}}
-                            </a>
-                        </li>
-                    {{/each}}
-                </ul>
-            </span>
+                    <ul id='drop-sort' class='dropdown-content'>
+                        {{#each sortTypes}}
+                            <li>
+                                <a class="sort-by"
+                                   id="{{this}}"
+                                   href="">
+                                    {{this}}
+                                </a>
+                            </li>
+                        {{/each}}
+                    </ul>
+                </span>
             {{/if}}
 
             {{#if currentUser }}
@@ -117,73 +117,35 @@
         <div class="form-group">
 
             <span>
-                {{#if 0 }}
-                    <a href="#" class="profile-go">
-                        <i class="fa fa-user"></i>
-                        {{ creator }}
-                    </a>
-                {{else}}
-                    <i class="fa fa-user"></i>
-                    {{ creator }}
-                {{/if}}
+                <i class="fa fa-user"></i>
+                {{ creator }}
             </span>
 
             <span> //
                 <i class="fa fa-comment"></i>
+                {{#if enable_advanced_controls}}
+                    {{ places_loaded_count }} of 
+                {{/if}}
                 {{pluralize place_count "Place"}}
             </span>
 
-            {{#if 0}}
-            <span> //
-                <i class="fa fa-trophy"></i>
-                {{ pluralize votes "Vote" }}
-            </span>
-            {{/if}}
-
-            {{#if 0}}
-            {{#if isPostWriter }}
-                <span class="hide-on-small-only">
-                    {{> vote type="collection" _id=_id }}
-                </span>
-            {{/if}}
-            {{/if}}
-
         </div>
-
-        {{#if 0}}
-        <div class="hide-on-med-and-up form-group">
-            {{#if isPostWriter }}
-                <span>
-                    {{> vote type="collection" _id=_id }}
-                </span>
-            {{/if}}
-        </div>
-        {{/if}}
-
-        {{#if 0}}
-        {{#if exceeds_place_limit }}
-            <div class="form-group">
-                <b>More places are available, zoom in for more places.</b>
-            </div>
-        {{/if}}
-        {{/if}}
 
         {{#if enable_advanced_controls}}
-            {{#if 0}}
-            <div class="form-group">
-                <label>
-                    Number of places to load:
-                </label>
 
-                <div id="subscribe_count_slider"></div>
-            </div>
-            {{/if}}
-            {{#if autoLoading}}
+            <div class="switch form-group">
+                <label>
+                    Enable auto-load:<br>
+                    Off
+                    <input type="checkbox"
+                           id="enable-auto-load"
+                        {{auto_load_enabled}}>
+                    <span class="lever"></span>
+                    On
+                </label>
+                &nbsp;&nbsp;
                 <span class="btn load_all">Load More</span>
-            {{else}}
-                <span class="btn dont_load">Stop Loading</span>
-            {{/if}}
-            <br><br>
+            </div>
 
             <div class="form-group">
 
@@ -191,7 +153,7 @@
                     Active filter:
                 </label>
 
-                <select id="active_filter" class="browser-default">
+                <select id="activeFilter" class="browser-default">
                     {{#each filters}}
                         <option value="{{this}}" {{themeSelected}}>{{this}}</option>
                     {{/each}}
@@ -220,15 +182,6 @@
         {{/if}}
 
     {{/with}}
-
-    {{#if 0}}
-        <span>
-            {{ formatNumber visible_places_count }} shown,
-            {{ formatNumber places_loaded_count }} loaded,
-            out of {{ formatNumber place_count }} Places
-        </span>
-    {{/if}}
-
 
     {{#if placeList}}
         {{#each places}}
