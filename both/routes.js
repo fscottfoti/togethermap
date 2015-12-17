@@ -83,8 +83,6 @@ Router.map(function () {
             } else {
                 Router.go('gallery');
             }
-            //switchCollection();
-            //closeSidebar();
         }
     });
 
@@ -376,24 +374,6 @@ Router.map(function () {
         waitOn: function () {
             return waitOn(this.params._cid);
         },
-        /*waitOn: function () {
-            var id = this.params._id;
-            var cid = this.params._cid;
-            var a = waitOn(cid);
-
-            // wait on the place too so I can use it in the filter above
-            // this is made more than a little convoluted because when we go
-            // off site to get a place (e.g. Factual) we make a Meteor.call which
-            // requires this ReactivePromise thing to wait on it
-
-            var promise = connectors[cid] ?
-                ReactivePromise.when("myTask", connectors[cid].getOne(id)) :
-                Meteor.subscribe('place', this.params._id, this.params._cid);
-
-
-            a.push(promise);
-            return a;
-        },*/
         onBeforeAction: function () {
             verifyPermissions(this, this.params._cid);
         },
@@ -448,74 +428,6 @@ Router.map(function () {
             Session.set('disableHover', false);
             $("#shape-color").spectrum("hide");
             $('.tooltipped').tooltip('remove');
-        }
-    });
-
-
-    this.route('post', {
-        path: '/post/:_cid/:_id',
-        subscriptions: function() {
-            return [
-                Meteor.subscribe('post', this.params._id, this.params._cid),
-                Meteor.subscribe('comments', this.params._id, this.params._cid)
-            ]
-        },
-        data: function () {
-            if(this.ready()) {
-                Map.highlightPlace(MPosts.findOne(this.params._id).placeId);
-            }
-            return {
-                post: MPosts.findOne(this.params._id),
-                comments: MComments.find({postId: this.params._id}, {sort: {createDate: +1}})
-            }
-        },
-        waitOn: function () {
-            return waitOn(this.params._cid);
-        },
-        onBeforeAction: function () {
-            verifyPermissions(this, this.params._cid);
-        },
-        onAfterAction: function () {
-            Session.set('disableHover', true);
-            switchCollection(this.params._cid);
-            openSidebar();
-        },
-        unload: function () {
-            Session.set('disableHover', false);
-        }
-    });
-
-
-    this.route('post_edit', {
-        path: '/post_edit/:_cid/:_id',
-        subscriptions: function() {
-            return [
-                Meteor.subscribe('post', this.params._id, this.params._cid)
-            ]
-        },
-        data: function () {     
-            if(this.ready()) {
-                var p = MPosts.findOne(this.params._id);
-                if(p)
-                    Map.highlightPlace(p.placeId);
-            }
-            return {
-                post: MPosts.findOne(this.params._id)
-            }
-        },
-        waitOn: function () {
-            return waitOn(this.params._cid);
-        },
-        onBeforeAction: function () {
-            verifyPermissions(this, this.params._cid);
-        },
-        onAfterAction: function () {
-            Session.set('disableHover', true);
-            switchCollection(this.params._cid);
-            openSidebar();
-        },
-        unload: function () {
-            Session.set('disableHover', false);
         }
     });
 
@@ -591,15 +503,6 @@ AccountsTemplates.configure({
 });
 
 
-AccountsTemplates.configureRoute('changePwd');
-AccountsTemplates.configureRoute('enrollAccount');
-AccountsTemplates.configureRoute('forgotPwd');
-AccountsTemplates.configureRoute('resetPwd');
-AccountsTemplates.configureRoute('signIn');
-AccountsTemplates.configureRoute('signUp');
-AccountsTemplates.configureRoute('verifyEmail');
-
-
 var currentCollection;
 templates = {};
 var sidebarOpen;
@@ -625,7 +528,6 @@ connectors = {
     'home': SearchConnector,
     'gallery': CollectionsConnector,
     'collections': CollectionsConnector,
-    'flickr': FlickrConnector,
     'factual': FactualConnector
 };
 connectors[factualCid] = FactualConnector;
@@ -718,24 +620,14 @@ switchCollection = function (cid) {
             TransitConnector.init(c.transitName);
         }
 
-        if(c.useConnectorTemplates) {
-            var conn = connectors[c.useConnectorTemplates];
-            if(!c.placeTemplate)
-                c.placeTemplate = conn.placeTemplate;
-            if(!c.placeTemplateList)
-                c.placeTemplateList = conn.placeTemplateList;
-            if(!c.placeTemplateLabel)
-                c.placeTemplateLabel = conn.placeTemplateLabel;
-        }
-
         templates.placeTemplate = Handlebars.compile(
-            c.placeTemplate || defaultPlaceTemplate);
+            c.placeTemplate || c.place_template || defaultPlaceTemplate);
 
         templates.placeTemplateList = Handlebars.compile(
-            c.placeTemplateList || defaultPlaceTemplateList);
+            c.placeTemplateList || c.place_template_list || defaultPlaceTemplateList);
 
         templates.placeTemplateLabel = Handlebars.compile(
-            c.placeTemplateLabel || defaultPlaceTemplateLabel);
+            c.placeTemplateLabel || c.place_template_label || defaultPlaceTemplateLabel);
 
         Map.mapDriver.subscribe();
     }
