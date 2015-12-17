@@ -629,7 +629,6 @@ switchCollection = function (cid) {
         templates.placeTemplateLabel = Handlebars.compile(
             c.placeTemplateLabel || c.place_template_label || defaultPlaceTemplateLabel);
 
-        Map.mapDriver.subscribe();
     }
 
     // this needs to be outside of the if statement above so it
@@ -639,4 +638,6 @@ switchCollection = function (cid) {
     } else {
         Map.removeDrawControl();
     }
+
+    Map.mapDriver.subscribe();
 };

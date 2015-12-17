@@ -86,7 +86,7 @@ DefaultMapDriver = {
         this.subscribe();
     },
 
-    subscribe: function () {
+    subscribe: function (center) {
         if(Session.get('autoLoading') == false)
             return;
 
@@ -103,12 +103,15 @@ DefaultMapDriver = {
         }
         var poly = Map.getBoundsAsPolygon();
 
+        if(center)
+            center = [center.lng, center.lat]
+        else
+            center = [Map.center().lng, Map.center().lat]
+
         near = {
-            center: [Map.center().lng, Map.center().lat],
+            center: center,
             maxDistance: Map.getMapRadiusKM()*1000
         }
-
-        console.log(filter, near, cid, sort, limit);
 
         Meteor.subscribe("places", cid, poly, 
             sort, limit, undefined, undefined, filter, near, {

@@ -874,11 +874,11 @@ Map = {
 
     // used to switch themes for collections with multiple
     // themes
-    resetStyle: function (color-f) { 
-        color-f = new Function('p', color-f);
+    resetStyle: function (color_f) { 
+        color_f = new Function('p', color_f);
         _.each(this.keysToLayers, function (layer) {
             var p = MPlaces.findOne({_id: layer.key});
-            var c = color-f(p.properties);
+            var c = color_f(p.properties);
             if(c[0] != "#") c = "#"+c;
             layer.setStyle({fillColor: c});
         });

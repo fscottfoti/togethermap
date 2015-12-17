@@ -91,7 +91,7 @@ Template.collection.helpers({
     },
 
     themeSelected: function() {
-        var theme = Session.get('currentTheme') ||
+        var theme = Session.get('activeTheme') ||
             Template.parentData(1).default_theme;
         return this == theme
             ? 'selected' : '';
@@ -132,7 +132,7 @@ Template.collection.events = {
 
         Map.resetStyle(f);
 
-        Session.set('currentTheme', v);
+        Session.set('activeTheme', v);
     },
 
     'click .sortings': function () {
@@ -221,6 +221,7 @@ Template.collection.events = {
             $('.tooltipped').tooltip();
         });
     },
+
 
     'click .pan-collection': function () {
         if(this.location) {
