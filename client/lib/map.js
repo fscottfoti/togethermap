@@ -59,10 +59,11 @@ Map = {
 
         this.sidebar = L.control.sidebar('sidebar', {
             position: 'right',
-            //closeButton: false,
             autoPan: false
         });
+
         this.map.addControl(this.sidebar);
+
         this.sidebar.on('hide', function () {
             var cid = Session.get('activeCollection');
             if(!cid)
@@ -71,9 +72,9 @@ Map = {
             Session.set('sidebarOpen', false);
             if(!mobileFormFactor) {
                 Map.sideBarActive = true;
-                //Map.sideBarButton.addTo(Map.map);
             }
         });
+
         this.sidebar.on('show', function () {
             // this is a bit odd - we need to know, when we close the sidebar,
             // that it has ever been opened (presumably to a valid state).
@@ -82,20 +83,10 @@ Map = {
             Session.set('sidebarOpen', true);
             if(Map.sideBarActive) {
                 Map.sideBarActive = false;
-                //Map.sideBarButton.removeFrom(Map.map);
             }
         });
 
-        /*this.sideBarButton = L.easyButton('fa-home', function(){
-            Map.sidebar.toggle();
-            if(Map.sidebar.isVisible()) {
-                history.back();
-            }
-        });*/
-
-        this.mobileLocateButton = L.control.locate(); /*L.easyButton('fa-location-arrow', function () {
-            Map.goToMyLoc();
-        });*/
+        this.mobileLocateButton = L.control.locate();
 
         this.mobileAddMarkerButton = L.easyButton('fa-map-marker', function() {
             Map.tempMarker = L.marker(Map.center()).addTo(Map.map);
@@ -604,6 +595,9 @@ Map = {
 
     goToMyLoc: function () {
 
+        // this is a function that can be used with an easy button
+        // to go to user's location on web and MOBILE both
+
         var loc = Geolocation.latLng();
 
         if(!loc) {
@@ -801,6 +795,7 @@ Map = {
         return marker;
     },
 
+
     highlightPlace: function (id) {
 
         Map.highlitPlace = id;
@@ -816,8 +811,8 @@ Map = {
             // not marker
             layer.setStyle({fillOpacity: 1.0, opacity: 0.9});
         }
-        //this.normalOtherPlaces(id);
     },
+
 
     unHighlightPlace: function (id) {
         var layer = this.keysToLayers[id];
@@ -831,23 +826,8 @@ Map = {
             layer.setStyle({fillOpacity: 0.6, opacity: 0.75});
         }
         Map.highlitPlace = undefined;
-        //this.normalOtherPlaces(id);
     },
-
-    normalOtherPlaces: function (id) {
-        _.each(this.keysToLayers, function (layer) {
-            if(layer.key == id)
-                return;
-            if(layer.normal_icon) {
-                layer.setIcon(layer.normal_icon);
-                if(layer.originalOffset != undefined)
-                    layer.setZIndexOffset(layer.originalOffset);
-            } else {
-                layer.setStyle({fillOpacity: 0.6, opacity: 0.75});
-            }
-        });
-    },
-
+    
 
     goToPlace: function (place, bounce, noZoom) {
         var center = Map.jsonGetCenter(place);
