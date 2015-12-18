@@ -141,17 +141,17 @@
         </div>
         {{/if}}
 
-    {{#if noPosts }}
+    {{#if noComments }}
 
     {{else}}
 
         <hr>
 
-        {{#each posts }}
+        {{#each comments }}
 
             <div style="margin-bottom: 15px;">
 
-                {{> quick_post }}
+                {{> quick_comment }}
 
                 <hr>
 

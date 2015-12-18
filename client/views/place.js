@@ -51,9 +51,9 @@ Template.place.helpers({
         return Session.get('noNav');
     },
 
-    noPosts: function () {
+    noComments: function () {
         // doesn't count if place isn't loaded
-        return this.posts.count() == 0 && this.place;
+        return this.comments.count() == 0 && this.place;
     },
 
     expertMode: function () {

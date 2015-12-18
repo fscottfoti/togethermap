@@ -961,7 +961,7 @@ Map = {
 
         } else {
 
-            var post_count = place.post_count || 0;
+            var comment_count = place.comment_count || 0;
 
             var l = '';
             if(templates.placeTemplateLabel) {
@@ -971,8 +971,8 @@ Map = {
             }
 
             label = l +
-                post_count.toString() +
-                (post_count !== 1 ? ' comments': ' comment');
+                comment_count.toString() +
+                (comment_count !== 1 ? ' comments': ' comment');
         }
         if(!mobileFormFactor) {
             shape.bindLabel(label, {direction: 'auto'});

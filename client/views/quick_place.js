@@ -37,7 +37,7 @@ Template.quick_place.helpers({
 
     creatorSort: function () { return Session.get('activeSortType') == "User"},
 
-    postSort: function () { return Session.get('activeSortType') == "Comments"}
+    comentSort: function () { return Session.get('activeSortType') == "Comments"}
 });
 
 Template.quick_place.events = {

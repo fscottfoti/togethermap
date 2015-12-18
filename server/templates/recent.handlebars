@@ -47,39 +47,6 @@
 
     {{/unlessEmpty}}
 
-    {{#unlessEmpty recent_posts }}
-
-        <hr>
-
-        <h3>
-            <i class="fa fa-clock-o">
-                Recent Posts
-            </i>
-        </h3>
-        
-
-        <div class="alternate-colors">
-
-            {{#each recent_posts}}
-                <div>
-                    <h4>
-                        <a href="{{postUrl collectionId _id}}">
-                            {{title}}
-                        </a>
-                    </h4>
-
-                    {{{ description }}}
-
-                    {{#if image_url}}
-                        <img src="{{image_url}}" style="width: 100%;">
-                    {{/if}}
-                </div>
-            {{/each}}
-
-        </div>
-
-    {{/unlessEmpty}}
-
     {{#unlessEmpty recent_comments }}
 
         <hr>

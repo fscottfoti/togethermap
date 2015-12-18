@@ -197,7 +197,6 @@ Router.map(function () {
         },
         subscriptions: function () {
             return [
-                Meteor.subscribe('posts', undefined, this.params._id),
                 Meteor.subscribe('places', this.params._id, undefined, {createDate: -1}, RECENT_LIMIT),
                 Meteor.subscribe('comments', undefined, this.params._id)
             ]
@@ -206,7 +205,6 @@ Router.map(function () {
             return {
                 collection: MCollections.findOne(this.params._id),
                 recent_places: MPlaces.find({collectionId: this.params._id}, {sort: {createDate: -1}, limit: RECENT_LIMIT}),
-                recent_posts: MPosts.find({collectionId: this.params._id}, {$sort: {createDate: -1}, limit: RECENT_LIMIT}),
                 recent_comments: MComments.find({collectionId: this.params._id}, {$sort: {createDate: -1}, limit: RECENT_LIMIT})
             }
         },
@@ -335,7 +333,7 @@ Router.map(function () {
         subscriptions: function () {
             return [
                 Meteor.subscribe('allCollectionsForPlace', this.params._id),
-                Meteor.subscribe('posts', this.params._id, this.params._cid),
+                Meteor.subscribe('comments', this.params._id, this.params._cid),
                 Meteor.subscribe('place', this.params._id, this.params._cid)
             ]
         },
@@ -366,7 +364,7 @@ Router.map(function () {
 
                 return {
                     place: p,
-                    posts: MPosts.find({placeId: id}, {sort: {createDate: +1}}),
+                    comments: MComments.find({placeId: id}, {sort: {createDate: +1}}),
                     allPlaceInstances: MPlaces.find({$or: [{_id: pid}, {parent_id: pid}]})
                 }
             }
@@ -528,10 +526,8 @@ closeSidebar = function () {
 connectors = {
     'home': SearchConnector,
     'gallery': CollectionsConnector,
-    'collections': CollectionsConnector,
-    'factual': FactualConnector
+    'collections': CollectionsConnector
 };
-connectors[factualCid] = FactualConnector;
 
 switchCollection = function (cid) {
 

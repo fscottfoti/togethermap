@@ -1,6 +1,4 @@
 customLabelForCollection = function (place) {
-    var post_count = place.post_count || 0;
-
     var l = '';
     if(place.collectionId &&
         MCollections.findOne(place.collectionId)) {
@@ -17,7 +15,7 @@ customLabelForCollection = function (place) {
         l = Handlebars.compile(defaultPlaceTemplateList)(place);
     }
 
-    return l + post_count.toString() + (post_count !== 1 ? ' posts': ' post');
+    return l;
 };
 
 

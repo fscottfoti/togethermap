@@ -65,14 +65,13 @@ var recentPlacesByCid = function (cids, extraFilter) {
         return {
             collection: MCollections.findOne(cid),
             recent_places: MPlaces.find(filter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
-            recent_posts: MPosts.find(filter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch(),
             recent_comments: MComments.find(filter, {sort: {createDate: -1}, limit: RECENT_LIMIT}).fetch()
         };
     });
 
 
     recent_data = _.filter(recent_data, function (obj) {
-        return obj.recent_places.length > 0 || obj.recent_posts.length > 0 || obj.recent_comments.length > 0;
+        return obj.recent_places.length > 0 || obj.recent_comments.length > 0;
     });
 
 

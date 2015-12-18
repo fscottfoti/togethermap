@@ -19,7 +19,6 @@ tile2lat = function(y,z) {
 
 type2CollectionMap = {
     "place": MPlaces,
-    "post": MPosts,
     "comment": MComments,
     "collection": MCollections
 };
