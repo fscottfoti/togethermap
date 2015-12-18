@@ -387,6 +387,7 @@ Router.map(function () {
         unload: function () {
             Map.unHighlightPlace(this.params._id);
             Session.set('disableHover', false);
+            Session.set('dont_set_collection_location', false);
             $('.tooltipped').tooltip('remove');
         }
     });

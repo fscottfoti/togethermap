@@ -3,7 +3,7 @@
 	[
 		{
 			"path": ".",
-			"folder_exclude_patterns": [".meteor"],
+			"folder_exclude_patterns": [".meteor"]
 		}
 	]
 }

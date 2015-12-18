@@ -54,7 +54,7 @@ Template.collection.helpers({
         return MPlaces.find({collectionId: cid}).count();
     },
 
-    writePermission: function () {
+    write_permission: function () {
         var cid = Session.get('activeCollection');
         return writePermission(this, cid, Meteor.user(), "collection");
     },

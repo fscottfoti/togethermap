@@ -113,6 +113,7 @@ Template.collectionEdit.helpers({
     },
 
     hideThemeFunctions: function () {
+        if(!this.themes) return true;
         var keys = _.keys(this.themes);
         return this.enable_advanced_controls && keys.length == 0;
     },
