@@ -222,8 +222,10 @@ Meteor.methods({
 
     // id and collectionid
     removeComment: function (id, pid) {
+
         var old_obj = MComments.findOne(id);
         var cid = old_obj.collectionId;
+
         if (!old_obj || !writePermission(old_obj, cid, getUser(this.userId), "post")) {
             throw new Meteor.Error(403, "Permission denied to remove comment.");
         }
@@ -231,7 +233,7 @@ Meteor.methods({
         MComments.remove(id, function (err, removed) {
             if(removed) {
                 // decrement the count
-                MPLaces.update(pid, {$inc: {comment_count: -1}});
+                MPlaces.update(pid, {$inc: {comment_count: -1}});
             }
         });
     },

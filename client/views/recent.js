@@ -5,6 +5,7 @@ Template.recent.rendered = function () {
 
 Template.recent.helpers({
     noComments: function () {
+        console.log(this.recent_comments.fetch());
         return this.recent_comments.fetch().length == 0;
     }
 });
@@ -21,36 +22,12 @@ Template.recent.events = {
         });
     },
 
-    'click .place-go': function (e) {
-
-        e.preventDefault();
-        var cid = Session.get('activeCollection');
-        Router.go('place', {
-            _id: this._id,
-            _cid: cid
-        });
-    },
-
-    'click .post-go': function (e) {
+    'click .comment-go': function (e) {
 
         e.preventDefault();
         var cid = Session.get('activeCollection');
         Router.go('place', {
             _id: this.placeId,
-            _cid: cid
-        });
-        /*Router.go('post', {
-            _id: this._id,
-            _cid: cid
-        });*/
-    },
-
-    'click .comment-go': function (e) {
-
-        e.preventDefault();
-        var cid = Session.get('activeCollection');
-        Router.go('post', {
-            _id: this.postId,
             _cid: cid
         });
     }

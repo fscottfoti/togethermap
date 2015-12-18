@@ -1,17 +1,11 @@
 Template.search.rendered = function () {
 
-    Session.set('zoom_level', Map.zoom());
+    Session.set('zoomLevel', Map.zoom());
 
-    if(Session.get('expertMode')) {
-        Session.set('search_type', "Factual");
-    } else {
-        Session.set('search_type', "TogetherMap");
-    }
-
-    if(Session.get('query_string')) {
-        $('#srch').val(Session.get('query_string'));
+    if(Session.get('queryString')) {
+        $('#srch').val(Session.get('queryString'));
         // trigger update
-        Session.set('included_rows', Session.get('included_rows'));
+        Session.set('includedRows', Session.get('includedRows'));
     }
 };
 
@@ -21,50 +15,28 @@ Template.search.helpers({
         return Session.get('expertMode');
     },
     searchLoading: function () {
-        return Session.get('search_state') == 'loading';
+        return Session.get('searchState') == 'loading';
     },
     latestQuery: function () {
-        return Session.get('latest_completed_query');
+        return Session.get('latestCompletedQuery');
     },
     searchCompleted: function () {
-        return Session.get('search_state') == 'results_available';
+        return Session.get('searchState') == 'resultsAvailable';
     },
     totalRows: function () {
-        return Session.get('total_row_count');
+        return Session.get('totalRowCount');
     },
     includedRows: function () {
-        return Session.get('map_visible_places');
-    },
-    factualSearch: function () {
-        return Session.get('search_type') == "Factual";
+        return Session.get('mapVisiblePlaces');
     },
     loadedRows: function () {
-        if(Session.get('search_type') == "TogetherMap") {
-            return MPlaces.find().count();
-        } else {
-            return FactualConnector.places ? FactualConnector.places.length : 0;
-        }
+        return MPlaces.find().count();
     },
     zoomIn: function () {
-        var z = Session.get('zoom_level') < minFactualZoomLevel;
-        if(!z) {
-            if(Session.get("expertMode")) {
-                Session.set('search_type', "Factual");
-            } else {
-                Session.set('search_type', "TogetherMap");
-            }
-        }
-        return z;
+        return Session.get('zoomLevel') < minFactualZoomLevel;
     },
     searchResults: function () {
-        if(Session.get('search_type') == "TogetherMap") {
-            return SearchConnector.places();
-        } else {
-            // this is also a way to trigger an update of the dom
-            if (Session.get('included_rows') == undefined)
-                return;
-            return FactualConnector.places;
-        }
+        return SearchConnector.places();
     }
 });
 
@@ -72,74 +44,42 @@ Template.search.helpers({
 var last_search = undefined;
 
 
-var searchFactual = function (val) {
+var search = function (val) {
 
     if(val == undefined)
-        val = Session.get('query_string') || '';
+        val = Session.get('queryString') || '';
 
-    var isFactual = Session.get('search_type') == "Factual";
-
-    if(Session.get('search_state') == 'loading') {
+    if(Session.get('searchState') == 'loading') {
         return;
     }
 
-    if(val != Session.get('query_string') ||
+    if(val != Session.get('queryString') ||
         last_search != isFactual) {
 
-        Session.set('query_string', val);
+        Session.set('queryString', val);
         // new search, clear the old search
-        if(isFactual) {
-            FactualConnector.init();
-        } else {
-            SearchConnector.init();
-        }
-        Session.set('search_state', undefined);
+        SearchConnector.init();
+        Session.set('searchState', undefined);
     }
 
-    Session.set('query_string', val);
+    Session.set('queryString', val);
 
-    if(isFactual) {
-        FactualConnector.getAll();
-    } else {
-        SearchConnector.getAll();
-    }
-
+    SearchConnector.getAll();
 };
-var searchFactualThrottled = _.throttle(searchFactual, 500);
+
+var searchThrottled = _.throttle(search, 500);
 
 
 Template.search.events({
 
     'keyup input[name=srch]': function(event) {
 
-        searchFactualThrottled(event.target.value);
+        searchThrottled(event.target.value);
     },
 
 
     'click input[name=searchToggle]': function () {
-
-        var v = $('input[name=searchToggle]:checked').val();
-
-        Session.set('search_type', v);
-
-        searchFactualThrottled();
+        searchThrottled();
     }
 
 });
-
-
-
-Template.factual_place.helpers({
-    activePlace: function () {
-        var key = Session.get('active_place');
-        if(!key)
-            return;
-        return _.find(FactualConnector.places, function (place) {
-            return place._id == this.key;
-        }, {key: key});
-    }
-});
-
-
-Template.factual_place.events = {
-};

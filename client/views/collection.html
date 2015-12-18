@@ -113,10 +113,13 @@
             </span>
 
             <span> //
+
                 <i class="fa fa-comment"></i>
+
                 {{#if enable_advanced_controls}}
-                    {{ places_loaded_count }} of 
+                    {{ placesLoadedCount }} of 
                 {{/if}}
+
                 {{pluralize place_count "Place"}}
             </span>
 
@@ -124,18 +127,23 @@
 
         {{#if enable_advanced_controls}}
 
-            <div class="switch form-group">
-                <label>
-                    Enable auto-load:<br>
-                    Off
-                    <input type="checkbox"
-                           id="enable-auto-load"
-                        {{autoLoadEnabled}}>
-                    <span class="lever"></span>
-                    On
-                </label>
-                &nbsp;&nbsp;
-                <span class="btn load_all">Load More</span>
+            <div class="row">
+                <div class="col s6 center-align">
+                    <div class="switch form-group">
+                        <label>
+                            Auto-load:<br>
+                            Off
+                            <input type="checkbox"
+                                   id="enable-auto-load"
+                                {{autoLoadEnabled}}>
+                            <span class="lever"></span>
+                            On
+                        </label>
+                    </div>
+                </div>
+                <div class="col s6 center-align" style="margin-top: 8px;">
+                    <span class="btn load_all">Load More</span>
+                </div>
             </div>
 
             <div class="form-group">

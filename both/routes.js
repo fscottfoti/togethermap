@@ -204,7 +204,6 @@ Router.map(function () {
         data: function () {
             return {
                 collection: MCollections.findOne(this.params._id),
-                recent_places: MPlaces.find({collectionId: this.params._id}, {sort: {createDate: -1}, limit: RECENT_LIMIT}),
                 recent_comments: MComments.find({collectionId: this.params._id}, {$sort: {createDate: -1}, limit: RECENT_LIMIT})
             }
         },
@@ -332,7 +331,6 @@ Router.map(function () {
         path: '/place/:_cid/:_id',
         subscriptions: function () {
             return [
-                Meteor.subscribe('allCollectionsForPlace', this.params._id),
                 Meteor.subscribe('comments', this.params._id, this.params._cid),
                 Meteor.subscribe('place', this.params._id, this.params._cid)
             ]
@@ -434,7 +432,7 @@ Router.map(function () {
     this.route('search', {
         path: '/search',
         onAfterAction: function () {
-            Session.set('query_string', undefined);
+            Session.set('queryString', undefined);
             Session.set('query_valid', true);
             switchCollection('home');
             openSidebar();

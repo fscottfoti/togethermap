@@ -49,16 +49,16 @@ SearchConnector = {
 
         var poly = Map.getBoundsAsPolygon();
         var userId = Session.get('active_user');
-        var query = Session.get('query_string');
+        var query = Session.get('queryString');
 
 
         Meteor.subscribe('places', undefined, poly, {createDate: -1},
             25, undefined, query, {
                 onReady: function () {
-                    Session.set('search_state', 'results_available');
-                    Session.set('latest_completed_query', query);
+                    Session.set('searchState', 'resultsAvailable');
+                    Session.set('latestCompletedQuery', query);
                     var cnt = Map.countVisiblePlaces();
-                    Session.set('map_visible_places', cnt);
+                    Session.set('mapVisiblePlaces', cnt);
                 }
             });
     },
@@ -66,7 +66,7 @@ SearchConnector = {
 
     searchFilter: function () {
         var filter = {};
-        var query = Session.get('query_string');
+        var query = Session.get('queryString');
         if (query) {
             filter['properties.name'] = {
                 $regex: RegExp.escape(query),
@@ -92,15 +92,15 @@ SearchConnector = {
     locationChanged: function () {
 
         var poly = Map.getBoundsAsPolygon();
-        var query = Session.get('query_string');
+        var query = Session.get('queryString');
 
         Meteor.subscribe('places', undefined, poly, {createDate: -1},
             25, undefined, query, {
                 onReady: function () {
-                    Session.set('search_state', 'results_available');
-                    Session.set('latest_completed_query', query);
+                    Session.set('searchState', 'resultsAvailable');
+                    Session.set('latestCompletedQuery', query);
                     var cnt = Map.countVisiblePlaces();
-                    Session.set('map_visible_places', cnt);
+                    Session.set('mapVisiblePlaces', cnt);
                 }
             });
 

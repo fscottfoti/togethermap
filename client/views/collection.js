@@ -45,11 +45,11 @@ Template.collection.helpers({
         return MPlaces.find({collectionId: cid}, {sort: sort, limit: 20});
     },
 
-    visible_places_count: function () {
-        return Session.get('map_visible_places') || 0;
+    visiblePlacesCount: function () {
+        return Session.get('mapVisiblePlaces') || 0;
     },
 
-    places_loaded_count: function () {
+    placesLoadedCount: function () {
         var cid = Session.get('activeCollection');
         return MPlaces.find({collectionId: cid}).count();
     },

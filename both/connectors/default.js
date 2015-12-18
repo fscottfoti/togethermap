@@ -117,7 +117,7 @@ DefaultMapDriver = {
             sort, limit, undefined, undefined, filter, near, {
             onReady: function() {
                 var cnt = Map.countVisiblePlaces();
-                Session.set('map_visible_places', cnt);
+                Session.set('mapVisiblePlaces', cnt);
             }
         });
         this.getAll(cid);

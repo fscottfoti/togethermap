@@ -827,6 +827,21 @@ Map = {
         }
         Map.highlitPlace = undefined;
     },
+
+
+    normalOtherPlaces: function (id) {
+        _.each(this.keysToLayers, function (layer) {
+            if(layer.key == id)
+                return;
+            if(layer.normal_icon) {
+                layer.setIcon(layer.normal_icon);
+                if(layer.originalOffset != undefined)
+                    layer.setZIndexOffset(layer.originalOffset);
+            } else {
+                layer.setStyle({fillOpacity: 0.6, opacity: 0.75});
+            }
+        });
+    },
     
 
     goToPlace: function (place, bounce, noZoom) {

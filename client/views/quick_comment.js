@@ -10,7 +10,7 @@ Template.quick_comment.events = {
     'click .remove-comment': function (e) {
 
         e.preventDefault();
-        Meteor.call('removeComment', this._id, this.postId);
+        Meteor.call('removeComment', this._id, this.placeId);
     },
 
     'click .profile-go': function (e) {

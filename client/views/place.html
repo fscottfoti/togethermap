@@ -82,7 +82,7 @@
 
             <span> //
                 <i class="fa fa-comment"></i>
-                {{ pluralize post_count "Comment" }}
+                {{ pluralize comment_count "Comment" }}
             </span>
 
             {{#if enableThumbsVoting}}
@@ -224,8 +224,6 @@
                        class="form-control"
                        placeholder="Enter Comment Here"/>
             </div>
-
-            {{> image image_url=post_image_url }}
 
             <div>
                 <button class="btn btn-sm btn-success add-topic tooltipped"

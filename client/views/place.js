@@ -1,12 +1,12 @@
 var jqueryInit = function () {
     textEditorInit('', function (html) {
-        Session.set('current_html', html);
+        Session.set('currentHtml', html);
     });
 }
 
 
 Template.place.rendered = function () {
-    Session.set('current_html', '');
+    Session.set('currentHtml', '');
     jqueryInit();
     $('.tooltipped').tooltip();
 };
@@ -24,9 +24,11 @@ Template.place.helpers({
     },
 
     dynamicPlace: function () {
+
         Meteor.defer(function() {
             $('.tooltipped').tooltip();
         });
+        
         // compiled when we change the collection for performance
         if(templates.placeTemplateList) {
             return templates.placeTemplate(this);
@@ -108,30 +110,6 @@ Template.place.events = {
         $.fancybox( renderTmp(Template.login) );
     },
 
-    'click .open-copy': function () {
-        var places = Template.parentData().allPlaceInstances.fetch();
-        var i = _.map(places, function (p) {
-            return p.collectionId;
-        });
-        Session.set('allPlaceInstances', i);
-
-        // need to get and add the place since the copy modal doesn't
-        // have access to this state
-        var p = Template.parentData().place;
-        p = JSON.parse(JSON.stringify(p));
-        Session.set('placeToCopy', p);
-
-        if ($('#copyForm').length) {
-            // I don't know why this happens, but apparently using the fancybox
-            // modal, the dom still exists from the last time you opened the 
-            // modal, which means the ids on the radio buttons are duplicates
-            // and you can't click on them - anyway, this is hacky fix for now
-            $('#copyForm').remove();
-        }
-
-        $.fancybox( renderTmp(Template.copy) );
-    },
-
     'click .pan-map': function () {
 
         Map.goToPlace(this);
@@ -139,21 +117,6 @@ Template.place.events = {
         if(mobileFormFactor) {
             Map.sidebar.toggle();
         }
-    },
-
-    'click .profile-go': function (e) {
-
-        e.preventDefault();
-        Router.go('profile', {_id: this.creatorUID});
-    },
-
-    'click .read-more': function (e) {
-
-        e.preventDefault();
-        Router.go('post', {
-            _id: this._id,
-            _cid: this.collectionId
-        });
     },
 
     'click .collection-go': function (e) {
@@ -226,27 +189,16 @@ Template.place.events = {
         var cid = Session.get('activeCollection');
         var title = $( "#title" ).val();
 
-        var html = Session.get('current_html');
-
         if(!title || title.trim().length == 0) {
-            growl.warning("Need to enter a post title.");
+            growl.warning("Need to enter a comment.");
             return;
         }
 
-        if(html.length > 2000) {
-            growl.error("Topic too long (maybe you pasted an image?");
-            return;
-        }
-
-        Meteor.call('insertPost', {
-            title: title,
-            description: html,
-            image_url: Session.get('post_image_url')
+        Meteor.call('insertComment', {
+            text: title
         }, pid, cid);
 
         Session.set('newTopic', false);
-        Session.set('post_image_url', undefined);
-        Session.set('current_html', '');
 
         Meteor.defer(function() {
             $('.tooltipped').tooltip();
