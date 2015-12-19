@@ -106,41 +106,6 @@
 
 {{#if place}}
 
-
-        {{#if anyPlaceInstances}}
-        <div class="form-group">
-            Collections this place is a member of:
-
-            {{#each allPlaceInstances}}
-
-                <div>
-
-                    {{#unless isThisCollection}}
-
-                        <a class="place-go" href="#">
-                            <i class="fa fa-th"></i>
-                            {{ collectionName }}
-                        </a>
-
-                    {{else}}
-
-                        <span>
-                            <i class="fa fa-th"></i>
-                            {{ collectionName }}
-                        </span>
-
-                    {{/unless}}
-
-                    <span> //
-                        <i class="fa fa-comment"></i>
-                        {{pluralize post_count "Post"}}
-                    </span>
-                </div>
-
-            {{/each}}
-        </div>
-        {{/if}}
-
     {{#if noComments }}
 
     {{else}}

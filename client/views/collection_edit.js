@@ -4,7 +4,8 @@ Template.collectionEdit.rendered = function () {
     Session.set('expertConfiguration', false);
     var that = this;
 
-    if(this.data.collection.themes) {
+    if(this.data.collection.themes && 
+        Session.get('activeTheme') == undefined) {
         var keys = _.keys(this.data.collection.themes);
         if(keys.length) {
             Session.set('activeTheme', keys[0]);

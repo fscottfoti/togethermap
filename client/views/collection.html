@@ -142,7 +142,9 @@
                     </div>
                 </div>
                 <div class="col s6 center-align" style="margin-top: 8px;">
-                    <span class="btn load_all">Load More</span>
+                    <span class="btn load_more tooltipped"
+                      data-tooltip="100 More Places"
+                      data-position="top">More</span>
                 </div>
             </div>
 
@@ -154,7 +156,7 @@
 
                 <select id="activeFilter" class="browser-default">
                     {{#each filters}}
-                        <option value="{{this}}" {{themeSelected}}>{{this}}</option>
+                        <option value="{{this}}" {{filterSelected}}>{{this}}</option>
                     {{/each}}
                 </select>
             </div>

@@ -135,7 +135,8 @@ Router.map(function () {
             openSidebar();
         },
         unload: function () {
-             $('.tooltipped').tooltip('remove');
+            Map.enable_clustering = false;
+            $('.tooltipped').tooltip('remove');
         }
     });
 
@@ -604,6 +605,7 @@ switchCollection = function (cid) {
         Session.set('autoLoading', true);
         Session.set('activeLimit', DEFAULT_PLACE_LIMIT);
         Session.set('activeFilter', undefined);
+        Session.set('activeFilterName', undefined);
 
         currentCollection = cid;
 

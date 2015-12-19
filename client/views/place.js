@@ -75,14 +75,6 @@ Template.place.helpers({
         return this.collectionId == Session.get('activeCollection');
     },
 
-    anyPlaceInstances: function () {
-        return this.allPlaceInstances.fetch().length > 1;
-    },
-
-    post_image_url: function () {
-        return Session.get('post_image_url');
-    },
-
     autoFormExists: function () {
         var cid = Session.get('activeCollection');
         var c = MCollections.findOne(cid);
@@ -117,6 +109,7 @@ Template.place.events = {
         if(mobileFormFactor) {
             Map.sidebar.toggle();
         }
+        $('.tooltipped').tooltip('remove');
     },
 
     'click .collection-go': function (e) {

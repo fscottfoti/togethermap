@@ -141,7 +141,7 @@ Meteor.methods({
         addUserInfo(obj, this.userId);
         obj.collectionId = cid;
         obj.votes = 0;
-        obj.post_count = 0;
+        obj.comment_count = 0;
 
         var c = MCollections.findOne(cid);
         if(c.read_private)

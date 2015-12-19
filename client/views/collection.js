@@ -69,7 +69,9 @@ Template.collection.helpers({
     },
 
     sortTypes: function () {
-        return ['Recent', 'Votes', 'Name', 'Image', 'User', 'Fdbck'];
+        var a = ['Recent', 'Name', 'Image', 'User', 'Fdbck'];
+        if(this.enable_thumbs_voting) a.push('Votes')
+        return a;
     },
 
     placeList: function () {
@@ -86,6 +88,12 @@ Template.collection.helpers({
         return a;
     },
 
+    filterSelected: function() {
+        var filter = Session.get('activeFilterName');
+        return this.toString() == filter
+            ? 'selected' : '';
+    },
+
     themeNames: function () {
         return _.keys(this.themes);
     },
@@ -93,7 +101,7 @@ Template.collection.helpers({
     themeSelected: function() {
         var theme = Session.get('activeTheme') ||
             Template.parentData(1).default_theme;
-        return this == theme
+        return this.toString() == theme
             ? 'selected' : '';
     },
 
@@ -109,6 +117,8 @@ Template.collection.events = {
     "change #activeFilter": function (evt) {
 
         var v = $(evt.target).val();
+
+        Session.set('activeFilterName', v);
         
         v = this.filters[v];
 
@@ -119,7 +129,7 @@ Template.collection.events = {
         Map.mapDriver.subscribe();
     },
 
-    "click .load_all": function (evt) {
+    "click .load_more": function (evt) {
         Session.set('activeLimit', (Session.get('activeLimit') || 0) + 100);
         Map.mapDriver.subscribe();
     },
@@ -165,8 +175,8 @@ Template.collection.events = {
                 sort = {'properties.image_url': -1};
             if(type == "User")
                 sort = {'creator': +1};
-            if(type == "Comments")
-                sort = {'post_count': -1};
+            if(type == "Fdbck")
+                sort = {'comment_count': -1};
 
             Session.set('activeSort', sort);
             Session.set('activeSortType', type);
