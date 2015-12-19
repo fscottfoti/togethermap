@@ -82,7 +82,7 @@ Template.placeEdit.helpers({
             ? 'selected' : '';
     },
 
-    icon_sizes: function () {
+    iconSizes: function () {
         return _.map(['small', 'medium', 'large'],
             function (v) { return {name: v} });
     },

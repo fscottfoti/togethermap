@@ -52,32 +52,13 @@
 
         {{/if}}
 
-        {{#if expertMode}}
-        {{#if currentUser }}
-
-            <button class="btn btn-primary btn-sm open-copy tooltipped"
-                    data-tooltip="Copy"
-                    data-position="top">
-                <i class="fa fa-copy"></i>
-            </button>    
-
-        {{/if}}
-        {{/if}}
-
     </div>
 
     <div class="form-group">
 
             <span>
-                {{#unless 0}}
-                    <i class="fa fa-user"></i>
-                    {{ creator }}
-                {{else}}
-                    <a href="#">
-                        <i class="fa fa-user"></i>
-                        {{ creator }}
-                    </a>
-                {{/unless}}
+                <i class="fa fa-user"></i>
+                {{ creator }}
             </span>
 
             <span> //
@@ -93,11 +74,11 @@
             {{/if}}
 
         {{#if postPermission }}
-        {{#if enableThumbsVoting}}
-            <span class="hide-on-small-only">
-                {{> vote type="place" _id=_id }}
-            </span>
-        {{/if}}
+            {{#if enableThumbsVoting}}
+                <span class="hide-on-small-only">
+                    {{> vote type="place" _id=_id }}
+                </span>
+            {{/if}}
         {{/if}}
 
     </div>

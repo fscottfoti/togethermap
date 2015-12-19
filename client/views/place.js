@@ -92,7 +92,6 @@ Template.place.events = {
 
     'click .open-qf': function (evt) {
         var html = renderTmp(Template.quick_form);
-        //$(html).find('select').addClass('browser-default');
         $.fancybox( html );
     },
 

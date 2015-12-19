@@ -606,6 +606,7 @@ switchCollection = function (cid) {
         Session.set('activeLimit', DEFAULT_PLACE_LIMIT);
         Session.set('activeFilter', undefined);
         Session.set('activeFilterName', undefined);
+        Session.set('placeList', false);
 
         currentCollection = cid;
 
