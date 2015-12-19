@@ -109,7 +109,6 @@ Template.place.events = {
         if(mobileFormFactor) {
             Map.sidebar.toggle();
         }
-        $('.tooltipped').tooltip('remove');
     },
 
     'click .collection-go': function (e) {

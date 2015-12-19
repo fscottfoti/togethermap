@@ -100,6 +100,21 @@ Template.placeEdit.helpers({
     widthSelected: function() {
         return this.name === (Template.parentData(1).properties.weight || 9)
             ? 'selected' : '';
+    },
+
+    colorF: function () {
+        var c = MCollections.findOne(Session.get('activeCollection'));
+        return c.color_f || c.themes;
+    },
+
+    iconF: function () {
+        var c = MCollections.findOne(Session.get('activeCollection'));
+        return c.icon_f || c.themes;
+    },
+
+    iconSizeF: function () {
+        var c = MCollections.findOne(Session.get('activeCollection'));
+        return c.icon_size_f || c.themes;
     }
 });
 

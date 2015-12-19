@@ -41,7 +41,7 @@ Template.collection.helpers({
         }
 
         var cid = Session.get('activeCollection');
-        var sort = Session.get('activeSort') || {createDate: -1};
+        var sort = Session.get('activeSort');
         return MPlaces.find({collectionId: cid}, {sort: sort, limit: 20});
     },
 

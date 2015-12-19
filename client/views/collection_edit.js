@@ -114,7 +114,8 @@ Template.collectionEdit.helpers({
     },
 
     hideThemeFunctions: function () {
-        if(!this.themes) return true;
+        if(!this.themes && !this.color_f && 
+            !this.icon_f && !this.icon_size_f) return true;
         var keys = _.keys(this.themes);
         return this.enable_advanced_controls && keys.length == 0;
     },

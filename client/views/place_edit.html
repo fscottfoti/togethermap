@@ -92,6 +92,8 @@
         </div>
     </div>
 
+    {{#unless colorF}}
+
     <div class="form-group">
 
         <label for="shape-color">
@@ -102,7 +104,11 @@
                class="pick-a-color more-pick-a-color">
     </div>
 
+    {{/unless}}
+
     {{#if isMarker}}
+
+        {{#unless iconF}}
 
         <div class="form-group">
 
@@ -121,6 +127,10 @@
             </div>
         </div>
 
+        {{/unless}}
+
+        {{#unless iconSizeF}}
+
         <div class="form-group">
 
             <label>
@@ -138,6 +148,8 @@
             </div>
 
         </div>
+
+        {{/unless}}
 
     {{/if}}
 
