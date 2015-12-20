@@ -1,0 +1,112 @@
+<template name="profile">
+
+    Profile is not yet implemented.
+<!--
+    <div class="row"
+         style="margin-top: 10px; padding-left: 15px; padding-right: 15px;">
+
+        <div class="col-md-12">
+            <h3>User Profile</h3>
+
+            <h2 class="post-title">
+                <a href="{{ profile.link }}" ng-show="profile.link">
+                    {{ profile.name }}
+                </a>
+                <span ng-show="profile.creator">
+                    {{ profile.creator }}
+                </span>
+            </h2>
+
+            <img ng-show="profile.picture"
+                 ng-src="{{ profile.picture }}"
+                 style="height: 100px;">
+        </div>
+
+    </div>
+    <div class="row" style="padding-left: 15px; padding-right: 15px; 
+                            padding-top: 25px;">
+        
+        <div class="col-md-12">
+
+            <span class="dropdown" dropdown is-open="isopen">
+                
+                <button type="button" 
+                        class="btn btn-primary dropdown-toggle" 
+                        dropdown-toggle>
+                    
+                    <i class="fa fa-eye"></i>
+                    
+                    View user data<span class="caret"></span>
+                    
+                </button>
+                <ul class="dropdown-menu">
+                    
+                    <li ng-repeat="(key, value) in collections">
+                        
+                        <a href ng-click="viewCollection(key);">{{value}}</a>
+                    </li>
+                </ul>
+            </span>
+
+            <span class="post-tags">
+                <a ng-click="close()">
+                    
+                    <button class="btn btn-default">
+                        
+                        Back
+                    </button>
+                </a>
+            </span>
+
+            <h3 ng-show="collection">
+                User data for {{collections[collection]}}
+            </h3>
+
+            <tabset>
+                <tab heading="places">
+
+                    <div ng-show="collection" style="padding-top: 15px;">
+                        <place-list send-shape-signals="false"
+                                    zoom-to-places="false"></place-list>
+                    </div>
+
+                    <div ng-show="!collection">
+                        <br>
+                        <h2>
+                            Pick a collection.
+                        </h2>
+                    </div>
+                </tab>
+
+                <tab heading="posts">
+                    <div ng-repeat="post in posts" style="padding-top: 10px;">
+
+                        <postal post="post"
+                                place="post.placeId"
+                                collection="collection"
+                                user="user"
+                                use-post-links="true"
+                                ng-show="post.placeId">
+                        </postal>
+
+                    </div>
+
+                    <div ng-show="posts.length == 0">
+                        <br>
+                        <h2>
+                            Start making posts!
+                        </h2>
+                    </div>
+
+                    <div ng-show="!collection">
+                        <br>
+                        <h2>
+                            Pick a collection.
+                        </h2>
+                    </div>
+                </tab>
+        </tabset>
+        </div>
+    </div>
+    -->
+</template>

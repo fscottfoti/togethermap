@@ -1,0 +1,24 @@
+<head>
+    <title>TogetherMap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" sizes="16x16 32x32" href="/img/favicon.ico?v=2">
+</head>
+
+<template name="layout">
+    <header>
+        {{> nav }}
+    </header>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-xs-12" style="margin-top: -21px;">
+                {{> map}}
+            </div>
+            <div id="sidebar">
+                {{> yield }}
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="loading">
+</template>

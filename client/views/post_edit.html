@@ -1,0 +1,45 @@
+<template name="postEdit">
+
+    <h2>Post Edit</h2>
+
+    <div class="form-group">
+
+        <div class="form-group">
+
+            <a class="cancel">
+                <button class="btn btn-primary">
+                    <i class="fa fa-arrow-left"></i>
+                    Back
+                </button>
+            </a>
+            &thinsp;
+
+            <a class="delete-link">
+                <button class="btn btn-danger">
+                    <i class="fa fa-trash"></i>
+                    Delete
+                </button>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+
+        <label for="name">
+            Post Title:
+        </label>
+
+        <input class="form-control"
+               type="text"
+               name="name"
+               value="{{title}}"/>
+    </div>
+
+    <div class="form-group">
+        <textarea id="editable">
+            {{description}}
+        </textarea>
+    </div>
+
+</template>

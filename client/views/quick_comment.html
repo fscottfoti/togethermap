@@ -1,0 +1,32 @@
+<template name="quick_comment">
+
+    <div class="form-group">
+        {{{text}}}
+    </div>
+
+    <div class="form-group">
+
+        <span>
+            <a href="{{pathFor 'profile' _id=creatorUID }}">
+                <i class="fa fa-user"></i>
+                {{ creator }}
+            </a>
+        </span>
+
+        <span> //
+            <i class="fa fa-calendar"></i>
+            {{ formatDate createDate }}
+        </span>
+
+        {{#if writePermission}}
+            <a href="" class="remove-comment">
+                <span> //
+                    <i class="fa fa-remove"></i>
+                    delete
+                </span>
+            </a>
+        {{/if}}
+
+    </div>
+
+</template>

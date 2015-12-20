@@ -1,0 +1,28 @@
+<template name="search">
+
+    <br>
+
+    {{> esInput index="places" placeholder="Search..." }}
+
+    <br><br>
+
+    {{#esEach index="places"}}
+      <div class="alternate-colors">
+
+        {{> quick_place }}
+
+        {{ addToMap }}
+
+      </div>
+    {{/esEach}}
+
+    {{> esLoadMoreButton index="places"}}
+
+    {{#ifEsHasNoResults index="places"}}
+      <div class="no-results">No results found!</div>
+    {{/ifEsHasNoResults}}
+
+    {{#ifEsIsSearching index="places"}}
+      <div>Loading...</div>
+    {{/ifEsIsSearching}}
+</template>

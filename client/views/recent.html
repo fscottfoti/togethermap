@@ -1,0 +1,71 @@
+<template name="recent">
+
+    <i class="fa fa-clock-o">
+        &thinsp;Recent Places
+    </i>
+
+    <div ng-repeat="place in recent.places | reverse"
+         class="post-content-meta">
+
+                <span style="padding-left: 22px;">
+                    <a ui-sref="place({ placeId: place.$id,
+                                        collectionId: cid })">
+                        {{place.properties.name}}
+                    </a>
+                </span>
+
+    </div>
+
+    <div class="post-content-meta"
+         ng-show="recent.places.length == 0"
+         style="padding-left: 22px;">
+        No recent places
+    </div>
+
+    <br>
+
+    <i class="fa fa-clock-o">
+        &thinsp;Recent Posts
+    </i>
+
+    <div ng-repeat="post in recent.posts | reverse">
+
+                <span style="padding-left: 22px;">
+                    <a ui-sref="post({ placeId: post.placeId,
+                                       postId: post.$id,
+                                       collectionId: cid })">
+                        {{post.title }}
+                    </a>
+                </span>
+    </div>
+
+    <div class="post-content-meta"
+         ng-show="recent.posts.length == 0"
+         style="padding-left: 22px;">
+        No recent posts
+    </div>
+
+    <br>
+
+    <i class="fa fa-clock-o">
+        &thinsp;Recent Comments
+    </i>
+
+    <div ng-repeat="comment in recent.comments | reverse">
+
+                <span style="padding-left: 22px;">
+                    <a ui-sref="post({ placeId: comment.placeId,
+                                       postId: comment.postId,
+                                       collectionId: cid })">
+                        {{comment.text}}
+                    </a>
+                </span>
+    </div>
+
+    <div class="post-content-meta"
+         ng-show="recent.comments.length == 0"
+         style="padding-left: 22px;">
+        No recent comments
+    </div>
+
+</template>

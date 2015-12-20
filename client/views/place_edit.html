@@ -1,0 +1,109 @@
+<template name="placeEdit">
+
+    <h2>
+        Place Edit
+    </h2>
+
+    <div class="form-group">
+
+        <div class="form-group">
+
+            <a class="cancel">
+                <button class="btn btn-primary">
+                    <i class="fa fa-arrow-left"></i>
+                    Back
+                </button>
+            </a>
+            &thinsp;
+
+            <a class="delete-link">
+                <button class="btn btn-danger">
+                    <i class="fa fa-trash"></i>
+                    Delete
+                </button>
+            </a>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+
+        <label for="name">
+            Place Name:
+        </label>
+
+        <input class="form-control"
+               type="text"
+               name="name"
+               value="{{properties.name}}"/>
+
+    </div>
+
+    <div class="form-group">
+        <textarea id="editable">
+            {{properties.description}}
+        </textarea>
+    </div>
+
+    <div class="form-group">
+
+        <label for="shape-color">
+            Shape Color:
+        </label>
+
+        <input id="shape-color"
+               class="pick-a-color more-pick-a-color">
+
+    </div>
+
+    {{#if isMarker}}
+
+        <div class="form-group">
+
+            <label for="icon">
+                Marker Icon:
+            </label>&nbsp;
+
+            <select id="icons">
+                {{#each icons}}
+                    <option {{iconSelected}}>{{name}}</option>
+                {{/each}}
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="icon">
+                Marker Size:
+            </label>&nbsp;
+
+            <select id="icon_size">
+                {{#each icon_sizes}}
+                    <option {{sizeSelected}}>{{name}}</option>
+                {{/each}}
+            </select>
+
+        </div>
+
+    {{/if}}
+
+    {{#if isLine}}
+
+        <div class="form-group">
+
+            <label for="icon">
+                Line Width:
+            </label>&nbsp;
+
+            <select id="line_width">
+                {{#each line_widths}}
+                    <option {{widthSelected}}>{{name}}</option>
+                {{/each}}
+            </select>
+
+        </div>
+
+    {{/if}}
+
+</template>

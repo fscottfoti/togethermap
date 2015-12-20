@@ -1,0 +1,222 @@
+<template name="collectionEdit">
+
+    {{#with collection}}
+
+        <h2>
+            Collection Edit
+        </h2>
+    
+        <div class="form-group">
+            <label>Collection Name:</label>
+
+            <input type="text"
+                   name="name"
+                   value="{{name}}"
+                   class="form-control"/>
+        </div>
+
+        <div ng-hide="edit_mode"
+             ng-show="collection.description"
+             style="margin-top: 15px; margin-bottom: 15px;"
+             ng-bind-html="collection.description">
+        </div>
+
+        <div class="form-group">
+
+            <a class="save-location">
+                <button class="btn btn-default">
+                    <i class="fa fa-location-arrow"></i>
+                    Set Collection View
+                </button>
+            </a>
+
+            &nbsp;-&nbsp;
+
+            {{#if location}}
+
+                {{ locationDisplay }}
+
+            {{else}}
+
+                <button class="btn btn-warning">
+                    No Collection View Set
+                </button>
+
+            {{/if}}
+
+        </div>
+
+
+        <div class="form-group">
+
+            <a class="cancel">
+                <button class="btn btn-primary">
+                    <i class="fa fa-arrow-left"></i>
+                    Back
+                </button>
+            </a>
+            &thinsp;
+
+            <a class="delete-link">
+                <button class="btn btn-danger">
+                    <i class="fa fa-trash"></i>
+                    Delete
+                </button>
+            </a>
+            &thinsp;
+
+            {{#unless expertConfiguration}}
+                {{#if 0}}
+                <a class="toggle-expert">
+                    <button class="btn btn-primary">
+                        <i class="fa fa-arrow-down"></i>
+                        More
+                    </button>
+                </a>
+                {{/if}}
+            {{ else }}
+
+                <a class="toggle-expert">
+                    <button class="btn btn-primary">
+                        <i class="fa fa-arrow-up"></i>
+                        Less
+                    </button>
+                </a>
+
+            {{/unless}}
+
+        </div>
+
+
+        {{#if expertConfiguration}}
+
+            Custom Place Template (for Place Detail):
+            <textarea id="place_template"
+                      rows="4"
+                      style="width:100%">
+                {{place_template}}
+            </textarea>
+
+            <div class="post"
+                 style="margin-top: 25px; margin-bottom: 10px;">
+
+                <div dynamic="collection.place_template_list"
+                     place="place"
+                     style="margin-left: 15px;"></div>
+            </div>
+
+            Custom Place Template (for Place List):
+            <textarea rows="4"
+                      ng-model="collection.place_template_list"
+                      style="width: 100%;"></textarea>
+
+            <br><br>
+
+            Custom Theming Functions:
+            <div ng-show="f_mode=='icon'" ng-init="f_mode='icon'">
+                <textarea rows="3"
+                          ng-model="collection.icon_f"
+                          style="width: 100%;"></textarea>
+            </div>
+
+            <div ng-show="f_mode=='icon_size'">
+                <textarea rows="3"
+                          ng-model="collection.icon_size_f"
+                          style="width: 100%;"></textarea>
+            </div>
+
+            <div ng-show="f_mode=='color'">
+                <textarea rows="3"
+                          ng-model="collection.color_f"
+                          style="width: 100%;"></textarea>
+            </div>
+
+            <br>
+
+            <div>
+                <div class="btn-group">
+                    <label class="btn btn-primary"
+                           ng-model="f_mode"
+                           btn-radio="'icon'">
+                        Icon
+                    </label>
+                    <label class="btn btn-primary"
+                           ng-model="f_mode"
+                           btn-radio="'icon_size'">
+                        Icon Size
+                    </label>
+                    <label class="btn btn-primary"
+                           ng-model="f_mode"
+                           btn-radio="'color'">
+                        Color
+                    </label>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"
+                           ng-model="collection.custom_template">
+                           Apply Custom Place Template
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"
+                           ng-model="collection.spatial_index">
+                           Use Spatial Index
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"
+                           ng-model="collection.drop_markers">
+                           Drop Markers
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"
+                           ng-model="collection.show_popups">
+                           Show Popups
+                </label>
+            </div>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"
+                           ng-model="collection.dont_delete_places">
+                           Don't Delete Places on Map Pan
+                </label>
+            </div>
+
+            <br>
+
+            <div ng-show="upload_progress">
+                <progressbar max="10000" value="upload_pct">
+                    <span style="color:#f5f5f5; white-space:nowrap;">
+                        {{upload_count}} / {{upload_max}}
+                    </span>
+                </progressbar>
+            </div>
+
+            <div class="form-group" ng-hide="upload_progress">
+                <div class="btn btn-primary"
+                     ng-file-select
+                     ng-file-change="upload($files)">
+                    <i class="fa fa-cloud-upload"></i>
+                    Upload geojson file
+                </div>
+            </div>
+
+        {{/if}}
+
+    {{/with}}
+
+</template>
+

@@ -1,0 +1,122 @@
+<template name='nav'>
+    <nav class="navbar navbar-default" role="navigation"
+         style="padding-left: 15px; padding-right: 15px;">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button"
+                        class="navbar-toggle"
+                        data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                {{> navBrand}}
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    {{> navItems}}
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {{> loginButtons }} <!-- here -->
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</template>
+
+
+<template name="navBrand">
+    <a class="navbar-brand" href="{{ pathFor 'home' }}">TogetherMap</a>
+</template>
+
+
+<template name='navItems'>
+
+    <li class="dropdown">
+        <a href="#"
+           class="dropdown-toggle"
+           data-toggle="dropdown"
+           role="button"
+           aria-expanded="false">
+            Go
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a href="{{ pathFor 'collections'}}">Browse</a>
+            </li>
+
+            <li>
+                <a href="{{ pathFor 'search'}}">Search</a>
+            </li>
+
+            {{#if currentUser }}
+
+                <li>
+                    <a href="" class="newCollection">New</a>
+                </li>
+
+            {{/if}}
+        </ul>
+    </li>
+
+    <li class="dropdown">
+        <a href="#"
+           class="dropdown-toggle"
+           data-toggle="dropdown"
+           role="button"
+           aria-expanded="false">
+            Mine
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+            {{#if currentUser}}
+
+                {{#each my_collections}}
+                    <li><a href="{{ pathFor 'collection' _id=_id}}">{{name}}</a></li>
+                {{/each}}
+                {{#if no_collections}}
+                    <li><a href="">No collections</a></li>
+                {{/if}}
+
+            {{ else }}
+
+                <li><a href="">Login to add collections</a></li>
+
+            {{/if}}
+        </ul>
+    </li>
+
+    <li class="dropdown">
+        <a href="#"
+           class="dropdown-toggle"
+           data-toggle="dropdown"
+           role="button"
+           aria-expanded="false">
+            Followed
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+
+            {{#if currentUser}}
+
+                {{#each followed}}
+                    <li><a href="{{ pathFor 'collection' _id=cid}}">{{name}}</a></li>
+                {{/each}}
+                {{#if none_followed}}
+                    <li><a href="">None followed</a></li>
+                {{/if}}
+
+            {{ else }}
+
+                <li><a href="">Login to follow collections</a></li>
+
+            {{/if}}
+        </ul>
+    </li>
+
+</template>

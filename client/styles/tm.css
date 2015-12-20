@@ -1,0 +1,31 @@
+a {text-decoration:none}
+a:hover {text-decoration:none;}
+
+.alternate-colors div:nth-child(2n+1) {
+    background: #f1fff6;
+}
+
+.alternative-colors div:nth-child(2n+2) {
+    background: #def7e5;
+}
+
+.top-right {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+}
+
+
+.quick-place {
+    position: relative;
+    padding-left: 10px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-right: 30px;
+}
+
+
+.toast {
+    opacity: 1 !important;
+}

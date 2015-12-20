@@ -1,0 +1,114 @@
+<template name="collection">
+
+    {{#with collection}}
+    
+        <h2>
+            {{ name }}
+        </h2>
+
+        {{{ description }}}
+    
+        <!-- display a line of collection attributes (dates and such) -->
+
+        <div class="form-group">
+            <span>
+                <a href="{{pathFor 'profile' _id=creatorUID }}">
+                    <i class="fa fa-user"></i>
+                    {{ creator }}
+                </a>
+            </span>
+
+            <span> //
+                <i class="fa fa-calendar"></i>
+                {{ formatDate createDate }}
+            </span>
+
+            <span> //
+                <i class="fa fa-comment"></i>
+                {{ formatNumber places_loaded_count }} of
+                {{ formatNumber place_count }} Places
+            </span>
+        </div>
+
+        <div class="form-group">
+
+            {{#if write_permission }}
+
+                <span>
+                    <a class="edit-link">
+                        <button class="btn btn-primary">
+                            <i class="fa fa-edit"></i>
+                            Edit
+                        </button>
+                    </a>
+                    &thinsp;
+                </span>
+
+                <!--
+                <span>
+                    <a href="">
+                        <button class="btn btn-primary">
+                            <i class="fa fa-eye-slash"></i>
+                            Permissions
+                        </button>
+                    </a>
+                </span>
+                -->
+
+
+            {{/if}}
+
+            {{#if followable }}
+
+                <span>
+                    <a class="follow">
+                        <button class="btn btn-primary">
+                            Follow
+                        </button>
+                    </a>
+                    &thinsp;
+                </span>
+
+            {{/if}}
+
+            {{#if followed }}
+
+                <span>
+                    <a class="unfollow">
+                        <button class="btn btn-primary">
+                            Unfollow
+                        </button>
+                    </a>
+                    &thinsp;
+                </span>
+
+            {{/if}}
+
+        </div>
+
+    {{/with}}
+
+
+    <div class="alternate-colors">
+
+        {{#each places}}
+
+            {{> quick_place }}
+
+        {{/each}}
+
+    </div>
+
+
+    {{#unless collection.creatorUID }}
+
+        <div>
+            <h2 align="center">
+                Collection is missing. <br> Perhaps collection has been deleted?
+            </h2>
+        </div>
+
+    {{/unless}}
+
+</template>
+
