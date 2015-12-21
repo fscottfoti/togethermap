@@ -1,0 +1,1 @@
+## This folder contains 3rd party dependencies that aren't available as a meteor package, or weren't available as a meteor package when I need them, or were not the preferred version.

@@ -143,6 +143,7 @@ Meteor.publish('places', function (cid, bounds, sort, limit, user, query, filter
 
 // get a single place */
 Meteor.publish('place', function (id, cid) {
+
     if(!readPermission(getUser(this.userId), cid))
         return this.ready();
 
@@ -152,6 +153,7 @@ Meteor.publish('place', function (id, cid) {
 
 // get the list of comments for a given place
 Meteor.publish('comments', function (pid, cid) {
+
     if(!cid || !readPermission(getUser(this.userId), cid))
         return this.ready();
 
@@ -181,6 +183,7 @@ Meteor.publish("userData", function (_id) {
 
 // find the collections a user follows
 Meteor.publish("followed", function () {
+
     return MFollowed.find({userId: this.userId});
 });
 
@@ -239,6 +242,7 @@ Meteor.publish("permissionsForCid", function(cids) {
 // get everything about a collection, and make sure to show user names
 // rather than ids
 Meteor.publishComposite("fullCollection", function (cid) {
+
     return {
         find: function () {
             // you actually need write permissions for this collection
@@ -380,6 +384,7 @@ Meteor.methods({
     // gives you the permission (e.g. adds you to the appropriate array
     // on the collection)
     acceptPermission: function(cid, type, key) {
+
         var c = MCollections.findOne({_id: cid});
 
         var name = type + '_key';
@@ -408,6 +413,7 @@ Meteor.methods({
 
         addUserInfo(obj, this.userId);
         var cid = MCollections.insert(obj);
+
         if(places) {
             var that = this;
             for(var i = 0 ; i < places.length ; i++) {
@@ -422,7 +428,9 @@ Meteor.methods({
 
 
     exportCollectionAsJson: function (cid) {
+
         var c = MCollections.findOne(cid);
+
         if(!writePermission(c, cid, getUser(this.userId), "collection")) {
             // you have to be owner to be able to export
             throw new Meteor.Error(403, "Permission denied to export");
@@ -431,13 +439,17 @@ Meteor.methods({
         var name = c.name;
         var places = MPlaces.find({collectionId: cid}).fetch();
         var zip = new jsZip();
+
         zip.file(name+'.json', JSON.stringify({places: places}));
+
         return zip.generate({type: "base64"});
     },
 
 
     exportCollectionAsCsv: function (cid) {
+
         var c = MCollections.findOne(cid);
+        
         if(!writePermission(c, cid, getUser(this.userId), "collection")) {
             // you have to be owner to be able to export
             throw new Meteor.Error(403, "Permission denied to export");
@@ -556,32 +568,32 @@ SyncedCron.add({
 
         users.forEach(function (userId) {
 
-                var to = getUserEmail(userId);
+            var to = getUserEmail(userId);
 
-                if(_.find(excludeList, function (e) {
-                        return e == to;
-                    }, to)) {
-                    console.log("Excluding", to);
-                    return;
-                }
+            if(_.find(excludeList, function (e) {
+                    return e == to;
+                }, to)) {
+                console.log("Excluding", to);
+                return;
+            }
 
-                var data = recentPlacesDataByUser(userId);
+            var data = recentPlacesDataByUser(userId);
 
-                if(!data.collections || data.collections.length == 0) {
-                    // no email if nothing to say
-                    return;
-                }
+            if(!data.collections || data.collections.length == 0) {
+                // no email if nothing to say
+                return;
+            }
 
-                var html = Handlebars.templates['recent'](data);
-                html = buildTemplate(html);
+            var html = Handlebars.templates['recent'](data);
+            html = buildTemplate(html);
 
-                sendEmail(
-                    to,
-                    Meteor.settings.MAILGUN.REPLYTO,
-                    "Yesterday's News from TogetherMap",
-                    html
-                );
-            });
+            sendEmail(
+                to,
+                Meteor.settings.MAILGUN.REPLYTO,
+                "Yesterday's News from TogetherMap",
+                html
+            );
+        });
     }
 });
 

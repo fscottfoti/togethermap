@@ -3,6 +3,8 @@ DEFAULT_ZOOM = 11;
 DEFAULT_BASEMAP = 'streets';
 
 
+// this is how to make a toast (although in a few places
+// toast is used directly)
 growl = {
     success: function (msg) {
         Materialize.toast(msg, 3000, 'green');

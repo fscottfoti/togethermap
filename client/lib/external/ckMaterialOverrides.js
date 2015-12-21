@@ -1,3 +1,5 @@
+// this is used by the materialize text editor
+
 (function ($) {
     $.fn.ckTooltip = function (options) {
         var timeout = null,

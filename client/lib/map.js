@@ -1,5 +1,9 @@
 // The actual map manipulation happens here - e.g. Leaflet code goes here
 
+// generally this module shouldn't know that it's in a meteor app,
+// but in a few cases I cheat and use the Session object because it's
+// so convenient to keep global state
+
 Map = {
 
     create: function (id) {
