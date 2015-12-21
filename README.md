@@ -18,11 +18,13 @@ Installation is so simple.
 * Third run `meteor` in the cloned repo
 * Fourth open up `http://localhost:3000/` in a web browser
 
-## Database Setup
+## Meteor/Mongo Data Schema
 
 There are currently four collections.
 
-* Collections - TogetherMap uses the term collections to describe layers of spatial data.  Collections are sets of shapes.  The Collection MongoDB collection stores a single document per collection which configures that layer, and includes information like name, description, user who created the collection, number of places in the collection, and information on how to theme the collection. 
+First, one definition.  *TogetherMap uses the term collections to describe layers of spatial data.*  Collections are sets of shapes.  This is overloaded with the term "collection" used by Mongo.
+
+* Collections -   The Collection MongoDB collection stores a single document per collection which configures that layer, and includes information like name, description, user who created the collection, number of places in the collection, and information on how to theme the collection. 
 * Places - places are geojson objects which store *all* your spatial data.  That's right, all shapes are in the same collection.  Filter on one the collectionId attribute (which relates to the _id attribute in the Collections collection) to access all the places for a Collection.
 * Followed - a set of documents which keeps track of which collections a user if following
 * Comments - a set of documents which keep track of a comments on a given place using the placeId attribute (which relates to the _id attribute in the Places collection).
