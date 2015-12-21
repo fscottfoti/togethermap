@@ -603,12 +603,15 @@ Meteor.startup(function() {
     jsZip = Meteor.npmRequire('jszip');
     fastCsv = Meteor.npmRequire('fast-csv');
 
-    SyncedCron.start();
+    if(Meteor.settings.MAILGUN) {
 
-    var username = Meteor.settings.MAILGUN.USERNAME;
-    var password = Meteor.settings.MAILGUN.PASSWD;
-    var server = "smtp.mailgun.org";
-    var port = "587";
+        SyncedCron.start();
 
-    process.env.MAIL_URL = 'smtp://' + encodeURIComponent(username) + ':' + encodeURIComponent(password) + '@' + encodeURIComponent(server) + ':' + port;
+        var username = Meteor.settings.MAILGUN.USERNAME;
+        var password = Meteor.settings.MAILGUN.PASSWD;
+        var server = "smtp.mailgun.org";
+        var port = "587";
+
+        process.env.MAIL_URL = 'smtp://' + encodeURIComponent(username) + ':' + encodeURIComponent(password) + '@' + encodeURIComponent(server) + ':' + port;
+    }
 });

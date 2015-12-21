@@ -1,4 +1,11 @@
-Meteor.startup(function(){
+Meteor.startup(function() {
+
+    if(!Meteor.settings.public.MAPBOX_TOKEN) {
+        // default public token - can't use too much
+        Meteor.settings.public.MAPBOX_KEY = 
+            "pk.eyJ1IjoidG9nZXRoZXJtYXAiLCJhIjoiY2lpZmhiOHl5MDF1enUza3NqeWQ3dXh3bCJ9.hwKjhI_gWAg10W9YYDGegQ";
+    }
+
 
     AutoForm.setDefaultTemplate('materialize');
 
