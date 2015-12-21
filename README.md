@@ -20,9 +20,9 @@ Installation is so simple.
 
 ## Meteor/Mongo Data Schema
 
-There are currently four collections.
+There are currently four Meteor/Mongo collections.
 
-* Layers -   The Layers collection stores a single document per layer which configures that layer, and includes information like name, description, the user who created the layer, number of places in the layer, and information on how to theme the layer.
+* Layers - The Layers collection stores a single document per layer which configures that layer, and includes information like name, description, the user who created the layer, number of places in the layer, and information on how to theme the layer.
 * Places - places are geojson objects which store your spatial data.  That's right, all shapes are in the same collection.  Filter on the layerId attribute (which relates to the _id attribute in the Layer collection) to access all the places for a layer.
-* Followed - a set of documents which keeps track of which layers a user if following
+* Followed - a set of documents which keeps track of which layers a user if following.  This could probably by user data (i.e. in the Meteor Users collection), but it's not right now.
 * Comments - a set of documents which keep track of the comments on a given place using the placeId attribute (which relates to the _id attribute in the Places collection).
