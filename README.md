@@ -22,9 +22,7 @@ Installation is so simple.
 
 There are currently four collections.
 
-First, one definition.  *TogetherMap uses the term collections to describe layers of spatial data.*  Collections are sets of shapes.  This is overloaded with the term "collection" used by Mongo.
-
-* Collections -   The Collection MongoDB collection stores a single document per collection which configures that layer, and includes information like name, description, user who created the collection, number of places in the collection, and information on how to theme the collection. 
-* Places - places are geojson objects which store *all* your spatial data.  That's right, all shapes are in the same collection.  Filter on one the collectionId attribute (which relates to the _id attribute in the Collections collection) to access all the places for a Collection.
-* Followed - a set of documents which keeps track of which collections a user if following
-* Comments - a set of documents which keep track of a comments on a given place using the placeId attribute (which relates to the _id attribute in the Places collection).
+* Layers -   The Layers collection stores a single document per layer which configures that layer, and includes information like name, description, the user who created the layer, number of places in the layer, and information on how to theme the layer.
+* Places - places are geojson objects which store your spatial data.  That's right, all shapes are in the same collection.  Filter on the layerId attribute (which relates to the _id attribute in the Layer collection) to access all the places for a layer.
+* Followed - a set of documents which keeps track of which layers a user if following
+* Comments - a set of documents which keep track of the comments on a given place using the placeId attribute (which relates to the _id attribute in the Places collection).
