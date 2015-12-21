@@ -4,18 +4,21 @@ Map = {
 
     create: function (id) {
 
-        L.mapbox.accessToken = MAPBOX_TOKEN;
+        L.mapbox.accessToken = Meteor.settings.public.MAPBOX_KEY;
         L.mapbox.config.FORCE_HTTPS = true;
 
         this.baseMaps = {
-            'aerial': L.mapbox.tileLayer('fscottfoti.kaeo1aml'),
-            'streets': L.mapbox.tileLayer('fscottfoti.jfp0o21k'),
             'grey': L.tileLayer.provider('CartoDB.Positron'),
             'dark': L.tileLayer.provider('CartoDB.DarkMatter'),
             'atlas': L.tileLayer.provider('OpenMapSurfer.Roads'),
             'outline': L.tileLayer.provider('Acetate.basemap'),
             'watercolor': L.tileLayer.provider('Stamen.Watercolor')
         };
+
+        if(L.mapbox.accessToken) {
+            this.baseMaps.aerial = L.mapbox.tileLayer('fscottfoti.kaeo1aml');
+            this.baseMaps.streets = L.mapbox.tileLayer('fscottfoti.jfp0o21k');
+        }
 
         this.defaultBaseMap = DEFAULT_BASEMAP;
         this.activeBaseMap = undefined;
@@ -44,14 +47,16 @@ Map = {
         }
 
         /* geocoder always gets added */
-        var geocoder = L.mapbox.geocoderControl('mapbox.places-v1');
-        geocoder.on('select', function (feature) {
-            Map.markPosition(feature);
-        });
-        geocoder.on('autoselect', function (feature) {
-            Map.markPosition(feature);
-        });
-        this.geocoder = geocoder;
+        if(L.mapbox.accessToken) {
+            var geocoder = L.mapbox.geocoderControl('mapbox.places-v1');
+            geocoder.on('select', function (feature) {
+                Map.markPosition(feature);
+            });
+            geocoder.on('autoselect', function (feature) {
+                Map.markPosition(feature);
+            });
+            this.geocoder = geocoder;
+        }
 
         this.zoomControl = L.control.zoom();
 
@@ -517,6 +522,14 @@ Map = {
 
     switchBaseLayer: function (name) {
 
+        if((name == 'streets' || name == 'aerial') && 
+            !L.mapbox.accessToken) {
+            // these layers require mapbox key which might or
+            // might not be set by the user - sub a free layer
+            // if it's not available
+            name = 'grey';
+        }
+
         if(this.activeBaseMap == name)
             return;
 
@@ -628,7 +641,7 @@ Map = {
             return;
         }
         this.map.addControl(this.zoomControl);
-        this.map.addControl(this.geocoder);
+        if(this.geocoder) this.map.addControl(this.geocoder);
         this.map.addControl(this.locateControl);
 
         this.desktopControls = true;
@@ -640,7 +653,7 @@ Map = {
             return;
         }
         this.map.removeControl(this.zoomControl);
-        this.map.removeControl(this.geocoder);
+        if(this.geocoder) fthis.map.removeControl(this.geocoder);
         this.map.removeControl(this.locateControl);
 
         this.desktopControls = false;

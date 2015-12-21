@@ -87,14 +87,6 @@ Router.map(function () {
     });
 
 
-    this.route('about', {
-        onAfterAction: function () {
-            $.fancybox( renderTmp(Template.landing) );
-            Router.go('collections');
-        }
-    });
-
-
     this.route('login', {
         path: '/login',
         onAfterAction: function () {

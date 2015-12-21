@@ -1,0 +1,13 @@
+{
+	"public": {
+		"MAPBOX_KEY": null
+	},
+	"MAILGUN": {
+		"USERNAME": "postmaster@foo.com",
+		"PASSWD": "abcd",
+		"REPLYTO": "info@foo.com>",
+		"ADMINS": [
+			"info@foo.com"
+		]
+	}
+}
