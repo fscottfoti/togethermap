@@ -2,10 +2,11 @@ import random
 import time
 from shapely.geometry import shape
 # import the meteor python client
+from syncify import syncify
 from MeteorClient import MeteorClient
 
 
-def createPlace(lat, lng, color, name, description, properties):
+def createMarker(lat, lng, color, name, description, properties):
     d = {
         "type": "Feature",
         "bbox": {
@@ -50,24 +51,28 @@ def randomColor():
     return "#%06x" % random.randint(0, 0xFFFFFF)
 
 
-def callback_function(error, result):
-    if error:
-        print(error)
-        return
-
-    print(result)
-
-
-def connect(user, password, server=None, callback=None):
+def connect(user, password, server=None, debug=False):
+    global CLIENT
     server = server or "wss://togethermap.com/websocket"
-    client = MeteorClient(
-        server,
-        debug=False,
-        auto_reconnect=False)
-    client.connect()
-    client.login(user, password, callback=(callback or callback_function))
-    return client
+    CLIENT = MeteorClient(server, debug=debug, auto_reconnect=False)
+    CLIENT.connect()
+    # connect takes a sec
+    time.sleep(1)
+    f = syncify(CLIENT.login)
+    return f(user, password)
 
 
-def call(client, method, args, callback=None):
-    client.call(method, args, callback=(callback or callback_function))
+def call(method, args):
+    global CLIENT
+    f = syncify(CLIENT.call)
+    return f(method, args)
+
+
+def wait():
+    # so this is Python that looks like node - it's all async
+    # you have to wait for things to complete
+    while True:
+        try:
+            time.sleep(1)
+        except KeyboardInterrupt:
+            break
