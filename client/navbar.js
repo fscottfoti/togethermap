@@ -10,6 +10,10 @@ Template.nav.rendered = function () {
 
 
 Template.nav.helpers({
+    enableGlobalSearch: function () {
+        return Meteor.settings.public.GLOBALSEARCH;
+    },
+
     sidebarOpen: function () {
         return Session.get('sidebarOpen');
     },
@@ -35,26 +39,37 @@ Template.nav.helpers({
     },
 
     activeCollection: function () {
+
         var cid = Session.get('activeCollection');
+
         if(!cid)
             return;
+
         if(mobileFormFactor)
             return;
+
         if(Router.current().route.path())
             // in the search route, this is set to the factual collection
             // but we don't want to display the Factual name here
             return;
+
         var c = MCollections.findOne(cid);
+
         if(!c)
             return;
+
         return c.name;
     },
 
     active_profile: function () {
+
         var uid = Session.get('active_user');
+
         var user = Meteor.users.findOne(uid);
+
         if(!user)
             return '';
+
         return user.profile.name || user.profile.displayName || 'No Profile';
     }
 });
@@ -65,11 +80,14 @@ Template.nav.events = {
     'click .map-sidebar-toggle': function (e) {
 
         e.preventDefault();
+
         if(!Map.sidebarOpened) {
             // don't do anything unless we've opened the sidebar before
             return;
         }
+
         Map.sidebar.toggle();
+        
         if(Map.sidebar.isVisible()) {
             history.back();
         }

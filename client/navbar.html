@@ -4,19 +4,21 @@
         <ul id="slide-out" class="side-nav">
 
             {{#if currentUser}}
-            <li>
-                <a href="#" class="collections-go"><i class="fa fa-list"></i> Collections</a>
-            </li>
+                <li>
+                    <a href="#" class="collections-go"><i class="fa fa-list"></i> Collections</a>
+                </li>
             {{/if}}
 
             <li>
                 <a href="#" class="gallery-go"><i class="fa fa-th-large"></i> Gallery</a>
             </li>
 
-            {{#if currentUser}}
-            <li>
-                <a href="#" class="search-go"><i class="fa fa-search"></i> Search</a>
-            </li>
+            {{#if enableGlobalSearch}}
+                {{#if currentUser}}
+                <li>
+                    <a href="#" class="search-go"><i class="fa fa-search"></i> Search</a>
+                </li>
+                {{/if}}
             {{/if}}
 
             <li>
@@ -40,7 +42,7 @@
             </li>
 
             <li>
-                <a href="https://fscottfoti.github.io/togethermap-help" target="_blank"><i class="fa fa-question-circle"></i> Help</a>
+                <a href="https://fscottfoti.github.io/togethermap_help" target="_blank"><i class="fa fa-question-circle"></i> Help</a>
             </li>
 
             <li style="background-color: #e65100">

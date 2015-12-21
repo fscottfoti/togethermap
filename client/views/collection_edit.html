@@ -88,7 +88,7 @@
 
             <div>
                 <select id="basemap" class="browser-default">
-                    {{#each base_maps}}
+                    {{#each baseMaps}}
                         <option {{basemapSelected}}>{{name}}</option>
                     {{/each}}
                 </select>
@@ -260,13 +260,13 @@
 
             <br>
 
-            {{# if enable_advanced_controls}}
+            {{# if enableAdvancedControls}}
 
                 <div class="form-group">
                     <label>Filter name:</label>
 
                     <input type="text"
-                           id="filter_name"
+                           id="filter-name"
                            class="form-control"/>
 
                     <label>Filter:</label>
@@ -282,7 +282,7 @@
 
                     <label>Filters:</label>
 
-                    <select id="current_filter" class="browser-default">
+                    <select id="current-filter" class="browser-default">
                         {{#each filters}}
                             <option value="{{this}}" {{themeSelected}}>{{this}}</option>
                         {{/each}}
@@ -291,7 +291,7 @@
                     {{#if currentFilter}}
                         <label>Current Value:</label>
 
-                        <input type="text" id="current_value" value="{{currentFilter}}">
+                        <input type="text" id="current-value" value="{{currentFilter}}">
                     {{/if}}
 
                     <br>
@@ -300,7 +300,7 @@
                 </div>
             {{/if}}
 
-            {{#if enable_advanced_controls}}
+            {{#if enableAdvancedControls}}
                 <div class="form-group">
                     <label>Theme Name:</label>
 
@@ -315,7 +315,7 @@
 
                     <div class="form-group">
                         <div>
-                            <select id="theme_name_picker" class="browser-default">
+                            <select id="theme-name-picker" class="browser-default">
                                 {{#each themeNames}}
                                     <option value="{{this}}">{{this}}</option>
                                 {{/each}}
@@ -334,21 +334,21 @@
 
             {{#unless hideThemeFunctions}}
 
-            <label>Custom Theming Functions ({{cedit_mode}}):</label>
+            <label>Custom Theming Functions ({{ceditMode}}):</label>
 
-            {{#if icon_mode}}
+            {{#if iconMode}}
                 <textarea rows="4"
                           class="materialize-textarea"
                           id="icon_f">{{currentIconF}}</textarea>
             {{/if}}
 
-            {{#if icon_size_mode}}
+            {{#if iconSizeMode}}
                 <textarea rows="4"
                           class="materialize-textarea"
                           id="icon_size_f">{{currentIconSizeF}}</textarea>
             {{/if}}
 
-            {{#if icon_color_mode}}
+            {{#if iconColorMode}}
                 <textarea rows="4"
                           class="materialize-textarea"
                           id="color_f">{{currentColorF}}</textarea>
@@ -368,7 +368,7 @@
 
             <br>
 
-            {{#if enable_advanced_controls}}
+            {{#if enableAdvancedControls}}
                 <div class="form-group">
 
                     <label>
@@ -378,7 +378,7 @@
                     <br>
 
                     <div>
-                        <select id="default_theme_picker" class="browser-default">
+                        <select id="default-theme-picker" class="browser-default">
                             {{#each themeNames}}
                                 <option value="{{this}}" {{themeSelected}}>{{this}}</option>
                             {{/each}}
@@ -397,7 +397,7 @@
                     Off
                     <input type="checkbox"
                            id="enable-thumbs-voting"
-                        {{enable_thumbs_voting_checked}}>
+                        {{enableThumbsVotingChecked}}>
                     <span class="lever"></span>
                     On
                 </label>
@@ -412,7 +412,7 @@
                     Off
                     <input type="checkbox"
                            id="drop-markers"
-                           {{drop_markers_checked}}>
+                           {{dropMarkersChecked}}>
                     <span class="lever"></span>
                     On
                 </label>
@@ -426,7 +426,7 @@
                     Off
                     <input type="checkbox"
                            id="disable-geoindex"
-                        {{disable_geoindex_checked}}>
+                        {{disableGeoindexChecked}}>
                     <span class="lever"></span>
                     On
                 </label>
@@ -440,7 +440,7 @@
                     Off
                     <input type="checkbox"
                            id="enable-clustering"
-                        {{enable_clustering_checked}}>
+                        {{enableClusteringChecked}}>
                     <span class="lever"></span>
                     On
                 </label>
@@ -454,7 +454,7 @@
                     Off
                     <input type="checkbox"
                            id="disable-place-list"
-                        {{disable_place_list_checked}}>
+                        {{disablePlaceListChecked}}>
                     <span class="lever"></span>
                     On
                 </label>
@@ -468,20 +468,11 @@
                     Off
                     <input type="checkbox"
                            id="enable-advanced-controls"
-                        {{enable_advanced_controls_checked}}>
+                        {{enableAdvancedControlsChecked}}>
                     <span class="lever"></span>
                     On
                 </label>
             </div>
-
-            <!--
-            <br>
-            
-            <div class="form-group">
-                <label>Firebase Transit Name:</label><br>
-                <input id="transitName" class="form-control" type="text" placeholder="{{transitName}}"/>
-            </div>
-            -->
 
         {{/if}}
 
@@ -492,13 +483,13 @@
 </template>
 
 
-<template name="quick_form">
+<template name="myQuickForm">
     <div class="container" style="width: 400px;">
         {{> quickForm
-            id="place_edit_quick_form"
+            id="placeEditQuickForm"
             autosave=true
             validation="blur"
-            schema=quick_form
+            schema=quickForm
             buttonContent=false
             type="method-update"
             meteormethod="updatePlaceProperties"

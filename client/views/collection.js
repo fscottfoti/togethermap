@@ -54,7 +54,7 @@ Template.collection.helpers({
         return MPlaces.find({collectionId: cid}).count();
     },
 
-    write_permission: function () {
+    writePermission: function () {
         var cid = Session.get('activeCollection');
         return writePermission(this, cid, Meteor.user(), "collection");
     },
@@ -130,6 +130,7 @@ Template.collection.events = {
     },
 
     "click .load_more": function (evt) {
+        
         Session.set('activeLimit', (Session.get('activeLimit') || 0) + 100);
         Map.mapDriver.subscribe();
     },

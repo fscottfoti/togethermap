@@ -1,6 +1,6 @@
 Template.collectionEdit.rendered = function () {
 
-    Session.set('cedit_mode', 'Icon');
+    Session.set('ceditMode', 'Icon');
     Session.set('expertConfiguration', false);
     var that = this;
 
@@ -33,7 +33,7 @@ Template.collectionEdit.helpers({
         return MCollections.findOne(cid);
     },
 
-    base_maps: function () {
+    baseMaps: function () {
         return _.map(['aerial', 'streets', 'grey', 'dark', 'atlas', 'outline', 'watercolor'],
             function (v) { return {name: v} });
     },
@@ -48,58 +48,48 @@ Template.collectionEdit.helpers({
             ? 'selected' : '';
     },
 
-    locationDisplay: function () {
-        return 'Center: ' +
-               numeral(this.location.center.lat).format('0.00') + "," +
-               numeral(this.location.center.lng).format('0.00');
-    },
-
     expertConfiguration: function () {
         return Session.get('expertConfiguration');
     },
 
-    cedit_mode: function () {
-        return Session.get('cedit_mode');
+    ceditMode: function () {
+        return Session.get('ceditMode');
     },
 
-    icon_mode: function () {
-        return Session.get('cedit_mode') == "Icon";
+    iconMode: function () {
+        return Session.get('ceditMode') == "Icon";
     },
 
-    icon_size_mode: function () {
-        return Session.get('cedit_mode') == "Size";
+    iconSizeMode: function () {
+        return Session.get('ceditMode') == "Size";
     },
 
-    icon_color_mode: function () {
-        return Session.get('cedit_mode') == "Color";
+    iconColorMode: function () {
+        return Session.get('ceditMode') == "Color";
     },
 
-    drop_markers_checked: function () {
+    dropMarkersChecked: function () {
         return this.drop_markers ? "checked" : null;
     },
 
-    enable_thumbs_voting_checked: function () {
+    enableThumbsVotingChecked: function () {
         return this.enable_thumbs_voting ? "checked" : null;
     },
 
-    disable_geoindex_checked: function () {
+    disableGeoindexChecked: function () {
         return this.disable_geoindex ? "checked" : null;
     },
 
-    enable_clustering_checked: function () {
+    enableClusteringChecked: function () {
         return this.enable_clustering ? "checked" : null;
     },
 
-    disable_place_list_checked: function () {
+    disablePlaceListChecked: function () {
         return this.disable_place_list ? "checked" : null;
     },
 
-    enable_advanced_controls_checked: function () {
+    enableAdvancedControlsChecked: function () {
         return this.enable_advanced_controls ? "checked" : null;
-    },
-
-    isFlickr: function () {
-        return this.useConnectorTemplates == "flickr";
     },
 
     filters: function () {
@@ -187,20 +177,20 @@ Template.collectionEdit.events = {
         growl.success('Default view set.');
     },
 
-    'change #current_filter': function(evt) {
+    'change #current-filter': function(evt) {
 
         var v = $(evt.target).val();
 
         Session.set('currentFilter', v);
     },
 
-    'change #current_value': function(evt) {
+    'change #current-value': function(evt) {
         
         var v = $(evt.target).val();
 
         var filters = this.filters;
 
-        var filter = $("#current_filter").val();
+        var filter = $("#currentFilter").val();
 
         filters[filter] = v;
 
@@ -218,14 +208,14 @@ Template.collectionEdit.events = {
             this._id, {$set:{default_map: v}});
     },
 
-    "change #theme_name_picker": function (evt) {
+    "change #theme-name-picker": function (evt) {
 
         var v = $(evt.target).val();
 
         Session.set('activeTheme', v);
     },
 
-    "change #default_theme_picker": function (evt) {
+    "change #default-theme-picker": function (evt) {
 
         var v = $(evt.target).val();
 
@@ -335,7 +325,6 @@ Template.collectionEdit.events = {
 
         Session.set('activeTheme', name);
 
-
         Meteor.defer(function() { 
             $('#theme_name_picker').val( name );  
         });
@@ -394,19 +383,19 @@ Template.collectionEdit.events = {
     'click #Icon': function (e) {
 
         e.preventDefault();
-        Session.set("cedit_mode", e.target.id);
+        Session.set("ceditMode", e.target.id);
     },
 
     'click #Size': function (e) {
 
         e.preventDefault();
-        Session.set("cedit_mode", e.target.id);
+        Session.set("ceditMode", e.target.id);
     },
 
     'click #Color': function (e) {
 
         e.preventDefault();
-        Session.set("cedit_mode", e.target.id);
+        Session.set("ceditMode", e.target.id);
     },
 
     'click .place-template-sample': function () {
@@ -449,19 +438,12 @@ Template.collectionEdit.events = {
     'click .place-autoform-sample': function () {
 
         var t = $('#place-autoform').val();
-        Session.set('quick_form', t);
+        Session.set('quickForm', t);
         var frm = 'Form is empty';
         if(t) {
-            frm = renderTmp(Template.quick_form);
+            frm = renderTmp(Template.myQuickForm);
         }
         makeModal(frm, "Sample Form");
-    },
-
-    'change #flickr_link': function (e) {
-
-        var t = e.target.value;
-
-        Meteor.call('updateCollection', this._id, {$set: {flickr_link: t}});
     },
 
     'click .gallery-link': function (e) {
@@ -483,25 +465,6 @@ Template.collectionEdit.events = {
         });
     },
 
-    'click .flickr-refresh': function(e) {
-
-        e.preventDefault();
-
-        var url = this.sourceUrl;
-        FlickrConnector.fetch(url, undefined, function (places) {
-            to_add = _.filter(places, function (p) {
-                return !Map.keysToLayers[p._id];
-            })
-            var cid = Session.get('activeCollection');
-            Meteor.call('insertPlaces', to_add, cid, function(error, result) {
-                if(result == 1)
-                    growl.success('Added '+result+' new place');
-                else
-                    growl.success('Added '+result+' new places');
-            }); 
-        });
-    },
-
     'click .export-go': function (e) {
 
         e.preventDefault();
@@ -519,13 +482,6 @@ Template.collectionEdit.events = {
                 saveAs(blob, name+'.zip');
             }
         });
-    },
-
-    'change #transitName': function (e) {
-
-        var t = e.target.value;
-
-        Meteor.call('updateCollection', this._id, {$set: {transitName: t}});
     },
 
     'change #icon_f': function (e) {
@@ -663,10 +619,10 @@ Template.collectionEdit.events = {
 };
 
 
-Template.quick_form.helpers({
+Template.quickForm.helpers({
 
-    quick_form: function () {
-        var qf = Session.get('quick_form');
+    quickForm: function () {
+        var qf = Session.get('quickForm');
         if(!qf) {
             console.log('no quick form spec');
             return;

@@ -1,5 +1,6 @@
 {
 	"public": {
+		"GLOBALSEARCH": true,
 		"MAPBOX_KEY": null
 	},
 	"MAILGUN": {

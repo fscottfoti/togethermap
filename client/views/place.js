@@ -91,7 +91,7 @@ Template.place.helpers({
 Template.place.events = {
 
     'click .open-qf': function (evt) {
-        var html = renderTmp(Template.quick_form);
+        var html = renderTmp(Template.myQuickForm);
         $.fancybox( html );
     },
 
