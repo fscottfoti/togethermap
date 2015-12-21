@@ -176,7 +176,7 @@ Template.place.events = {
         
         e.preventDefault();
 
-        var pid = Session.get('active_place');
+        var pid = Session.get('activePlace');
         var cid = Session.get('activeCollection');
         var title = $( "#title" ).val();
 

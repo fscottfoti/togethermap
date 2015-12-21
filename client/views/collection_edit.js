@@ -680,7 +680,7 @@ Template.quick_form.helpers({
     },
 
     placeDoc: function () {
-        var pid = Session.get('active_place');
+        var pid = Session.get('activePlace');
         var p = MPlaces.findOne(pid);
         if(!p) {
             return;

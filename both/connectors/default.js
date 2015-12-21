@@ -12,7 +12,7 @@ DefaultMapDriver = {
         Map.mapDriver = DefaultMapDriver;
 
         if(options.drop_markers !== undefined &&
-            Session.get('dont_set_collection_location') != true) {
+            Session.get('dontSetCollectionLocation') != true) {
             Map.drop_markers = options.drop_markers;
         } else {
             Map.drop_markers = false;
@@ -47,7 +47,7 @@ DefaultMapDriver = {
         if(options.location !== undefined) {
             // change the map view IFF we're loading
             // a user map for the first time
-            if(Session.get('dont_set_collection_location') != true) {
+            if(Session.get('dontSetCollectionLocation') != true) {
 
                 // so this little bit of code means we don't rezoom
                 // the map when leaving routes such as profile and home
@@ -55,7 +55,7 @@ DefaultMapDriver = {
                 Map.map.setView(options.location.center,
                     options.location.zoom);
             } else {
-                Session.set('dont_set_collection_location', false);
+                Session.set('dontSetCollectionLocation', false);
             }
             this.manualLocation = true;
         } else {

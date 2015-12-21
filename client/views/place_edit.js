@@ -45,7 +45,7 @@ var initColorPicker = function (domId, currentColor) {
 };
 
 var jqueryInit = function () {
-    var place = MPlaces.findOne(Session.get('active_place'));
+    var place = MPlaces.findOne(Session.get('activePlace'));
     initColorPicker("#shape-color", place.properties.color);
 };
 

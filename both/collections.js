@@ -46,16 +46,21 @@ getUser = function (userId) {
 Meteor.methods({
 
     createCollection: function (obj) {
+
         if (!this.userId) {
             throw new Meteor.Error(403, "Permission denied to add collection");
         }
+
         addUserInfo(obj, this.userId);
+
         return MCollections.insert(obj);
     },
 
 
     updateCollection: function (id, obj) {
+
         var c = MCollections.findOne(id);
+
         if(!writePermission(c, id, getUser(this.userId), "collection")) {
             throw new Meteor.Error(403, "Permission denied to update collection");
         }
@@ -89,7 +94,11 @@ Meteor.methods({
 
 
     removeCollection: function (id) {
+
+        // remove collection and all places and comments associated with it
+
         var c = MCollections.findOne(id);
+
         if(!writePermission(c, id, getUser(this.userId), "collection")) {
             throw new Meteor.Error(403, "Permission denied to remove collection");
         }
@@ -101,6 +110,9 @@ Meteor.methods({
 
 
     addFollow: function (cid, name) {
+        // you can follow a collection in order to add it to your
+        // collections page and to get email updates about it
+
         if (!this.userId) {
             throw new Meteor.Error(403, "Permission denied to follow collection");
         }
@@ -120,7 +132,9 @@ Meteor.methods({
 
 
     removeFollow: function (id) {
+
         var f = MFollowed.findOne(id);
+
         if(this.userId != f.userId) {
             throw new Meteor.Error(403, "Permission denied to remove follow");
         }
@@ -134,7 +148,9 @@ Meteor.methods({
 
 
     // place geojson and collectionid
+
     insertPlace: function (obj, cid) {
+
         if (!writePermission(undefined, cid, getUser(this.userId), "place")) {
             throw new Meteor.Error(403, "Permission denied to insert place.");
         }
@@ -145,6 +161,7 @@ Meteor.methods({
         obj.comment_count = 0;
 
         var c = MCollections.findOne(cid);
+
         if(c.read_private)
             obj.read_private = c.read_private;
 
@@ -158,8 +175,10 @@ Meteor.methods({
 
 
     updatePlace: function (id, obj) {
+
         var old_obj = MPlaces.findOne(id);
         var cid = old_obj.collectionId;
+
         if (!old_obj || !writePermission(old_obj, cid, getUser(this.userId), "place")) {
             throw new Meteor.Error(403, "Permission denied to update place.");
         }
@@ -175,18 +194,22 @@ Meteor.methods({
 
     // this method is used for autoform to update the properties only
     updatePlaceProperties: function (obj, id) {
+
         Object.keys(obj.$set).forEach(function(key) {
             obj.$set['properties.'+key] = obj.$set[key];
             delete obj.$set[key];
         });
+
         Meteor.call('updatePlace', id, obj);
     },
 
 
     // id and collectionid
     removePlace: function (id, cid) {
+
         var old_obj = MPlaces.findOne(id);
         var cid = old_obj.collectionId;
+
         if (!old_obj || !writePermission(old_obj, cid, getUser(this.userId), "place")) {
             throw new Meteor.Error(403, "Permission denied to remove place.");
         }
@@ -204,6 +227,7 @@ Meteor.methods({
 
     // post json and placeId
     insertComment: function (obj, pid, cid) {
+        
         if (!writePermission(undefined, cid, getUser(this.userId), "post")) {
             throw new Meteor.Error(403, "Permission denied to insert comment.");
         }

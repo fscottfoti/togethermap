@@ -113,7 +113,7 @@ SearchConnector = {
 
 
     activatePlace: function (key) {
-        Session.set('dont_set_collection_location', true);
+        Session.set('dontSetCollectionLocation', true);
         var layer = Map.keysToLayers[key];
         var cid = layer.cid || Session.get('activeCollection');
         Router.go('place', {_id: key, _cid: cid});

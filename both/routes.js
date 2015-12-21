@@ -53,6 +53,8 @@ var verifyPermissions = function (that, cid) {
 Router.map(function () {
 
 
+    // this email route can be uncommented in order to see what the
+    // update emails look like
     /*this.route('email', {
         where: 'server',
         path: '/email/:_id',
@@ -367,16 +369,16 @@ Router.map(function () {
             verifyPermissions(this, this.params._cid);
         },
         onAfterAction: function () {
-            Session.set('active_place', this.params._id);
+            Session.set('activePlace', this.params._id);
             Session.set('disableHover', true);
-            Session.set('dont_set_collection_location', true);
+            Session.set('dontSetCollectionLocation', true);
             switchCollection(this.params._cid);
             openSidebar();
         },
         unload: function () {
             Map.unHighlightPlace(this.params._id);
             Session.set('disableHover', false);
-            Session.set('dont_set_collection_location', false);
+            Session.set('dontSetCollectionLocation', false);
             $('.tooltipped').tooltip('remove');
         }
     });
@@ -393,10 +395,10 @@ Router.map(function () {
                 // we only want to move the map the first time we see the
                 // place - I mean, not when we go from the place to place_edit
                 // route for the same place, for instance
-                if(p && Session.get('active_place') != this.params._id) {
+                if(p && Session.get('activePlace') != this.params._id) {
                     Map.goToPlace(p, true, true);
                     Map.highlightPlace(this.params._id);
-                    Session.set('active_place', this.params._id);
+                    Session.set('activePlace', this.params._id);
                 }
             }
             return {
@@ -520,6 +522,11 @@ connectors = {
     'collections': CollectionsConnector
 };
 
+
+// this is a VERY important method - this is what sets the collection
+// and starts the relevant place subscription, and makes sure not to
+// update things if we're going to e.g. a new place route but without
+// changing the active collection
 switchCollection = function (cid) {
 
     Session.set('activeCollection', cid);
@@ -568,7 +575,9 @@ switchCollection = function (cid) {
     }
 
     if(!cid) {
+
         if(currentCollection) {
+
             Map.newShapes();
             Session.set('activeConnector', undefined);
             Map.removeDrawControl();
@@ -589,8 +598,6 @@ switchCollection = function (cid) {
     }
 
     if(cid != currentCollection) {
-        
-        console.log('Reset collection');
 
         Session.set('activeConnector', undefined);
         Session.set('activeTheme', undefined);

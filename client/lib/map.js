@@ -1037,7 +1037,7 @@ Map = {
             this.keysToLayers[key] = layer;
         }
 
-        if(place._id == Session.get('active_place')) {
+        if(place._id == Session.get('activePlace')) {
             Map.highlightPlace(place._id);
         }
 
