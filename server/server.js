@@ -602,6 +602,9 @@ Meteor.startup(function() {
 
     jsZip = Meteor.npmRequire('jszip');
     fastCsv = Meteor.npmRequire('fast-csv');
+    mapnik = Meteor.npmRequire('mapnik');
+    mapnik.register_default_input_plugins();
+    zlib = Meteor.npmRequire('zlib');
 
     if(Meteor.settings.MAILGUN) {
 

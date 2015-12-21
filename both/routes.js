@@ -288,7 +288,33 @@ Router.map(function () {
     });
 
 
-    this.route('/geojson/:_cid/:z/:x/:y', function () {
+    this.route('/:outfmt/:_cid/:z/:x/:y', function () {
+
+        this.response.setHeader( 'access-control-allow-origin', '*' );
+
+        var fmt  = this.params.outfmt;
+        if(fmt != 'geojson' && fmt != 'mvt') {
+            this.response.setHeader('Content-Type', 'application/json');
+            this.response.end(JSON.stringify(
+                {status: "Whoops, we can only return geojson and mvt."}));
+            return;
+        }
+
+        var c = MCollections.findOne({_id: this.params._cid})
+        if(!c) {
+            this.response.setHeader('Content-Type', 'application/json');
+            this.response.end(JSON.stringify(
+                {status: "Collection id not found."}));
+            return;
+        }
+
+        if(c.read_private) {
+            this.response.setHeader('Content-Type', 'application/json');
+            this.response.end(JSON.stringify(
+                {status: "Nope, you can't have it.  This collection is private."}));
+            return;
+        }
+
         /* return geojson formatted shapes for the given x y and z
            note this needs to be verified for permissions!! */
 
@@ -313,11 +339,26 @@ Router.map(function () {
 
         var places = MPlaces.find(filter, {limit: 2000}).fetch();
 
-        var json = {"type": "FeatureCollection", "features": places};
+        var geojson = {"type": "FeatureCollection", "features": places};
 
-        this.response.setHeader( 'access-control-allow-origin', '*' );
-        this.response.setHeader('Content-Type', 'application/json');
-        this.response.end(JSON.stringify(json));
+        if(fmt == 'geojson') {
+            this.response.setHeader('Content-Type', 'application/json');
+            this.response.end(JSON.stringify(geojson));
+        } else {
+
+            var vtile = new mapnik.VectorTile(
+                +this.params.z, +this.params.x, +this.params.y)
+            
+            vtile.addGeoJSON(JSON.stringify(geojson), this.params._cid);
+
+            this.response.setHeader('Content-Encoding', 'deflate')
+            this.response.setHeader('Content-Type', 'application/x-protobuf')
+            var that = this;
+            zlib.deflate(vtile.getData(), function(err, pbf) {
+                that.response.end(pbf);
+            })
+
+        }
 
     }, {where: 'server'});
 
