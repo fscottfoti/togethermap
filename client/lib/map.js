@@ -750,9 +750,9 @@ Map = {
         coords = [coords[1], coords[0]];
 
         ['icon', 'color', 'icon_size'].forEach(function (f) {
-            if(!Map.mapDriver.markerThemeFunc)
+            if(!Map.mapDriver.shapeThemeFunc)
                 return;
-            var val = Map.mapDriver.markerThemeFunc(f, place);
+            var val = Map.mapDriver.shapeThemeFunc(f, place);
             if(val) {
                 place.properties[f] = val;
             }
@@ -944,8 +944,8 @@ Map = {
 
             // assign color if there's a color function
 
-            if(Map.mapDriver.markerThemeFunc) {
-                var val = Map.mapDriver.markerThemeFunc('color', place);
+            if(Map.mapDriver.shapeThemeFunc) {
+                var val = Map.mapDriver.shapeThemeFunc('color', place);
                 if(val) {
                     place.properties.color = val;
                 }

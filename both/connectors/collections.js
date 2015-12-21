@@ -1,4 +1,6 @@
 CollectionsConnector = {
+    // this is the connector that turns actual collections
+    // into places - in other words, it's the map of maps
 
 
     init: function (id, options) {
@@ -17,11 +19,13 @@ CollectionsConnector = {
 
 
     getAll: function (cid) {
+        // find the current collections
         this.subscription(
             MCollections.find(this.filter || {})
         );
         _.delay(function () {
-            // wait for collections to load
+            // wait for collections to load, then adjust the map
+            // location and zoom
             var b = Map.shapeLayerGroup.getBounds();
             if(b) Map.map.fitBounds(b);
         }, 500);
@@ -42,13 +46,17 @@ CollectionsConnector = {
 
 
     objToGeojson: function (obj) {
+        // turn the collection object into geojson since
+        // the map knows how to load geojson already
+
         if(!obj.location || !obj.location.center) {
             // this just means the collection doesn't have a location yet
             // which is ok and should be ignored
             return;
         }
+
         var latlng = obj.location.center;
-        console.log();
+
         return {
             "type": "Feature",
             "bbox": {
@@ -68,29 +76,28 @@ CollectionsConnector = {
     },
 
 
+    // get the placess
     subscription: function (sub) {
         var that = this;
         sub.observe({
             added: function(ss) {
-                //console.log('adding', ss);
                 var gj = that.objToGeojson(ss);
                 Map.addShape(gj, ss._id);
             },
             changed: function(ss) {
-                //console.log('replacing', ss._id);
                 var gj = that.objToGeojson(ss);
                 Map.removePlace(ss._id);
                 // false is for don't bounce on a replace
                 Map.addShape(gj, ss._id, false);
             },
             removed: function(ss) {
-                //console.log('removing', ss._id);
                 Map.removePlace(ss._id);
             }
         });
     },
 
 
+    // on click, go the collection
     activatePlace: function (key) {
         Router.go('collection', {_id: key});
     },

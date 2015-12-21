@@ -2,6 +2,7 @@ DEFAULT_PLACE_LIMIT = 100;
 MAX_PLACE_LIMIT = 10000;
 RECENT_LIMIT = 10;
 
+
 MCollections = new Meteor.Collection('collections');
 MPlaces = new Meteor.Collection('places');
 MFollowed = new Meteor.Collection('followed');

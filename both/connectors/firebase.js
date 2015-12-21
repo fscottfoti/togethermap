@@ -1,4 +1,10 @@
 TransitConnector = {
+
+    // this is a special connector for animated transit maps
+    // this is a firebase demo that I wanted to get working in TM
+    // see this for the firebase version
+    // https://www.firebase.com/docs/open-data/transit.html
+
     buses: {},
     animated: {},
     maxNumberBuses: 500,

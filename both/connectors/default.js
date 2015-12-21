@@ -1,6 +1,10 @@
 DefaultMapDriver = {
 
     init: function (id, options) {
+        // options are attributes set on the collection object
+        // basically you can enable different features of leaflet
+        // and various plugins using the UI
+
         if(!options) {
             return;
         }
@@ -222,13 +226,12 @@ DefaultMapDriver = {
         Meteor.call('removePlace', key, cid);
     },
 
-    markerThemeFunc: function (fname, place) {
+    shapeThemeFunc: function (fname, place) {
         var theme = Session.get('activeTheme');
 
         var c = MCollections.findOne(Session.get('activeCollection'));
 
-        if(!theme && c.enable_multi_theme && 
-            c.default_theme) {
+        if(!theme && c.enable_multi_theme && c.default_theme) {
             theme = c.default_theme;
         }
 

@@ -1,4 +1,8 @@
 customLabelForCollection = function (place) {
+    // when searching, if we're searching across collections
+    // we need to theme the shapes however they're themed
+    // in the collection they're a part of
+
     var l = '';
     if(place.collectionId &&
         MCollections.findOne(place.collectionId)) {
@@ -19,7 +23,7 @@ customLabelForCollection = function (place) {
 };
 
 
-markerThemeFuncForCollection = function (f, place) {
+shapeThemeFuncForCollection = function (f, place) {
     if(!place.collectionId)
         return;
     var c = MCollections.findOne(place.collectionId);
@@ -116,8 +120,8 @@ SearchConnector = {
     },
 
 
-    markerThemeFunc: function (f, place) {
-        return markerThemeFuncForCollection(f, place);
+    shapeThemeFunc: function (f, place) {
+        return shapeThemeFuncForCollection(f, place);
     },
 
 
