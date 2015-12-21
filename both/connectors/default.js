@@ -103,10 +103,12 @@ DefaultMapDriver = {
         }
         var poly = Map.getBoundsAsPolygon();
 
-        if(center)
+        if(center) {
             center = [center.lng, center.lat]
-        else
-            center = [Map.center().lng, Map.center().lat]
+        } else {
+            var latlng = Map.latLngOffCenter();
+            center = [latlng.lng, latlng.lat]
+        }
 
         near = {
             center: center,

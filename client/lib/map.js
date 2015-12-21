@@ -412,14 +412,36 @@ Map = {
     },
 
 
-    panTo: function (latlng) {
+    // get offset of the off center "center" since there's a toolbar
+    // open on the right hand side of the screen - it's the center of
+    // the visible part of the map
+    offset: function () {
         var w = $(window).width();
         var sidebar_w = 440 - 20;
         var intended_x = (w - sidebar_w) / 2;
         var actual_x = w / 2;
         var off = w < 768 ? 0 : intended_x - actual_x;
+
         if(!Map.sidebar.isVisible())
             off = 0;
+
+        return off;
+    },
+
+
+    latLngOffCenter: function () {
+        var off = this.offset();
+
+        var centerPoint = Map.map.getSize().divideBy(2);
+        targetPoint = centerPoint.add([off, 0]);
+        return Map.map.containerPointToLatLng(targetPoint);
+    },
+
+
+    panTo: function (latlng) {
+
+        var off = this.offset();
+
         Map.map.panToOffset(latlng, [off, 0]);
     },
 
