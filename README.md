@@ -13,7 +13,7 @@ Let's get this one out of the way right from the start: why not back with a Post
 
 Installation is so simple. 
 
-* First (https://www.meteor.com/install)[Install Meteor]
+* First [Install Meteor](https://www.meteor.com/install)
 * Second clone this repo
 * Third run `meteor` in the cloned repo
 * Fourth open up `http://localhost:3000/` in a web browser
