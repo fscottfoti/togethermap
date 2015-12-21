@@ -3,6 +3,7 @@ mobileFormFactor = false;
 resizeMap = function() {
     var h = $(window).height(), offsetTop = 60; // Calculate the top offset
     /*if (Session.get('noNav')) {
+        // this is for the feature of turning the navbar off
         offsetTop = 0;
         $('body').css('margin-top', "0px");
     } else {

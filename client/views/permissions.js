@@ -48,7 +48,7 @@ Template.permissions.rendered = function () {
 };
 
 Template.permissions.helpers({
-    permission_type: function () {
+    permissionType: function () {
         var p = Session.get("permission_type") || "Owners";
         return {
             owners: "Owners",
@@ -58,7 +58,7 @@ Template.permissions.helpers({
         }[p]
     },
 
-    list_exists: function () {
+    listExists: function () {
         var p = Session.get("permission_type");
         return this[p] && this[p].length > 0;
     },
@@ -74,7 +74,7 @@ Template.permissions.helpers({
         return (u && u.profile) ? u.profile.name || u.profile.displayName : k;
     },
 
-    public_ok: function () {
+    publicOk: function () {
         return Session.get("permission_type") != 'owners';
     },
 
@@ -82,11 +82,11 @@ Template.permissions.helpers({
         return this.read_loginreq == true;
     },
 
-    loginreq_ok: function () {
+    loginreqOk: function () {
         return Session.get("permission_type") == 'readers';
     },
 
-    is_public: function () {
+    isPublic: function () {
         var p = Session.get("permission_type");
         Session.set("permission_key", this[p+"_key"]);
         var ret = {

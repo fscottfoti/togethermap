@@ -1,4 +1,5 @@
 toggleDoubleClickAdd = function () {
+    
     Session.set('doubleclickadd', !Session.get('doubleclickadd'));
 
     if( Session.get('doubleclickadd') ) {

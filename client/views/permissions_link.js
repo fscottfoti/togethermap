@@ -1,4 +1,5 @@
 Template.permissionsLink.helpers({
+
     permissionType: function () {
         return this.params.type;
     },
@@ -16,6 +17,7 @@ Template.permissionsLink.helpers({
 
 
 Template.permissionsLink.events = ({
+    
     'click .collection-go': function() {
         Router.go('collection',
             {_id: this.params._id});

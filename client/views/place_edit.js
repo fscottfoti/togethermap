@@ -45,18 +45,22 @@ var initColorPicker = function (domId, currentColor) {
 };
 
 var jqueryInit = function () {
+
     var place = MPlaces.findOne(Session.get('activePlace'));
     initColorPicker("#shape-color", place.properties.color);
 };
 
 
 Template.placeEdit.rendered = function () {
+
     jqueryInit();
     var that = this;
+
     textEditorInit(this.data.place.properties.description, function (html) {
         var id = that.data.place._id
         Meteor.call('updatePlace', id, {$set:{'properties.description': html}});
     });
+
     $('.tooltipped').tooltip();
 };
 
@@ -159,6 +163,7 @@ Template.placeEdit.events({
     },
 
     'click .pick-image': function (e) {
+      
         var cb = function (url, param) {
             Meteor.call('updatePlace', param, {$set: {'properties.image_url': url}});
         };
@@ -166,6 +171,7 @@ Template.placeEdit.events({
     },
 
     'click .remove-image': function (e) {
+
         Meteor.call('updatePlace', this._id, {$unset: {'properties.image_url': ''}});
     },
 

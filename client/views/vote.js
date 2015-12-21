@@ -20,6 +20,7 @@ Template.vote.helpers({
 
 
 Template.vote.events = {
+    
     'click .up-vote': function(e) {
 
         e.preventDefault();

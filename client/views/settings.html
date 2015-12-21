@@ -1,20 +1,25 @@
 <template name="settings">
 
     {{#if currentUser}}
-    <div style="align: center">
-        <a href="" class="toggle-double-click">
-            <button class="btn btn-default">Toggle Double Click (ctrl+d)</button>
-        </a>
+
+        <div style="align: center">
+
+            <a href="" class="toggle-double-click">
+                <button class="btn btn-default">Toggle Double Click (ctrl+d)</button>
+            </a>
+
+            <br>
+
+            {{#if doubleClickAdd }}
+                Double click is set to add new markers.  Click to switch to zooming.
+            {{else}}
+                Double click is set to zoom in.  Click to switch to marker add.
+            {{/if}}
+
+        </div>
 
         <br>
 
-        {{#if doubleClickAdd }}
-            Double click is set to add new markers.  Click to switch to zooming.
-        {{else}}
-            Double click is set to zoom in.  Click to switch to marker add.
-        {{/if}}
-    </div>
-    <br>
     {{/if}}
 
 
@@ -30,6 +35,7 @@
         {{else}}
             Moving the mouse over a place in the place list will highlight the place and pan there.
         {{/unless}}
+        
     </div>
 
 </template>

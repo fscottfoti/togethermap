@@ -4,20 +4,13 @@ Template.quick_place.rendered = function () {
 };
 
 Template.quick_place.helpers({
-    dynamic_place: function () {
+
+    dynamicPlace: function () {
         if(templates.placeTemplateList) {
             return templates.placeTemplateList(this);
         } else {
             return Handlebars.compile(defaultPlaceTemplateList)(this);
         }
-    },
-
-    link_url: function () {
-        var url = Router.routes.place.path({
-            _id: this._id,
-            _cid: this.collectionId
-        });
-        return url;
     },
 
     creator: function () {
@@ -29,20 +22,31 @@ Template.quick_place.helpers({
         return s !== undefined && s !== 'Name' && s !== 'Image';
     },
 
-    recentSort: function () { return Session.get('activeSortType') == "Recent"},
+    recentSort: function () { 
+        return Session.get('activeSortType') == "Recent"
+    },
 
-    voteSort: function () { return Session.get('activeSortType') == "Votes"},
+    voteSort: function () { 
+        return Session.get('activeSortType') == "Votes"
+    },
 
-    imageSort: function () { return Session.get('activeSortType') == "Image"},
+    imageSort: function () { 
+        return Session.get('activeSortType') == "Image"
+    },
 
-    creatorSort: function () { return Session.get('activeSortType') == "User"},
+    creatorSort: function () { 
+        return Session.get('activeSortType') == "User"
+    },
 
-    commentSort: function () { return Session.get('activeSortType') == "Fdbck"}
+    commentSort: function () { return 
+        Session.get('activeSortType') == "Fdbck"
+    }
 });
 
 Template.quick_place.events = {
 
     "mouseenter .quick-place": function (e) {
+
         Map.bounceMarker(this._id, 1);
         Map.highlightPlace(this._id);
         if(Session.get('panOnMouseOver'))
@@ -50,6 +54,7 @@ Template.quick_place.events = {
     },
 
     "mouseleave .quick-place": function (e) {
+
         Map.unHighlightPlace(this._id);
     },
 

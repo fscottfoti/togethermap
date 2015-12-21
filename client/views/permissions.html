@@ -30,12 +30,10 @@
             </b></h3>
         </div>
 
-        <br>
-
-        {{#if is_public }}
+        {{#if isPublic }}
 
             This collection is public for all
-            <i>{{permission_type}}</i>.
+            <i>{{permissionType}}</i>.
 
             <br><br>
 
@@ -44,13 +42,13 @@
                 private
             </button>
 
-            for all <i>{{permission_type}}</i>.
+            for all <i>{{permissionType}}</i>.
 
         {{else}}
 
-            {{#if list_exists }}
+            {{#if listExists }}
 
-                Below is the list of <i>{{permission_type}}</i>
+                Below is the list of <i>{{permissionType}}</i>
                 that have permission to edit this collection.
 
                 <br>
@@ -74,7 +72,7 @@
             {{else}}
 
                 <div>
-                    No <i>{{permission_type}}</i>
+                    No <i>{{permissionType}}</i>
                     have been added to this collection.
                 </div>
 
@@ -84,7 +82,7 @@
 
             <div>
 
-                Add <i>{{permission_type}}</i> by emailing this
+                Add <i>{{permissionType}}</i> by emailing this
 
                 <button class="btn btn-sm btn-success"
                         id="copy-link">
@@ -101,7 +99,7 @@
             </div>
 
 
-            {{#if public_ok}}
+            {{#if publicPk}}
 
                 <br>
 
@@ -113,12 +111,12 @@
                         public
                     </button>
 
-                    for all <i>{{permission_type}}</i>.
+                    for all <i>{{permissionType}}</i>.
                 </div>
 
             {{/if}}
 
-            {{#if loginreq_ok}}
+            {{#if loginreqOk}}
 
                 {{#unless loginreq}}
 

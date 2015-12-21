@@ -4,6 +4,7 @@ Template.recent.rendered = function () {
 
 
 Template.recent.helpers({
+    
     noComments: function () {
         console.log(this.recent_comments.fetch());
         return this.recent_comments.fetch().length == 0;

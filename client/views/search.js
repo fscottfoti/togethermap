@@ -33,7 +33,7 @@ Template.search.helpers({
         return MPlaces.find().count();
     },
     zoomIn: function () {
-        return Session.get('zoomLevel') < minFactualZoomLevel;
+        return Session.get('zoomLevel') < minSearchZoomLevel;
     },
     searchResults: function () {
         return SearchConnector.places();

@@ -1,4 +1,5 @@
 Template.quick_comment.helpers({
+    
     writePermission: function () {
         var cid = Session.get('activeCollection');
         return writePermission(this, cid, Meteor.user());
@@ -7,6 +8,7 @@ Template.quick_comment.helpers({
 
 
 Template.quick_comment.events = {
+
     'click .remove-comment': function (e) {
 
         e.preventDefault();
