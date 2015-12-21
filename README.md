@@ -3,7 +3,7 @@ TogetherMap
 
 ## A web and mobile app for collaborative mapping
 
-TogetherMap is designed to be to shapefiles what the Google Productivity Suite is to email/calendar/docs.
+TogetherMap is intended to be to shapefiles what the Google Productivity Suite is to email/calendar/docs.
 
 It utilizes Meteor/Mongo on the backend and the Mapbox stack on the font - think web maps backed by a trivial-to-install database and you have the right idea.
 
