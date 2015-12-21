@@ -1,6 +1,9 @@
 import random
 import time
 from shapely.geometry import shape
+# import the meteor python client
+from MeteorClient import MeteorClient
+
 
 def createPlace(lat, lng, color, name, description, properties):
     d = {
@@ -22,7 +25,7 @@ def createPlace(lat, lng, color, name, description, properties):
         }
     }
     for k, v in properties.items():
-       d["properties"][k] = v
+        d["properties"][k] = v
     return d
 
 
@@ -33,10 +36,10 @@ def add_bbox(p):
         poly = {
             "type": "Polygon",
             "coordinates": [
-                [ [minx, miny], [minx, maxy], [maxx, maxy],
-                  [maxx, miny], [minx, miny] ]
+                [[minx, miny], [minx, maxy], [maxx, maxy],
+                 [maxx, miny], [minx, miny]]
             ]
-        } 
+        }
     else:
         poly = p['geometry']
     p['bbox'] = poly
@@ -44,10 +47,8 @@ def add_bbox(p):
 
 
 def randomColor():
-    return "#%06x" % random.randint(0,0xFFFFFF)
+    return "#%06x" % random.randint(0, 0xFFFFFF)
 
-# meteor stuff here
-from MeteorClient import MeteorClient
 
 def callback_function(error, result):
     if error:
@@ -55,6 +56,7 @@ def callback_function(error, result):
         return
 
     print(result)
+
 
 def connect(user, password, server=None, callback=None):
     server = server or "wss://togethermap.com/websocket"
@@ -66,14 +68,6 @@ def connect(user, password, server=None, callback=None):
     client.login(user, password, callback=(callback or callback_function))
     return client
 
+
 def call(client, method, args, callback=None):
     client.call(method, args, callback=(callback or callback_function))
-
-def wait():
-    # so this is Python that looks like node - it's all async
-    # you have to wait for things to complete
-    while True:
-        try:
-            time.sleep(1)
-        except KeyboardInterrupt:
-            break
