@@ -292,6 +292,39 @@ Router.map(function () {
 
         this.response.setHeader( 'access-control-allow-origin', '*' );
 
+        fname = this.params.outfmt + "_" + this.params._cid + "_" + 
+            this.params.z + "_" + this.params.x + "_" + this.params.y;
+        var dir = "tile-cache";
+        fname = dir + "/" + fname;
+
+        if (!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
+
+        if(fs.existsSync(fname)) {
+
+            if(this.params.outfmt == "mvt") {
+
+                var stats = fs.statSync(fname);
+                var size = stats["size"];
+                var buffer = new Buffer(size);
+                var f = fs.openSync(fname, "r");
+                fs.readSync(f, buffer, 0, size, 0);
+                this.response.setHeader('Content-Encoding', 'deflate')
+                this.response.setHeader('Content-Type', 'application/x-protobuf')
+                this.response.end(buffer);
+                fs.close(f);
+                return;
+
+            } else {
+
+                var f = fs.readFileSync(fname, {encoding: "utf-8"});
+                this.response.setHeader('Content-Type', 'application/json');
+                this.response.end(f);
+                return;
+            }
+        }
+
         var fmt  = this.params.outfmt;
         if(fmt != 'geojson' && fmt != 'mvt') {
             this.response.setHeader('Content-Type', 'application/json');
@@ -340,22 +373,32 @@ Router.map(function () {
         var places = MPlaces.find(filter, {limit: 2000}).fetch();
 
         var geojson = {"type": "FeatureCollection", "features": places};
+        geojson = JSON.stringify(geojson);
 
         if(fmt == 'geojson') {
+
             this.response.setHeader('Content-Type', 'application/json');
-            this.response.end(JSON.stringify(geojson));
+            this.response.end(geojson);
+
+            fs.writeFileSync(fname, geojson, {encoding: "utf-8"});
+
         } else {
 
             var vtile = new mapnik.VectorTile(
                 +this.params.z, +this.params.x, +this.params.y)
             
-            vtile.addGeoJSON(JSON.stringify(geojson), this.params._cid);
+            vtile.addGeoJSON(geojson, this.params._cid);
 
             this.response.setHeader('Content-Encoding', 'deflate')
             this.response.setHeader('Content-Type', 'application/x-protobuf')
+
             var that = this;
             zlib.deflate(vtile.getData(), function(err, pbf) {
+
                 that.response.end(pbf);
+                f = fs.openSync(fname, "w");
+                fs.writeSync(f, pbf, 0, pbf.length);
+                fs.close(f);
             })
 
         }

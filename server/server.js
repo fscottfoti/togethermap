@@ -605,6 +605,7 @@ Meteor.startup(function() {
     mapnik = Meteor.npmRequire('mapnik');
     mapnik.register_default_input_plugins();
     zlib = Meteor.npmRequire('zlib');
+    fs = Meteor.npmRequire('fs');
 
     if(Meteor.settings.MAILGUN) {
 
