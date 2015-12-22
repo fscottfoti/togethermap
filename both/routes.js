@@ -337,7 +337,7 @@ Router.map(function () {
 
         filter.collectionId = this.params._cid;
 
-        var places = MPlaces.find(filter, {limit: 2000}).fetch();
+        var places = MPlaces.find(filter, {limit: MAX_PLACE_LIMIT}).fetch();
 
         var geojson = {"type": "FeatureCollection", "features": places};
 

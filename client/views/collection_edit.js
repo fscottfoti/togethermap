@@ -88,6 +88,10 @@ Template.collectionEdit.helpers({
         return this.disable_place_list ? "checked" : null;
     },
 
+    enableAdvancedControls: function () {
+        return this.enable_advanced_controls;
+    },
+
     enableAdvancedControlsChecked: function () {
         return this.enable_advanced_controls ? "checked" : null;
     },
