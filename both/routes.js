@@ -292,7 +292,7 @@ Router.map(function () {
 
         this.response.setHeader( 'access-control-allow-origin', '*' );
 
-        fname = this.params.outfmt + "_" + this.params._cid + "_" + 
+        var fname = this.params.outfmt + "_" + this.params._cid + "_" + 
             this.params.z + "_" + this.params.x + "_" + this.params.y;
         var dir = "tile-cache";
         fname = dir + "/" + fname;
