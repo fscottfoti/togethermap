@@ -442,7 +442,7 @@ Template.collectionEdit.events = {
     'click .place-autoform-sample': function () {
 
         var t = $('#place-autoform').val();
-        Session.set('quickForm', t);
+        Session.set('quick_form', t);
         var frm = 'Form is empty';
         if(t) {
             frm = renderTmp(Template.myQuickForm);
@@ -623,10 +623,10 @@ Template.collectionEdit.events = {
 };
 
 
-Template.quickForm.helpers({
+Template.myQuickForm.helpers({
 
-    quickForm: function () {
-        var qf = Session.get('quickForm');
+    quick_form: function () {
+        var qf = Session.get('quick_form');
         if(!qf) {
             console.log('no quick form spec');
             return;
