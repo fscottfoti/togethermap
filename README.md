@@ -22,7 +22,7 @@ Installation is simple.
 
 ## A Note on Meteor
 
-Meteor is amazing JavaScript framework (created by a friend of mine from high school) which allows real time transfer of data from a MongoDB to web and mobile clients.  In my opinion, it's real strength is to put client and server in the same language, side by side, and to allow data access in both client and server using the same abstractions (which are both based on Mongo).
+Meteor is amazing JavaScript framework (created by a friend of mine from high school, and new with 10s of millions in funding) which allows real time transfer of data from a MongoDB to web and mobile clients.  In my opinion, it's real strength is to put client and server in the same language, side by side, and to allow data access in both client and server using the same abstractions (which are both based on Mongo).
 
 Perhaps even more importantly, the ease of installation, of managing Javascript packages, and of deployment has really been a godsend for me.  That said, the frontend framework for Meteor, called Blaze, is very clean but perhaps not as powerful or familiar as frameworks like React and Angular.  As Meteor now seems set for a move to React, I think TM might be headed in that direction, but for now everything is in the vanilla Meteor stack.
 
