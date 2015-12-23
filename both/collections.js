@@ -52,6 +52,9 @@ Meteor.methods({
             throw new Meteor.Error(403, "Permission denied to add collection");
         }
 
+        obj.place_write_private = true;
+        obj.post_write_private = true;
+
         addUserInfo(obj, this.userId);
 
         return MCollections.insert(obj);
