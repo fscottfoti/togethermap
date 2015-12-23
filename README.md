@@ -9,7 +9,7 @@ It utilizes Meteor/Mongo on the backend and the Meteor/Mapbox stack on the font 
 
 It is a work in progress.  It is a side project, and is only tangentially related to my job, so please keep that in mind when making requests.
 
-Let's get this one out of the way right from the start: why not back with a Postgres/Postgis db?  Honestly, for two reasons.  1) Postgres is a bear to install and 2) maintaining schemas across application contexts is an enormous pain.  In my opinion, it's about time for geo to move to the web paradigm = json documents and filters on collections rather than relationships, and do geo analysis in Python.  The day might not be today, but it's coming.  Of course, many important projects are built on Postgis today, so including Postgis connectivity as an option makes a ton of sense.  Let's look at how those two things work in TM and you'll begin to see the advantages.
+Let's get this one out of the way right from the start: why not back with a Postgres/Postgis db?  Honestly, for two reasons.  1) Postgres is a bear to install and 2) maintaining schemas across application contexts is an enormous pain.  In my opinion, it's about time for geo to move to the web paradigm = json documents and filters on collections rather than relationships, and do geo analysis in Python.  The day might not be today, but it's coming.  Of course, many important projects are built on Postgis today, so including Postgis connectivity as an option makes a ton of sense.
 
 ## Installation
 

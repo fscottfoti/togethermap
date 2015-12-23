@@ -55,7 +55,17 @@ Template.permissions.helpers({
             place_writers: "Placemakers",
             post_writers: "Posters",
             readers: "Readers"
-        }[p]
+        }[p];
+    },
+
+    permissionDescription: function() {
+        var p = Session.get("permission_type") || "Owners";
+        return {
+            owners: "Owners can edit collection attributes and set permissions.",
+            place_writers: "Place writers can add places to a collection.",
+            post_writers: "Post writers cannot add places but can make comments and vote.",
+            readers: "Readers can only browse a collection but cannot add or edit any content."
+        }[p];
     },
 
     listExists: function () {
