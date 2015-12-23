@@ -53,7 +53,7 @@ DefaultMapDriver = {
                 // the map when leaving routes such as profile and home
                 // and in general can stop the rezoom when we need to
                 Map.map.setView(options.location.center,
-                    options.location.zoom);
+                    options.location.zoom, {animate: false, reset: true});
             } else {
                 Session.set('dontSetCollectionLocation', false);
             }
