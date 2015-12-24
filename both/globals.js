@@ -18,7 +18,9 @@ tile2lat = function(y,z) {
 
 
 cacheEnabled = function () {
-    return Meteor.settings.public.CACHE_ENABLED || true;
+    var ce = Meteor.settings.public.CACHE_ENABLED;
+    if(ce != undefined) return ce;
+    return true;
 }
 
 
