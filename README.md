@@ -9,6 +9,12 @@ It utilizes Meteor/Mongo on the backend and the Meteor/Mapbox stack on the font 
 
 It is a work in progress.  It is a side project, and is only tangentially related to my job, so please keep that in mind when making requests.
 
+## User Documentation
+
+User Documentation is available [here](http://fscottfoti.github.io/togethermap_help/).  The most interesting part of that documentation to a Github audience is the discussion of how to [customize](http://fscottfoti.github.io/togethermap_help/customization/) rendering of places in TM, which is definitely a programming exercise (it uses Handlebars.js and Autoform extensively, as well as Javascript functions for theming and access to Meteor/Mongo filters via the interface).
+
+## Why not Postgres?
+
 Let's get this one out of the way right from the start: why not back with a Postgres/Postgis db?  Honestly, for two reasons.  1) Postgres is a bear to install and 2) maintaining schemas across application contexts is an enormous pain.  In my opinion, it's about time for geo to move to the web paradigm = json documents and filters on collections rather than relationships, and do geo analysis in Python.  The day might not be today, but it's coming.  Of course, many important projects are built on Postgis today, so including Postgis connectivity as an option makes a ton of sense (it doesn't yet exist).
 
 ## Installation
@@ -48,7 +54,7 @@ Let's get one terminology issue out of the way up front.  Collections in Togethe
 * Mobile app - although you can go to a TM website and use it perfectly well on any mobile device, releasing a mobile app in the app stores has not been done yet.  Meteor is designed to deploy to Android and IOS and I have successfully prototyped this, but a small amount of cleanup is still required for an initial release.
 * Mapbox.js - TM now supports being able to serve Mapbox Vector Tiles in compressed format and with caching on the server.  Initial prototypes show that Mapbox GL (a WebGL library) can take these tiles from TM and render 10s of thousands of shapes with no lag.  This is clearly the future of TM (and web mapping in general) and I look forward to integrating more tightly with TM collection configuration options.
 * I work closely with city and regional land use and transportation planners (I'm current employed by MTC in the Bay Area).  As such my primary use case is to visualize parcels shapes and attach zoning attributes to those shapes.  The main functionality here is just being able to join a second csv file to a collection of shapes, and this is a common operation in GIS too.  This isn't supported yet in TM but should be soon.
-* Along those lines, I use TM to do a ton of visualizations for analyses that I perform on where future real estate developments are likely to be located (based on current markets and some addtional forecasting).  I will continue to improve the workflow to get TM data into Python for analysis and then into TM for visualization and feedback.  In the future I can imagine adding interactive charting of collection attirbutes similar to the (http://io.morphocode.com/urban-layers/)[UrbanLayers] demo.
+* Along those lines, I use TM to do a ton of visualizations for analyses that I perform on where future real estate developments are likely to be located (based on current markets and some addtional forecasting).  I will continue to improve the workflow to get TM data into Python for analysis and then into TM for visualization and feedback.  In the future I can imagine adding interactive charting of collection attirbutes similar to the [UrbanLayers](http://io.morphocode.com/urban-layers/) demo.
 
 ## Loading Sample Data
 
