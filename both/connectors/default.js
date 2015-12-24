@@ -124,6 +124,7 @@ DefaultMapDriver = {
             onReady: function() {
                 var cnt = Map.countVisiblePlaces();
                 Session.set('mapVisiblePlaces', cnt);
+                DefaultMapDriver.maybeSetLocation();
             }
         });
         this.getAll(cid);
