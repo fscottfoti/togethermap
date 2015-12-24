@@ -9,9 +9,9 @@ It utilizes Meteor/Mongo on the backend and the Meteor/Mapbox stack on the font 
 
 It is a work in progress.  It is a side project, and is only tangentially related to my job, so please keep that in mind when making requests.
 
-## User Documentation
+## Documentation
 
-User Documentation is available [here](http://fscottfoti.github.io/togethermap_help/).  The most interesting part of that documentation to a Github audience is the discussion of how to [customize](http://fscottfoti.github.io/togethermap_help/customization/) rendering of places in TM, which is definitely a programming exercise (it uses Handlebars.js and Autoform extensively, as well as Javascript functions for theming and access to Meteor/Mongo filters via the interface).
+Documentation is available [here](http://fscottfoti.github.io/togethermap_help/).  The most interesting part of that documentation to this audience is probably the discussion of how to [customize](http://fscottfoti.github.io/togethermap_help/customization/) rendering of places in TM, which is definitely a programming exercise - it uses Handlebars.js and Autoform extensively, as well as Javascript functions for theming and allows configuration of Meteor/Mongo filters via the interface.
 
 ## Why not Postgres?
 
