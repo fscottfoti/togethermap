@@ -382,7 +382,9 @@ Router.map(function () {
             this.response.setHeader('Content-Type', 'application/json');
             this.response.end(geojson);
 
-            fs.writeFileSync(fname, geojson, {encoding: "utf-8"});
+            if(cacheEnabled()) {
+                fs.writeFileSync(fname, geojson, {encoding: "utf-8"});
+            }
 
         } else {
 
@@ -398,9 +400,13 @@ Router.map(function () {
             zlib.deflate(vtile.getData(), function(err, pbf) {
 
                 that.response.end(pbf);
-                f = fs.openSync(fname, "w");
-                fs.writeSync(f, pbf, 0, pbf.length);
-                fs.close(f);
+
+                if(cacheEnabled()) {
+                    
+                    f = fs.openSync(fname, "w");
+                    fs.writeSync(f, pbf, 0, pbf.length);
+                    fs.close(f);
+                }
             })
 
         }

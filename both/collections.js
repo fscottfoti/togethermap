@@ -1,7 +1,6 @@
 DEFAULT_PLACE_LIMIT = 100;
 MAX_PLACE_LIMIT = 10000;
 RECENT_LIMIT = 10;
-ENABLE_CACHE = true;
 
 
 MCollections = new Meteor.Collection('collections');

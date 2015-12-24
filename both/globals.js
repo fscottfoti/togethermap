@@ -17,6 +17,11 @@ tile2lat = function(y,z) {
 }
 
 
+cacheEnabled = function () {
+    return Meteor.settings.public.CACHE_ENABLED || true;
+}
+
+
 type2CollectionMap = {
     "place": MPlaces,
     "comment": MComments,
