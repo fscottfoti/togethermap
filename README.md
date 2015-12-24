@@ -13,10 +13,6 @@ It is a work in progress.  It is a side project, and is only tangentially relate
 
 Documentation is available [here](http://fscottfoti.github.io/togethermap_help/).  The most interesting part of that documentation to this audience is probably the discussion of how to [customize](http://fscottfoti.github.io/togethermap_help/customization/) rendering of places in TM, which is definitely a programming exercise - it uses Handlebars.js and Autoform extensively, as well as Javascript functions for theming and allows configuration of Meteor/Mongo filters via the interface.
 
-## Why not Postgres?
-
-Let's get this one out of the way right from the start: why not back with a Postgres/Postgis db?  Honestly, for two reasons.  1) Postgres is a bear to install and 2) maintaining schemas across application contexts is an enormous pain.  In my opinion, it's about time for geo to move to the web paradigm = json documents and filters on collections rather than relationships, and do geo analysis in Python.  The day might not be today, but it's coming.  Of course, many important projects are built on Postgis today, so including Postgis connectivity as an option makes a ton of sense (it doesn't yet exist).
-
 ## Installation
 
 Installation is simple. 
@@ -26,11 +22,21 @@ Installation is simple.
 * Third run `meteor` in the cloned repo
 * Fourth open up `http://localhost:3000/` in a web browser
 
+## Loading Sample Data
+
+## Other fun Python scripts
+
 ## A Note on Meteor
 
 Meteor is amazing JavaScript framework (created by a friend of mine from high school) which allows real time transfer of data from MongoDB to web and mobile clients.  In my opinion, its real strength is to put client and server in the same language, side by side, and to allow data access in both client and server using the same abstractions (which are both based on Mongo).
 
 Perhaps even more importantly, the ease of installation, of managing Javascript packages, and of deployment has really been a godsend for me.  That said, the frontend framework for Meteor, called Blaze, is very clean but perhaps not as powerful or familiar as frameworks like React and Angular.  As Meteor now seems set for a move to React, I think TM might be headed in that direction, but for now everything is in the vanilla Meteor stack.
+
+## Why not Postgres?
+
+Let's get this one out of the way: why not back with a Postgres/Postgis db?  Honestly, for two reasons.  1) Postgres is a bear to install and 2) maintaining schemas across application contexts is an enormous pain.  In my opinion, it's about time for geo to move to the web paradigm = json documents and filters on collections rather than relationships, and do geo analysis in Python.  The day might not be today, but it's coming.  Of course, many important projects are built on Postgis today, so including Postgis connectivity as an option makes a ton of sense (it doesn't yet exist).
+
+## Parts of TM that require other services
 
 It should also be noted that almost all tools used in TM are open source and therefore free - this includes everything in Meteor, Mapbox, and TM itself.  The only exceptions are:
 
@@ -55,10 +61,6 @@ Let's get one terminology issue out of the way up front.  Collections in Togethe
 * Mapbox.js - TM now supports being able to serve Mapbox Vector Tiles in compressed format and with caching on the server.  Initial prototypes show that Mapbox GL (a WebGL library) can take these tiles from TM and render 10s of thousands of shapes with no lag.  This is clearly the future of TM (and web mapping in general) and I look forward to integrating more tightly with TM collection configuration options.
 * I work closely with city and regional land use and transportation planners (I'm current employed by MTC in the Bay Area).  As such my primary use case is to visualize parcels shapes and attach zoning attributes to those shapes.  The main functionality here is just being able to join a second csv file to a collection of shapes, and this is a common operation in GIS too.  This isn't supported yet in TM but should be soon.
 * Along those lines, I use TM to do a ton of visualizations for analyses that I perform on where future real estate developments are likely to be located (based on current markets and some addtional forecasting).  I will continue to improve the workflow to get TM data into Python for analysis and then into TM for visualization and feedback.  In the future I can imagine adding interactive charting of collection attirbutes similar to the [UrbanLayers](http://io.morphocode.com/urban-layers/) demo.
-
-## Loading Sample Data
-
-## Other fun Python scripts
 
 ## Layout of directories
 
