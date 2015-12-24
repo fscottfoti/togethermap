@@ -38,8 +38,8 @@ Template.quick_place.helpers({
         return Session.get('activeSortType') == "User"
     },
 
-    commentSort: function () { return 
-        Session.get('activeSortType') == "Fdbck"
+    commentSort: function () {
+        return Session.get('activeSortType') == "Fdbck"
     }
 });
 
