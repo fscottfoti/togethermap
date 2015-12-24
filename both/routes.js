@@ -586,6 +586,14 @@ AccountsTemplates.configure({
     //termsUrl: 'terms-of-use',
 });
 
+AccountsTemplates.addField({
+    _id: 'displayName',
+    type: 'text',
+    displayName: "Name",
+    required: true,
+    minLength: 3,
+});
+
 
 var currentCollection;
 templates = {};
