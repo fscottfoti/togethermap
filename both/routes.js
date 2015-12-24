@@ -44,6 +44,8 @@ var verifyPermissions = function (that, cid) {
 
     if(cid == "empty" || readPermission(Meteor.user(), cid)) {
         that.next()
+    } else if(!MCollections.findOne(cid)) {
+        that.render('not_found');
     } else {
         that.render('permission_denied');
     }
