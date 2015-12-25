@@ -2,6 +2,10 @@ import sys
 import json
 import tmlib as tm
 from pymongo import MongoClient
+from itertools import islice
+
+# load into mongo with chunks of this size
+BATCH_SIZE = 10000
 
 args = sys.argv[1:]
 if len(args) != 4:
@@ -32,6 +36,7 @@ print "Created collection:", cid
 db = MongoClient('localhost', 3001).meteor
 
 if fname.endswith(".geojson"):
+	# standard geojson
 
     obj = json.loads(open(fname).read())
 
@@ -40,10 +45,26 @@ if fname.endswith(".geojson"):
         for i in xrange(0, len(l), n):
             yield l[i:i+n]
 
-    for chunk in chunks(obj["features"], 10000):
+    for chunk in chunks(obj["features"], BATCH_SIZE):
 
         features = [tm.addTmAttributes(f, cid, user) for f in chunk]
         print "Inserting %d features" % len(features)
         db.places.insert_many(features)
 
     update_place_count(cid, len(obj["features"]))
+
+
+if fname.endswith("json"):
+	# geojson, but one geojson feature per line (not standard)
+    with open(fname) as infile:
+    	cnt = 0
+        while True:
+            lines = list(islice(infile, BATCH_SIZE))
+            if not lines:
+                break
+            features = [tm.addTmAttributes(json.loads(f), cid, user) for f in lines]
+            print "Inserting %d features" % len(features)
+            cnt += len(features)
+            db.places.insert_many(features)
+
+    update_place_count(cid, cnt)
