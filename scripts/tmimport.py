@@ -36,7 +36,7 @@ print "Created collection:", cid
 db = MongoClient('localhost', 3001).meteor
 
 if fname.endswith(".geojson"):
-	# standard geojson
+    # standard geojson
 
     obj = json.loads(open(fname).read())
 
@@ -55,16 +55,39 @@ if fname.endswith(".geojson"):
 
 
 if fname.endswith("json"):
-	# geojson, but one geojson feature per line (not standard)
+    # geojson, but one geojson feature per line (not standard)
     with open(fname) as infile:
-    	cnt = 0
+        cnt = 0
         while True:
             lines = list(islice(infile, BATCH_SIZE))
             if not lines:
                 break
-            features = [tm.addTmAttributes(json.loads(f), cid, user) for f in lines]
+            features = [tm.addTmAttributes(json.loads(f), cid, user)
+                        for f in lines]
             print "Inserting %d features" % len(features)
             cnt += len(features)
             db.places.insert_many(features)
 
     update_place_count(cid, cnt)
+
+
+if fname.endswith("shp"):
+
+    # only need this inside here
+    import fiona
+
+    with fiona.drivers():
+        with fiona.open(fname) as shp:
+
+            cnt = 0
+            while True:
+                lines = list(islice(infile, BATCH_SIZE))
+                if not lines:
+                    break
+                print lines[0]
+                features = [tm.addTmAttributes(f, cid, user) for f in lines]
+                print "Inserting %d features" % len(features)
+                cnt += len(features)
+                db.places.insert_many(features)
+
+        update_place_count(cid, cnt)
