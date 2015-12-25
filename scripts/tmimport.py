@@ -80,14 +80,23 @@ if fname.endswith("shp"):
         with fiona.open(fname) as shp:
 
             cnt = 0
-            while True:
-                lines = list(islice(infile, BATCH_SIZE))
-                if not lines:
-                    break
-                print lines[0]
-                features = [tm.addTmAttributes(f, cid, user) for f in lines]
+
+            def addShpFeatures(features):
+                global cnt
+                features = [tm.addTmAttributes(f, cid, user) for f in features]
                 print "Inserting %d features" % len(features)
                 cnt += len(features)
-                db.places.insert_many(features)
+                obj = db.places.insert_many(features)
 
-        update_place_count(cid, cnt)
+            batch = []
+            for f in shp:
+                batch.append(f)
+
+                if len(batch) == BATCH_SIZE:
+                    addShpFeatures(batch)
+                    batch = []
+
+            if len(batch):
+                addShpFeatures(batch)
+
+            update_place_count(cid, cnt)
