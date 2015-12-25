@@ -53,12 +53,12 @@ def randomColor():
     return "#%06x" % random.randint(0, 0xFFFFFF)
 
 
-def createFeature(f, cid, userId, userName, add_color=True):
+def addTmAttributes(f, cid, user, add_color=True):
     # this creates all the special attributes used by TM so
     # that the user can load places into mongo directly (not
     # through meteor commands), which is more efficient
-    f["creatorUID"] = userId
-    f["creator"] = userName
+    f["creatorUID"] = user["_id"]
+    f["creator"] = user["profile"]["displayName"]
     f["createDate"] = datetime.datetime.utcnow()
     f["updateDate"] = datetime.datetime.utcnow()
     f["collectionId"] = cid
@@ -95,3 +95,7 @@ def wait():
             time.sleep(1)
         except KeyboardInterrupt:
             break
+
+
+def getUser():
+    return call('myInfo', [])[1]

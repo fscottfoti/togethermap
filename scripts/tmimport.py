@@ -17,9 +17,7 @@ def update_place_count(cid, cnt):
 	tm.call('updateCollection', [cid, {'$set': {'place_count': cnt}}])
 
 
-user = tm.call('myInfo', [])[1]
-_id = user["_id"]
-name = user["profile"]["displayName"]
+user = tm.getUser()
 
 print "Creating colection"
 error, cid = tm.call('createCollection', [{'name': collection_name}])
@@ -39,8 +37,7 @@ if fname.endswith(".geojson"):
 
     for chunk in chunks(obj["features"], 10000):
 
-    	# XXX get user id and name from meteor
-    	features = [tm.createFeature(f, cid, _id, name) for f in chunk]
+    	features = [tm.addTmAttributes(f, cid, user) for f in chunk]
     	print "Inserting %d features" % len(features)
     	db.places.insert_many(features)
 
