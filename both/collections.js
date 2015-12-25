@@ -45,6 +45,11 @@ getUser = function (userId) {
 
 Meteor.methods({
 
+    myInfo: function () {
+        // return user info for logged in user
+        return Meteor.users.findOne({_id: this.userId}, {fields: {profile: 1}});
+    },
+
     createCollection: function (obj) {
 
         if (!this.userId) {
