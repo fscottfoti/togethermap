@@ -13,31 +13,48 @@ cid, typ = args
 
 assert typ in ["json", "geojson", "shp"]
 
-db = MongoClient('localhost', 3001).meteor
+db = MongoClient('localhost', 27017).togethermap
 
 fname = cid + "." + typ
 
 
 if typ == "json":
-	with open(fname, "w") as f:
-	    for place in db['places'].find({"collectionId": cid}):
-		    f.write(json.dumps(place, default=json_util.default) + "\n")
+    with open(fname, "w") as f:
+        for place in db['places'].find({"collectionId": cid}):
+            f.write(json.dumps(place, default=json_util.default) + "\n")
 
 
 if typ == "geojson":
-	with open(fname, "w") as f:
-  	    features = [f for f in db['places'].find({"collectionId": cid})]
-	    f.write(json.dumps({
+    with open(fname, "w") as f:
+        features = [p for p in db['places'].find({"collectionId": cid})]
+        f.write(json.dumps({
             "type": "FeatureCollection",
             "features": features
-	    }, default=json_util.default))
+        }, default=json_util.default))
 
+
+tmap = {
+    "unicode": "str",
+    "float": "float",
+    "int": "int",
+    "NoneType": "str"
+}
 
 if typ == "shp":
-	import fiona
-	with fiona.open('your_shapefile.shp', 
-		'w',
-		crs=fiona.crs.from_epsg(4326),
-		driver='ESRI Shapefile', schema=yourschema) as f:
-		    for place in db['places'].find({"collectionId": cid}):
-				f.write(place)
+    import fiona
+    from fiona.crs import from_epsg
+
+    # get a sample place do build a schema from - if other places don't match
+    # this schema you'll get a fiona error, although this should be dealt with
+    # in the future
+    p = db['places'].find_one({"collectionId": cid})
+    props = {k: tmap[type(v).__name__] for k, v in p["properties"].iteritems()}
+
+    myschema = {
+        'geometry': p["geometry"]["type"],
+        'properties': props,
+    }
+    with fiona.open(fname, 'w', crs=from_epsg(4326),
+                    driver='ESRI Shapefile', schema=myschema) as f:
+        for place in db['places'].find({"collectionId": cid}):
+            f.write(place)
