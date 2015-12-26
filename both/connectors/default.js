@@ -38,6 +38,12 @@ DefaultMapDriver = {
             Map.show_popups = true;
         }
 
+        if(options.disable_geoindex !== undefined) {
+            Map.disable_geoindex = options.disable_geoindex;
+        } else {
+            Map.disable_geoindex = false;
+        }
+
         if(options.dont_delete_places !== undefined) {
             Map.dont_delete_places = options.dont_delete_places;
         } else {
@@ -117,6 +123,11 @@ DefaultMapDriver = {
         near = {
             center: center,
             maxDistance: Map.getMapRadiusKM()*1000
+        }
+
+        if(Map.disable_geoindex) {
+            poly = undefined;
+            near = undefined;
         }
 
         Meteor.subscribe("places", cid, poly, 
