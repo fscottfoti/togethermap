@@ -13,7 +13,7 @@ cid, typ = args
 
 assert typ in ["json", "geojson", "shp"]
 
-db = MongoClient('localhost', 27017).togethermap
+db = MongoClient('localhost', 3001).meteor
 
 fname = cid + "." + typ
 
