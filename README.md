@@ -7,7 +7,7 @@ TogetherMap is intended to be the Google Docs-style app for editing and sharing 
 
 An instance of TogetherMap is hosted on [togethermap.com](http://togethermap.com), and you can load collections with up to 5000 shapes there, but if you want to use it to host data for your own organization (which is very much allowed), you can use the install instructions below to install an instance you control on your own servers.
 
-TogetherMap utilizes Meteor/Mongo on the backend and the Meteor/Mapbox stack on the font - think web maps backed by a trivial-to-install database and you have the right idea.
+TogetherMap utilizes Meteor/Mongo on the backend and the Meteor/Mapbox stack on the font - think web maps backed by a trivial-to-install database and you have the right idea.  If you're looking for all the bells and whistles for managing spatial data in Meteor/Mongo, TM has quite a few of them.
 
 It is a work in progress.  It is a side project, and is only tangentially related to my job, so please keep that in mind when making requests.
 
