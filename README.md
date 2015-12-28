@@ -12,13 +12,15 @@ An instance of TogetherMap is hosted on [togethermap.com](http://togethermap.com
 Main implemented features include:
 * GUI import and export for small collections
 * Command line import and export for large collections, easy scripting access using PyMongo
-* Easy deploy using MongoDB using Meteor deployment tools
+* Easy deploy with MongoDB using Meteor deployment tools
 * Digest emails for updates by collection using MailGun
 * Synchronized mapping comes built-in using Meteor stack
 * Synchronized commenting on places
-* Read, Comment, Place addition, Owner per-collection permissions using Google-docs style email links
+* Read, Comment, Place addition, and Owner per-collection permissions using Google-docs style email links
 * Theming functions in Javascript, multiple themes per collection
-* Server- and client- side filters: load only the data you need
+* Meteor templates to configure how to display data in HTML
+* Meteor autoform to use HTML forms to take data edits from users
+* Server- and client- side filters to load only the data you need
 * Mapbox Vector Tile server for each collection with server-side caching (MapBox GL ready)
 * Full site tested and configured for mobile, deployable to app stores using Meteor tools
 
