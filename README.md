@@ -12,19 +12,20 @@ An instance of TogetherMap is hosted on [togethermap.com](http://togethermap.com
 Main implemented features include:
 * GUI import and export for small collections
 * Command line import and export for large collections, easy scripting access using PyMongo
-* Easy deploy with MongoDB using Meteor deployment tools
+* Incredibly fast export from Mongo to Pandas DataFrames using Monary
+* Easy deploy of TM and MongoDB using Meteor deployment tools
 * Digest emails for updates by collection using MailGun
-* Synchronized mapping comes built-in using Meteor stack
+* Synchronized mapping comes built-in for Meteor apps
 * Synchronized commenting on places
 * Read, Comment, Place addition, and Owner per-collection permissions using Google-docs style email links
 * Theming functions in Javascript, multiple themes per collection
-* Meteor templates to configure how to display data in HTML
-* Meteor autoform to use HTML forms to take data edits from users
+* Meteor templates to configure how to display place data in HTML
+* Meteor autoform to use HTML forms to receive data edits from users
 * Server- and client- side filters to load only the data you need
-* Mapbox Vector Tile server for each collection with server-side caching (MapBox GL ready)
+* Mapbox Vector Tile server built-in with server-side caching (MapBoxGL.js ready)
 * Full site tested and configured for mobile, deployable to app stores using Meteor tools
 
-It is a work in progress.  It is a side project, and is only tangentially related to my job, so please keep that in mind when making requests.
+It is a work in progress.  It is a side project, and is only tangentially related to my job, so please keep that in mind when making requests.  That said, don't hestiate to ask as I do enjoy the work.
 
 ## Documentation
 
@@ -38,6 +39,10 @@ Installation is simple.
 * Second clone this repo
 * Third run `meteor` in the cloned repo
 * Fourth open up `http://localhost:3000/` in a web browser
+
+## Deployment
+
+Deployment is a bit beyond the context of this document.  Meteor has standard tools for this though, so if you're a savvy programmer feel free to give it a shot and ask questions as I've encountered and solved quite a few deployment issues.  **If you're not a programmer, I'm happy to help you set up and deploy TM for a reasonable consulting fee.**
 
 ## Loading Sample Data
 
