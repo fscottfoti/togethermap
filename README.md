@@ -19,7 +19,8 @@ Main implemented features include:
 * Read, Comment, Place addition, Owner per-collection permissions using Google-docs style email links
 * Theming functions in Javascript, multiple themes per collection
 * Server- and client- side filters: load only the data you need
-* Mapbox Vector Tile server for each collection with server-side caching
+* Mapbox Vector Tile server for each collection with server-side caching (MapBox GL ready)
+* Full site tested and configured for mobile, deployable to app stores using Meteor tools
 
 It is a work in progress.  It is a side project, and is only tangentially related to my job, so please keep that in mind when making requests.
 
