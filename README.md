@@ -50,7 +50,7 @@ Docs on how to import and export geojson and shapefile data using Python are in 
 
 ### Import into TM
 
-First this assumes you are in the `scripts` directory so feel free to `cd scripts`.
+First this assumes you are in the `scripts` directory so feel free to `cd scripts`
 
 To import json data in the form of one geojson feature per line (which keeps you from having to hold all features in memory at the same time or to wait until the entire geojson file is loaded), just run:
 
