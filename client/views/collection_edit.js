@@ -34,7 +34,7 @@ Template.collectionEdit.helpers({
     },
 
     baseMaps: function () {
-        return _.map(['aerial', 'streets', 'grey', 'dark', 'atlas', 'outline', 'watercolor'],
+        return _.map(['aerial', 'streets', 'grey', 'dark'], //'atlas', 'outline', 'watercolor'],
             function (v) { return {name: v} });
     },
 
