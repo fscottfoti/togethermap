@@ -46,33 +46,39 @@ Deployment is a bit beyond the context of this document.  Meteor has standard to
 
 ## Loading Sample Data
 
-### Import into TM
-
 Docs on how to import and export geojson and shapefile data using Python are in this section.
 
-First this assumes you are in the `scripts` directory so feel free to `cd scripts`
+### Import into TM
+
+First this assumes you are in the `scripts` directory so feel free to `cd scripts`.
 
 To import json data in the form of one geojson feature per line (which keeps you from having to hold all features in memory at the same time or to wait until the entire geojson file is loaded), just run:
 
 `python tmimport.py sample_data/us_states.json`
 
-To load the same data as a standard geojson file run 
+To load the same data as a standard geojson file run:
 
 `python tmimport.py sample_data/us_states.geojson`
 
-Note that the [tmimport.py](https://github.com/fscottfoti/togethermap/blob/master/scripts/tmimport.py) utility assumes the data is in one format or the other based on the ending.  It doesn't auto-detect the ending or anything.
+Note that the [tmimport.py](https://github.com/fscottfoti/togethermap/blob/master/scripts/tmimport.py) utility assumes the data is in one format or the other based on the filename ending.  It doesn't auto-detect the format or anything.
 
-To load from shapefile, just run
+To load from shapefile, just run (this uses the Fiona library so make sure the library and its dependencies are installed):
 
 `python tmimport.py sample_data/ZillowNeighborhoods-HI.shp`
 
-Note that the [tmimport.py](https://github.com/fscottfoti/togethermap/blob/master/scripts/tmimport.py) script creates a new collection every time it loads one of these files and uses the new collection to hold the places from the file.  You might want to edit the code in order to use the non-default port and database for the TM app and for the Mongo db.  These will be configuration options at some point in the future.  It's a pretty simple script at this point, so open it up and knock yourself out.
+Note that the [tmimport.py](https://github.com/fscottfoti/togethermap/blob/master/scripts/tmimport.py) script creates a new collection every time it loads one of these files and uses the new collection to hold the places from the file.  
+
+You might need to edit the code in order to use the non-default port and database for the TM app and for the MongoDB.  These will be configuration options at some point in the future.  It's a pretty simple script at this point, so open it up and knock yourself out.
 
 An especially fun import script is the [example](https://github.com/fscottfoti/togethermap/blob/master/scripts/web_parsing_example.py) which parses data directly from [the best restauruants in Portland by Eater](http://pdx.eater.com/maps/best-portland-restaurants-38) using the Python library Beautiful Soup. 
 
 A very common [use case](https://togethermap.com/collection/ecGPcWi4XRDvMHLSp) for TM is to load place lists into TM using images and links - this [example](https://github.com/fscottfoti/togethermap/blob/master/scripts/load_custom_json_example.py) uses Curbed data on new development projects which is in a custom json [format](https://github.com/fscottfoti/togethermap/blob/master/scripts/curbed-sf.json).
 
 ### Export out of TM
+
+Export in TM is just as simple.  Just run `tmexport.py`(https://github.com/fscottfoti/togethermap/blob/master/scripts/tmexport.py) with the collectionId and file format as the two arguments.  The collectionId is a hash which is unique to each collection.  For instance, the collectionId for this [collection](https://togethermap.com/collection/ecGPcWi4XRDvMHLSp) is `ecGPcWi4XRDvMHLSp` (just get it from the URL).  The format can be one of `json`, `geojson`, or `shp` in order to create the three file types.  Remember from above that json creates one geojson feature per line while geojson is proper geojson.
+
+Another awesome export script is this [example](https://github.com/fscottfoti/togethermap/blob/master/scripts/export_to_pandas.py) which uses the Monary library to export from MongoDB to Pandas DataFrame in the most efficient way possible.  This can create a DataFrame for millions of documents/rows in 20-30 seconds depending on how many features are specified to be exported.
 
 ## A Note on Meteor
 
