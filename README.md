@@ -95,7 +95,7 @@ Let's get this one out of the way: why not back with a Postgres/Postgis db?  Hon
 It should also be noted that almost all tools used in TM are open source and therefore free - this includes everything in Meteor, Mapbox, and TM itself.  The only exceptions are:
 
 * A Mapbox key can be provided in order to access Mapbox basemaps, markers, and a few other items, although it's not required.
-* If you want to do more than run locally, deployment must be paid for.  If you have an Amazon EC2 instance you can run on any Ubuntu machine.  I also use a Digital Ocean instance for $5/month and a MongoDB instance at compose.io for about $18/month, so deployment cost is modest.  Really anything that supports deployment of Meteor apps should work.  Or you can just load and customize collections on togethermap.com.t
+* If you want to do more than run locally, deployment must be paid for.  If you have an Amazon EC2 instance you can run on any Ubuntu machine.  I also use a Digital Ocean instance for $5/month and a MongoDB instance at compose.io for about $18/month, so deployment cost is modest.  Really anything that supports deployment of Meteor apps should work.  Or you can just load and customize collections on togethermap.com.
 * Filepicker.io is used to manage images in TM, and is a wonderful tool to allow connectivity to lots of cloud based storage providers.  They keep raising their prices and it's now up to $99/month for any substantive use, so it's almost certainly on its way out of TM.
 
 ## Meteor/Mongo Data Schema
