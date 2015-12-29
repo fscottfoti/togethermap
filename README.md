@@ -76,7 +76,7 @@ A very common [use case](https://togethermap.com/collection/ecGPcWi4XRDvMHLSp) f
 
 ### Export out of TM
 
-Export in TM is just as simple.  Just run `tmexport.py`(https://github.com/fscottfoti/togethermap/blob/master/scripts/tmexport.py) with the collectionId and file format as the two arguments.  The collectionId is a hash which is unique to each collection.  For instance, the collectionId for this [collection](https://togethermap.com/collection/ecGPcWi4XRDvMHLSp) is `ecGPcWi4XRDvMHLSp` (just get it from the URL).  The format can be one of `json`, `geojson`, or `shp` in order to create the three file types.  Remember from above that json creates one geojson feature per line while geojson is proper geojson.
+Export in TM is just as simple.  Just run [tmexport.py](https://github.com/fscottfoti/togethermap/blob/master/scripts/tmexport.py) with the collectionId and file format as the two arguments.  The collectionId is a hash which is unique to each collection.  For instance, the collectionId for this [collection](https://togethermap.com/collection/ecGPcWi4XRDvMHLSp) is `ecGPcWi4XRDvMHLSp` (just get it from the URL).  The format can be one of `json`, `geojson`, or `shp` in order to create the three file types.  Remember from above that json creates one geojson feature per line while geojson is proper geojson.
 
 Another awesome export script is this [example](https://github.com/fscottfoti/togethermap/blob/master/scripts/export_to_pandas.py) which uses the Monary library to export from MongoDB to Pandas DataFrame in the most efficient way possible.  This can create a DataFrame for millions of documents/rows in 20-30 seconds depending on how many features are specified to be exported.
 
