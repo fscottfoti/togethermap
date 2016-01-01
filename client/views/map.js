@@ -19,16 +19,22 @@ Template.map.rendered = function () {
 
         $(window).resize(resizeMap).resize();
 
-        Map.create('map_canvas');
+        MapGL.create('map_canvas');
         switchCollection(Session.get('activeCollection'));
 
         // this one switches back and forth on the pan so you can
         // just go up and down on a mobile formatted screen
 
         $(window).bind('resize', function () {
+
+            if(!Map.map) return;
+
             var deviceWidth = window.innerWidth;
+
             if(deviceWidth < 768) {
+
                 if(!mobileFormFactor || mobileFormFactor === false) {
+                    
                     mobileFormFactor = true;
                     //Map.removeDrawControl();
                     Map.removeDesktopControls();
@@ -37,8 +43,11 @@ Template.map.rendered = function () {
                     Map.removeDrawControl();
                     if(addBack) Map.addDrawControl();
                 }
+
             } else {
+
                 if(!mobileFormFactor || mobileFormFactor === true) {
+
                     mobileFormFactor = false;
                     Map.addDesktopControls();
                     Map.removeMobileControls();

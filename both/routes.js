@@ -372,7 +372,9 @@ Router.map(function () {
 
         filter.collectionId = this.params._cid;
 
-        var places = MPlaces.find(filter, {limit: MAX_PLACE_LIMIT}).fetch();
+        var places = MPlaces.find(filter, 
+            {fields: {upvoters: 0, downvoters: 0}, 
+            limit: MAX_PLACE_LIMIT}).fetch();
 
         var geojson = {"type": "FeatureCollection", "features": places};
         geojson = JSON.stringify(geojson);
@@ -390,7 +392,7 @@ Router.map(function () {
 
             var vtile = new mapnik.VectorTile(
                 +this.params.z, +this.params.x, +this.params.y)
-            
+      
             vtile.addGeoJSON(geojson, this.params._cid);
 
             this.response.setHeader('Content-Encoding', 'deflate')
@@ -642,7 +644,7 @@ switchCollection = function (cid) {
     }
 
     if(!Map.map) {
-        return;
+        // return;
     }
 
     if(sidebarOpen) {
@@ -709,9 +711,9 @@ switchCollection = function (cid) {
 
         currentCollection = cid;
 
-        DefaultMapDriver.init(cid, c);
+        //DefaultMapGLDriver.init(cid, c);
 
-        Map.newShapes();
+        //Map.newShapes();
 
         if(c.transitName) {
             TransitConnector.init(c.transitName);
@@ -727,6 +729,7 @@ switchCollection = function (cid) {
             c.placeTemplateLabel || c.place_template_label || defaultPlaceTemplateLabel);
 
     }
+    return;
 
     // this needs to be outside of the if statement above so it
     // will run every time a person logs in or out
