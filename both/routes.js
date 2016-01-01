@@ -377,11 +377,11 @@ Router.map(function () {
             limit: MAX_PLACE_LIMIT}).fetch();
 
         var geojson = {"type": "FeatureCollection", "features": places};
-        geojson = JSON.stringify(geojson);
 
         if(fmt == 'geojson') {
 
             this.response.setHeader('Content-Type', 'application/json');
+            geojson = JSON.stringify(geojson);
             this.response.end(geojson);
 
             if(cacheEnabled()) {
@@ -389,6 +389,10 @@ Router.map(function () {
             }
 
         } else {
+            for(var i = 0 ; i < geojson.features.length ; i++) {
+                geojson.features[i].properties._id = geojson.features[i]._id;
+            }
+            geojson = JSON.stringify(geojson);
 
             var vtile = new mapnik.VectorTile(
                 +this.params.z, +this.params.x, +this.params.y)
@@ -427,7 +431,7 @@ Router.map(function () {
         data: function () {
             if(this.ready()) {
 
-                Map.highlightPlace(this.params._id);
+                //Map.highlightPlace(this.params._id);
 
                 var id = this.params._id;
                 var cid = this.params._cid;
@@ -445,7 +449,7 @@ Router.map(function () {
                     return;
                 }
 
-                if(!Map.placeIsVisible(p)) Map.goToPlace(p, true, true);
+                //if(!Map.placeIsVisible(p)) Map.goToPlace(p, true, true);
 
                 var pid = p.parent_id || p._id;
 
@@ -470,7 +474,7 @@ Router.map(function () {
             openSidebar();
         },
         unload: function () {
-            Map.unHighlightPlace(this.params._id);
+            //Map.unHighlightPlace(this.params._id);
             Session.set('disableHover', false);
             Session.set('dontSetCollectionLocation', false);
             $('.tooltipped').tooltip('remove');

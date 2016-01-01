@@ -14,10 +14,27 @@ DefaultMapGLDriver = {
             "type": "circle",
             "source": "togethermap",
             "source-layer": cid,
+            "interactive": true,
             "paint": {
                 "circle-radius": 10,
                 "circle-color": "#ffffff"
             }
+        });
+
+        MapGL.map.on('mousemove', function (e) {
+            MapGL.map.featuresAt(e.point, {radius: 5}, function (err, features) {
+                if (err) throw err;
+                var cid = Session.get("activeCollection");
+                if(features.length == 0) {
+                    Router.go("collection", {_id: cid});
+                } else {
+                    console.log(features[0].properties._id);
+                    Router.go("place", {
+                        _cid: cid, 
+                        _id: features[0].properties._id
+                    });
+                }
+            });
         });
     },
 
