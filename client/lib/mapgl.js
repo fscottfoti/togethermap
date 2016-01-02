@@ -12,6 +12,8 @@ MapGL = {
 		});
 
 		this.map.on('style.load', function () {
+			
+			MapGL.loaded = true;
 			DefaultMapGLDriver.init();
 		});
     }

@@ -624,8 +624,8 @@ closeSidebar = function () {
 
 connectors = {
     'home': SearchConnector,
-    'gallery': CollectionsConnector,
-    'collections': CollectionsConnector
+    //'gallery': CollectionsConnector,
+    //'collections': CollectionsConnector
 };
 
 
@@ -715,7 +715,7 @@ switchCollection = function (cid) {
 
         currentCollection = cid;
 
-        //DefaultMapGLDriver.init(cid, c);
+        DefaultMapGLDriver.init(cid, c);
 
         //Map.newShapes();
 
