@@ -6,23 +6,35 @@ DefaultMapGLDriver = {
 
         if(!cid) return;
 
+        if(!MapGL.loaded) return;
+
+        if(MapGL.map.getSource("togethermap"))
+            MapGL.map.removeSource("togethermap");
+
+        if(MapGL.map.getLayer("points"))
+            MapGL.map.removeLayer("points");
+
+        if(MapGL.map.getLayer("polygons"))
+            MapGL.map.removeLayer("polygons");    
+
         if(cid == "collections" || cid == "gallery")
             return;
 
-        if(!MapGL.loaded) return;
-
         console.log("Loading: ", cid);
 
-        if(MapGL.map.getSource("togethermap"))
-            MapGL.map.removeSource("togethermap");        
+        var c = MCollections.findOne(cid);
+
+        if(c.location) {
+            MapGL.map.flyTo({
+                center: c.location.center,
+                zoom: c.location.zoom
+            });
+        }
 
         MapGL.map.addSource('togethermap', {
             type: 'vector',
             tiles: ["http://localhost:3000/mvt/"+cid+"/{z}/{x}/{y}"]
         });
-
-        if(MapGL.map.getLayer("points"))
-            MapGL.map.removeLayer("points");
 
         MapGL.map.addLayer({
             "id": "points",
@@ -36,9 +48,6 @@ DefaultMapGLDriver = {
             },
             "filter": ["==", "$type", "Point"]
         });
-
-        if(MapGL.map.getLayer("polygons"))
-            MapGL.map.removeLayer("polygons");
 
         MapGL.map.addLayer({
             "id": "polygons",
@@ -54,9 +63,39 @@ DefaultMapGLDriver = {
             "filter": ["==", "$type", "Polygon"]
         });
 
-        MapGL.map.on('mousemove', function (e) {
-            MapGL.map.featuresAt(e.point, {radius: 5}, function (err, features) {
+        MapGL.map.on('click', function (e) {
+            MapGL.map.featuresAt(e.point, {radius: 10}, function (err, features) {
+
                 if (err) throw err;
+
+                if (features.length) {
+
+                    var n = Router.current().route.getName();
+                    if(n == "collections" || n == "gallery")
+                        return;
+
+                    var cid = Session.get("activeCollection");
+
+                    Session.set('placeClicked', true);
+
+                    Router.go("place", {
+                        _cid: cid, 
+                        _id: features[0].properties._id
+                    });
+                }
+            });
+        });
+
+        MapGL.map.on('mousemove', function (e) {
+            MapGL.map.featuresAt(e.point, {radius: 10}, function (err, features) {
+
+                if (err) throw err;
+
+                if(Session.get('placeClicked')) return;
+
+                MapGL.map.getCanvas().style.cursor = features.length ? 'pointer' : '';
+
+                // console.log(features);
 
                 var n = Router.current().route.getName();
                 if(n == "collections" || n == "gallery")

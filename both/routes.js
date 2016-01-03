@@ -475,6 +475,7 @@ Router.map(function () {
         },
         unload: function () {
             //Map.unHighlightPlace(this.params._id);
+            Session.set('placeClicked', false);
             Session.set('disableHover', false);
             Session.set('dontSetCollectionLocation', false);
             $('.tooltipped').tooltip('remove');
