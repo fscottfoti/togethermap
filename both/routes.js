@@ -718,13 +718,13 @@ switchCollection = function (cid) {
         }
 
         templates.placeTemplate = Handlebars.compile(
-            c.placeTemplate || c.place_template || defaultPlaceTemplate);
+            c.place_template || defaultPlaceTemplate);
 
         templates.placeTemplateList = Handlebars.compile(
-            c.placeTemplateList || c.place_template_list || defaultPlaceTemplateList);
+            c.place_template_list || defaultPlaceTemplateList);
 
         templates.placeTemplateLabel = Handlebars.compile(
-            c.placeTemplateLabel || c.place_template_label || defaultPlaceTemplateLabel);
+            c.place_template_label || defaultPlaceTemplateLabel);
 
     }
 

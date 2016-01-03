@@ -543,7 +543,7 @@ Template.collectionEdit.events = {
         templates.placeTemplate =
             Handlebars.compile(t || defaultPlaceTemplate);
 
-        Meteor.call('updateCollection', this._id, {$set: {placeTemplate: t}});
+        Meteor.call('updateCollection', this._id, {$set: {place_template: t}});
     },
 
     'change #place-template-list': function (e) {
@@ -553,7 +553,7 @@ Template.collectionEdit.events = {
         templates.placeTemplateList =
             Handlebars.compile(t || defaultPlaceTemplateList);
 
-        Meteor.call('updateCollection', this._id, {$set: {placeTemplateList: t}});
+        Meteor.call('updateCollection', this._id, {$set: {place_template_list: t}});
     },
 
     'change #place-template-label': function (e) {
@@ -563,7 +563,7 @@ Template.collectionEdit.events = {
         templates.placeTemplateLabel =
             Handlebars.compile(t || defaultPlaceTemplateLabel);
 
-        Meteor.call('updateCollection', this._id, {$set: {placeTemplateLabel: t}});
+        Meteor.call('updateCollection', this._id, {$set: {place_template_label: t}});
     },
 
     'change #place-autoform': function (e) {
