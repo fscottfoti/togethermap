@@ -6,16 +6,7 @@ DefaultMapGLDriver = {
 
         if(!cid) return;
 
-        if(!MapGL.loaded) return;
-
-        if(MapGL.map.getSource("togethermap"))
-            MapGL.map.removeSource("togethermap");
-
-        if(MapGL.map.getLayer("points"))
-            MapGL.map.removeLayer("points");
-
-        if(MapGL.map.getLayer("polygons"))
-            MapGL.map.removeLayer("polygons");    
+        if(!MapGL.loaded) return;   
 
         if(cid == "collections" || cid == "gallery")
             return;
@@ -31,20 +22,36 @@ DefaultMapGLDriver = {
             });
         }
 
+        this.reset();
+
+        this.defaultSource(cid);
+
+        this.defaultStyle(cid);
+    },
+
+    defaultSource: function (cid) {
         MapGL.map.addSource('togethermap', {
             type: 'vector',
             tiles: ["http://localhost:3000/mvt/"+cid+"/{z}/{x}/{y}"]
         });
+    },
 
-        MapGL.map.addLayer({
+    defaultStyle: function (cid) {
+                MapGL.map.addLayer({
             "id": "points",
-            "type": "circle",
+            "type": "symbol",
             "source": "togethermap",
             "source-layer": cid,
             "interactive": true,
+            "layout": {
+                "icon-image": "{icon}-24",
+                "text-field": "{name}",
+                "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                "text-offset": [0, 0.6],
+                "text-anchor": "top"
+            },
             "paint": {
-                "circle-radius": 10,
-                "circle-color": "#ffffff"
+                "text-size": 12
             },
             "filter": ["==", "$type", "Point"]
         });
@@ -56,66 +63,23 @@ DefaultMapGLDriver = {
             "source-layer": cid,
             "interactive": true,
             "paint": {
-                "fill-color": "#ffffff",
+                "fill-color": "#01579b",
                 "fill-opacity": 0.8,
-                "fill-outline-color": "#000000"
+                "fill-outline-color": "#ffffff"
             },
             "filter": ["==", "$type", "Polygon"]
         });
+    },
 
-        MapGL.map.on('click', function (e) {
-            MapGL.map.featuresAt(e.point, {radius: 10}, function (err, features) {
+    reset: function () {
+        if(MapGL.map.getSource("togethermap"))
+            MapGL.map.removeSource("togethermap");
 
-                if (err) throw err;
+        if(MapGL.map.getLayer("points"))
+            MapGL.map.removeLayer("points");
 
-                if (features.length) {
-
-                    var n = Router.current().route.getName();
-                    if(n == "collections" || n == "gallery")
-                        return;
-
-                    var cid = Session.get("activeCollection");
-
-                    Session.set('placeClicked', true);
-
-                    Router.go("place", {
-                        _cid: cid, 
-                        _id: features[0].properties._id
-                    });
-                }
-            });
-        });
-
-        MapGL.map.on('mousemove', function (e) {
-            MapGL.map.featuresAt(e.point, {radius: 10}, function (err, features) {
-
-                if (err) throw err;
-
-                if(Session.get('placeClicked')) return;
-
-                MapGL.map.getCanvas().style.cursor = features.length ? 'pointer' : '';
-
-                // console.log(features);
-
-                var n = Router.current().route.getName();
-                if(n == "collections" || n == "gallery")
-                    return;
-
-                var cid = Session.get("activeCollection");
-
-                if(features.length == 0) {
-
-                    Router.go("collection", {_id: cid});
-
-                } else {
-
-                    Router.go("place", {
-                        _cid: cid, 
-                        _id: features[0].properties._id
-                    });
-                }
-            });
-        });
+        if(MapGL.map.getLayer("polygons"))
+            MapGL.map.removeLayer("polygons"); 
     },
 
     getAll: function (cid) {

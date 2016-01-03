@@ -734,15 +734,15 @@ switchCollection = function (cid) {
             c.placeTemplateLabel || c.place_template_label || defaultPlaceTemplateLabel);
 
     }
-    return;
 
     // this needs to be outside of the if statement above so it
     // will run every time a person logs in or out
-    if(writePermission(undefined, cid, Meteor.user(), 'place')) {
+    /*if(writePermission(undefined, cid, Meteor.user(), 'place')) {
         Map.addDrawControl();
     } else {
         Map.removeDrawControl();
-    }
+    }*/
 
-    Map.mapDriver.subscribe();
+    Meteor.subscribe("places", cid, undefined, 
+            undefined, 100);
 };
