@@ -75,7 +75,7 @@ Template.collection.helpers({
     },
 
     placeList: function () {
-        var c = this.collection;
+        var c = this.collection || this;
         return c.disable_place_list == undefined ||
             c.disable_place_list == false ||
             Session.get('placeList');
@@ -94,6 +94,10 @@ Template.collection.helpers({
             ? 'selected' : '';
     },
 
+    enableMultiTheme: function () {
+        return this.enable_advanced_controls || this.enable_gl;
+    },
+
     themeNames: function () {
         return _.keys(this.themes);
     },
@@ -108,6 +112,18 @@ Template.collection.helpers({
     autoLoadEnabled: function () {
         return Session.get('autoLoading') ? "checked" : null;
     },
+
+    renderActiveFeature: function () {
+        var place = Session.get("activeFeature");
+
+        if(!place) return "";
+
+        if(templates.placeTemplateLabel) {
+            return templates.placeTemplateLabel(place);
+        } else {
+            return Handlebars.compile(defaultPlaceTemplateLabel)(place);
+        }
+    }
 });
 
 var closed = true;
@@ -139,9 +155,16 @@ Template.collection.events = {
 
         var v = $(evt.target).val();
 
-        var f = this.themes[v].color_f;
+        if(this.enable_gl) {
 
-        Map.resetStyle(f);
+            var f = this.themes[v].config_obj;
+            Map.resetStyle(f);
+
+        } else {
+
+            var f = this.themes[v].color_f;
+            Map.resetStyle(f);
+        }
 
         Session.set('activeTheme', v);
     },

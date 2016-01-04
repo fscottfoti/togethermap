@@ -23,6 +23,7 @@
 
         <div class="form-group">
 
+            {{#if placeList}}
             {{#if currentUser }}
                 <span style="position: relative;">
                     <a class='dropdown-button btn btn-primary' 
@@ -45,6 +46,7 @@
                         {{/each}}
                     </ul>
                 </span>
+            {{/if}}
             {{/if}}
 
             {{#if currentUser }}
@@ -162,7 +164,7 @@
             </div>
         {{/if}}
 
-        {{#if enable_advanced_controls}}
+        {{#if enableMultiTheme}}
 
             <label>
                 Active theme:
@@ -192,6 +194,14 @@
         {{/each}}
     {{else}}
         <a class="show-list" style="cursor: pointer;">Show list of places</a>
+
+        {{#if renderActiveFeature}}
+            <div class="card my-card black-text quick-place" style="width: 100%">
+                <div class="my-card-content card-content">
+                    {{{renderActiveFeature}}}
+                </div>
+            </div>
+        {{/if}}
     {{/if}}
 
 

@@ -4,7 +4,8 @@
 // but in a few cases I cheat and use the Session object because it's
 // so convenient to keep global state
 
-Map = {
+MapLL = {
+    baseMaps: ['aerial', 'streets', 'grey', 'dark'],
 
     create: function (id) {
 

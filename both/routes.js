@@ -177,7 +177,7 @@ Router.map(function () {
             verifyPermissions(this, this.params._id);
         },
         onAfterAction: function () {
-            Map.normalOtherPlaces();
+            //Map.normalOtherPlaces();
             switchCollection(this.params._id);
             openSidebar();
         },
@@ -431,7 +431,7 @@ Router.map(function () {
         data: function () {
             if(this.ready()) {
 
-                //Map.highlightPlace(this.params._id);
+                Map.highlightPlace(this.params._id);
 
                 var id = this.params._id;
                 var cid = this.params._cid;
@@ -449,7 +449,7 @@ Router.map(function () {
                     return;
                 }
 
-                //if(!Map.placeIsVisible(p)) Map.goToPlace(p, true, true);
+                if(!Map.placeIsVisible(p)) Map.goToPlace(p, true, true);
 
                 var pid = p.parent_id || p._id;
 
@@ -474,7 +474,7 @@ Router.map(function () {
             openSidebar();
         },
         unload: function () {
-            //Map.unHighlightPlace(this.params._id);
+            Map.unHighlightPlace(this.params._id);
             Session.set('placeClicked', false);
             Session.set('disableHover', false);
             Session.set('dontSetCollectionLocation', false);

@@ -195,6 +195,7 @@
 
             <br>
 
+            {{#unless disablePlaceListChecked}}
             <div>
 
                 <label>Custom Place Template (for Place List):</label>
@@ -215,6 +216,7 @@
             </div>
 
             <br>
+            {{/unless}}
 
             <div>
 
@@ -298,9 +300,10 @@
 
                     <span class="btn delete-filter">Delete Filter</span>
                 </div>
+
             {{/if}}
 
-            {{#if enableAdvancedControls}}
+            {{#if enableMultiTheme}}
                 <div class="form-group">
                     <label>Theme Name:</label>
 
@@ -334,6 +337,8 @@
 
             {{#unless hideThemeFunctions}}
 
+            {{#unless enable_gl}}
+
             <label>Custom Theming Functions ({{ceditMode}}):</label>
 
             {{#if iconMode}}
@@ -365,10 +370,17 @@
                         data-tooltip="Theme Place Color"
                         data-position="top">Color</button>
             </div>
+            {{else}}
+
+                <label>Custom Theming Functions (Config Object):</label>            
+                <textarea rows="4"
+                          class="materialize-textarea"
+                          id="config_obj">{{currentConfigObj}}</textarea>
+            {{/unless}}
 
             <br>
 
-            {{#if enableAdvancedControls}}
+            {{#if enableMultiTheme}}
                 <div class="form-group">
 
                     <label>
@@ -469,6 +481,20 @@
                     <input type="checkbox"
                            id="enable-advanced-controls"
                         {{enableAdvancedControlsChecked}}>
+                    <span class="lever"></span>
+                    On
+                </label>
+            </div>
+
+            <br>
+
+            <div class="switch">
+                <label>
+                    Enable MapBox GL:<br>
+                    Off
+                    <input type="checkbox"
+                           id="enable-gl"
+                        {{enableGlChecked}}>
                     <span class="lever"></span>
                     On
                 </label>

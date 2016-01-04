@@ -22,11 +22,19 @@ DefaultMapGLDriver = {
             });
         }
 
+        this.layers = [];
+
         this.reset();
 
         this.defaultSource(cid);
 
         this.defaultStyle(cid);
+
+        this.addHoverLayer(cid);
+
+        if(Session.get("activePlace")) {
+            MapGL.highlightPlace(Session.get("activePlace"));
+        }
     },
 
     defaultSource: function (cid) {
@@ -36,8 +44,53 @@ DefaultMapGLDriver = {
         });
     },
 
+    dataDrivenStyle: function (cid, config) {
+
+        var attr = config.attr;
+        var breaks = config.breaks;
+        var scheme = config.scheme;
+
+        for (var p = -1; p < breaks.length; p++) {
+
+            var filters;
+            if(p == -1) {
+
+                filters = ['<', attr, breaks[0]];
+
+            } else if (p == breaks.length - 1) {
+
+                filters = ['>=', attr, breaks[p]]
+
+            } else {
+
+                filters = [ 'all',
+                    ['>=', attr, breaks[p]],
+                    ['<', attr, breaks[p+1]]
+                ]
+            }
+
+            var color = colorbrewer[scheme][breaks.length+1][p+1];
+
+            MapGL.map.addLayer({
+                "id": "polygons" + p,
+                "type": "fill",
+                "source": "togethermap",
+                "source-layer": cid,
+                "interactive": true,
+                "paint": {
+                    "fill-color": color,
+                    "fill-opacity": 0.8,
+                    "fill-outline-color": "#ffffff"
+                },
+                "filter": filters
+            });
+
+            this.layers.push("polygons" + p);
+        }
+    },
+
     defaultStyle: function (cid) {
-                MapGL.map.addLayer({
+        MapGL.map.addLayer({
             "id": "points",
             "type": "symbol",
             "source": "togethermap",
@@ -71,15 +124,45 @@ DefaultMapGLDriver = {
         });
     },
 
-    reset: function () {
-        if(MapGL.map.getSource("togethermap"))
-            MapGL.map.removeSource("togethermap");
+    addHoverLayer: function (cid) {
+        MapGL.map.addLayer({
+            "id": "hover",
+            "type": "fill",
+            "source": "togethermap",
+            "source-layer": cid,
+            "paint": {
+                "fill-color": "#e65100",
+                "fill-opacity": 0.8,
+                "fill-outline-color": "#ffffff"
+            },
+            "filter": ["==", "_id", "N/A"]
+        });
+    },
+
+    reset: function (skipSource) {
+
+        if(!skipSource) {
+            if(MapGL.map.getSource("togethermap"))
+                MapGL.map.removeSource("togethermap");
+        }
 
         if(MapGL.map.getLayer("points"))
             MapGL.map.removeLayer("points");
 
         if(MapGL.map.getLayer("polygons"))
-            MapGL.map.removeLayer("polygons"); 
+            MapGL.map.removeLayer("polygons");
+
+        if(MapGL.map.getLayer("hover"))
+            MapGL.map.removeLayer("hover");
+
+        _.each(this.layers, function (layer) {
+
+            if(MapGL.map.getLayer(layer)) {
+                MapGL.map.removeLayer(layer);            
+            }
+        });
+
+        this.layers = [];
     },
 
     getAll: function (cid) {

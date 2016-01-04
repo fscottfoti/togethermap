@@ -34,8 +34,12 @@ Template.collectionEdit.helpers({
     },
 
     baseMaps: function () {
-        return _.map(['aerial', 'streets', 'grey', 'dark'], //'atlas', 'outline', 'watercolor'],
-            function (v) { return {name: v} });
+        if(this.enable_gl) {
+            l = MapGL.baseMaps;
+        } else {
+            l = MapLL.baseMaps;
+        }
+        return _.map(l, function (v) { return {name: v} });
     },
 
     basemapSelected: function() {
@@ -88,12 +92,20 @@ Template.collectionEdit.helpers({
         return this.disable_place_list ? "checked" : null;
     },
 
+    enableMultiTheme: function () {
+        return this.enable_advanced_controls || this.enable_gl;
+    },
+
     enableAdvancedControls: function () {
         return this.enable_advanced_controls;
     },
 
     enableAdvancedControlsChecked: function () {
         return this.enable_advanced_controls ? "checked" : null;
+    },
+
+    enableGlChecked: function () {
+        return this.enable_gl ? "checked" : null;
     },
 
     filters: function () {
@@ -120,6 +132,12 @@ Template.collectionEdit.helpers({
 
     activeTheme: function () {
         return Session.get('activeTheme');
+    },
+
+    currentConfigObj: function () {
+        var current = Session.get('activeTheme');
+        if(!this.themes[current]) return;
+        return this.themes[current].config_obj;
     },
 
     currentIconF: function () {
@@ -536,6 +554,19 @@ Template.collectionEdit.events = {
         }
     },
 
+    'change #config_obj': function (e) {
+
+        var t = e.target.value;
+
+        if(this.enable_gl) {
+
+            var obj = this.themes;
+            obj[Session.get('activeTheme')].config_obj = t;
+            Meteor.call('updateCollection', this._id, {$set: {themes: obj}});
+
+        }
+    },
+
     'change #place-template': function (e) {
 
         var t = e.target.value;
@@ -601,6 +632,18 @@ Template.collectionEdit.events = {
 
         Meteor.call('updateCollection', this._id,
             {$set: {disable_place_list: e.target.checked}});
+    },
+
+    'change #enable-gl': function (e) {
+
+        Meteor.call('updateCollection', this._id,
+            {$set: {enable_gl: e.target.checked}});
+
+        if(!this.themes) {
+            // start with empty object
+            Meteor.call('updateCollection', this._id,
+                {$set: {themes: {}}});
+        }
     },
 
     'change #enable-advanced-controls': function (e) {
