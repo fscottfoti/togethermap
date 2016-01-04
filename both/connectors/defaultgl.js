@@ -35,6 +35,10 @@ DefaultMapGLDriver = {
         if(Session.get("activePlace")) {
             MapGL.highlightPlace(Session.get("activePlace"));
         }
+
+        if(c.default_map) {
+            //MapGL.switchBaseLayer(c.default_map);
+        }
     },
 
     defaultSource: function (cid) {
@@ -55,11 +59,31 @@ DefaultMapGLDriver = {
             var filters;
             if(p == -1) {
 
-                filters = ['<', attr, breaks[0]];
+                if(config.low_cutoff) {
+
+                    filters = [ 'all',
+                        ['>', attr, config.low_cutoff],
+                        ['<', attr, breaks[0]]
+                    ];
+
+                } else {
+
+                    filters = ['<', attr, breaks[0]];
+                }
 
             } else if (p == breaks.length - 1) {
 
-                filters = ['>=', attr, breaks[p]]
+                if(config.high_cutoff) {
+
+                    filters = [ 'all',
+                        ['<', attr, config.high_cutoff],
+                        ['>=', attr, breaks[p]]
+                    ];
+
+                } else {
+
+                    filters = ['>=', attr, breaks[p]]
+                }
 
             } else {
 
@@ -68,6 +92,8 @@ DefaultMapGLDriver = {
                     ['<', attr, breaks[p+1]]
                 ]
             }
+
+            console.log(filters);
 
             var color = colorbrewer[scheme][breaks.length+1][p+1];
 
@@ -80,7 +106,7 @@ DefaultMapGLDriver = {
                 "paint": {
                     "fill-color": color,
                     "fill-opacity": 0.8,
-                    "fill-outline-color": "#ffffff"
+                    "fill-outline-color": config.outline_color || "#ffffff"
                 },
                 "filter": filters
             });
@@ -124,16 +150,16 @@ DefaultMapGLDriver = {
         });
     },
 
-    addHoverLayer: function (cid) {
+    addHoverLayer: function (cid, hover_color, outline_color) {
         MapGL.map.addLayer({
             "id": "hover",
             "type": "fill",
             "source": "togethermap",
             "source-layer": cid,
             "paint": {
-                "fill-color": "#e65100",
+                "fill-color": hover_color || "#e65100",
                 "fill-opacity": 0.8,
-                "fill-outline-color": "#ffffff"
+                "fill-outline-color": outline_color || "#ffffff"
             },
             "filter": ["==", "_id", "N/A"]
         });

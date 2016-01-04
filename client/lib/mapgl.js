@@ -140,7 +140,7 @@ Map = MapGL = {
 
     	DefaultMapGLDriver.reset(true);
     	DefaultMapGLDriver.dataDrivenStyle(cid, obj);
-    	DefaultMapGLDriver.addHoverLayer(cid);
+    	DefaultMapGLDriver.addHoverLayer(cid, obj.hover_color, obj.outline_color);
     },
 
     switchBaseLayer: function (baseName) {
