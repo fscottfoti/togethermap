@@ -9,7 +9,7 @@ Map = MapGL = {
     	var cid = Session.get('activeCollection');
         var c = MCollections.findOne(cid);
 
-        var baseName = _.contains(this.baseMaps, c.default_map) ? c.default_map : "streets";
+        var baseName = (c && _.contains(this.baseMaps, c.default_map)) ? c.default_map : "streets";
 
 		this.map = new mapboxgl.Map({
 		    container: id,
