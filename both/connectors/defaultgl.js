@@ -24,28 +24,61 @@ DefaultMapGLDriver = {
 
         this.layers = [];
 
-        this.reset();
+        function setStyle() {
+            DefaultMapGLDriver.reset();
 
-        this.defaultSource(cid);
+            DefaultMapGLDriver.defaultSource(cid, c.minzoom);
 
-        this.defaultStyle(cid);
+            DefaultMapGLDriver.defaultStyle(cid);
 
-        this.addHoverLayer(cid);
+            DefaultMapGLDriver.addHoverLayer(cid);
 
-        if(Session.get("activePlace")) {
-            MapGL.highlightPlace(Session.get("activePlace"));
+            if(Session.get("activePlace")) {
+                MapGL.highlightPlace(Session.get("activePlace"));
+            }
         }
 
         if(c.default_map) {
-            //MapGL.switchBaseLayer(c.default_map);
+            MapGL.switchBaseLayer(c.default_map, setStyle);
+        } else {
+            setStyle();
         }
     },
 
-    defaultSource: function (cid) {
+    defaultSource: function (cid, minzoom) {
+
         MapGL.map.addSource('togethermap', {
+            minzoom: minzoom,
             type: 'vector',
             tiles: ["http://localhost:3000/mvt/"+cid+"/{z}/{x}/{y}"]
         });
+    },
+
+    manualStyles: function (cid, config) {
+
+        var styles = config.manual_styles;
+
+        for(i = 0 ; i < styles.length ; i++) {
+
+            style = styles[i];
+
+            MapGL.map.addLayer({
+                "id": "manual" + i,
+                "type": "fill",
+                "source": "togethermap",
+                "source-layer": cid,
+                "interactive": true,
+                "paint": {
+                    "fill-color": style["fill-color"] || "#01579b",
+                    "fill-opacity": 0.8,
+                    "fill-outline-color": config["fill-outline-color"] || "#ffffff"
+                },
+                "filter": style.filter
+            });
+
+            this.layers.push("manual" + i);
+        }
+
     },
 
     dataDrivenStyle: function (cid, config) {
@@ -93,8 +126,6 @@ DefaultMapGLDriver = {
                 ]
             }
 
-            console.log(filters);
-
             var color = colorbrewer[scheme][breaks.length+1][p+1];
 
             MapGL.map.addLayer({
@@ -106,7 +137,7 @@ DefaultMapGLDriver = {
                 "paint": {
                     "fill-color": color,
                     "fill-opacity": 0.8,
-                    "fill-outline-color": config.outline_color || "#ffffff"
+                    "fill-outline-color": config["fill-outline-color"] || "#ffffff"
                 },
                 "filter": filters
             });
@@ -168,8 +199,9 @@ DefaultMapGLDriver = {
     reset: function (skipSource) {
 
         if(!skipSource) {
-            if(MapGL.map.getSource("togethermap"))
+            if(MapGL.map.getSource("togethermap")) {
                 MapGL.map.removeSource("togethermap");
+            }
         }
 
         if(MapGL.map.getLayer("points"))

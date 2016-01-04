@@ -662,7 +662,11 @@ Template.collectionEdit.events = {
             Meteor.call('updateCollection', this._id,
                 {$set: {filters: {}}});
         }
-    }
+    },
+
+    'change input[name=minzoom]': function(event) {
+        Meteor.call('updateCollection', this._id, {$set:{minzoom: event.target.value}});
+    },
 };
 
 

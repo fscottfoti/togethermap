@@ -500,6 +500,21 @@
                 </label>
             </div>
 
+            {{#if enable_gl}}
+
+                <br>
+
+                <div class="form-group">
+                    <label>Min Zoom Level (for GL Source):</label>
+
+                    <input type="text"
+                           name="minzoom"
+                           value="{{minzoom}}"
+                           class="form-control"/>
+                </div>
+
+            {{/if}}
+
         {{/if}}
 
     {{/with}}

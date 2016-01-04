@@ -10,6 +10,7 @@ Map = MapGL = {
         var c = MCollections.findOne(cid);
 
         var baseName = (c && _.contains(this.baseMaps, c.default_map)) ? c.default_map : "streets";
+        this.currentBaseLayer = baseName;
 
 		this.map = new mapboxgl.Map({
 		    container: id,
@@ -19,7 +20,7 @@ Map = MapGL = {
 		});
 
 		this.map.on('style.load', function () {
-			
+            MapGL.map.off('style.load');
 			MapGL.loaded = true;
 			DefaultMapGLDriver.init();
 		});
@@ -136,16 +137,48 @@ Map = MapGL = {
     		growl.error("Config object is invalid JSON.");
     		return;
     	}
+        
     	var cid = Session.get('activeCollection');
+        var c = MCollections.findOne(cid);
 
-    	DefaultMapGLDriver.reset(true);
-    	DefaultMapGLDriver.dataDrivenStyle(cid, obj);
-    	DefaultMapGLDriver.addHoverLayer(cid, obj.hover_color, obj.outline_color);
+        var restyle = function () {
+
+            DefaultMapGLDriver.reset(true);
+
+            if(!MapGL.map.getSource("togethermap"))
+                DefaultMapGLDriver.defaultSource(cid, c.minzoom);
+
+            if(obj.manual_styles) {
+                DefaultMapGLDriver.manualStyles(cid, obj);
+            } else if (obj.breaks) {
+                DefaultMapGLDriver.dataDrivenStyle(cid, obj);    
+            }
+        
+            DefaultMapGLDriver.addHoverLayer(cid, obj.hover_color, obj.outline_color);
+        }
+
+        if(obj.basemap) {
+            this.switchBaseLayer(obj.basemap, restyle);
+        } else {
+            this.switchBaseLayer(c.default_map || "streets", restyle);
+        }
     },
 
-    switchBaseLayer: function (baseName) {
+    switchBaseLayer: function (baseName, next_f) {
+        
+        if(baseName == this.currentBaseLayer) {
+
+            if(next_f) next_f();
+            return;
+        }
+
     	if(_.contains(this.baseMaps, baseName)) {
+
     		this.map.setStyle('mapbox://styles/mapbox/'+baseName+'-v8');
+
+            if(next_f) this.map.on('style.load', next_f);
+
+            this.currentBaseLayer = baseName;
     	}
     }
 }
