@@ -1,7 +1,8 @@
 mobileFormFactor = false;
 
 resizeMap = function() {
-    var h = $(window).height(), offsetTop = 60; // Calculate the top offset
+    var h = $(window).height(), offsetTop = 55; // Calculate the top offset
+    var w = $(window).width(), offsetWidth = 20;
     /*if (Session.get('noNav')) {
         // this is for the feature of turning the navbar off
         offsetTop = 0;
@@ -10,6 +11,8 @@ resizeMap = function() {
         $('body').css('margin-top', "55px");
     }*/
     $('#map_canvas').css('height', (h - offsetTop));
+    $('#features').css('width', Math.min(400, w - offsetWidth)); 
+    $('#features').css('top', w <= 600 ? 65 : 75);
 };
 
 

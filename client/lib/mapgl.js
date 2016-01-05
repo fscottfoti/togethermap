@@ -34,13 +34,13 @@ Map = MapGL = {
 
                 if (err) throw err;
 
-                 Session.set('placeClicked', false);
+                Session.set('placeClicked', false);
+
+                var n = Router.current().route.getName();
+                if(n == "collections" || n == "gallery")
+                    return;
 
                 if (features.length) {
-
-                    var n = Router.current().route.getName();
-                    if(n == "collections" || n == "gallery")
-                        return;
 
                     var cid = Session.get("activeCollection");
 
@@ -125,7 +125,15 @@ Map = MapGL = {
 
     },
 
+    addMobileControls: function () {
+
+    },
+
     addDesktopControls: function () {
+
+    },
+
+    removeDesktopControls: function () {
 
     },
 

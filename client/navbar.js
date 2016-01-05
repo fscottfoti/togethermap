@@ -1,11 +1,11 @@
 Template.nav.rendered = function () {
     $('.button-collapse').sideNav({
-      menuWidth: 300, // Default is 240
-      edge: 'left', // Choose the horizontal origin
-      closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
-    }
-  );
+        menuWidth: 300, // Default is 240
+        edge: 'left', // Choose the horizontal origin
+        closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+    });
     $('.collapsible').collapsible();
+    Session.set('sidebarOpen', true);
 };
 
 
@@ -81,16 +81,26 @@ Template.nav.events = {
 
         e.preventDefault();
 
-        if(!Map.sidebarOpened) {
-            // don't do anything unless we've opened the sidebar before
-            return;
+        var open = Session.get('sidebarOpen');
+
+        Session.set('sidebarOpen', !open);
+
+        if(open) {
+            $('#features').fadeOut("slow");
+        } else {
+            $('#features').fadeIn("slow");
         }
 
-        Map.sidebar.toggle();
+        /*if(!Map.sidebarOpened) {
+            // don't do anything unless we've opened the sidebar before
+            return;
+        }*/
+
+        //Map.sidebar.toggle();
         
-        if(Map.sidebar.isVisible()) {
+        /*if(Session.get('sidebarOpened') == true) {
             history.back();
-        }
+        }*/
     },
 
     'click .landing-go': function (e) {
