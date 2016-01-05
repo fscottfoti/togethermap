@@ -23,8 +23,16 @@ DefaultMapGLDriver = {
         }
 
         this.layers = [];
+            
+        if(c.enable_gl && c.default_theme) {
+            var v = c.default_theme;
+            var f = c.themes[v].config_obj;
+            Map.resetStyle(f);
+            return;
+        }
 
         function setStyle() {
+
             DefaultMapGLDriver.reset();
 
             DefaultMapGLDriver.defaultSource(cid, c.minzoom);
@@ -50,7 +58,7 @@ DefaultMapGLDriver = {
         MapGL.map.addSource('togethermap', {
             minzoom: minzoom,
             type: 'vector',
-            tiles: ["http://localhost:3000/mvt/"+cid+"/{z}/{x}/{y}"]
+            tiles: ["http://urbanforecast.com:1984/mvt/"+cid+"/{z}/{x}/{y}"]
         });
     },
 
@@ -62,7 +70,7 @@ DefaultMapGLDriver = {
 
             style = styles[i];
 
-            MapGL.map.addLayer({
+            var l = {
                 "id": "manual" + i,
                 "type": "fill",
                 "source": "togethermap",
@@ -74,7 +82,11 @@ DefaultMapGLDriver = {
                     "fill-outline-color": config["fill-outline-color"] || "#ffffff"
                 },
                 "filter": style.filter
-            });
+            };
+
+            if(config["fill-outline-color"] == "none") delete l["paint"]["fill-outline-color"];
+
+            MapGL.map.addLayer(l);
 
             this.layers.push("manual" + i);
         }
@@ -92,7 +104,7 @@ DefaultMapGLDriver = {
             var filters;
             if(p == -1) {
 
-                if(config.low_cutoff) {
+                if(config.low_cutoff !== undefined) {
 
                     filters = [ 'all',
                         ['>', attr, config.low_cutoff],
@@ -106,7 +118,7 @@ DefaultMapGLDriver = {
 
             } else if (p == breaks.length - 1) {
 
-                if(config.high_cutoff) {
+                if(config.high_cutoff !== undefined) {
 
                     filters = [ 'all',
                         ['<', attr, config.high_cutoff],
@@ -128,7 +140,7 @@ DefaultMapGLDriver = {
 
             var color = colorbrewer[scheme][breaks.length+1][p+1];
 
-            MapGL.map.addLayer({
+            var l = {
                 "id": "polygons" + p,
                 "type": "fill",
                 "source": "togethermap",
@@ -137,10 +149,14 @@ DefaultMapGLDriver = {
                 "paint": {
                     "fill-color": color,
                     "fill-opacity": 0.8,
-                    "fill-outline-color": config["fill-outline-color"] || "#ffffff"
+                    "fill-outline-color": (config["fill-outline-color"] == "none") ? undefined : (config["fill-outline-color"] || "#ffffff")
                 },
                 "filter": filters
-            });
+            };
+
+            if(config["fill-outline-color"] == "none") delete l["paint"]["fill-outline-color"];
+
+            MapGL.map.addLayer(l);
 
             this.layers.push("polygons" + p);
         }

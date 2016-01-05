@@ -1,13 +1,6 @@
 Template.collection.rendered = function () {
     $('.dropdown-button').dropdown();
     $('.tooltipped').tooltip();
-
-    var c = this.data.collection;
-    if(c.enable_gl && c.default_theme) {
-        var v = c.default_theme;
-        var f = c.themes[v].config_obj;
-        Map.resetStyle(f);
-    }
 };
 
 
