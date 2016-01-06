@@ -5,7 +5,6 @@ Template.nav.rendered = function () {
         closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
     });
     $('.collapsible').collapsible();
-    Session.set('sidebarOpen', true);
 };
 
 
@@ -19,7 +18,7 @@ Template.nav.helpers({
     },
 
     showSidebar: function () {
-        return Session.get('sidebarOpen') !== undefined;
+        return true;
     },
 
     my_collections: function () {
@@ -83,24 +82,14 @@ Template.nav.events = {
 
         var open = Session.get('sidebarOpen');
 
-        Session.set('sidebarOpen', !open);
-
         if(open) {
-            $('#features').fadeOut("slow");
+            console.log("close");
+            closeSidebar();
         } else {
-            $('#features').fadeIn("slow");
-        }
-
-        /*if(!Map.sidebarOpened) {
-            // don't do anything unless we've opened the sidebar before
-            return;
-        }*/
-
-        //Map.sidebar.toggle();
-        
-        /*if(Session.get('sidebarOpened') == true) {
+            console.log("open");
+            openSidebar();
             history.back();
-        }*/
+        }
     },
 
     'click .landing-go': function (e) {
@@ -124,24 +113,29 @@ Template.nav.events = {
     'click .collection-go': function (e) {
 
         e.preventDefault();
+        openSidebar();
         Router.go('collection', {_id: this._id});
     },
 
     'click .collections-go': function (e) {
 
         e.preventDefault();
+        console.log("collections go");
+        openSidebar();
         Router.go('collections');
     },
 
     'click .gallery-go': function (e) {
 
         e.preventDefault();
+        openSidebar();
         Router.go('gallery');
     },
 
     'click .search-go': function (e) {
 
         e.preventDefault();
+        openSidebar();
         Router.go('search');
     },
 
@@ -165,6 +159,8 @@ Template.nav.events = {
 
         e.preventDefault();
         var cid = Session.get('activeCollection');
+        console.log("active collection");
+        openSidebar();
         Router.go('collection', {_id: cid});
     },
 

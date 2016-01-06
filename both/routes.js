@@ -128,6 +128,7 @@ Router.map(function () {
         onAfterAction: function () {
             CollectionsConnector.filter = makeMyCollectionsFilter();
             switchCollection('collections');
+            console.log("opening after collections");
             openSidebar();
         },
         unload: function () {
@@ -604,22 +605,25 @@ AccountsTemplates.addField({
 
 var currentCollection;
 templates = {};
-var sidebarOpen;
 
 
 openSidebar = function () {
-    sidebarOpen = true;
-    if(Map.map) {
-        Map.sidebar.show();
-    }
+    if(Session.get('sidebarOpen')) return;
+    console.log("set true");
+    Session.set('sidebarOpen', true);
+    $('#features').fadeIn("slow");
 };
 
 
 closeSidebar = function () {
-    sidebarOpen = false;
-    if(Map.map) {
-        Map.sidebar.hide();
-    }
+    if(!Session.get('sidebarOpen')) return;
+    console.log("set false");
+    Session.set('sidebarOpen', false);
+            
+    var cid = Session.get('activeCollection') || 'empty';
+    Router.go('map', {'_id': cid});
+
+    $('#features').fadeOut("slow");
 };
 
 
@@ -652,12 +656,12 @@ switchCollection = function (cid) {
         // return;
     }
 
-    if(sidebarOpen) {
+    /*if(sidebarOpen) {
         // yes I get that this is weird, but when you refresh, we
         // open the sidebar before the map is initialized so we
         // need to store the state and open when we initialize
         openSidebar();
-    }
+    }*/
 
     if(cid in connectors) {
 
