@@ -83,12 +83,9 @@ Template.nav.events = {
         var open = Session.get('sidebarOpen');
 
         if(open) {
-            console.log("close");
             closeSidebar();
         } else {
-            console.log("open");
             openSidebar();
-            history.back();
         }
     },
 

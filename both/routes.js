@@ -561,6 +561,7 @@ Router.map(function () {
             if(this.params._id == "empty")
                 Map.switchBaseLayer(Map.defaultBaseMap);
             switchCollection(this.params._id);
+            console.log('close sidebar');
             closeSidebar();
         }
     });
@@ -608,21 +609,13 @@ templates = {};
 
 
 openSidebar = function () {
-    if(Session.get('sidebarOpen')) return;
-    console.log("set true");
     Session.set('sidebarOpen', true);
     $('#features').fadeIn("slow");
 };
 
 
 closeSidebar = function () {
-    if(!Session.get('sidebarOpen')) return;
-    console.log("set false");
     Session.set('sidebarOpen', false);
-            
-    var cid = Session.get('activeCollection') || 'empty';
-    Router.go('map', {'_id': cid});
-
     $('#features').fadeOut("slow");
 };
 
