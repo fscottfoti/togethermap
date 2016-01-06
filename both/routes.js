@@ -128,7 +128,6 @@ Router.map(function () {
         onAfterAction: function () {
             CollectionsConnector.filter = makeMyCollectionsFilter();
             switchCollection('collections');
-            console.log("opening after collections");
             openSidebar();
         },
         unload: function () {
@@ -561,7 +560,6 @@ Router.map(function () {
             if(this.params._id == "empty")
                 Map.switchBaseLayer(Map.defaultBaseMap);
             switchCollection(this.params._id);
-            console.log('close sidebar');
             closeSidebar();
         }
     });

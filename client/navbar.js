@@ -117,7 +117,6 @@ Template.nav.events = {
     'click .collections-go': function (e) {
 
         e.preventDefault();
-        console.log("collections go");
         openSidebar();
         Router.go('collections');
     },
@@ -156,7 +155,6 @@ Template.nav.events = {
 
         e.preventDefault();
         var cid = Session.get('activeCollection');
-        console.log("active collection");
         openSidebar();
         Router.go('collection', {_id: cid});
     },
