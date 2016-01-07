@@ -21,9 +21,7 @@ DefaultMapGLDriver = {
                 zoom: c.location.zoom
             });
         }
-
-        this.layers = [];
-            
+ 
         if(c.enable_gl && c.default_theme) {
             var v = c.default_theme;
             var f = c.themes[v].config_obj;
@@ -88,7 +86,7 @@ DefaultMapGLDriver = {
 
             MapGL.map.addLayer(l);
 
-            this.layers.push("manual" + i);
+            MapGL.layers.push("manual" + i);
         }
 
     },
@@ -158,7 +156,7 @@ DefaultMapGLDriver = {
 
             MapGL.map.addLayer(l);
 
-            this.layers.push("polygons" + p);
+            MapGL.layers.push("polygons" + p);
         }
     },
 
@@ -229,14 +227,14 @@ DefaultMapGLDriver = {
         if(MapGL.map.getLayer("hover"))
             MapGL.map.removeLayer("hover");
 
-        _.each(this.layers, function (layer) {
+        _.each(MapGL.layers, function (layer) {
 
             if(MapGL.map.getLayer(layer)) {
                 MapGL.map.removeLayer(layer);            
             }
         });
 
-        this.layers = [];
+        MapGL.layers = [];
     },
 
     getAll: function (cid) {

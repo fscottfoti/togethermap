@@ -1,6 +1,6 @@
 Map = MapGL = {
 
-	baseMaps: ["basic", "bright", "streets", "light", "dark", "emerald", "satellite", "satellite-hybrid", "empty"],
+    baseMaps: ["basic", "bright", "streets", "light", "dark", "emerald", "satellite", "satellite-hybrid", "empty"],
 
     create: function (id) {
 
@@ -12,23 +12,23 @@ Map = MapGL = {
         var baseName = (c && _.contains(this.baseMaps, c.default_map)) ? c.default_map : "streets";
         this.currentBaseLayer = baseName;
 
-		this.map = new mapboxgl.Map({
-		    container: id,
-		    style: 'mapbox://styles/mapbox/'+baseName+'-v8',
-		    center: c ? c.location.center : [-122.4167, 37.7833],
-		    zoom: c ? c.location.zoom : 14
-		});
+	this.map = new mapboxgl.Map({
+	    container: id,
+	    style: 'mapbox://styles/mapbox/'+baseName+'-v8',
+	    center: c ? c.location.center : [-122.4167, 37.7833],
+	    zoom: c ? c.location.zoom : 14
+	});
 
-		this.map.on('style.load', function () {
+	this.map.on('style.load', function () {
             MapGL.map.off('style.load');
-			MapGL.loaded = true;
-			DefaultMapGLDriver.init();
-		});
+            MapGL.loaded = true;
+            DefaultMapGLDriver.init();
+	});
 
-		//this.map.addControl(new mapboxgl.Geocoder());
+ 	//this.map.addControl(new mapboxgl.Geocoder());
 
-		MapGL.map.on('click', function (e) {
-            MapGL.map.featuresAt(e.point, {radius: 10}, function (err, features) {
+        MapGL.map.on('click', function (e) {
+                MapGL.map.featuresAt(e.point, {radius: 10}, function (err, features) {
 
             	if(!MapGL.loaded) return;
 
@@ -138,7 +138,7 @@ Map = MapGL = {
     },
 
     resetStyle: function(obj) {
-
+        
     	try {
     		obj = JSON.parse(obj);
     	} catch (e) {
@@ -175,16 +175,20 @@ Map = MapGL = {
     switchBaseLayer: function (baseName, next_f) {
         
         if(baseName == this.currentBaseLayer) {
-
             if(next_f) next_f();
             return;
         }
 
     	if(_.contains(this.baseMaps, baseName)) {
 
-    		this.map.setStyle('mapbox://styles/mapbox/'+baseName+'-v8');
+            this.map.setStyle('mapbox://styles/mapbox/'+baseName+'-v8');
 
-            if(next_f) this.map.on('style.load', next_f);
+            if(next_f) {
+                this.map.on('style.load', function () {
+                    MapGL.map.off('style.load');
+                    next_f();
+                });
+            }
 
             this.currentBaseLayer = baseName;
     	}
