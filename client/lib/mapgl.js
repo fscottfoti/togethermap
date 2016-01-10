@@ -12,20 +12,18 @@ Map = MapGL = {
         var baseName = (c && _.contains(this.baseMaps, c.default_map)) ? c.default_map : "streets";
         this.currentBaseLayer = baseName;
 
-	this.map = new mapboxgl.Map({
-	    container: id,
-	    style: 'mapbox://styles/mapbox/'+baseName+'-v8',
-	    center: c ? c.location.center : [-122.4167, 37.7833],
-	    zoom: c ? c.location.zoom : 14
-	});
+    	this.map = new mapboxgl.Map({
+    	    container: id,
+    	    style: 'mapbox://styles/mapbox/'+baseName+'-v8',
+    	    center: c ? c.location.center : [-122.4167, 37.7833],
+    	    zoom: c ? c.location.zoom : 14
+    	});
 
-	this.map.on('style.load', function () {
-            MapGL.map.off('style.load');
-            MapGL.loaded = true;
-            DefaultMapGLDriver.init();
-	});
-
- 	this.map.addControl(new mapboxgl.Geocoder());
+    	this.map.on('style.load', function () {
+                MapGL.map.off('style.load');
+                MapGL.loaded = true;
+                DefaultMapGLDriver.init();
+    	});
 
         MapGL.map.on('click', function (e) {
                 MapGL.map.featuresAt(e.point, {radius: 10}, function (err, features) {
@@ -130,11 +128,16 @@ Map = MapGL = {
     },
 
     addDesktopControls: function () {
-
+        if(this.desktopControls) return;       
+        this.geocoder = new mapboxgl.Geocoder();
+        this.geocoder.addTo(this.map);
+        this.desktopControls = true;
     },
 
     removeDesktopControls: function () {
-
+        if(this.desktopControls == false) return;
+        this.geocoder.remove();
+        this.desktopControls = false;
     },
 
     resetStyle: function(obj) {
