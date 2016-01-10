@@ -25,7 +25,7 @@ Map = MapGL = {
             DefaultMapGLDriver.init();
 	});
 
- 	//this.map.addControl(new mapboxgl.Geocoder());
+ 	this.map.addControl(new mapboxgl.Geocoder());
 
         MapGL.map.on('click', function (e) {
                 MapGL.map.featuresAt(e.point, {radius: 10}, function (err, features) {
