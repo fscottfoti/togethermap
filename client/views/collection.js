@@ -95,7 +95,8 @@ Template.collection.helpers({
     },
 
     enableMultiTheme: function () {
-        return this.enable_advanced_controls || this.enable_gl;
+        return (this.enable_advanced_controls || this.enable_gl) &&
+            this.themes && _.keys(this.themes) >= 1;
     },
 
     themeNames: function () {
