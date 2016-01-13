@@ -1,5 +1,6 @@
 import sys
 import json
+import csv
 import tmlib as tm
 from pymongo import MongoClient
 from itertools import islice
@@ -18,7 +19,7 @@ if len(args) != 4:
 user, password, fname, collection_name = args
 
 tm.connect(user, password, debug=False,
-           server='ws://127.0.0.1:3000/websocket')
+           server='ws://127.0.0.1:1984/websocket')
 
 
 def update_place_count(cid, cnt):
@@ -33,7 +34,7 @@ error, cid = tm.call('createCollection', [{'name': collection_name}])
 print "Created collection:", cid
 
 # initialize mongo client (change host and port if not local)
-db = MongoClient('localhost', 3001).meteor
+db = MongoClient('localhost', 27017).togethermap
 
 if fname.endswith(".geojson"):
     # standard geojson
@@ -67,6 +68,43 @@ if fname.endswith("json"):
             print "Inserting %d features" % len(features)
             cnt += len(features)
             db.places.insert_many(features)
+
+    update_place_count(cid, cnt)
+
+
+def find_xy_cols(f):
+    if "x" in f:
+        return "x", "y"
+    if "lat" in f and "lng" in f:
+        return "lat", "lng"
+    if "lat" in f and "lon" in f:
+        return "lat", "lon"
+    if "latitude" in f and "longitude" in f:
+        return "latitude", "longitude"
+    raise "No x-y columns found in object"
+
+
+if fname.endswith("csv"):
+    # csv, one shape per line
+    with open(fname) as infile:
+        dr = csv.DictReader(infile)
+        cnt = 0
+        while True:
+            lines = list(islice(dr, BATCH_SIZE))
+            if not lines:
+                break
+            xcol, ycol = find_xy_cols(lines[0])
+            features = [tm.createMarker(f[ycol], f[xcol], properties=f)
+                        for f in lines if f[xcol] and f[ycol]]
+            features = [tm.addTmAttributes(f, cid, user)
+                        for f in features]
+            print "Inserting %d features" % len(features)
+            cnt += len(features)
+            db.places.insert_many(features)
+            # useful for debugging as batch errors aren't very helpful
+            # for f in features:
+            #    print f
+            #    db.places.insert(f)
 
     update_place_count(cid, cnt)
 

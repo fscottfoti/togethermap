@@ -8,7 +8,10 @@ from MeteorClient import MeteorClient
 from bson.objectid import ObjectId
 
 
-def createMarker(lat, lng, color, name, description, properties):
+def createMarker(lat, lng, color="#0000FF", name="No Name Given",
+                 description="", icon="building", icon_size="m",
+                 properties={}):
+    lat, lng = float(lat), float(lng)
     d = {
         "type": "Feature",
         "bbox": {
@@ -21,8 +24,8 @@ def createMarker(lat, lng, color, name, description, properties):
         },
         "properties": {
             "color": color,
-            "icon_size": "m",
-            "icon": "building",
+            "icon_size": icon_size,
+            "icon": icon,
             "name": name,
             "description": description
         }
