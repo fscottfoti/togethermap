@@ -8,6 +8,19 @@ from MeteorClient import MeteorClient
 from bson.objectid import ObjectId
 
 
+# try to cast to int or float so it will be treated
+# as such in mongo
+def promote_type(v):
+    try:
+        v = float(v)
+    except:
+        try:
+            v = int(v)
+        except:
+            pass
+    return v
+
+
 def createMarker(lat, lng, color="#0000FF", name="No Name Given",
                  description="", icon="building", icon_size="m",
                  properties={}):
@@ -31,6 +44,7 @@ def createMarker(lat, lng, color="#0000FF", name="No Name Given",
         }
     }
     for k, v in properties.items():
+        v = promote_type(v)
         d["properties"][k] = v
     return d
 

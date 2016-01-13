@@ -21,10 +21,14 @@ DefaultMapGLDriver = {
                 zoom: c.location.zoom
             });
         }
+
+        var dt = c.default_theme;
+        if(!dt && _.keys(c.themes).length >= 1) {
+            dt = _.keys(c.themes)[0];
+        }
  
-        if(c.enable_gl && c.default_theme) {
-            var v = c.default_theme;
-            var f = c.themes[v].config_obj;
+        if(c.enable_gl && dt) {
+            var f = c.themes[dt].config_obj;
             Map.resetStyle(f);
             return;
         }
@@ -56,29 +60,45 @@ DefaultMapGLDriver = {
         MapGL.map.addSource('togethermap', {
             minzoom: minzoom,
             type: 'vector',
-            tiles: ["http://urbanforecast.com:1984/mvt/"+cid+"/{z}/{x}/{y}"]
+            tiles: ["http://urbanforecast:1984/mvt/"+cid+"/{z}/{x}/{y}"]
         });
     },
 
     manualStyles: function (cid, config) {
 
         var styles = config.manual_styles;
+        var circle = config["type"] == "circle";
 
         for(i = 0 ; i < styles.length ; i++) {
 
             style = styles[i];
 
-            var l = {
-                "id": "manual" + i,
-                "type": "fill",
-                "source": "togethermap",
-                "source-layer": cid,
-                "interactive": true,
-                "paint": {
+            var paint_properties;
+
+            if(circle) {
+
+                paint_properties = {
+                    "circle-color": style["circle-color"] || "#01579b",
+                    "circle-opacity": 0.8,
+                    "circle-radius": style["circle-radius"] || 5
+                };
+
+            } else {
+
+                paint_properties = {
                     "fill-color": style["fill-color"] || "#01579b",
                     "fill-opacity": 0.8,
                     "fill-outline-color": config["fill-outline-color"] || "#ffffff"
-                },
+                };
+            }
+
+            var l = {
+                "id": "manual" + i,
+                "type": circle ? "circle" : "fill",
+                "source": "togethermap",
+                "source-layer": cid,
+                "interactive": true,
+                "paint": paint_properties,
                 "filter": style.filter
             };
 
